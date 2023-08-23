@@ -17,6 +17,9 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+.logo.agoric:hover {
+  filter: drop-shadow(0 0 2em #fa4a49aa);
+}
 
 @keyframes logo-spin {
   from {
