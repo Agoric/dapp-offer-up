@@ -28,12 +28,13 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "ses": "^0.18.7",
+    "ses": "^0.18.8",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "zustand": "^4.4.1"
   },
   "resolutions": {
+    "**/ses": "^0.18.8",
     "**/@agoric/xsnap": "0.14.3-dev-9f085d3.0"
   }
 }
