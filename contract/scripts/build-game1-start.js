@@ -6,18 +6,18 @@
  */
 
 import { makeHelpers } from '@agoric/deploy-script-support';
-import { getManifestForGame1 } from '@agoric/smart-wallet/test/start-game1-proposal.js';
+import { getManifestForGame1 } from '../src/start-game1-proposal.js';
 
 /** @type {import('@agoric/deploy-script-support/src/externalTypes.js').ProposalBuilder} */
 export const game1ProposalBuilder = async ({ publishRef, install }) => {
   return harden({
-    sourceSpec: '@agoric/smart-wallet/test/start-game1-proposal.js',
+    sourceSpec: '../src/start-game1-proposal.js',
     getManifestCall: [
       getManifestForGame1.name,
       {
         game1Ref: publishRef(
           install(
-            '@agoric/smart-wallet/test/gameAssetContract.js',
+            '../src/gameAssetContract.js',
             '../bundles/bundle-game1.js',
             { persist: true },
           ),

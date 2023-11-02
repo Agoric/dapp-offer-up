@@ -4,9 +4,10 @@
 // deep import to avoid dependency on all of ERTP, vat-data
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
-import { makeTracer } from '@agoric/internal';
-import { M, getCopyBagEntries } from '@agoric/store';
+import { M, getCopyBagEntries } from '@endo/patterns';
 import { E, Far } from '@endo/far';
+
+import { makeTracer } from './debug.js';
 
 const { Fail, quote: q } = assert;
 
