@@ -2,6 +2,11 @@
   "name": "simple-game",
   "type": "module",
   "scripts": {
+    "start:docker": "docker-compose up -d",
+    "docker:logs": "docker-compose logs --tail 200 -f",
+    "docker:bash": "docker-compose exec agd bash",
+    "docker:make": "docker-compose exec agd make -C /workspace/contract",
+    "make:help": "make list",
     "build:proposal": "agoric run ./scripts/build-game1-start.js"
   },
   "dependencies": {

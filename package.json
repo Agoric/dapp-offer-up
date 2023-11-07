@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:proposal": "cd contract; yarn && yarn build:proposal",
+    "build:contract": "cd contract; yarn",
+    "build:proposal": "yarn build:contract; HOME=$PWD/dist; cd contract; yarn build:proposal",
+    "start:docker": "docker-compose up -d",
+    "docker:logs": "docker-compose logs --tail 200 -f",
+    "docker:bash": "docker-compose exec agd bash",
+    "docker:make": "docker-compose exec agd make -C /workspace/contract",
+    "make:help": "make -C contract list",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
