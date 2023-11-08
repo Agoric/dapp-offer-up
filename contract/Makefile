@@ -3,6 +3,9 @@ USER1ADDR=$(shell agd keys show user1 -a --keyring-backend="test")
 ACCT_ADDR=$(USER1ADDR)
 BLD=000000ubld
 
+ATOM_DENOM=ibc/BA313C4A19DFBF943586C0387E6B11286F9E416B4DD27574E6909CABE0E342FA
+ATOM=000000$(ATOM_DENOM)
+
 .PHONY: list
 # https://stackoverflow.com/a/73159833/7963
 list:
@@ -20,8 +23,9 @@ SIGN_BROADCAST_OPTS=--keyring-backend=test --chain-id=$(CHAINID) \
 
 mint4k:
 	make FUNDS=1000$(ATOM) fund-acct
-	agops vaults open --wantMinted 4000 --giveCollateral 1000 >/tmp/want4k.json
-	agops perf satisfaction --executeOffer /tmp/want4k.json --from user1 --keyring-backend=test
+	cd /usr/src/agoric-sdk && \
+		yarn --silent agops vaults open --wantMinted 4000 --giveCollateral 1000 >/tmp/want4k.json && \
+		yarn --silent agops perf satisfaction --executeOffer /tmp/want4k.json --from user1 --keyring-backend=test
 
 FUNDS=321$(BLD)
 fund-acct:
