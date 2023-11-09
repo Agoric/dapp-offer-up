@@ -9,7 +9,7 @@ ATOM=000000$(ATOM_DENOM)
 .PHONY: list
 # https://stackoverflow.com/a/73159833/7963
 list:
-	make -npq : 2> /dev/null | \
+	@make -npq : 2> /dev/null | grep -v PHONY |\
 		awk -v RS= -F: '$$1 ~ /^[^#%]+$$/ { print $$1 }'
 
 balance-q:

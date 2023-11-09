@@ -12,7 +12,7 @@
     "docker:logs": "docker-compose logs --tail 200 -f",
     "docker:bash": "docker-compose exec agd bash",
     "docker:make": "docker-compose exec agd make -C /workspace/contract",
-    "make:help": "make -C contract list",
+    "make:help": "echo 'USAGE: yarn docker:make TARGET\nwhere TARGET is one of...'; cd contract; make list",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
