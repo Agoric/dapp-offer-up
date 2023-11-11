@@ -4,24 +4,108 @@
     <title>My Discord OAuth2 App</title>
   </head>
   <body>
-    <!-- https://discordjs.guide/oauth2/#implicit-grant-flow -->
-    <div id="info">Hoi!</div>
-    <a
-      id="login"
-      style="display: none"
-      href="https://discord.com/api/oauth2/authorize?client_id=1172990280878788688&redirect_uri=http%3A%2F%2Flocalhost%3A50451&response_type=token&scope=identify"
-      >Identify Yourself</a
-    >
+    <fieldset>
+      <caption>
+        Discord Identity
+      </caption>
+      <a
+        id="login"
+        style="display: none"
+        href="https://discord.com/api/oauth2/authorize?client_id=1172990280878788688&redirect_uri=http%3A%2F%2Flocalhost%3A50451&response_type=token&scope=identify"
+      >
+        Identify Yourself on Discord
+      </a>
+      <br />
+      <label> Username: <input id="userName" readonly="true" /> </label>
+      <br />
+      <label> Id: <input id="id" readonly="true" /> </label>
+    </fieldset>
+
+    <fieldset>
+      <caption>
+        Agoric Identity
+      </caption>
+      <br />
+      <label> Chain ID: <input id="chainId" value="agoriclocal" /> </label>
+      <button id="connectWallet" type="button">Connect Keplr</button>
+      <br />
+      <label id="addrControl">
+        Address: <input id="address" readonly="true" />
+      </label>
+      <br />
+      <button id="signChallenge" type="button">Sign Binding</button>
+    </fieldset>
 
     <script type="module">
       import { NonNullish, parseAuthInfo, getUserInfo } from './gw-ui.js';
 
       const $ = id => document.getElementById(id);
 
+      const accountSetup = async keplr => {
+        if (!keplr) {
+          alert('Please install keplr extension');
+          return;
+        }
+        const elt = {
+          chainId: NonNullish($('chainId')),
+          addrControl: NonNullish($('addrControl')),
+          address: NonNullish($('address')),
+        };
+
+        const chainId = elt.chainId.value;
+        await window.keplr.enable(chainId);
+
+        const signer = window.keplr.getOfflineSigner(chainId);
+        const accounts = await signer.getAccounts();
+        console.log('@@@', { accounts });
+        const [{ address }] = accounts;
+        elt.address.value = address;
+      };
+
+      const signChallenge = async (keplr, nonce) => {
+        const elt = {
+          chainId: NonNullish($('chainId')),
+          address: NonNullish($('address')),
+          userName: NonNullish($('userName')),
+          id: NonNullish($('id')),
+        };
+
+        const claim = {
+          username: elt.userName.value,
+          id: elt.id.value,
+          nonce,
+        };
+        const sig = await keplr.signArbitrary(
+          elt.chainId.value,
+          elt.address.value,
+          JSON.stringify(claim),
+        );
+        console.log('sig', sig);
+
+        const ok = await keplr.verifyArbitrary(
+          elt.chainId.value,
+          elt.address.value,
+          JSON.stringify(claim),
+          sig,
+        );
+        console.log('sig ok?', ok);
+      };
+
       window.onload = async () => {
         const elt = {
           login: NonNullish($('login')),
-          info: NonNullish($('info')),
+          userName: NonNullish($('userName')),
+          id: NonNullish($('id')),
+          connect: NonNullish($('connectWallet')),
+          sign: NonNullish($('signChallenge')),
+        };
+
+        elt.connect.onclick = _ev => {
+          accountSetup(window.keplr);
+        };
+
+        elt.sign.onclick = _ev => {
+          signChallenge(window.keplr, Date.now());
         };
 
         const creds = parseAuthInfo(window.location.hash);
@@ -31,7 +115,8 @@
         }
 
         const { username, id } = await getUserInfo(creds, { fetch });
-        elt.info.innerText += ` ${username} / ${id}`;
+        elt.userName.value = username;
+        elt.id.value = id;
       };
     </script>
   </body>
