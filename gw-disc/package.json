@@ -29,6 +29,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "btoa": "^1.2.1",
     "express": "^4.18.2"
   }
 }
