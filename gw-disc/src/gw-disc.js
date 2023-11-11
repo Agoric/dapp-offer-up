@@ -18,6 +18,10 @@ app.get('/', (request, response) => {
   return response.sendFile('index.html', { root: './src/' });
 });
 
+app.get('/gw-ui.js', (request, response) => {
+  return response.sendFile('gw-ui.js', { root: './src/' });
+});
+
 app.listen(port, () =>
   console.log(`App listening at http://localhost:${port}`),
 );

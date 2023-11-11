@@ -13,30 +13,25 @@
       >Identify Yourself</a
     >
 
-    <script>
-      window.onload = () => {
-        const fragment = new URLSearchParams(window.location.hash.slice(1));
-        const [accessToken, tokenType] = [
-          fragment.get('access_token'),
-          fragment.get('token_type'),
-        ];
+    <script type="module">
+      import { NonNullish, parseAuthInfo, getUserInfo } from './gw-ui.js';
 
-        if (!accessToken) {
-          return (document.getElementById('login').style.display = 'block');
+      const $ = id => document.getElementById(id);
+
+      window.onload = async () => {
+        const elt = {
+          login: NonNullish($('login')),
+          info: NonNullish($('info')),
+        };
+
+        const creds = parseAuthInfo(window.location.hash);
+        if (!creds.accessToken) {
+          elt.login.style.display = 'block';
+          return;
         }
 
-        fetch('https://discord.com/api/users/@me', {
-          headers: {
-            authorization: `${tokenType} ${accessToken}`,
-          },
-        })
-          .then(result => result.json())
-          .then(response => {
-            console.log({ response });
-            const { username, id } = response;
-            document.getElementById('info').innerText += ` ${username} / ${id}`;
-          })
-          .catch(console.error);
+        const { username, id } = await getUserInfo(creds, { fetch });
+        elt.info.innerText += ` ${username} / ${id}`;
       };
     </script>
   </body>
