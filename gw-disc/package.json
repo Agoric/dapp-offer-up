@@ -24,5 +24,8 @@
     "trailingComma": "all",
     "arrowParens": "avoid",
     "singleQuote": true
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
