@@ -1,58 +1,112 @@
 // @ts-check
 
 /* eslint-disable import/order -- https://github.com/endojs/endo/issues/1235 */
-import { test as anyTest } from "./prepare-test-env-ava.js";
-import path from "path";
+import { test as anyTest } from './prepare-test-env-ava.js';
+import url from 'url';
 
-import * as bundleSourceAmbient from "@endo/bundle-source";
+import bundleSource from '@endo/bundle-source';
 
-import { E } from "@endo/far";
-import { AmountMath } from "@agoric/ertp";
-import { makeZoeKitForTest } from "@agoric/zoe/tools/setup-zoe.js";
+import { E } from '@endo/far';
+import { makeCopyBag } from '@endo/patterns';
+import { AmountMath } from '@agoric/ertp';
+import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
+import centralSupplyBundle from '@agoric/vats/bundles/bundle-centralSupply.js';
+import { mintStablePayment } from './mintStable.js';
 
-const filename = new URL(import.meta.url).pathname;
-const dirname = path.dirname(filename);
+/** @param {string} ref */
+const asset = ref => url.fileURLToPath(new URL(ref, import.meta.url));
 
-const contractPath = `${dirname}/../src/gameAssetContract.js`;
+const contractPath = asset(`../src/gameAssetContract.js`);
 
 /** @type {import('ava').TestFn<Awaited<ReturnType<makeTestContext>>>} */
 const test = anyTest;
 
-const makeTestContext = async () => {
-  const { default: bundleSource } = bundleSourceAmbient;
-  return { bundleSource };
+const UNIT6 = 1_000_000n;
+const CENT = UNIT6 / 100n;
+
+/**
+ * Facilities such as zoe are assumed to be available.
+ *
+ * @param {unknown} _t
+ */
+const makeTestContext = async _t => {
+  const bundle = await bundleSource(contractPath);
+  const { zoeService: zoe, feeMintAccess } = makeZoeKitForTest();
+
+  const centralSupply = await E(zoe).install(centralSupplyBundle);
+
+  const stableIssuer = await E(zoe).getFeeIssuer();
+
+  /** @param {bigint} value */
+  const faucet = async value => {
+    const pmt = await mintStablePayment(value, {
+      centralSupply,
+      feeMintAccess,
+      zoe,
+    });
+
+    const purse = await E(stableIssuer).makeEmptyPurse();
+    await E(purse).deposit(pmt);
+    return purse;
+  };
+
+  return { zoe, bundle, faucet };
 };
 
-test.before(async (t) => (t.context = await makeTestContext()));
-test("zoe - mint payments", async (t) => {
-  const { bundleSource } = t.context;
-  const { zoeService: zoe } = await makeZoeKitForTest();
+test.before(async t => (t.context = await makeTestContext()));
 
-  // pack the contract
-  const bundle = await bundleSource(contractPath);
+test('buy some game places', async t => {
+  const { zoe, bundle, faucet } = t.context;
 
-  // install the contract
-  const installation = E(zoe).installBundleID(bundle);
+  /** as agreed by BLD staker governance */
+  const startContract = async () => {
+    const installation = E(zoe).install(bundle);
+    const feeIssuer = await E(zoe).getFeeIssuer();
+    const feeBrand = await E(feeIssuer).getBrand();
+    const joinPrice = AmountMath.make(feeBrand, 25n * CENT);
+    const { instance } = await E(zoe).startInstance(
+      installation,
+      { Price: feeIssuer },
+      { joinPrice },
+    );
+    return instance;
+  };
 
-  const { creatorFacet, instance } = await E(zoe).startInstance(installation);
+  /**
+   * @param {ERef<Instance>} instance
+   * @param {Purse} purse
+   */
+  const alice = async (
+    instance,
+    purse,
+    choices = ['Park Place', 'Boardwalk'],
+  ) => {
+    const publicFacet = E(zoe).getPublicFacet(instance);
+    // @ts-expect-error Promise<Instance> seems to work
+    const terms = await E(zoe).getTerms(instance);
+    const { issuers, brands, joinPrice } = terms;
 
-  // Alice makes an invitation for Bob that will give him 1000 tokens
-  const invitation = E(creatorFacet).makeInvitation();
+    const proposal = {
+      give: { Price: joinPrice },
+      want: {
+        Places: AmountMath.make(
+          brands.Place,
+          makeCopyBag(choices.map(name => [name, 1n])),
+        ),
+      },
+    };
+    const toJoin = E(publicFacet).makeJoinInvitation();
+    const pmt = await E(purse).withdraw(joinPrice);
 
-  // Bob makes an offer using the invitation
-  const seat = E(zoe).offer(invitation);
+    t.log('give', joinPrice);
+    const seat = E(zoe).offer(toJoin, proposal, { Price: pmt });
+    const places = await E(seat).getPayout('Places');
 
-  const paymentP = E(seat).getPayout("Token");
+    const actual = await E(issuers.Place).getAmountOf(places);
+    t.log('payout', actual);
+    t.deepEqual(actual, proposal.want.Places);
+  };
 
-  // Let's get the tokenIssuer from the contract so we can evaluate
-  // what we get as our payout
-  const publicFacet = E(zoe).getPublicFacet(instance);
-  const tokenIssuer = E(publicFacet).getTokenIssuer();
-  const tokenBrand = await E(tokenIssuer).getBrand();
-
-  const tokens1000 = AmountMath.make(tokenBrand, 1000n);
-  const tokenPayoutAmount = await E(tokenIssuer).getAmountOf(paymentP);
-
-  // Bob got 1000 tokens
-  t.deepEqual(tokenPayoutAmount, tokens1000);
+  const instance = startContract();
+  await alice(instance, await faucet(5n * UNIT6));
 });
