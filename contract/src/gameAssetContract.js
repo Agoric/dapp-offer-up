@@ -26,8 +26,6 @@ const totalPlaces = amt => {
  */
 export const start = async zcf => {
   const { joinPrice } = zcf.getTerms();
-  const stableIssuer = await E(zcf.getZoeService()).getFeeIssuer();
-  zcf.saveIssuer(stableIssuer, 'Price');
 
   const { zcfSeat: gameSeat } = zcf.makeEmptySeatKit();
   const mint = await zcf.makeZCFMint('Place', AssetKind.COPY_BAG);

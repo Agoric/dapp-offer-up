@@ -59,10 +59,10 @@ export const startGameContract = async permittedPowers => {
     },
   } = permittedPowers;
 
-  const istBrand = await E(agoricNames).lookup('brand', 'IST');
-  const ist = {
-    brand: istBrand,
-  };
+  const istIssuer = await E(agoricNames).lookup('issuer', 'IST');
+  const istBrand = await E(istIssuer).getBrand();
+  const ist = { issuer: istIssuer, brand: istBrand };
+
   // NOTE: joinPrice could be configurable
   const terms = { joinPrice: AmountMath.make(ist.brand, 25n * CENT) };
 
@@ -71,6 +71,7 @@ export const startGameContract = async permittedPowers => {
 
   const { instance } = await E(startUpgradable)({
     installation,
+    issuerKeywordRecord: { Price: ist.issuer },
     label: 'game1',
     terms,
   });
