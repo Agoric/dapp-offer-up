@@ -74,6 +74,26 @@
   dependencies:
     protobufjs "^7.0.0"
 
+"@agoric/deploy-script-support@^0.10.3":
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/@agoric/deploy-script-support/-/deploy-script-support-0.10.3.tgz#6c0d3e7869b7f3abe1814a07332d2d39e05d53c7"
+  integrity sha512-X4Ory0ildhpDNVO5l64nA1MQqepTR8jGICp7EJisSE2sWRPaDX3Wy+Y/K8JPKoETBhxgw7w1Nt0nay6UEl18Tg==
+  dependencies:
+    "@agoric/assert" "^0.6.0"
+    "@agoric/ertp" "^0.16.2"
+    "@agoric/import-manager" "^0.3.11"
+    "@agoric/internal" "^0.3.2"
+    "@agoric/notifier" "^0.6.2"
+    "@agoric/store" "^0.9.2"
+    "@agoric/zoe" "^0.26.2"
+    "@endo/base64" "^0.2.31"
+    "@endo/bundle-source" "^2.5.1"
+    "@endo/far" "^0.2.18"
+    "@endo/marshal" "^0.8.5"
+    "@endo/nat" "^4.1.27"
+    "@endo/promise-kit" "^0.2.56"
+    "@endo/zip" "^0.2.31"
+
 "@agoric/ertp@^0.16.2":
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@agoric/ertp/-/ertp-0.16.2.tgz#0e41ffb80a635af9729c65cbcd6158abbf16b83e"
@@ -116,6 +136,11 @@
     "@endo/marshal" "^0.8.5"
     "@endo/nat" "^4.1.27"
     "@endo/promise-kit" "^0.2.56"
+
+"@agoric/import-manager@^0.3.11":
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/@agoric/import-manager/-/import-manager-0.3.11.tgz#132ccd031e1036fac7711738f0606d9053b5ddd4"
+  integrity sha512-GnW+rsuV0F7qHYrZrL4PmOkvNtu6FPG7z9kctfjBE41UNYLC1Frd3zIquoo1vKLiSEOZEdwPWO8tE8nIk5/1Bw==
 
 "@agoric/inter-protocol@^0.16.1":
   version "0.16.1"
@@ -1268,7 +1293,7 @@
     "@endo/lockdown" "^0.1.28"
     "@endo/promise-kit" "^0.2.56"
 
-"@endo/init@^0.5.56", "@endo/init@^0.5.60":
+"@endo/init@^0.5.56", "@endo/init@^0.5.59", "@endo/init@^0.5.60":
   version "0.5.60"
   resolved "https://registry.yarnpkg.com/@endo/init/-/init-0.5.60.tgz#e78051b13cd4a04c72d5ec1d2a6011b7f987f7ff"
   integrity sha512-AbAvs6Nk01fyJ+PaW0RzwemIWyomjzDf8ZEhVa3jCOhr8kBBsTnJdX0v7XkbZ/Y8NQxlrFaW0fPqlJK6aMWTlQ==
@@ -3569,7 +3594,7 @@ eslint@^8.45.0, eslint@^8.47.0:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-"esm@github:agoric-labs/esm#Agoric-built":
+esm@agoric-labs/esm#Agoric-built:
   version "3.2.25"
   resolved "https://codeload.github.com/agoric-labs/esm/tar.gz/3603726ad4636b2f865f463188fcaade6375638e"
 
