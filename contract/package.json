@@ -51,6 +51,7 @@
   "dependencies": {
     "@agoric/ertp": "^0.16.2",
     "@endo/far": "^0.2.21",
+    "@endo/marshal": "^0.8.9",
     "@endo/patterns": "^0.2.5"
   },
   "ava": {
