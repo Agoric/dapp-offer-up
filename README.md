@@ -13,7 +13,7 @@ On top of that, we add
 
 ## Getting started: test the contract
 
-Prerequisites: `agoric` CLI from [Installing the Agoric SDK](https://docs.agoric.com/guides/getting-started/).
+Prerequisites: `agoric` CLI from [Installing the Agoric SDK](https://docs.agoric.com/guides/getting-started/). _Work is in progress to address [#3857](https://github.com/Agoric/agoric-sdk/issues/3857), making installing from npm more stragithforward._
 
 ```sh
 agoric --version
@@ -25,7 +25,7 @@ yarn test
 
 ## Getting started: Deploy to Local Blockchain
 
-Prerequisites: `docker-compose`, [gov proposal hub](https://github.com/0xpatrickdev/agoric-gov-proposal-hub).
+Prerequisites: `docker-compose`, [Gov Proposal Builder](https://cosgov.org/) (or run from [source](https://github.com/DCFoundation/cosmos-proposal-builder)).
 
 Start local chain using docker-compose:
 
@@ -59,7 +59,7 @@ yarn build:proposal
 
 The filenames of bundles, a permit, and a script are printed.
 
-Use the **Install Bundle** tab of the gov proposal hub to install the
+Use the **Install Bundle** tab of the Gov Proposal Builder to install the
 2 bundles. Get ready to vote with `yarn docker:make vote PROPOSAL=n`.
 Use the **CoreEval Proposal** tab to propose `start-game1-permit.json`
 and `start-game1.js`. Note the proposal number; supposing it is 7, use
@@ -76,8 +76,8 @@ yarn
 yarn dev
 ```
 
-Use `docker:bash` command to print account info, including `user1`.
-Add that account to keplr.
+Use `yarn docker:bash` to print account info, including `user1`.
+Add that account to keplr using its mnemonic.
 
 Then hit **Connect Wallet**. The UI should show your address.
 
