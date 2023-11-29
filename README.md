@@ -16,9 +16,6 @@ On top of that, we add
 Prerequisites: `agoric` CLI from [Installing the Agoric SDK](https://docs.agoric.com/guides/getting-started/). _Work is in progress to address [#3857](https://github.com/Agoric/agoric-sdk/issues/3857), making installing from npm more stragithforward._
 
 ```sh
-agoric --version
-agoric install
-cd contract
 yarn
 yarn test
 ```
