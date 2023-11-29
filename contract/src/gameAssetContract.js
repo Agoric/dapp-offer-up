@@ -1,11 +1,14 @@
-/** @file illustrates using non-vbank assets */
-/* eslint @typescript-eslint/no-floating-promises: "warn" */
+/** @file Contract to mint and sell Place NFTs for a hypothetical game. */
+// @ts-check
 
-// deep import to avoid dependency on all of ERTP, vat-data
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { M, getCopyBagEntries } from '@endo/patterns';
-import { E, Far } from '@endo/far';
+import { Far } from '@endo/far';
+// Use the deprecated atomicRearrange API
+// for compatibility with mainnet1B.
+import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+import '@agoric/zoe/exported.js';
 
 import { makeTracer } from './debug.js';
 
@@ -46,12 +49,15 @@ export const start = async zcf => {
 
     totalPlaces(want.Places) <= 3n || Fail`only 3 places allowed when joining`;
 
-    // We use the deprecated stage/reallocate API
-    // so that we can test this with the version of zoe on mainnet1B.
-    playerSeat.decrementBy(gameSeat.incrementBy(give));
     const tmp = mint.mintGains(want);
-    playerSeat.incrementBy(tmp.decrementBy(want));
-    zcf.reallocate(playerSeat, tmp, gameSeat);
+    atomicRearrange(
+      zcf,
+      harden([
+        [playerSeat, gameSeat, give],
+        [tmp, playerSeat, want],
+      ]),
+    );
+
     playerSeat.exit(true);
     return 'welcome to the game';
   };
