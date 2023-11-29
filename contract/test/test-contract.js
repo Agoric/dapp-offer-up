@@ -2,19 +2,20 @@
 
 /* eslint-disable import/order -- https://github.com/endojs/endo/issues/1235 */
 import { test as anyTest } from './prepare-test-env-ava.js';
-import url from 'url';
+import { createRequire } from 'module';
 
 import bundleSource from '@endo/bundle-source';
+import { unsafeMakeBundleCache } from '@agoric/swingset-vat/tools/bundleTool.js';
 
 import { E } from '@endo/far';
 import { makeCopyBag } from '@endo/patterns';
 import { AmountMath } from '@agoric/ertp';
 import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
-import centralSupplyBundle from '@agoric/vats/bundles/bundle-centralSupply.js';
 import { mintStablePayment } from './mintStable.js';
 
-/** @param {string} ref */
-const asset = ref => url.fileURLToPath(new URL(ref, import.meta.url));
+const myRequire = createRequire(import.meta.url);
+/** @param {string} specifier */
+const asset = specifier => myRequire.resolve(specifier);
 
 const contractPath = asset(`../src/gameAssetContract.js`);
 
@@ -30,8 +31,14 @@ const CENT = UNIT6 / 100n;
  * @param {unknown} _t
  */
 const makeTestContext = async _t => {
+  const bundleCache = await unsafeMakeBundleCache('bundles/');
   const bundle = await bundleSource(contractPath);
   const { zoeService: zoe, feeMintAccess } = makeZoeKitForTest();
+
+  const centralSupplyBundle = await bundleCache.load(
+    asset('@agoric/vats/src/centralSupply.js'),
+    'centralSupply',
+  );
 
   const centralSupply = await E(zoe).install(centralSupplyBundle);
 
@@ -53,7 +60,7 @@ const makeTestContext = async _t => {
   return { zoe, bundle, faucet };
 };
 
-test.before(async t => (t.context = await makeTestContext()));
+test.before(async t => (t.context = await makeTestContext(t)));
 
 test('buy some game places', async t => {
   const { zoe, bundle, faucet } = t.context;
