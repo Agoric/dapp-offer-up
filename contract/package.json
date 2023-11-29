@@ -23,7 +23,6 @@
     "@endo/eslint-plugin": "^0.5.1",
     "@endo/init": "^0.5.59",
     "@endo/ses-ava": "^0.2.43",
-    "@agoric/zoe": "^0.26.2",
     "@agoric/deploy-script-support": "^0.10.3",
     "@jessie.js/eslint-plugin": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
@@ -50,6 +49,7 @@
   },
   "dependencies": {
     "@agoric/ertp": "^0.16.2",
+    "@agoric/zoe": "^0.26.2",
     "@endo/far": "^0.2.21",
     "@endo/marshal": "^0.8.9",
     "@endo/patterns": "^0.2.5"
