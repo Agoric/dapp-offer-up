@@ -19,7 +19,7 @@
     "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.{js,jsx}'"
   },
   "devDependencies": {
-    "@agoric/deploy-script-support": "^0.10.3",
+    "@agoric/deploy-script-support": "^0.10.4-u12.0",
     "@endo/bundle-source": "^2.8.0",
     "@endo/eslint-plugin": "^0.5.2",
     "@endo/init": "^0.5.60",
@@ -48,8 +48,8 @@
     "@babel/highlight": "7.22.5"
   },
   "dependencies": {
-    "@agoric/ertp": "^0.16.2",
-    "@agoric/zoe": "^0.26.2",
+    "@agoric/zoe": "^0.26.3-u12.0",
+    "@agoric/ertp": "^0.16.3-u12.0",
     "@endo/far": "^0.2.22",
     "@endo/marshal": "^0.8.9",
     "@endo/patterns": "^0.2.5"
