@@ -19,6 +19,7 @@
     "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.{js,jsx}'"
   },
   "devDependencies": {
+    "agoric": "^0.21.2-u12.0",
     "@agoric/deploy-script-support": "^0.10.4-u12.0",
     "@endo/bundle-source": "^2.8.0",
     "@endo/eslint-plugin": "^0.5.2",
