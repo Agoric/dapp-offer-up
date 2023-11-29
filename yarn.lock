@@ -74,25 +74,25 @@
   dependencies:
     protobufjs "^7.0.0"
 
-"@agoric/deploy-script-support@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@agoric/deploy-script-support/-/deploy-script-support-0.10.3.tgz#6c0d3e7869b7f3abe1814a07332d2d39e05d53c7"
-  integrity sha512-X4Ory0ildhpDNVO5l64nA1MQqepTR8jGICp7EJisSE2sWRPaDX3Wy+Y/K8JPKoETBhxgw7w1Nt0nay6UEl18Tg==
+"@agoric/deploy-script-support@^0.10.4-u12.0":
+  version "0.10.4-u12.0"
+  resolved "https://registry.yarnpkg.com/@agoric/deploy-script-support/-/deploy-script-support-0.10.4-u12.0.tgz#6f92da96b9689d11957864eb84180fadab704b2b"
+  integrity sha512-d6E9Uqd/yEKY5fmKCBF0LPZGcWjeCjIofA6uDfcNw72BLerj/wjkXTZDAz4cIOFYjYkDdXD40sTIHaaRiMLGLg==
   dependencies:
-    "@agoric/assert" "^0.6.0"
-    "@agoric/ertp" "^0.16.2"
-    "@agoric/import-manager" "^0.3.11"
-    "@agoric/internal" "^0.3.2"
-    "@agoric/notifier" "^0.6.2"
-    "@agoric/store" "^0.9.2"
-    "@agoric/zoe" "^0.26.2"
-    "@endo/base64" "^0.2.31"
-    "@endo/bundle-source" "^2.5.1"
-    "@endo/far" "^0.2.18"
-    "@endo/marshal" "^0.8.5"
-    "@endo/nat" "^4.1.27"
-    "@endo/promise-kit" "^0.2.56"
-    "@endo/zip" "^0.2.31"
+    "@agoric/assert" "^0.6.1-u11wf.0"
+    "@agoric/ertp" "^0.16.3-u12.0"
+    "@agoric/import-manager" "^0.3.12-u12.0"
+    "@agoric/internal" "^0.4.0-u12.0"
+    "@agoric/notifier" "^0.6.3-u12.0"
+    "@agoric/store" "^0.9.3-u12.0"
+    "@agoric/zoe" "^0.26.3-u12.0"
+    "@endo/base64" "0.2.31"
+    "@endo/bundle-source" "2.5.2-upstream-rollup"
+    "@endo/far" "0.2.18"
+    "@endo/marshal" "0.8.5"
+    "@endo/nat" "4.1.27"
+    "@endo/promise-kit" "0.2.56"
+    "@endo/zip" "0.2.31"
 
 "@agoric/ertp@^0.16.2":
   version "0.16.2"
@@ -109,6 +109,22 @@
     "@endo/marshal" "^0.8.5"
     "@endo/nat" "^4.1.27"
     "@endo/promise-kit" "^0.2.56"
+
+"@agoric/ertp@^0.16.3-u12.0":
+  version "0.16.3-u12.0"
+  resolved "https://registry.yarnpkg.com/@agoric/ertp/-/ertp-0.16.3-u12.0.tgz#276efde19131d1f3a339e7d98efee064d9d4ebec"
+  integrity sha512-g9dzcY94SuOdMi+RGYAffOVA/BmSzTv/t4KzKwZlAUZrgZ2E88z6REnpkvdzT5fK9M+D5PHejjbfwQnyx6upPA==
+  dependencies:
+    "@agoric/assert" "^0.6.1-u11wf.0"
+    "@agoric/notifier" "^0.6.3-u12.0"
+    "@agoric/store" "^0.9.3-u12.0"
+    "@agoric/swingset-vat" "^0.32.3-u12.0"
+    "@agoric/vat-data" "^0.5.3-u12.0"
+    "@endo/eventual-send" "0.17.2"
+    "@endo/far" "0.2.18"
+    "@endo/marshal" "0.8.5"
+    "@endo/nat" "4.1.27"
+    "@endo/promise-kit" "0.2.56"
 
 "@agoric/eventual-send@^0.14.1":
   version "0.14.1"
@@ -137,10 +153,10 @@
     "@endo/nat" "^4.1.27"
     "@endo/promise-kit" "^0.2.56"
 
-"@agoric/import-manager@^0.3.11":
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/@agoric/import-manager/-/import-manager-0.3.11.tgz#132ccd031e1036fac7711738f0606d9053b5ddd4"
-  integrity sha512-GnW+rsuV0F7qHYrZrL4PmOkvNtu6FPG7z9kctfjBE41UNYLC1Frd3zIquoo1vKLiSEOZEdwPWO8tE8nIk5/1Bw==
+"@agoric/import-manager@^0.3.12-u12.0":
+  version "0.3.12-u12.0"
+  resolved "https://registry.yarnpkg.com/@agoric/import-manager/-/import-manager-0.3.12-u12.0.tgz#0c3e5144ce35c64e2208c2373eafff72ba512f9d"
+  integrity sha512-p5Cyf8uEpUwsHlRCUSQUnM7rVdn/VBk0vMceo2A4ESKT127HmhYhbggx/4KzmcweU1miFvONglIRcdCyN52EHQ==
 
 "@agoric/inter-protocol@^0.16.1":
   version "0.16.1"
@@ -208,7 +224,7 @@
     "@endo/marshal" "^0.8.5"
     "@endo/promise-kit" "^0.2.56"
 
-"@agoric/notifier@^0.6.3-dev-8c14632.0":
+"@agoric/notifier@^0.6.3-dev-8c14632.0", "@agoric/notifier@^0.6.3-u12.0":
   version "0.6.3-u12.0"
   resolved "https://registry.yarnpkg.com/@agoric/notifier/-/notifier-0.6.3-u12.0.tgz#521393a073ca7f5c900af3dd818061a928d26089"
   integrity sha512-9axwVeBHTZhvkSeK73+xDaEQAYk75tIH71/Diw98rohWiaJ2ZcHZgiwlgn4CLC+++bY312cxAGKDiuLtU6CedA==
@@ -619,6 +635,29 @@
     "@endo/nat" "^4.1.27"
     "@endo/patterns" "^0.2.2"
     "@endo/promise-kit" "^0.2.56"
+
+"@agoric/zoe@^0.26.3-u12.0":
+  version "0.26.3-u12.0"
+  resolved "https://registry.yarnpkg.com/@agoric/zoe/-/zoe-0.26.3-u12.0.tgz#ca478b7f5219ae2c8ec20f9a85aca1facd8e6ec0"
+  integrity sha512-OznJJxbzRvOy4E8NJc3/zqasCleTJ8in/7ebrw7DyQAYaHg4e4wsV7a/Uuy1BUbB0h061saqVlhOM9xg1r0zhg==
+  dependencies:
+    "@agoric/assert" "^0.6.1-u11wf.0"
+    "@agoric/ertp" "^0.16.3-u12.0"
+    "@agoric/internal" "^0.4.0-u12.0"
+    "@agoric/notifier" "^0.6.3-u12.0"
+    "@agoric/store" "^0.9.3-u12.0"
+    "@agoric/swingset-vat" "^0.32.3-u12.0"
+    "@agoric/time" "^0.3.3-u12.0"
+    "@agoric/vat-data" "^0.5.3-u12.0"
+    "@endo/bundle-source" "2.5.2-upstream-rollup"
+    "@endo/captp" "3.1.1"
+    "@endo/eventual-send" "0.17.2"
+    "@endo/far" "0.2.18"
+    "@endo/import-bundle" "0.3.4"
+    "@endo/marshal" "0.8.5"
+    "@endo/nat" "4.1.27"
+    "@endo/patterns" "0.2.2"
+    "@endo/promise-kit" "0.2.56"
 
 "@agoric/zone@^0.2.2":
   version "0.2.2"
@@ -1115,7 +1154,7 @@
     rollup "^2.79.1"
     source-map "^0.7.3"
 
-"@endo/bundle-source@^2.5.1", "@endo/bundle-source@^2.7.0":
+"@endo/bundle-source@^2.5.1", "@endo/bundle-source@^2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@endo/bundle-source/-/bundle-source-2.8.0.tgz#56f25b3d9c74d3d0bede5c526647aaf02c0a8f94"
   integrity sha512-nDiM3u/LKWq5xAnJ+zm35HC6kMKF3IG6Y5V0385slFHZVT8mXzRJ5ztEqRsVzvVeITfz3ZRFOaFer6v4V8Lkjg==
@@ -1211,7 +1250,7 @@
   resolved "https://registry.yarnpkg.com/@endo/env-options/-/env-options-0.1.4.tgz#e516bc3864f00b154944e444fb8996a9a0c23a45"
   integrity sha512-Ol8ct0aW8VK1ZaqntnUJfrYT59P6Xn36XPbHzkqQhsYkpudKDn5ILYEwGmSO/Ff+XJjv/pReNI0lhOyyrDa9mg==
 
-"@endo/eslint-plugin@^0.5.1":
+"@endo/eslint-plugin@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@endo/eslint-plugin/-/eslint-plugin-0.5.2.tgz#835d22e9ff17d9935f7f565e50a21ef07aa92ca2"
   integrity sha512-WzQmzBXoGGm5vb2mX/Ho9dS5wSaajmeE2PnFqiBUwPQ5ml7B0T7/QwzV5MSAv1ClyzDt3t5j36ENWxeibb2C9Q==
@@ -1259,7 +1298,7 @@
     "@endo/eventual-send" "^0.17.2"
     "@endo/pass-style" "^0.1.3"
 
-"@endo/far@^0.2.18", "@endo/far@^0.2.21", "@endo/far@^0.2.22", "@endo/far@^0.2.3":
+"@endo/far@^0.2.18", "@endo/far@^0.2.22", "@endo/far@^0.2.3":
   version "0.2.22"
   resolved "https://registry.yarnpkg.com/@endo/far/-/far-0.2.22.tgz#fda187289a903ee3f9d6dcc5664ee7fef1994b1f"
   integrity sha512-LFOicqyHslKOSk/H5EfGOcw347ftDSwYHARPasnrG4UJOEkcU1ZG5bN/BmfONtcidB776gWZKrV/tNl4WLIlyw==
@@ -1293,7 +1332,7 @@
     "@endo/lockdown" "^0.1.28"
     "@endo/promise-kit" "^0.2.56"
 
-"@endo/init@^0.5.56", "@endo/init@^0.5.59", "@endo/init@^0.5.60":
+"@endo/init@^0.5.56", "@endo/init@^0.5.60":
   version "0.5.60"
   resolved "https://registry.yarnpkg.com/@endo/init/-/init-0.5.60.tgz#e78051b13cd4a04c72d5ec1d2a6011b7f987f7ff"
   integrity sha512-AbAvs6Nk01fyJ+PaW0RzwemIWyomjzDf8ZEhVa3jCOhr8kBBsTnJdX0v7XkbZ/Y8NQxlrFaW0fPqlJK6aMWTlQ==
@@ -1413,7 +1452,7 @@
   dependencies:
     ses "^0.18.4"
 
-"@endo/ses-ava@^0.2.43":
+"@endo/ses-ava@^0.2.44":
   version "0.2.44"
   resolved "https://registry.yarnpkg.com/@endo/ses-ava/-/ses-ava-0.2.44.tgz#b97b0d5a457b30b73c74b19091d67840984cf47e"
   integrity sha512-Pp0os/ZN7r0L94eCxWFYhSWt+DIdIASIVlY4oYCwMLxLa28cuswCjRQvPKLINBpZezogCKKptEWJTyHhGWpVQw==
