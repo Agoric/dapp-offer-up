@@ -50,10 +50,13 @@ export const start = async zcf => {
     totalPlaces(want.Places) <= 3n || Fail`only 3 places allowed when joining`;
 
     const tmp = mint.mintGains(want);
-    atomicRearrange(zcf, [
-      [playerSeat, gameSeat, give],
-      [tmp, playerSeat, want],
-    ]);
+    atomicRearrange(
+      zcf,
+      harden([
+        [playerSeat, gameSeat, give],
+        [tmp, playerSeat, want],
+      ]),
+    );
 
     playerSeat.exit(true);
     return 'welcome to the game';
