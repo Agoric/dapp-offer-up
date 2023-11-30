@@ -15,4 +15,4 @@ services:
       DEBUG: "SwingSet:ls,SwingSet:vat"
     volumes:
       - .:/workspace
-    entrypoint: /usr/src/upgrade-test-scripts/start_agd.sh
+    entrypoint: /workspace/contract/scripts/run-chain.sh
