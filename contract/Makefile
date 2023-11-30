@@ -38,6 +38,10 @@ gov-q:
 	agd query gov proposals --output json | \
 		jq -c '.proposals[] | [.proposal_id,.voting_end_time,.status]'
 
+gov-voting-q:
+	agd query gov proposals --status=voting_period --output json | \
+		jq -c '.proposals[].proposal_id'
+
 PROPOSAL=1
 VOTE_OPTION=yes
 vote:
