@@ -13,6 +13,11 @@
     "@babel/highlight": "7.22.5"
   },
   "scripts": {
+    "start:docker": "cd contract; docker-compose up -d",
+    "docker:logs": "cd contract; docker-compose logs --tail 200 -f",
+    "docker:bash": "cd contract; docker-compose exec agd bash",
+    "docker:make": "cd contract; docker-compose exec agd make -C /workspace/contract",
+    "make:help": "make -C contract list",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build"
