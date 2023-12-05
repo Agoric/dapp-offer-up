@@ -61,7 +61,7 @@ print-key: /root/.agoric/user1.key
 	@agd keys show user1 -a --keyring-backend="test"
 	@echo
 
-start: start-game1.js start-game1-permit.json install-bundles
+start-contract: start-game1.js start-game1-permit.json install-bundles
 	scripts/propose-start-contract.sh
 
 install-bundles: bundles/bundle-list
@@ -71,3 +71,7 @@ build-proposal: bundles/bundle-list
 
 bundles/bundle-list start-game1.js start-game1-permit.json:
 	./scripts/build-proposal.sh
+
+
+clean:
+	@rm -rf start-game1.js start-game1-permit.json bundles/
