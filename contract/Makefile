@@ -52,3 +52,14 @@ vote:
 
 instance-q:
 	agd query vstorage data published.agoricNames.instance -o json
+
+start: start-game1.js start-game1-permit.json install-bundles
+	scripts/propose-start-contract.sh
+
+install-bundles: bundles/bundle-list
+	./scripts/install-bundles.sh
+
+build-proposal: bundles/bundle-list
+
+bundles/bundle-list start-game1.js start-game1-permit.json:
+	./scripts/build-proposal.sh
