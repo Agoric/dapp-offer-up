@@ -7,7 +7,6 @@ import { M, getCopyBagEntries } from '@endo/patterns';
 import { Far } from '@endo/far';
 // Use the deprecated atomicRearrange API
 // for compatibility with mainnet1B.
-import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
 import { makeTracer } from './debug.js';
@@ -49,14 +48,13 @@ export const start = async zcf => {
 
     totalPlaces(want.Places) <= 3n || Fail`only 3 places allowed when joining`;
 
+    // We use the deprecated stage/reallocate API
+    // so that we can test this with the version of zoe on mainnet1B.
+    // using atomicRearrange bloated the contract from ~1MB to ~3BM
+    playerSeat.decrementBy(gameSeat.incrementBy(give));
     const tmp = mint.mintGains(want);
-    atomicRearrange(
-      zcf,
-      harden([
-        [playerSeat, gameSeat, give],
-        [tmp, playerSeat, want],
-      ]),
-    );
+    playerSeat.incrementBy(tmp.decrementBy(want));
+    zcf.reallocate(playerSeat, tmp, gameSeat);
 
     playerSeat.exit(true);
     return 'welcome to the game';
