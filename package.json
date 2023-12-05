@@ -13,7 +13,8 @@
     "@babel/highlight": "7.22.5"
   },
   "scripts": {
-    "start:docker": "cd contract; docker-compose up -d",
+    "start:docker": "(cd contract && docker-compose up -d) && yarn print-key",
+    "print-key": "yarn docker:make print-acct",
     "docker:logs": "cd contract; docker-compose logs --tail 200 -f",
     "docker:bash": "cd contract; docker-compose exec agd bash",
     "docker:make": "cd contract; docker-compose exec agd make -C /workspace/contract",
