@@ -16,7 +16,7 @@ const { Fail, quote: q } = assert;
 const trace = makeTracer('Game', true);
 
 /** @param {Amount<'copyBag'>} amt */
-const totalPlaces = amt => {
+const bagValueSize = amt => {
   /** @type {[unknown, bigint][]} */
   const entries = getCopyBagEntries(amt.value); // XXX getCopyBagEntries returns any???
   const total = entries.reduce((acc, [_place, qty]) => acc + qty, 0n);
@@ -46,7 +46,7 @@ export const start = async zcf => {
     AmountMath.isGTE(give.Price, joinPrice) ||
       Fail`${q(give.Price)} below joinPrice of ${q(joinPrice)}}`;
 
-    totalPlaces(want.Places) <= 3n || Fail`only 3 places allowed when joining`;
+    bagValueSize(want.Places) <= 3n || Fail`only 3 places allowed when joining`;
 
     // We use the deprecated stage/reallocate API
     // so that we can test this with the version of zoe on mainnet1B.
