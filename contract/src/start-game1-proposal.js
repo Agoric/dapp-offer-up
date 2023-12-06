@@ -44,14 +44,19 @@ const publishBrandInfo = async (chainStorage, board, brand) => {
 export const startGameContract = async permittedPowers => {
   console.error('startGameContract()...');
   const {
-    consume: { agoricNames, board, chainStorage, startUpgradable, zoe },
+    consume: { board, chainStorage, startUpgradable, zoe },
     brand: {
+      consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
       produce: { Place: producePlaceBrand },
     },
     issuer: {
+      consume: { IST: istIssuerP },
       // @ts-expect-error dynamic extension to promise space
       produce: { Place: producePlaceIssuer },
+    },
+    installation: {
+      consume: { game1: game1InstallationP },
     },
     instance: {
       // @ts-expect-error dynamic extension to promise space
@@ -59,19 +64,18 @@ export const startGameContract = async permittedPowers => {
     },
   } = permittedPowers;
 
-  const istIssuer = await E(agoricNames).lookup('issuer', 'IST');
-  const istBrand = await E(istIssuer).getBrand();
-  const ist = { issuer: istIssuer, brand: istBrand };
+  const istIssuer = await istIssuerP;
+  const istBrand = await istBrandP;
 
   // NOTE: joinPrice could be configurable
-  const terms = { joinPrice: AmountMath.make(ist.brand, 25n * CENT) };
+  const terms = { joinPrice: AmountMath.make(istBrand, 25n * CENT) };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
-  const installation = await E(agoricNames).lookup('installation', 'game1');
+  const installation = await game1InstallationP;
 
   const { instance } = await E(startUpgradable)({
     installation,
-    issuerKeywordRecord: { Price: ist.issuer },
+    issuerKeywordRecord: { Price: istIssuer },
     label: 'game1',
     terms,
   });
@@ -106,8 +110,8 @@ const gameManifest = {
       zoe: true, // to get contract terms, including issuer/brand
     },
     installation: { consume: { game1: true } },
-    issuer: { produce: { Place: true } },
-    brand: { produce: { Place: true } },
+    issuer: { consume: { IST: true }, produce: { Place: true } },
+    brand: { consume: { IST: true }, produce: { Place: true } },
     instance: { produce: { game1: true } },
   },
 };
