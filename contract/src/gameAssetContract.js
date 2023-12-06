@@ -1,10 +1,10 @@
 /** @file Contract to mint and sell Place NFTs for a hypothetical game. */
 // @ts-check
 
-import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
-import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
-import { M, getCopyBagEntries } from '@endo/patterns';
 import { Far } from '@endo/far';
+import { M, getCopyBagEntries } from '@endo/patterns';
+import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
+import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 // Use the deprecated atomicRearrange API
 // for compatibility with mainnet1B.
 import '@agoric/zoe/exported.js';
