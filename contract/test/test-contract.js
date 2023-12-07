@@ -47,6 +47,9 @@ const makeTestContext = async _t => {
 
 test.before(async t => (t.context = await makeTestContext(t)));
 
+// IDEA: use test.serial and pass work products
+// between tests using t.context.
+
 test('Install the contract', async t => {
   const { zoe, bundle } = t.context;
 
@@ -60,7 +63,6 @@ test('Start the contract', async t => {
 
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
-  t.log('issuers:', issuers);
   const terms = { joinPrice: AmountMath.make(money.brand, 5n) };
   t.log('terms:', terms);
 
@@ -96,36 +98,39 @@ const alice = async (
     give: { Price: joinPrice },
     want: { Places: AmountMath.make(brands.Place, choiceBag) },
   };
-  const toJoin = E(publicFacet).makeJoinInvitation();
   const pmt = await E(purse).withdraw(joinPrice);
+  t.log('Alice gives', proposal.give);
+  // #endregion makeProposal
 
-  t.log('Alice gives', joinPrice);
+  const toJoin = E(publicFacet).makeJoinInvitation();
+
   const seat = E(zoe).offer(toJoin, proposal, { Price: pmt });
   const places = await E(seat).getPayout('Places');
 
   const actual = await E(issuers.Place).getAmountOf(places);
-  t.log('Alice payout', actual);
+  t.log('Alice payout brand', actual.brand);
+  t.log('Alice payout value', actual.value);
   t.deepEqual(actual, proposal.want.Places);
 };
 
-test('Alice buys some game places with play money', async t => {
+test('Alice trades: give some play money, want some game places', async t => {
   const { zoe, bundle } = t.context;
 
-  const money = makeIssuerKit('PlayMoney', 'nat', { decimalPlaces: 6 });
-  const { make } = AmountMath;
-  const joinPrice = make(money.brand, 25n * CENT);
+  const money = makeIssuerKit('PlayMoney');
+  const issuers = { Price: money.issuer };
+  const terms = { joinPrice: AmountMath.make(money.brand, 5n) };
 
   /** @type {ERef<Installation<GameContractFn>>} */
   const installation = E(zoe).install(bundle);
-  const { instance } = await E(zoe).startInstance(
-    installation,
-    { Price: money.issuer },
-    { joinPrice },
-  );
+  const { instance } = await E(zoe).startInstance(installation, issuers, terms);
+  t.log(instance);
+  t.is(typeof instance, 'object');
 
-  const purse = money.issuer.makeEmptyPurse();
-  purse.deposit(money.mint.mintPayment(make(money.brand, 5n * UNIT6)));
-  await alice(t, zoe, instance, purse);
+  const alicePurse = money.issuer.makeEmptyPurse();
+  const amountOfMoney = AmountMath.make(money.brand, 10n);
+  const moneyPayment = money.mint.mintPayment(amountOfMoney);
+  alicePurse.deposit(moneyPayment);
+  await alice(t, zoe, instance, alicePurse);
 });
 
 test('Trade in IST rather than play money', async t => {
