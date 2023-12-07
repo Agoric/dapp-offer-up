@@ -55,6 +55,22 @@ test('Install the contract', async t => {
   t.is(typeof installation, 'object');
 });
 
+test('Start the contract', async t => {
+  const { zoe, bundle } = t.context;
+
+  const money = makeIssuerKit('PlayMoney');
+  const issuers = { Price: money.issuer };
+  t.log('issuers:', issuers);
+  const terms = { joinPrice: AmountMath.make(money.brand, 5n) };
+  t.log('terms:', terms);
+
+  /** @type {ERef<Installation<GameContractFn>>} */
+  const installation = E(zoe).install(bundle);
+  const { instance } = await E(zoe).startInstance(installation, issuers, terms);
+  t.log(instance);
+  t.is(typeof instance, 'object');
+});
+
 /**
  * Alice joins the game by paying the price from the contract's terms.
  *
