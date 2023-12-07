@@ -47,6 +47,14 @@ const makeTestContext = async _t => {
 
 test.before(async t => (t.context = await makeTestContext(t)));
 
+test('Install the contract', async t => {
+  const { zoe, bundle } = t.context;
+
+  const installation = await E(zoe).install(bundle);
+  t.log(installation);
+  t.is(typeof installation, 'object');
+});
+
 /**
  * Alice joins the game by paying the price from the contract's terms.
  *
