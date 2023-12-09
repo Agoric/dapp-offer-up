@@ -88,8 +88,8 @@ const makeOffer = () => {
   const istBrand = brands?.find(([name]) => name === 'IST')?.at(1);
 
   const value = makeCopyBag([
-    ['FTX Arena', 2n],
-    ['Crypto.com Arena', 1n],
+    ['Misty Mountain', 2n],
+    ['Mordor', 1n],
   ]);
 
   const want = {
