@@ -140,7 +140,17 @@ function App() {
     if (wallet) {
       makeOffer();
     } else {
-      connectWallet();
+      connectWallet().catch(err => {
+        switch (err.message) {
+          case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
+            alert(
+              'no smart wallet at that address; try: yarn docker:make print-key'
+            );
+            break;
+          default:
+            alert(err.message);
+        }
+      });
     }
   };
 
