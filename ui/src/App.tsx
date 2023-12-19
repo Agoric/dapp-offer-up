@@ -1,7 +1,10 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import agoricLogo from '/agoric.svg';
+import mordorIcon from './assets/evil-tower.svg';
+import shireIcon from './assets/hobbit-dwelling.svg';
+import mistyMountainIcon from './assets/mountains.svg';
 import './App.css';
 import {
   makeAgoricChainStorageWatcher,
@@ -82,16 +85,13 @@ const connectWallet = async () => {
   }
 };
 
-const makeOffer = () => {
+const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
   const { wallet, gameInstance, brands } = useAppStore.getState();
+  if (!gameInstance) throw Error('no contract instance');
   const placeBrand = brands?.find(([name]) => name === 'Place')?.at(1);
   const istBrand = brands?.find(([name]) => name === 'IST')?.at(1);
 
-  const value = makeCopyBag([
-    ['Misty Mountain', 2n],
-    ['Mordor', 1n],
-  ]);
-
+  const value = makeCopyBag(Object.entries(wantChoices));
   const want = {
     Places: {
       brand: placeBrand,
@@ -99,7 +99,7 @@ const makeOffer = () => {
     },
   };
 
-  const give = { Price: { brand: istBrand, value: 250000n } };
+  const give = { Price: { brand: istBrand, value: giveValue } };
 
   wallet?.makeOffer(
     {
@@ -123,6 +123,12 @@ const makeOffer = () => {
   );
 };
 
+const nameToIcon = {
+  Mordor: mordorIcon,
+  Shire: shireIcon,
+  'Misty Mountains': mistyMountainIcon,
+} as const;
+
 function App() {
   useEffect(() => {
     setup();
@@ -134,24 +140,43 @@ function App() {
   }));
   const istPurse = purses?.find(p => p.brandPetname === 'IST');
   const placesPurse = purses?.find(p => p.brandPetname === 'Place');
+  const [choices, setChoices] = useState<Record<string, bigint>>({
+    Mordor: 1n,
+    'Misty Mountains': 2n,
+  });
+  const [giveValue, setGiveValue] = useState(250000n);
 
-  const buttonLabel = wallet ? 'Make Offer' : 'Connect Wallet';
-  const onClick = () => {
-    if (wallet) {
-      makeOffer();
-    } else {
-      connectWallet().catch(err => {
-        switch (err.message) {
-          case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
-            alert(
-              'no smart wallet at that address; try: yarn docker:make print-key'
-            );
-            break;
-          default:
-            alert(err.message);
-        }
-      });
-    }
+  const tryConnectWallet = () => {
+    connectWallet().catch(err => {
+      switch (err.message) {
+        case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
+          alert(
+            'no smart wallet at that address; try: yarn docker:make print-key'
+          );
+          break;
+        default:
+          alert(err.message);
+      }
+    });
+  };
+
+  const changeChoice = (ev: FormEvent) => {
+    if (!ev.target) return;
+    const elt = ev.target as HTMLInputElement;
+    const icon = elt.parentElement?.parentElement?.querySelector('img');
+    const title = icon?.title;
+    if (!title) return;
+    const qty = BigInt(elt.value);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [title]: _old, ...rest } = choices;
+    const newChoices = qty > 0 ? { ...rest, [title]: qty } : rest;
+    setChoices(newChoices);
+  };
+
+  const parseValue = (numeral: string, purse: Purse): bigint => {
+    const { decimalPlaces } = purse.displayInfo;
+    const num = Number(numeral) * 10 ** decimalPlaces;
+    return BigInt(num);
   };
 
   return (
@@ -170,11 +195,16 @@ function App() {
       <h1>Vite + React + Agoric</h1>
       <div className="card">
         <div>
-          {wallet && (
+          {wallet ? (
             <>
-              <div>{wallet.address}</div>
-              <h2 style={{ marginTop: 4, marginBottom: 4 }}>Purses</h2>
+              <div>
+                <small>
+                  <code>{wallet.address}</code>
+                </small>
+              </div>
             </>
+          ) : (
+            <button onClick={tryConnectWallet}>Connect Wallet</button>
           )}
           <div style={{ textAlign: 'left' }}>
             {istPurse && (
@@ -207,7 +237,68 @@ function App() {
             )}
           </div>
         </div>
-        <button onClick={onClick}>{buttonLabel}</button>
+      </div>
+      <div className="card">
+        <table className="want">
+          <thead>
+            <tr>
+              <th colSpan={2}>Give: IST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="number"
+                  min="0"
+                  value={
+                    istPurse
+                      ? stringifyAmountValue(
+                          { ...istPurse.currentAmount, value: giveValue },
+                          istPurse.displayInfo.assetKind,
+                          istPurse.displayInfo.decimalPlaces
+                        )
+                      : Number(giveValue) / 1e6
+                  }
+                  onChange={ev =>
+                    istPurse &&
+                    setGiveValue(parseValue(ev?.target?.value, istPurse))
+                  }
+                  step="0.01"
+                />
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colSpan={2}>Want: Places</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(nameToIcon).map(([title, icon]) => (
+              <tr key={title}>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    max="3"
+                    value={Number(choices[title])}
+                    step="1"
+                    onChange={changeChoice}
+                  />
+                </td>
+                <td>
+                  <img className="piece" src={icon} title={title} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div>
+          <button onClick={() => makeOffer(giveValue, choices)}>
+            Make Offer
+          </button>
+        </div>
       </div>
     </>
   );
