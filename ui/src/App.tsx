@@ -2,9 +2,9 @@ import { FormEvent, useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import agoricLogo from '/agoric.svg';
-import mordorIcon from './assets/evil-tower.svg';
-import shireIcon from './assets/hobbit-dwelling.svg';
-import mistyMountainIcon from './assets/mountains.svg';
+import scrollIcon from './assets/scroll.png';
+import mapIcon from './assets/map.png';
+import potionIcon from './assets/potionBlue.png';
 import './App.css';
 import {
   makeAgoricChainStorageWatcher,
@@ -19,6 +19,8 @@ import { subscribeLatest } from '@agoric/notifier';
 import { stringifyAmountValue } from '@agoric/ui-components';
 import { makeCopyBag } from '@agoric/store';
 
+const { entries, fromEntries, keys } = Object;
+
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const watcher = makeAgoricChainStorageWatcher(
@@ -26,8 +28,8 @@ const watcher = makeAgoricChainStorageWatcher(
   'agoriclocal'
 );
 
-interface CopyBag {
-  payload: Array<[string, bigint]>;
+interface CopyBag<T = string> {
+  payload: Array<[T, bigint]>;
 }
 
 interface Purse {
@@ -46,7 +48,7 @@ interface Purse {
 interface AppState {
   wallet?: Wallet;
   gameInstance?: unknown;
-  brands?: Array<[string, unknown]>;
+  brands?: Record<string, unknown>;
   purses?: Array<Purse>;
 }
 
@@ -68,7 +70,7 @@ const setup = async () => {
     brands => {
       console.log('Got brands', brands);
       useAppStore.setState({
-        brands,
+        brands: fromEntries(brands),
       });
     }
   );
@@ -88,18 +90,12 @@ const connectWallet = async () => {
 const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
   const { wallet, gameInstance, brands } = useAppStore.getState();
   if (!gameInstance) throw Error('no contract instance');
-  const placeBrand = brands?.find(([name]) => name === 'Place')?.at(1);
-  const istBrand = brands?.find(([name]) => name === 'IST')?.at(1);
+  if (!(brands && brands.IST && brands.Place))
+    throw Error('brands not available');
 
-  const value = makeCopyBag(Object.entries(wantChoices));
-  const want = {
-    Places: {
-      brand: placeBrand,
-      value,
-    },
-  };
-
-  const give = { Price: { brand: istBrand, value: giveValue } };
+  const value = makeCopyBag(entries(wantChoices));
+  const want = { Places: { brand: brands.Place, value } };
+  const give = { Price: { brand: brands.IST, value: giveValue } };
 
   wallet?.makeOffer(
     {
@@ -124,10 +120,18 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
 };
 
 const nameToIcon = {
-  Mordor: mordorIcon,
-  Shire: shireIcon,
-  'Misty Mountains': mistyMountainIcon,
+  scroll: scrollIcon,
+  map: mapIcon,
+  potion: potionIcon,
 } as const;
+type ItemName = keyof typeof nameToIcon;
+type ItemChoices = Partial<Record<ItemName, bigint>>;
+
+const parseValue = (numeral: string, purse: Purse): bigint => {
+  const { decimalPlaces } = purse.displayInfo;
+  const num = Number(numeral) * 10 ** decimalPlaces;
+  return BigInt(num);
+};
 
 function App() {
   useEffect(() => {
@@ -140,11 +144,6 @@ function App() {
   }));
   const istPurse = purses?.find(p => p.brandPetname === 'IST');
   const placesPurse = purses?.find(p => p.brandPetname === 'Place');
-  const [choices, setChoices] = useState<Record<string, bigint>>({
-    Mordor: 1n,
-    'Misty Mountains': 2n,
-  });
-  const [giveValue, setGiveValue] = useState(250000n);
 
   const tryConnectWallet = () => {
     connectWallet().catch(err => {
@@ -160,26 +159,7 @@ function App() {
     });
   };
 
-  const changeChoice = (ev: FormEvent) => {
-    if (!ev.target) return;
-    const elt = ev.target as HTMLInputElement;
-    const icon = elt.parentElement?.parentElement?.querySelector('img');
-    const title = icon?.title;
-    if (!title) return;
-    const qty = BigInt(elt.value);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [title]: _old, ...rest } = choices;
-    const newChoices = qty > 0 ? { ...rest, [title]: qty } : rest;
-    setChoices(newChoices);
-  };
-
-  const parseValue = (numeral: string, purse: Purse): bigint => {
-    const { decimalPlaces } = purse.displayInfo;
-    const num = Number(numeral) * 10 ** decimalPlaces;
-    return BigInt(num);
-  };
-
-  return (
+  const Logos = () => (
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
@@ -192,113 +172,160 @@ function App() {
           <img src={agoricLogo} className="logo agoric" alt="Agoric logo" />
         </a>
       </div>
-      <h1>Vite + React + Agoric</h1>
+    </>
+  );
+
+  const Inventory = () =>
+    wallet &&
+    istPurse && (
       <div className="card">
         <div>
-          {wallet ? (
-            <>
-              <div>
-                <small>
-                  <code>{wallet.address}</code>
-                </small>
-              </div>
-            </>
-          ) : (
-            <button onClick={tryConnectWallet}>Connect Wallet</button>
-          )}
+          <div>
+            <small>
+              <code>{wallet.address}</code>
+            </small>
+          </div>
+
           <div style={{ textAlign: 'left' }}>
-            {istPurse && (
-              <div>
-                <b>IST: </b>
-                {stringifyAmountValue(
-                  istPurse.currentAmount,
-                  istPurse.displayInfo.assetKind,
-                  istPurse.displayInfo.decimalPlaces
-                )}
-              </div>
-            )}
-            {wallet && (
-              <div>
-                <b>Places:</b>
-                {placesPurse ? (
-                  <ul style={{ marginTop: 0, textAlign: 'left' }}>
-                    {(placesPurse.currentAmount.value as CopyBag).payload.map(
-                      ([name, number]) => (
-                        <li key={name}>
-                          {String(number)} {name}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                ) : (
-                  'None'
-                )}
-              </div>
-            )}
+            <div>
+              <b>IST: </b>
+              {stringifyAmountValue(
+                istPurse.currentAmount,
+                istPurse.displayInfo.assetKind,
+                istPurse.displayInfo.decimalPlaces
+              )}
+            </div>
+            <div>
+              <b>Places:</b>
+              {placesPurse ? (
+                <ul style={{ marginTop: 0, textAlign: 'left' }}>
+                  {(placesPurse.currentAmount.value as CopyBag).payload.map(
+                    ([name, number]) => (
+                      <li key={name}>
+                        {String(number)} {name}
+                      </li>
+                    )
+                  )}
+                </ul>
+              ) : (
+                'None'
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className="card">
-        <table className="want">
-          <thead>
-            <tr>
-              <th colSpan={2}>Give: IST</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  type="number"
-                  min="0"
-                  value={
-                    istPurse
-                      ? stringifyAmountValue(
-                          { ...istPurse.currentAmount, value: giveValue },
-                          istPurse.displayInfo.assetKind,
-                          istPurse.displayInfo.decimalPlaces
-                        )
-                      : Number(giveValue) / 1e6
-                  }
-                  onChange={ev =>
-                    istPurse &&
-                    setGiveValue(parseValue(ev?.target?.value, istPurse))
-                  }
-                  step="0.01"
-                />
-              </td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th colSpan={2}>Want: Places</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(nameToIcon).map(([title, icon]) => (
-              <tr key={title}>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    max="3"
-                    value={Number(choices[title])}
-                    step="1"
-                    onChange={changeChoice}
-                  />
-                </td>
-                <td>
-                  <img className="piece" src={icon} title={title} />
-                </td>
+    );
+
+  // XXX giveValue, choices state should be scoped to Trade component.
+  const [giveValue, setGiveValue] = useState(250000n);
+  const renderGiveValue = (purse: Purse) => (
+    <input
+      type="number"
+      min="0"
+      value={stringifyAmountValue(
+        { ...purse.currentAmount, value: giveValue },
+        purse.displayInfo.assetKind,
+        purse.displayInfo.decimalPlaces
+      )}
+      onChange={ev => setGiveValue(parseValue(ev?.target?.value, purse))}
+      step="0.01"
+    />
+  );
+
+  const [choices, setChoices] = useState<ItemChoices>({ map: 1n, scroll: 2n });
+  const changeChoice = (ev: FormEvent) => {
+    if (!ev.target) return;
+    const elt = ev.target as HTMLInputElement;
+    const title = elt.title as ItemName;
+    if (!title) return;
+    const qty = BigInt(elt.value);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [title]: _old, ...rest }: ItemChoices = choices;
+    const newChoices = qty > 0 ? { ...rest, [title]: qty } : rest;
+    setChoices(newChoices);
+  };
+
+  const WantPlaces = () => (
+    <>
+      <thead>
+        <tr>
+          <th colSpan={keys(nameToIcon).length}>Want</th>
+        </tr>
+      </thead>
+      <tbody className="want">
+        <tr>
+          {entries(nameToIcon).map(([title, icon]) => (
+            <td key={title}>
+              <img className="piece" src={icon} title={title} />
+            </td>
+          ))}
+        </tr>
+
+        <tr>
+          {keys(nameToIcon).map(title => (
+            <td key={title}>
+              <input
+                title={title}
+                type="number"
+                min="0"
+                max="3"
+                value={Number(choices[title as ItemName])}
+                step="1"
+                onChange={changeChoice}
+              />
+              <br />
+              {title}
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </>
+  );
+
+  const Trade = () => (
+    <>
+      <table className="want">
+        <WantPlaces />
+        {istPurse && (
+          <>
+            <thead>
+              <tr>
+                <th colSpan={keys(nameToIcon).length}>Give</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>{renderGiveValue(istPurse)}</td>
+                <td>IST</td>
+              </tr>
+            </tbody>
+          </>
+        )}
+      </table>
+      <div>
+        {wallet && (
           <button onClick={() => makeOffer(giveValue, choices)}>
             Make Offer
           </button>
-        </div>
+        )}
+      </div>
+    </>
+  );
+
+  return (
+    <>
+      <Logos />
+      <h1>Items Listed on Offer Up</h1>
+
+      <div className="card">
+        <Trade />
+        <hr />
+        {wallet ? (
+          <Inventory />
+        ) : (
+          <button onClick={tryConnectWallet}>Connect Wallet</button>
+        )}
       </div>
     </>
   );
