@@ -19,7 +19,13 @@ import { subscribeLatest } from '@agoric/notifier';
 import { stringifyAmountValue } from '@agoric/ui-components';
 import { makeCopyBag } from '@agoric/store';
 
-const { entries, fromEntries, keys } = Object;
+const { entries, fromEntries, keys, values } = Object;
+const sum = (xs: bigint[]) => xs.reduce((acc, next) => acc + next, 0n);
+
+const terms = {
+  price: 250000n,
+  maxItems: 3n,
+};
 
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
@@ -218,7 +224,7 @@ function App() {
     );
 
   // XXX giveValue, choices state should be scoped to Trade component.
-  const [giveValue, setGiveValue] = useState(250000n);
+  const [giveValue, setGiveValue] = useState(terms.price);
   const renderGiveValue = (purse: Purse) => (
     <input
       type="number"
@@ -229,6 +235,7 @@ function App() {
         purse.displayInfo.decimalPlaces
       )}
       onChange={ev => setGiveValue(parseValue(ev?.target?.value, purse))}
+      className={giveValue >= terms.price ? 'ok' : 'error'}
       step="0.01"
     />
   );
@@ -250,7 +257,7 @@ function App() {
     <>
       <thead>
         <tr>
-          <th colSpan={keys(nameToIcon).length}>Want</th>
+          <th colSpan={keys(nameToIcon).length}>Want: up to 3 items</th>
         </tr>
       </thead>
       <tbody className="want">
@@ -273,6 +280,9 @@ function App() {
                 value={Number(choices[title as ItemName])}
                 step="1"
                 onChange={changeChoice}
+                className={
+                  sum(values(choices)) <= terms.maxItems ? 'ok' : 'error'
+                }
               />
               <br />
               {title}
@@ -283,6 +293,8 @@ function App() {
     </>
   );
 
+  // TODO: don't wait for connect wallet to show Give.
+  // IST displayInfo is available in vbankAsset or boardAux
   const Trade = () => (
     <>
       <table className="want">
@@ -291,7 +303,9 @@ function App() {
           <>
             <thead>
               <tr>
-                <th colSpan={keys(nameToIcon).length}>Give</th>
+                <th colSpan={keys(nameToIcon).length}>
+                  Give: at least 0.25 IST
+                </th>
               </tr>
             </thead>
             <tbody>
