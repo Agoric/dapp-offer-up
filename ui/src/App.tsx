@@ -307,7 +307,7 @@ function App() {
       <div>
         {wallet && (
           <button onClick={() => makeOffer(giveValue, choices)}>
-            Make Offer
+            Make an Offer
           </button>
         )}
       </div>
