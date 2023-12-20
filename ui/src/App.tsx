@@ -179,6 +179,7 @@ function App() {
     wallet &&
     istPurse && (
       <div className="card">
+        <h3>My Inventory</h3>
         <div>
           <div>
             <small>
@@ -196,7 +197,7 @@ function App() {
               )}
             </div>
             <div>
-              <b>Places:</b>
+              <b>Items:</b>
               {placesPurse ? (
                 <ul style={{ marginTop: 0, textAlign: 'left' }}>
                   {(placesPurse.currentAmount.value as CopyBag).payload.map(
