@@ -1,7 +1,10 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import agoricLogo from '/agoric.svg';
+import scrollIcon from './assets/scroll.png';
+import mapIcon from './assets/map.png';
+import potionIcon from './assets/potionBlue.png';
 import './App.css';
 import {
   makeAgoricChainStorageWatcher,
@@ -16,6 +19,14 @@ import { subscribeLatest } from '@agoric/notifier';
 import { stringifyAmountValue } from '@agoric/ui-components';
 import { makeCopyBag } from '@agoric/store';
 
+const { entries, fromEntries, keys, values } = Object;
+const sum = (xs: bigint[]) => xs.reduce((acc, next) => acc + next, 0n);
+
+const terms = {
+  price: 250000n,
+  maxItems: 3n,
+};
+
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const watcher = makeAgoricChainStorageWatcher(
@@ -23,8 +34,8 @@ const watcher = makeAgoricChainStorageWatcher(
   'agoriclocal'
 );
 
-interface CopyBag {
-  payload: Array<[string, bigint]>;
+interface CopyBag<T = string> {
+  payload: Array<[T, bigint]>;
 }
 
 interface Purse {
@@ -43,7 +54,7 @@ interface Purse {
 interface AppState {
   wallet?: Wallet;
   gameInstance?: unknown;
-  brands?: Array<[string, unknown]>;
+  brands?: Record<string, unknown>;
   purses?: Array<Purse>;
 }
 
@@ -65,7 +76,7 @@ const setup = async () => {
     brands => {
       console.log('Got brands', brands);
       useAppStore.setState({
-        brands,
+        brands: fromEntries(brands),
       });
     }
   );
@@ -82,24 +93,15 @@ const connectWallet = async () => {
   }
 };
 
-const makeOffer = () => {
+const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
   const { wallet, gameInstance, brands } = useAppStore.getState();
-  const placeBrand = brands?.find(([name]) => name === 'Place')?.at(1);
-  const istBrand = brands?.find(([name]) => name === 'IST')?.at(1);
+  if (!gameInstance) throw Error('no contract instance');
+  if (!(brands && brands.IST && brands.Place))
+    throw Error('brands not available');
 
-  const value = makeCopyBag([
-    ['Misty Mountain', 2n],
-    ['Mordor', 1n],
-  ]);
-
-  const want = {
-    Places: {
-      brand: placeBrand,
-      value,
-    },
-  };
-
-  const give = { Price: { brand: istBrand, value: 250000n } };
+  const value = makeCopyBag(entries(wantChoices));
+  const want = { Places: { brand: brands.Place, value } };
+  const give = { Price: { brand: brands.IST, value: giveValue } };
 
   wallet?.makeOffer(
     {
@@ -123,6 +125,20 @@ const makeOffer = () => {
   );
 };
 
+const nameToIcon = {
+  scroll: scrollIcon,
+  map: mapIcon,
+  potion: potionIcon,
+} as const;
+type ItemName = keyof typeof nameToIcon;
+type ItemChoices = Partial<Record<ItemName, bigint>>;
+
+const parseValue = (numeral: string, purse: Purse): bigint => {
+  const { decimalPlaces } = purse.displayInfo;
+  const num = Number(numeral) * 10 ** decimalPlaces;
+  return BigInt(num);
+};
+
 function App() {
   useEffect(() => {
     setup();
@@ -135,16 +151,21 @@ function App() {
   const istPurse = purses?.find(p => p.brandPetname === 'IST');
   const placesPurse = purses?.find(p => p.brandPetname === 'Place');
 
-  const buttonLabel = wallet ? 'Make Offer' : 'Connect Wallet';
-  const onClick = () => {
-    if (wallet) {
-      makeOffer();
-    } else {
-      connectWallet();
-    }
+  const tryConnectWallet = () => {
+    connectWallet().catch(err => {
+      switch (err.message) {
+        case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
+          alert(
+            'no smart wallet at that address; try: yarn docker:make print-key'
+          );
+          break;
+        default:
+          alert(err.message);
+      }
+    });
   };
 
-  return (
+  const Logos = () => (
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
@@ -157,52 +178,170 @@ function App() {
           <img src={agoricLogo} className="logo agoric" alt="Agoric logo" />
         </a>
       </div>
-      <h1>Vite + React + Agoric</h1>
+    </>
+  );
+
+  const Inventory = () =>
+    wallet &&
+    istPurse && (
       <div className="card">
+        <h3>My Inventory</h3>
         <div>
-          {wallet && (
-            <>
-              <div>{wallet.address}</div>
-              <h2 style={{ marginTop: 4, marginBottom: 4 }}>Purses</h2>
-            </>
-          )}
+          <div>
+            <small>
+              <code>{wallet.address}</code>
+            </small>
+          </div>
+
           <div style={{ textAlign: 'left' }}>
-            {istPurse && (
-              <div>
-                <b>IST: </b>
-                {stringifyAmountValue(
-                  istPurse.currentAmount,
-                  istPurse.displayInfo.assetKind,
-                  istPurse.displayInfo.decimalPlaces
-                )}
-              </div>
-            )}
-            {wallet && (
-              <div>
-                <b>Places:</b>
-                {placesPurse ? (
-                  <ul style={{ marginTop: 0, textAlign: 'left' }}>
-                    {(placesPurse.currentAmount.value as CopyBag).payload.map(
-                      ([name, number]) => (
-                        <li key={name}>
-                          {String(number)} {name}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                ) : (
-                  'None'
-                )}
-              </div>
-            )}
+            <div>
+              <b>IST: </b>
+              {stringifyAmountValue(
+                istPurse.currentAmount,
+                istPurse.displayInfo.assetKind,
+                istPurse.displayInfo.decimalPlaces
+              )}
+            </div>
+            <div>
+              <b>Items:</b>
+              {placesPurse ? (
+                <ul style={{ marginTop: 0, textAlign: 'left' }}>
+                  {(placesPurse.currentAmount.value as CopyBag).payload.map(
+                    ([name, number]) => (
+                      <li key={name}>
+                        {String(number)} {name}
+                      </li>
+                    )
+                  )}
+                </ul>
+              ) : (
+                'None'
+              )}
+            </div>
           </div>
         </div>
-        <button onClick={onClick}>{buttonLabel}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">Click on the logos to learn more</p>
+    );
+
+  // XXX giveValue, choices state should be scoped to Trade component.
+  const [giveValue, setGiveValue] = useState(terms.price);
+  const renderGiveValue = (purse: Purse) => (
+    <input
+      type="number"
+      min="0"
+      value={stringifyAmountValue(
+        { ...purse.currentAmount, value: giveValue },
+        purse.displayInfo.assetKind,
+        purse.displayInfo.decimalPlaces
+      )}
+      onChange={ev => setGiveValue(parseValue(ev?.target?.value, purse))}
+      className={giveValue >= terms.price ? 'ok' : 'error'}
+      step="0.01"
+    />
+  );
+
+  const [choices, setChoices] = useState<ItemChoices>({ map: 1n, scroll: 2n });
+  const changeChoice = (ev: FormEvent) => {
+    if (!ev.target) return;
+    const elt = ev.target as HTMLInputElement;
+    const title = elt.title as ItemName;
+    if (!title) return;
+    const qty = BigInt(elt.value);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [title]: _old, ...rest }: ItemChoices = choices;
+    const newChoices = qty > 0 ? { ...rest, [title]: qty } : rest;
+    setChoices(newChoices);
+  };
+
+  const WantPlaces = () => (
+    <>
+      <thead>
+        <tr>
+          <th colSpan={keys(nameToIcon).length}>Want: up to 3 items</th>
+        </tr>
+      </thead>
+      <tbody className="want">
+        <tr>
+          {entries(nameToIcon).map(([title, icon]) => (
+            <td key={title}>
+              <img className="piece" src={icon} title={title} />
+            </td>
+          ))}
+        </tr>
+
+        <tr>
+          {keys(nameToIcon).map(title => (
+            <td key={title}>
+              <input
+                title={title}
+                type="number"
+                min="0"
+                max="3"
+                value={Number(choices[title as ItemName])}
+                step="1"
+                onChange={changeChoice}
+                className={
+                  sum(values(choices)) <= terms.maxItems ? 'ok' : 'error'
+                }
+              />
+              <br />
+              {title}
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </>
+  );
+
+  // TODO: don't wait for connect wallet to show Give.
+  // IST displayInfo is available in vbankAsset or boardAux
+  const Trade = () => (
+    <>
+      <table className="want">
+        <WantPlaces />
+        {istPurse && (
+          <>
+            <thead>
+              <tr>
+                <th colSpan={keys(nameToIcon).length}>
+                  Give: at least 0.25 IST
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>{renderGiveValue(istPurse)}</td>
+                <td>IST</td>
+              </tr>
+            </tbody>
+          </>
+        )}
+      </table>
+      <div>
+        {wallet && (
+          <button onClick={() => makeOffer(giveValue, choices)}>
+            Make an Offer
+          </button>
+        )}
+      </div>
+    </>
+  );
+
+  return (
+    <>
+      <Logos />
+      <h1>Items Listed on Offer Up</h1>
+
+      <div className="card">
+        <Trade />
+        <hr />
+        {wallet ? (
+          <Inventory />
+        ) : (
+          <button onClick={tryConnectWallet}>Connect Wallet</button>
+        )}
+      </div>
     </>
   );
 }
