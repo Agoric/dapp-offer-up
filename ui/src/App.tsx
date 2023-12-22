@@ -257,7 +257,7 @@ function App() {
     <>
       <thead>
         <tr>
-          <th colSpan={keys(nameToIcon).length}>Want: up to 3 items</th>
+          <th colSpan={keys(nameToIcon).length}>Want: Choose up to 3 items</th>
         </tr>
       </thead>
       <tbody className="want">
@@ -304,7 +304,7 @@ function App() {
             <thead>
               <tr>
                 <th colSpan={keys(nameToIcon).length}>
-                  Give: at least 0.25 IST
+                  Give: Offer at least 0.25 IST
                 </th>
               </tr>
             </thead>
