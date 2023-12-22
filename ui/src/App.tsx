@@ -185,7 +185,7 @@ function App() {
     wallet &&
     istPurse && (
       <div className="card">
-        <h3>My Inventory</h3>
+        <h3>My Wallet</h3>
         <div>
           <div>
             <small>
