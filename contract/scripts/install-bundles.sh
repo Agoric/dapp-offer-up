@@ -16,10 +16,6 @@ install_bundle() {
 # exit fail if bundle-list is emtpy
 [ -s bundles/bundle-list ] || exit 1
 
-# TODO: avoid needing so much IST
-# https://github.com/agoric-labs/dapp-game-places/issues/3
-make mint4k
-make mint4k
 make balance-q  # do we have enough IST?
 
 for b in $(cat bundles/bundle-list); do 
