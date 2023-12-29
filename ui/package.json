@@ -27,8 +27,11 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "prettier": "^3.0.3",
     "ses": "^0.18.8",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
@@ -37,5 +40,10 @@
   "resolutions": {
     "**/ses": "^0.18.8",
     "**/@agoric/xsnap": "0.14.3-dev-9f085d3.0"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "singleQuote": true
   }
 }
