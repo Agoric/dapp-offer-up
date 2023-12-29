@@ -27,7 +27,7 @@ const centralSupplyPath = myRequire.resolve(
  * just for this purpose. Each time we want to mint a fee/stable token payment,
  * we make an instance of of the `centralSupply` contract.
  *
- * @param {Object} powers
+ * @param {object} powers
  * @param {ERef<FeeMintAccess>} powers.feeMintAccess for minting IST
  * @param {ERef<ZoeService>} powers.zoe for starting the `centralSupply` contract
  * @param {BundleCache} powers.bundleCache for bundling the `centralSupply` contract

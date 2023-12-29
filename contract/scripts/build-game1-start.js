@@ -16,11 +16,9 @@ export const game1ProposalBuilder = async ({ publishRef, install }) => {
       getManifestForGame1.name,
       {
         game1Ref: publishRef(
-          install(
-            '../src/gameAssetContract.js',
-            '../bundles/bundle-game1.js',
-            { persist: true },
-          ),
+          install('../src/gameAssetContract.js', '../bundles/bundle-game1.js', {
+            persist: true,
+          }),
         ),
       },
     ],
