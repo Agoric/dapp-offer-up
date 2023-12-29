@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    // Don't check by default because that includes node_modules in JS
+    "checkJs": false,
+    // Features implied with jsconfig.json that have to be explicit in tsconfig.json
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "maxNodeModuleJsDepth": 2,
+    "strict": true
+  },
+  "include": ["**/*.js", "**/*.ts"]
+}

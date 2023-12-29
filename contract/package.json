@@ -13,14 +13,16 @@
     "start": "yarn docker:make clean start-contract print-key",
     "build": "exit 0",
     "test": "ava --verbose",
-    "lint": "eslint '**/*.{js,jsx}'",
-    "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "lint-fix-jessie": "eslint -c '.eslintrc-jessie.js' --fix '**/*.{js,jsx}'",
-    "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.{js,jsx}'"
+    "lint": "eslint '**/*.{js,ts}'",
+    "lint-fix": "eslint --fix '**/*.{js,ts}'",
+    "lint-fix-jessie": "eslint -c '.eslintrc-jessie.js' --fix '**/*.js'",
+    "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.js'",
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "agoric": "^0.21.2-u12.0",
     "@agoric/deploy-script-support": "^0.10.4-u12.0",
+    "@agoric/eslint-config": "dev",
     "@endo/bundle-source": "^2.8.0",
     "@endo/eslint-plugin": "^0.5.2",
     "@endo/init": "^0.5.60",
@@ -73,9 +75,43 @@
   },
   "homepage": "https://github.com/agoric-labs/dapp-join-game#readme",
   "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
     "extends": [
+      "plugin:@typescript-eslint/recommended",
       "@agoric"
-    ]
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "rules": {
+      "@typescript-eslint/prefer-ts-expect-error": "warn",
+      "@typescript-eslint/no-floating-promises": "warn",
+      "no-void": [
+        "error",
+        {
+          "allowAsStatement": true
+        }
+      ],
+      "prettier/prettier": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "all",
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ]
+    }
   },
   "prettier": {
     "trailingComma": "all",
