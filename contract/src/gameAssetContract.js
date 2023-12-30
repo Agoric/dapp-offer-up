@@ -23,8 +23,9 @@ const bagValueSize = amt => {
   return total;
 };
 
+/** @typedef {StandardTerms & { joinPrice: Amount<'nat'> }} GamePlacesTerms */
 /**
- * @param {ZCF<{joinPrice: Amount}>} zcf
+ * @param {ZCF<GamePlacesTerms>} zcf
  */
 export const start = async zcf => {
   const { joinPrice } = zcf.getTerms();

@@ -1,7 +1,8 @@
 // @ts-check
-import { E } from '@endo/far';
+import { E } from '@endo/eventual-send';
 import { makeMarshal } from '@endo/marshal';
 import { AmountMath } from '@agoric/ertp/src/amountMath.js';
+import '@agoric/zoe/exported.js';
 
 console.warn('start-game1-proposal.js module evaluating');
 
@@ -26,6 +27,11 @@ const makeBoardAuxNode = async (chainStorage, boardId) => {
   return E(boardAux).makeChildNode(boardId);
 };
 
+/**
+ * @param {ERef<StorageNode>} chainStorage
+ * @param {ERef<import('@agoric/vats/src/types').Board>} board
+ * @param {ERef<Brand>} brand
+ */
 const publishBrandInfo = async (chainStorage, board, brand) => {
   const [id, displayInfo] = await Promise.all([
     E(board).getId(brand),
@@ -38,8 +44,8 @@ const publishBrandInfo = async (chainStorage, board, brand) => {
 
 /**
  * Core eval script to start contract
- *
- * @param {BootstrapPowers} permittedPowers
+ * XXX FIXME File '~/agoric-sdk/packages/vats/src/core/types.js' is not a module
+ * @param {import('@agoric/vats/src/core/types').BootstrapPowers} permittedPowers
  */
 export const startGameContract = async permittedPowers => {
   console.error('startGameContract()...');
@@ -47,19 +53,16 @@ export const startGameContract = async permittedPowers => {
     consume: { board, chainStorage, startUpgradable, zoe },
     brand: {
       consume: { IST: istBrandP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Place: producePlaceBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Place: producePlaceIssuer },
     },
     installation: {
       consume: { game1: game1InstallationP },
     },
     instance: {
-      // @ts-expect-error dynamic extension to promise space
       produce: { game1: produceInstance },
     },
   } = permittedPowers;
@@ -117,6 +120,9 @@ const gameManifest = {
 };
 harden(gameManifest);
 
+/**
+ * @param {{restoreRef: (ref: unknown) => Promise<unknown> }} r
+ * @param {{ game1Ref: unknown }} g */
 export const getManifestForGame1 = ({ restoreRef }, { game1Ref }) => {
   return harden({
     manifest: gameManifest,

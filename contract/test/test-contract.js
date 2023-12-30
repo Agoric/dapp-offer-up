@@ -7,7 +7,8 @@
 import { test as anyTest } from './prepare-test-env-ava.js';
 
 import { createRequire } from 'module';
-import { E, Far } from '@endo/far';
+import { E } from '@endo/eventual-send';
+import { Far } from '@endo/far';
 import { makePromiseKit } from '@endo/promise-kit';
 import { makeCopyBag } from '@endo/patterns';
 import { makeNodeBundleCache } from '@endo/bundle-source/cache.js';
@@ -78,8 +79,8 @@ test('Start the contract', async t => {
  *
  * @param {import('ava').ExecutionContext} t
  * @param {ZoeService} zoe
- * @param {ERef<import('@agoric/zoe/src/zoeService/utils').Instance<GameContractFn>} instance
- * @param {Purse} purse
+ * @param {import('@agoric/zoe/src/zoeService/utils').Instance<GameContractFn>} instance
+ * @param {Purse<"nat">} purse
  * @param {string[]} choices
  */
 const alice = async (
@@ -90,7 +91,7 @@ const alice = async (
   choices = ['Park Place', 'Boardwalk'],
 ) => {
   const publicFacet = E(zoe).getPublicFacet(instance);
-  // @ts-expect-error Promise<Instance> seems to work
+  /** @type {import('../src/gameAssetContract.js').GamePlacesTerms} */
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, joinPrice } = terms;
 
@@ -188,6 +189,14 @@ test('use the code that will go on chain to start the contract', async t => {
     });
 
     const { zoe } = t.context;
+    /**
+     * @param {{
+     *  installation: ERef<Installation<GameContractFn>>;
+     *  issuerKeywordRecord: IssuerKeywordRecord;
+     *  label: string;
+     *  terms: import('../src/gameAssetContract.js').GamePlacesTerms;
+     * }} opts
+     */
     const startUpgradable = async ({
       installation,
       issuerKeywordRecord,
