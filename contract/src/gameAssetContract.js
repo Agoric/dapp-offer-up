@@ -23,7 +23,7 @@ const bagValueSize = amt => {
   return total;
 };
 
-/** @typedef {{joinPrice: Amount<'nat'>}} GamePlacesTerms */
+/** @typedef {{joinPrice: Amount<AssetKind>}} GamePlacesTerms */
 /**
  * @param {ZCF<GamePlacesTerms>} zcf
  */
