@@ -36,6 +36,8 @@
   },
   "resolutions": {
     "**/ses": "^0.18.8",
-    "**/@agoric/xsnap": "0.14.3-dev-9f085d3.0"
+    "**/@agoric/xsnap": "0.14.3-dev-9f085d3.0",
+    "@babel/code-frame": "7.18.6",
+    "@babel/highlight": "7.22.5"
   }
 }
