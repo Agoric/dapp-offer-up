@@ -12,6 +12,7 @@ jobs:
       - name: Use Node.js 18.8.x
         uses: actions/setup-node@v3
         with:
+          # use node 18.8.x until Agoric/agoric-sdk#8636
           node-version: '18.8.x'
       - name: yarn install
         run: yarn
