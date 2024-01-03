@@ -8,6 +8,7 @@
     "contract",
     "ui"
   ],
+  "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
     "ses": "0.18.4",
     "@endo/bundle-source": "2.5.2-upstream-rollup",
