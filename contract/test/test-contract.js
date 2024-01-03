@@ -80,6 +80,7 @@ test('Start the contract', async t => {
  * @param {ZoeService} zoe
  * @param {ERef<import('@agoric/zoe/src/zoeService/utils').Instance<GameContractFn>} instance
  * @param {Purse} purse
+ * @param {string[]} choices
  */
 const alice = async (
   t,
