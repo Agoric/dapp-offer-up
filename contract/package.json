@@ -11,7 +11,7 @@
     "docker:make": "docker compose exec agd make -C /workspace/contract",
     "make:help": "make list",
     "start": "yarn docker:make clean start-contract print-key",
-    "build": "node_modules/agoric/bin/agoric run scripts/build-game1-start.js",
+    "build": "node_modules/.bin/agoric run scripts/build-game1-start.js",
     "test": "ava --verbose",
     "lint": "yarn lint:eslint # && yarn lint:types",
     "lint:eslint": "eslint '**/*.{js,ts}'",
