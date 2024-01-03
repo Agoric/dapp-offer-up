@@ -7,8 +7,7 @@
 import { test as anyTest } from './prepare-test-env-ava.js';
 
 import { createRequire } from 'module';
-import { E } from '@endo/eventual-send';
-import { Far } from '@endo/far';
+import { E, Far } from '@endo/far';
 import { makePromiseKit } from '@endo/promise-kit';
 import { makeCopyBag } from '@endo/patterns';
 import { makeNodeBundleCache } from '@endo/bundle-source/cache.js';

@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-import { E } from '@endo/eventual-send';
+import { E } from '@endo/far';
 import { createRequire } from 'module';
 
 const myRequire = createRequire(import.meta.url);

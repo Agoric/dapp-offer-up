@@ -8,8 +8,7 @@ import { test } from './prepare-test-env-ava.js';
 
 import { createRequire } from 'module';
 import bundleSource from '@endo/bundle-source';
-import { E } from '@endo/eventual-send';
-import { passStyleOf } from '@endo/far';
+import { E, passStyleOf } from '@endo/far';
 import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
 
 const myRequire = createRequire(import.meta.url);

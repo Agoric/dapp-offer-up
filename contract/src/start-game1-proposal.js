@@ -1,5 +1,5 @@
 // @ts-check
-import { E } from '@endo/eventual-send';
+import { E } from '@endo/far';
 import { makeMarshal } from '@endo/marshal';
 import { AmountMath } from '@agoric/ertp/src/amountMath.js';
 import '@agoric/zoe/exported.js';
@@ -122,7 +122,8 @@ harden(gameManifest);
 
 /**
  * @param {{restoreRef: (ref: unknown) => Promise<unknown> }} r
- * @param {{ game1Ref: unknown }} g */
+ * @param {{ game1Ref: unknown }} g
+ */
 export const getManifestForGame1 = ({ restoreRef }, { game1Ref }) => {
   return harden({
     manifest: gameManifest,
