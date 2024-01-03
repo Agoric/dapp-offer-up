@@ -13,5 +13,6 @@
     "maxNodeModuleJsDepth": 2,
     "strict": true
   },
-  "include": ["**/*.js", "**/*.ts"]
+  "include": ["**/*.js", "**/*.ts"],
+  "exclude": ["bundles"]
 }
