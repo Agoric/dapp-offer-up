@@ -13,11 +13,10 @@
     "start": "yarn docker:make clean start-contract print-key",
     "build": "exit 0",
     "test": "ava --verbose",
-    "lint": "eslint '**/*.{js,ts}'",
-    "lint-fix": "eslint --fix '**/*.{js,ts}'",
-    "lint-fix-jessie": "eslint -c '.eslintrc-jessie.js' --fix '**/*.js'",
-    "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.js'",
-    "typecheck": "tsc"
+    "lint": "yarn lint:eslint # && yarn lint:types",
+    "lint:eslint": "eslint '**/*.{js,ts}'",
+    "lint:fix": "eslint --fix '**/*.{js,ts}'",
+    "lint:types": "tsc"
   },
   "dependencies": {
     "@agoric/ertp": "0.16.3-u13.0",
