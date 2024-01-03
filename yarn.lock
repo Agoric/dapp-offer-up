@@ -167,6 +167,11 @@
     "@endo/nat" "4.1.27"
     "@endo/promise-kit" "0.2.56"
 
+"@agoric/eslint-config@dev":
+  version "0.4.1-dev-92855b2.0"
+  resolved "https://registry.yarnpkg.com/@agoric/eslint-config/-/eslint-config-0.4.1-dev-92855b2.0.tgz#785047361da1af5956c0555d94867dc2caf837b8"
+  integrity sha512-tBJnlh4Td/VtMlSzMCRRimwFY7OIIWKmBorjuhDlVbApnoLZGGqQVe6FkbjE+b8S3kJnfoGShAO/jzUxXekjJw==
+
 "@agoric/eventual-send@^0.14.1":
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/@agoric/eventual-send/-/eventual-send-0.14.1.tgz#b414888bed67cf003a61bd22da30a70f79b8f9dc"
