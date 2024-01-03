@@ -13,10 +13,8 @@
     "start": "yarn docker:make clean start-contract print-key",
     "build": "exit 0",
     "test": "ava --verbose",
-    "lint": "eslint '**/*.{js,jsx}'",
-    "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "lint-fix-jessie": "eslint -c '.eslintrc-jessie.js' --fix '**/*.{js,jsx}'",
-    "lint-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.{js,jsx}'"
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "eslint --fix '**/*.js'"
   },
   "devDependencies": {
     "agoric": "^0.21.2-u12.0",
