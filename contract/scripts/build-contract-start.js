@@ -6,17 +6,17 @@
  */
 
 import { makeHelpers } from '@agoric/deploy-script-support';
-import { getManifestForGame1 } from '../src/start-offer-items.js';
+import { getManifest } from '../src/start-offer-items.js';
 
 /** @type {import('@agoric/deploy-script-support/src/externalTypes.js').ProposalBuilder} */
-export const game1ProposalBuilder = async ({ publishRef, install }) => {
+export const proposalBuilder = async ({ publishRef, install }) => {
   return harden({
-    sourceSpec: '../src/start-game1-proposal.js',
+    sourceSpec: '../src/start-offer-items.js',
     getManifestCall: [
-      getManifestForGame1.name,
+      getManifest.name,
       {
-        game1Ref: publishRef(
-          install('../src/gameAssetContract.js', '../bundles/bundle-game1.js', {
+        offerItemsRef: publishRef(
+          install('../src/offerItems.js', '../bundles/bundle-offerItems.js', {
             persist: true,
           }),
         ),
@@ -28,5 +28,5 @@ export const game1ProposalBuilder = async ({ publishRef, install }) => {
 /** @type {DeployScriptFunction} */
 export default async (homeP, endowments) => {
   const { writeCoreProposal } = await makeHelpers(homeP, endowments);
-  await writeCoreProposal('start-game1', game1ProposalBuilder);
+  await writeCoreProposal('start-contract', proposalBuilder);
 };
