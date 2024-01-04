@@ -6,7 +6,7 @@
  */
 
 import { makeHelpers } from '@agoric/deploy-script-support';
-import { getManifestForGame1 } from '../src/start-game1-proposal.js';
+import { getManifestForGame1 } from '../src/start-offer-items.js';
 
 /** @type {import('@agoric/deploy-script-support/src/externalTypes.js').ProposalBuilder} */
 export const game1ProposalBuilder = async ({ publishRef, install }) => {
@@ -16,11 +16,9 @@ export const game1ProposalBuilder = async ({ publishRef, install }) => {
       getManifestForGame1.name,
       {
         game1Ref: publishRef(
-          install(
-            '../src/gameAssetContract.js',
-            '../bundles/bundle-game1.js',
-            { persist: true },
-          ),
+          install('../src/gameAssetContract.js', '../bundles/bundle-game1.js', {
+            persist: true,
+          }),
         ),
       },
     ],
