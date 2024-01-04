@@ -11,7 +11,7 @@
     "docker:make": "docker compose exec agd make -C /workspace/contract",
     "make:help": "make list",
     "start": "yarn docker:make clean start-contract print-key",
-    "build": "exit 0",
+    "build": "agoric run scripts/build-game1-start.js",
     "test": "ava --verbose",
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint --fix '**/*.js'"
@@ -43,10 +43,6 @@
     "prettier-plugin-jsdoc": "^1.0.0",
     "type-coverage": "^2.26.3",
     "typescript": "~5.2.2"
-  },
-  "resolutions": {
-    "@babel/code-frame": "7.18.6",
-    "@babel/highlight": "7.22.5"
   },
   "dependencies": {
     "@agoric/zoe": "^0.26.3-u12.0",
