@@ -4,7 +4,7 @@ This is a simple app for the [Agoric smart contract platform](https://docs.agori
 
 <img alt="Vite + React + Agoric page with Connect Wallet button"
 style="border: 1px solid" width="300"
-src="https://github.com/Agoric/documentation/assets/150986/36a87384-0148-4f9e-8606-e176bd7880b3" />
+src="https://docs.agoric.com/assets/img/new_002_small2.2dfb7462.png" />
 
 The contract lets you give a small amount of [IST](https://inter.trade/) in exchange for
 a few NFTs that represent places in a hypothetical game.
