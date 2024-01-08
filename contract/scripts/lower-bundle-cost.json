@@ -1,0 +1,49 @@
+{
+    "title": "Lower Bundle Cost to 0.02 IST/Kb (a la mainnet 61)",
+    "description": "0.02 IST/Kb",
+    "deposit": "10000000ubld",
+    "changes": [
+        {
+            "subspace": "swingset",
+            "key": "beans_per_unit",
+            "value": [
+                {
+                    "key": "blockComputeLimit",
+                    "beans": "6500000000"
+                },
+                {
+                    "key": "feeUnit",
+                    "beans": "1000000000000"
+                },
+                {
+                    "key": "inboundTx",
+                    "beans": "10000000000"
+                },
+                {
+                    "key": "message",
+                    "beans": "1000000000"
+                },
+                {
+                    "key": "messageByte",
+                    "beans": "20000000"
+                },
+                {
+                    "key": "minFeeDebit",
+                    "beans": "200000000000"
+                },
+                {
+                    "key": "vatCreation",
+                    "beans": "30000000"
+                },
+                {
+                    "key": "xsnapComputron",
+                    "beans": "100"
+                },
+                {
+                    "key": "storageByte",
+                    "beans": "20000000"
+                }
+            ]
+        }
+    ]
+}
