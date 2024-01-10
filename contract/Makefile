@@ -21,6 +21,48 @@ SIGN_BROADCAST_OPTS=--keyring-backend=test --chain-id=$(CHAINID) \
 		--gas=auto --gas-adjustment=$(GAS_ADJUSTMENT) \
 		--yes -b block
 
+mint100:
+	make FUNDS=1000$(ATOM) fund-acct
+	cd /usr/src/agoric-sdk && \
+		yarn --silent agops vaults open --wantMinted 100 --giveCollateral 100 >/tmp/want-ist.json && \
+		yarn --silent agops perf satisfaction --executeOffer /tmp/want-ist.json --from user1 --keyring-backend=test
+
+# https://agoric.explorers.guru/proposal/61
+lower-bundle-cost: bundles/lower-bundle-cost.json ./scripts/voteLatestProposalAndWait.sh
+	agd tx gov submit-proposal param-change bundles/lower-bundle-cost.json \
+	$(SIGN_BROADCAST_OPTS) \
+	--from user1
+	./scripts/voteLatestProposalAndWait.sh
+	# agd query swingset params
+
+
+bundles/swingset-params.json:
+	mkdir -p bundles/
+	agd query swingset params -o json >$@
+
+.ONESHELL:
+bundles/lower-bundle-cost.json: bundles/swingset-params.json
+	@read PARAMS < bundles/swingset-params.json; export PARAMS
+	node - <<- EOF >$@
+		const storageByte = '20000000';
+		const paramChange = {
+			title: 'Lower Bundle Cost to 0.02 IST/Kb (a la mainnet 61)',
+			description: '0.02 IST/Kb',
+			deposit: '10000000ubld',
+			changes: [{
+				subspace: 'swingset',
+				key: 'beans_per_unit',
+				value: '...',
+			}],
+		};
+		const params = JSON.parse(process.env.PARAMS);
+		const ix = params.beans_per_unit.findIndex(({key}) => key === 'storageByte');
+		params.beans_per_unit[ix].beans = storageByte;
+		paramChange.changes[0].value = params.beans_per_unit;
+		console.log(JSON.stringify(paramChange, null, 2));
+	EOF
+
+# Keep mint4k around a while for compatibility
 mint4k:
 	make FUNDS=1000$(ATOM) fund-acct
 	cd /usr/src/agoric-sdk && \
