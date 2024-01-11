@@ -1,8 +1,8 @@
 {
-  "name": "game-places-contract",
+  "name": "offer-up-contract",
   "version": "0.1.0",
   "private": true,
-  "description": "Game Asset Contract",
+  "description": "Offer Up Contract",
   "type": "module",
   "scripts": {
     "start:docker": "docker compose up -d",
@@ -11,7 +11,7 @@
     "docker:make": "docker compose exec agd make -C /workspace/contract",
     "make:help": "make list",
     "start": "yarn docker:make clean start-contract print-key",
-    "build": "agoric run scripts/build-game1-start.js",
+    "build": "agoric run scripts/build-contract-deployer.js",
     "test": "ava --verbose",
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint --fix '**/*.js'"
@@ -60,14 +60,14 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/agoric-labs/dapp-join-game"
+    "url": "git+https://github.com/Agoric/dapp-offer-up"
   },
   "author": "Agoric",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/agoric-labs/dapp-join-game/issues"
+    "url": "https://github.com/Agoric/dapp-offer-up/issues"
   },
-  "homepage": "https://github.com/agoric-labs/dapp-join-game#readme",
+  "homepage": "https://github.com/Agoric/dapp-offer-up#readme",
   "eslintConfig": {
     "parserOptions": {
       "sourceType": "module",

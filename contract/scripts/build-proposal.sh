@@ -4,7 +4,7 @@
 cd /workspace/contract
 
 mkdir -p bundles
-(agoric run ./scripts/build-game1-start.js )>/tmp/,run.log
+(agoric run ./scripts/build-contract-deployer.js )>/tmp/,run.log
 ./scripts/parseProposals.mjs </tmp/,run.log \
   | jq -r '.bundles[]' | sort -u > bundles/bundle-list
 
