@@ -118,6 +118,7 @@ export const start = async zcf => {
     );
 
     buyerSeat.exit(true);
+    newItems.exit();
     return 'trade complete';
   };
 
