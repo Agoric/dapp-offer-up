@@ -17,8 +17,8 @@
     "lint:fix": "eslint --fix '**/*.js'"
   },
   "devDependencies": {
-    "agoric": "^0.21.2-u12.0",
-    "@agoric/deploy-script-support": "^0.10.4-u12.0",
+    "agoric": "^0.22.0-u13.0",
+    "@agoric/deploy-script-support": "^0.10.4-u13.0",
     "@endo/bundle-source": "^2.8.0",
     "@agoric/eslint-config": "dev",
     "@endo/eslint-plugin": "^0.5.2",
