@@ -31,7 +31,7 @@ type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const watcher = makeAgoricChainStorageWatcher(
   'http://localhost:26657',
-  'agoriclocal'
+  'agoriclocal',
 );
 
 interface CopyBag<T = string> {
@@ -68,7 +68,7 @@ const setup = async () => {
       useAppStore.setState({
         offerUpInstance: instances.find(([name]) => name === 'offerUp')!.at(1),
       });
-    }
+    },
   );
 
   watcher.watchLatest<Array<[string, unknown]>>(
@@ -78,7 +78,7 @@ const setup = async () => {
       useAppStore.setState({
         brands: fromEntries(brands),
       });
-    }
+    },
   );
 };
 
@@ -121,7 +121,7 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
       if (update.status === 'refunded') {
         alert('Offer rejected');
       }
-    }
+    },
   );
 };
 
@@ -156,7 +156,7 @@ function App() {
       switch (err.message) {
         case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
           alert(
-            'no smart wallet at that address; try: yarn docker:make print-key'
+            'no smart wallet at that address; try: yarn docker:make print-key',
           );
           break;
         default:
@@ -199,7 +199,7 @@ function App() {
               {stringifyAmountValue(
                 istPurse.currentAmount,
                 istPurse.displayInfo.assetKind,
-                istPurse.displayInfo.decimalPlaces
+                istPurse.displayInfo.decimalPlaces,
               )}
             </div>
             <div>
@@ -211,7 +211,7 @@ function App() {
                       <li key={name}>
                         {String(number)} {name}
                       </li>
-                    )
+                    ),
                   )}
                 </ul>
               ) : (
@@ -232,7 +232,7 @@ function App() {
       value={stringifyAmountValue(
         { ...purse.currentAmount, value: giveValue },
         purse.displayInfo.assetKind,
-        purse.displayInfo.decimalPlaces
+        purse.displayInfo.decimalPlaces,
       )}
       onChange={ev => setGiveValue(parseValue(ev?.target?.value, purse))}
       className={giveValue >= terms.price ? 'ok' : 'error'}
