@@ -1,6 +1,12 @@
 /**
  * @file Permission Contract Deployment builder
  *
+ * Creates files for starting an instance of the contract:
+ * * contract source and instantiation proposal bundles to be published via
+ *   `agd tx swingset install-bundle`
+ * * start-offer-up-permit.json and start-offer-up.js to submit the
+ *   instantiation proposal via `agd tx gov submit-proposal swingset-core-eval`
+ *
  * Usage:
  *   agoric run build-contract-deployer.js
  */
