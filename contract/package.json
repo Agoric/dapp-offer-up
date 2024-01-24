@@ -38,7 +38,6 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsdoc": "^46.4.3",
     "eslint-plugin-prettier": "^5.0.0",
-    "execa": "^8.0.1",
     "import-meta-resolve": "^2.2.1",
     "prettier": "^3.0.3",
     "prettier-plugin-jsdoc": "^1.0.0",
