@@ -1,65 +1,51 @@
 // @ts-check
 import { E } from '@endo/far';
-import { makeMarshal } from '@endo/marshal';
 import { AmountMath } from '@agoric/ertp/src/amountMath.js';
 
+import { manifest as boardAuxManifest } from './platform-goals/boardAux.js';
+import { manifest as endoManifest } from './platform-goals/marshal-produce.js';
+
+export { produceBoardAuxManager } from './platform-goals/boardAux.js';
+export { produceEndoModules } from './platform-goals/marshal-produce.js';
+
 console.warn('start proposal module evaluating');
-
-const { Fail } = assert;
-
-// vstorage paths under published.*
-const BOARD_AUX = 'boardAux';
-
-const marshalData = makeMarshal(_val => Fail`data only`);
 
 const IST_UNIT = 1_000_000n;
 const CENT = IST_UNIT / 100n;
 
-/**
- * Make a storage node for auxilliary data for a value on the board.
- *
- * @param {ERef<StorageNode>} chainStorage
- * @param {string} boardId
- */
-const makeBoardAuxNode = async (chainStorage, boardId) => {
-  const boardAux = E(chainStorage).makeChildNode(BOARD_AUX);
-  return E(boardAux).makeChildNode(boardId);
-};
+/** @template {string} T @typedef {import('./platform-goals/core-types').AssetsSpace<T>} AssetsSpace */
+/** @template {string} T @typedef {import('./platform-goals/core-types').ContractSpace<T>} ContractSpace */
 
-const publishBrandInfo = async (chainStorage, board, brand) => {
-  const [id, displayInfo] = await Promise.all([
-    E(board).getId(brand),
-    E(brand).getDisplayInfo(),
-  ]);
-  const node = makeBoardAuxNode(chainStorage, id);
-  const aux = marshalData.toCapData(harden({ displayInfo }));
-  await E(node).setValue(JSON.stringify(aux));
-};
+/**
+ * @typedef {AssetsSpace<'Item'>
+ *  & ContractSpace<'offerUp'>
+ * } OfferUpPowers
+ */
 
 /**
  * Core eval script to start contract
  *
- * @param {BootstrapPowers} permittedPowers
+ * @param {import('./platform-goals/core-types').BootstrapPowers
+ *   & OfferUpPowers
+ *   & import('./platform-goals/boardAux').BoardAuxPowers
+ *  } permittedPowers
  */
 export const startOfferUpContract = async permittedPowers => {
   console.error('startOfferUpContract()...');
   const {
-    consume: { board, chainStorage, startUpgradable, zoe },
+    consume: { brandAuxPublisher, startUpgradable, zoe },
     brand: {
       consume: { IST: istBrandP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemIssuer },
     },
     installation: {
       consume: { offerUp: offerUpInstallationP },
     },
     instance: {
-      // @ts-expect-error dynamic extension to promise space
       produce: { offerUp: produceInstance },
     },
   } = permittedPowers;
@@ -79,6 +65,7 @@ export const startOfferUpContract = async permittedPowers => {
     terms,
   });
   console.log('CoreEval script: started contract', instance);
+  /** @type {StandardTerms} */
   const {
     brands: { Item: brand },
     issuers: { Item: issuer },
@@ -94,7 +81,7 @@ export const startOfferUpContract = async permittedPowers => {
   produceItemBrand.resolve(brand);
   produceItemIssuer.resolve(issuer);
 
-  await publishBrandInfo(chainStorage, board, brand);
+  await E(brandAuxPublisher).publishBrandInfo(brand);
   console.log('offerUp (re)started');
 };
 
@@ -103,8 +90,7 @@ const offerUpManifest = {
   [startOfferUpContract.name]: {
     consume: {
       agoricNames: true,
-      board: true, // to publish boardAux info for NFT brand
-      chainStorage: true, // to publish boardAux info for NFT brand
+      brandAuxPublisher: true, // to publish displayInfo of NFT brand
       startUpgradable: true, // to start contract and save adminFacet
       zoe: true, // to get contract terms, including issuer/brand
     },
@@ -118,7 +104,7 @@ harden(offerUpManifest);
 
 export const getManifestForOfferUp = ({ restoreRef }, { offerUpRef }) => {
   return harden({
-    manifest: offerUpManifest,
+    manifest: { ...offerUpManifest, ...boardAuxManifest, ...endoManifest },
     installations: {
       offerUp: restoreRef(offerUpRef),
     },
