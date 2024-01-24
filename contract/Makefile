@@ -113,9 +113,12 @@ install-bundles: bundles/bundle-list
 
 build-proposal: bundles/bundle-list
 
-bundles/bundle-list $(SCRIPT) $(PERMIT):
+bundles/bundle-list $(SCRIPT) $(PERMIT): ./scripts/build-contract-deployer.js ./scripts/build-proposal.sh
 	./scripts/build-proposal.sh
 
+./scripts/build-contract-deployer.js: offer-up-proposal.js
+
+offer-up-proposal.js: platform-goals/boardAux.js platform-goals/marshal-produce.js
 
 clean:
 	@rm -rf $(SCRIPT) $(PERMIT) bundles/
