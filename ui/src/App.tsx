@@ -53,7 +53,7 @@ interface Purse {
 
 interface AppState {
   wallet?: Wallet;
-  gameInstance?: unknown;
+  offerUpInstance?: unknown;
   brands?: Record<string, unknown>;
   purses?: Array<Purse>;
 }
@@ -66,7 +66,7 @@ const setup = async () => {
     instances => {
       console.log('got instances', instances);
       useAppStore.setState({
-        gameInstance: instances.find(([name]) => name === 'game1')!.at(1),
+        offerUpInstance: instances.find(([name]) => name === 'offerUp')!.at(1),
       });
     }
   );
@@ -94,20 +94,20 @@ const connectWallet = async () => {
 };
 
 const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
-  const { wallet, gameInstance, brands } = useAppStore.getState();
-  if (!gameInstance) throw Error('no contract instance');
-  if (!(brands && brands.IST && brands.Place))
+  const { wallet, offerUpInstance, brands } = useAppStore.getState();
+  if (!offerUpInstance) throw Error('no contract instance');
+  if (!(brands && brands.IST && brands.Item))
     throw Error('brands not available');
 
   const value = makeCopyBag(entries(wantChoices));
-  const want = { Places: { brand: brands.Place, value } };
+  const want = { Items: { brand: brands.Item, value } };
   const give = { Price: { brand: brands.IST, value: giveValue } };
 
   wallet?.makeOffer(
     {
       source: 'contract',
-      instance: gameInstance,
-      publicInvitationMaker: 'makeJoinInvitation',
+      instance: offerUpInstance,
+      publicInvitationMaker: 'makeTradeInvitation',
     },
     { give, want },
     undefined,
@@ -149,7 +149,7 @@ function App() {
     purses,
   }));
   const istPurse = purses?.find(p => p.brandPetname === 'IST');
-  const placesPurse = purses?.find(p => p.brandPetname === 'Place');
+  const itemsPurse = purses?.find(p => p.brandPetname === 'Item');
 
   const tryConnectWallet = () => {
     connectWallet().catch(err => {
@@ -204,9 +204,9 @@ function App() {
             </div>
             <div>
               <b>Items:</b>
-              {placesPurse ? (
+              {itemsPurse ? (
                 <ul style={{ marginTop: 0, textAlign: 'left' }}>
-                  {(placesPurse.currentAmount.value as CopyBag).payload.map(
+                  {(itemsPurse.currentAmount.value as CopyBag).payload.map(
                     ([name, number]) => (
                       <li key={name}>
                         {String(number)} {name}
@@ -253,7 +253,7 @@ function App() {
     setChoices(newChoices);
   };
 
-  const WantPlaces = () => (
+  const WantItems = () => (
     <>
       <thead>
         <tr>
@@ -298,7 +298,7 @@ function App() {
   const Trade = () => (
     <>
       <table className="want">
-        <WantPlaces />
+        <WantItems />
         {istPurse && (
           <>
             <thead>

@@ -3,7 +3,7 @@ import { E } from '@endo/far';
 import { makeMarshal } from '@endo/marshal';
 import { AmountMath } from '@agoric/ertp/src/amountMath.js';
 
-console.warn('start-game1-proposal.js module evaluating');
+console.warn('start proposal module evaluating');
 
 const { Fail } = assert;
 
@@ -41,48 +41,47 @@ const publishBrandInfo = async (chainStorage, board, brand) => {
  *
  * @param {BootstrapPowers} permittedPowers
  */
-export const startGameContract = async permittedPowers => {
-  console.error('startGameContract()...');
+export const startOfferUpContract = async permittedPowers => {
+  console.error('startOfferUpContract()...');
   const {
     consume: { board, chainStorage, startUpgradable, zoe },
     brand: {
       consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { Place: producePlaceBrand },
+      produce: { Item: produceItemBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { Place: producePlaceIssuer },
+      produce: { Item: produceItemIssuer },
     },
     installation: {
-      consume: { game1: game1InstallationP },
+      consume: { offerUp: offerUpInstallationP },
     },
     instance: {
       // @ts-expect-error dynamic extension to promise space
-      produce: { game1: produceInstance },
+      produce: { offerUp: produceInstance },
     },
   } = permittedPowers;
 
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  // NOTE: joinPrice could be configurable
-  const terms = { joinPrice: AmountMath.make(istBrand, 25n * CENT) };
+  const terms = { tradePrice: AmountMath.make(istBrand, 25n * CENT) };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
-  const installation = await game1InstallationP;
+  const installation = await offerUpInstallationP;
 
   const { instance } = await E(startUpgradable)({
     installation,
     issuerKeywordRecord: { Price: istIssuer },
-    label: 'game1',
+    label: 'offerUp',
     terms,
   });
-  console.log('CoreEval script: started game contract', instance);
+  console.log('CoreEval script: started contract', instance);
   const {
-    brands: { Place: brand },
-    issuers: { Place: issuer },
+    brands: { Item: brand },
+    issuers: { Item: issuer },
   } = await E(zoe).getTerms(instance);
 
   console.log('CoreEval script: share via agoricNames:', brand);
@@ -90,38 +89,38 @@ export const startGameContract = async permittedPowers => {
   produceInstance.reset();
   produceInstance.resolve(instance);
 
-  producePlaceBrand.reset();
-  producePlaceIssuer.reset();
-  producePlaceBrand.resolve(brand);
-  producePlaceIssuer.resolve(issuer);
+  produceItemBrand.reset();
+  produceItemIssuer.reset();
+  produceItemBrand.resolve(brand);
+  produceItemIssuer.resolve(issuer);
 
   await publishBrandInfo(chainStorage, board, brand);
-  console.log('game1 (re)installed');
+  console.log('offerUp (re)started');
 };
 
 /** @type { import("@agoric/vats/src/core/lib-boot").BootstrapManifest } */
-const gameManifest = {
-  [startGameContract.name]: {
+const offerUpManifest = {
+  [startOfferUpContract.name]: {
     consume: {
       agoricNames: true,
-      board: true, // to publish boardAux info for game NFT
-      chainStorage: true, // to publish boardAux info for game NFT
+      board: true, // to publish boardAux info for NFT brand
+      chainStorage: true, // to publish boardAux info for NFT brand
       startUpgradable: true, // to start contract and save adminFacet
       zoe: true, // to get contract terms, including issuer/brand
     },
-    installation: { consume: { game1: true } },
-    issuer: { consume: { IST: true }, produce: { Place: true } },
-    brand: { consume: { IST: true }, produce: { Place: true } },
-    instance: { produce: { game1: true } },
+    installation: { consume: { offerUp: true } },
+    issuer: { consume: { IST: true }, produce: { Item: true } },
+    brand: { consume: { IST: true }, produce: { Item: true } },
+    instance: { produce: { offerUp: true } },
   },
 };
-harden(gameManifest);
+harden(offerUpManifest);
 
-export const getManifestForGame1 = ({ restoreRef }, { game1Ref }) => {
+export const getManifestForOfferUp = ({ restoreRef }, { offerUpRef }) => {
   return harden({
-    manifest: gameManifest,
+    manifest: offerUpManifest,
     installations: {
-      game1: restoreRef(game1Ref),
+      offerUp: restoreRef(offerUpRef),
     },
   });
 };

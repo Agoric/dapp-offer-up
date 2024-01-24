@@ -1,7 +1,7 @@
 {
-  "name": "game-places-agservers",
+  "name": "offer-up-agservers",
   "version": "0.0.1",
-  "description": "Agoric server instances for dapp-game-places",
+  "description": "Agoric server instances for dapp-offer-up",
   "private": true,
   "type": "module",
   "scripts": {
