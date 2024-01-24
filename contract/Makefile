@@ -120,5 +120,8 @@ bundles/bundle-list $(SCRIPT) $(PERMIT): ./scripts/build-contract-deployer.js ./
 
 offer-up-proposal.js: platform-goals/boardAux.js platform-goals/marshal-produce.js
 
+bld:
+	yarn --silent agoric run ./scripts/build-contract-deployer.js
+
 clean:
 	@rm -rf $(SCRIPT) $(PERMIT) bundles/
