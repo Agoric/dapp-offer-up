@@ -1395,7 +1395,7 @@
     "@endo/zip" "^0.2.31"
     ses "^0.18.4"
 
-"@endo/env-options@^0.1.1":
+"@endo/env-options@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@endo/env-options/-/env-options-0.1.4.tgz#e516bc3864f00b154944e444fb8996a9a0c23a45"
   integrity sha512-Ol8ct0aW8VK1ZaqntnUJfrYT59P6Xn36XPbHzkqQhsYkpudKDn5ILYEwGmSO/Ff+XJjv/pReNI0lhOyyrDa9mg==
@@ -7026,12 +7026,12 @@ serialize-error@^7.0.1:
   dependencies:
     type-fest "^0.13.1"
 
-ses@0.18.5, ses@^0.18.4, ses@^0.18.5, ses@^0.18.8:
-  version "0.18.5"
-  resolved "https://registry.yarnpkg.com/ses/-/ses-0.18.5.tgz#fc7a88c48dd292dd7253ce060104df5f1a36470d"
-  integrity sha512-paLV2JHUqGGpbLn+V4LM9g20WVzAn9jLU22Bx5/18fo6h6nF8SwhC+3cAMYxzmHmkAzplY5lkg1ms3xSkmSzdw==
+ses@0.18.8, ses@^0.18.4, ses@^0.18.5, ses@^0.18.8:
+  version "0.18.8"
+  resolved "https://registry.yarnpkg.com/ses/-/ses-0.18.8.tgz#88036511ac3b3c07e4d82dd8cfc6e5f3788205b6"
+  integrity sha512-kOH1AhJc6gWDXKURKeU1w7iFUdImAegAljVvBg5EUBgNqjH4bxcEsGVUadVEPtA2PVRMyQp1fiSMDwEZkQNj1g==
   dependencies:
-    "@endo/env-options" "^0.1.1"
+    "@endo/env-options" "^0.1.4"
 
 set-function-length@^1.1.1:
   version "1.1.1"
