@@ -10,7 +10,7 @@
   ],
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
-    "ses": "0.18.5",
+    "ses": "0.18.8",
     "@endo/bundle-source": "2.5.2-upstream-rollup",
     "@endo/captp": "3.1.1",
     "@endo/compartment-mapper": "0.8.4",
@@ -46,6 +46,7 @@
     "start:ui": "cd ui && yarn dev",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
+    "test:e2e": "yarn workspace offer-up-ui test:e2e",
     "build": "yarn workspaces run build"
   }
 }
