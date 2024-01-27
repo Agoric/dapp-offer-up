@@ -1,10 +1,11 @@
 import { FormEvent, useState } from 'react';
 import { stringifyAmountValue } from '@agoric/ui-components';
 import scrollIcon from '../assets/scroll.png';
+import istIcon from '../assets/IST.svg';
 import mapIcon from '../assets/map.png';
 import potionIcon from '../assets/potionBlue.png';
 
-const { entries, keys, values } = Object;
+const { entries, values } = Object;
 const sum = (xs: bigint[]) => xs.reduce((acc, next) => acc + next, 0n);
 
 const terms = {
@@ -25,14 +26,49 @@ const parseValue = (numeral: string, purse: Purse): bigint => {
   return BigInt(num);
 };
 
+const Item = ({
+  icon,
+  coinIcon,
+  label,
+  value,
+  onChange,
+  inputClassName,
+  inputStep,
+}: {
+  icon?: string;
+  coinIcon?: string;
+  label: string;
+  value: number | string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  inputClassName: string;
+  inputStep?: string;
+}) => (
+  <div className="item-col">
+    <label htmlFor={label}>
+      {label.charAt(0).toUpperCase() + label.slice(1)}
+    </label>
+    {icon && <img className="piece" src={icon} title={label} />}
+    {coinIcon && <img className="coin" src={coinIcon} title={label} />}
+    <input
+      title={label}
+      type="number"
+      min="0"
+      max="3"
+      value={value}
+      step={inputStep || '1'}
+      onChange={onChange}
+      className={`trade-input ${inputClassName}`}
+    />
+  </div>
+);
+
 type TradeProps = {
   makeOffer: (giveValue: bigint, wantChoices: Record<string, bigint>) => void;
   istPurse: Purse;
   walletConnected: boolean;
 };
 
-// TODO: don't wait for connect wallet to show Give.
-// IST displayInfo is available in vbankAsset or boardAux
+// TODO: IST displayInfo is available in vbankAsset or boardAux
 const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
   const [giveValue, setGiveValue] = useState(terms.price);
   const [choices, setChoices] = useState<ItemChoices>({ map: 1n, scroll: 2n });
@@ -48,84 +84,49 @@ const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
     setChoices(newChoices);
   };
 
-  const renderGiveValue = (purse: Purse) => (
-    <input
-      type="number"
-      min="0"
-      value={stringifyAmountValue(
-        { ...purse.currentAmount, value: giveValue },
-        purse.displayInfo.assetKind,
-        purse.displayInfo.decimalPlaces,
-      )}
-      onChange={ev => setGiveValue(parseValue(ev?.target?.value, purse))}
-      className={giveValue >= terms.price ? 'ok' : 'error'}
-      step="0.01"
-    />
-  );
-
-  const WantItems = () => (
-    <>
-      <thead>
-        <tr>
-          <th colSpan={keys(nameToIcon).length}>Want: Choose up to 3 items</th>
-        </tr>
-      </thead>
-      <tbody className="want">
-        <tr>
-          {entries(nameToIcon).map(([title, icon]) => (
-            <td key={title}>
-              <img className="piece" src={icon} title={title} />
-            </td>
-          ))}
-        </tr>
-
-        <tr>
-          {keys(nameToIcon).map(title => (
-            <td key={title}>
-              <input
-                title={title}
-                type="number"
-                min="0"
-                max="3"
-                value={Number(choices[title as ItemName])}
-                step="1"
-                onChange={changeChoice}
-                className={
-                  sum(values(choices)) <= terms.maxItems ? 'ok' : 'error'
-                }
-              />
-              <br />
-              {title}
-            </td>
-          ))}
-        </tr>
-      </tbody>
-    </>
-  );
-
   return (
     <>
-      <table className="want">
-        <WantItems />
-        {istPurse && (
-          <>
-            <thead>
-              <tr>
-                <th colSpan={keys(nameToIcon).length}>
-                  Give: Offer at least 0.25 IST
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td>{renderGiveValue(istPurse)}</td>
-                <td>IST</td>
-              </tr>
-            </tbody>
-          </>
-        )}
-      </table>
+      <div className="trade">
+        <h3>Want: Choose up to 3 items</h3>
+        <div className="row-center">
+          {entries(nameToIcon).map(([title, icon]) => (
+            <Item
+              key={title}
+              icon={icon}
+              value={Number(choices[title as ItemName] || 0n)}
+              label={title}
+              onChange={changeChoice}
+              inputClassName={
+                sum(values(choices)) <= terms.maxItems ? 'ok' : 'error'
+              }
+            />
+          ))}
+        </div>
+      </div>
+      <div className="trade">
+        <h3>Give: Offer at least 0.25 IST</h3>
+        <div className="row-center">
+          <Item
+            key="IST"
+            coinIcon={istIcon}
+            value={
+              istPurse
+                ? stringifyAmountValue(
+                    { ...istPurse.currentAmount, value: giveValue },
+                    istPurse.displayInfo.assetKind,
+                    istPurse.displayInfo.decimalPlaces,
+                  )
+                : '0.25'
+            }
+            label="IST"
+            onChange={ev =>
+              setGiveValue(parseValue(ev?.target?.value, istPurse))
+            }
+            inputClassName={giveValue >= terms.price ? 'ok' : 'error'}
+            inputStep="0.01"
+          />
+        </div>
+      </div>
       <div>
         {walletConnected && (
           <button onClick={() => makeOffer(giveValue, choices)}>
