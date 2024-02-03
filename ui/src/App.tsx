@@ -29,10 +29,12 @@ const terms = {
 
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
-const watcher = makeAgoricChainStorageWatcher(
-  'http://localhost:26657',
-  'agoriclocal',
-);
+const ENDPOINTS = {
+  RPC: 'http://localhost:26657',
+  API: 'http://localhost:1317',
+};
+
+const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
 
 interface CopyBag<T = string> {
   payload: Array<[T, bigint]>;
@@ -84,7 +86,7 @@ const setup = async () => {
 
 const connectWallet = async () => {
   await suggestChain('https://local.agoric.net/network-config');
-  const wallet = await makeAgoricWalletConnection(watcher);
+  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
   useAppStore.setState({ wallet });
   const { pursesNotifier } = wallet;
   for await (const purses of subscribeLatest(pursesNotifier)) {
