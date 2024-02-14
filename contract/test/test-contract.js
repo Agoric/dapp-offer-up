@@ -13,9 +13,15 @@ import { makeCopyBag } from '@endo/patterns';
 import { makeNodeBundleCache } from '@endo/bundle-source/cache.js';
 import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
 import { AmountMath, makeIssuerKit } from '@agoric/ertp';
+import { makeScalarMapStore } from '@agoric/store';
+import { makeDurableZone } from '@agoric/zone/durable.js';
 
 import { makeStableFaucet } from './mintStable.js';
-import { startOfferUpContract } from '../src/offer-up-proposal.js';
+import {
+  produceBoardAuxManager,
+  produceEndoModules,
+  startOfferUpContract,
+} from '../src/offer-up-proposal.js';
 
 /** @typedef {typeof import('../src/offer-up.contract.js').start} AssetContractFn */
 
@@ -166,6 +172,12 @@ test('use the code that will go on chain to start the contract', async t => {
     instance: makeProducer(),
     brand: makeProducer(),
     issuer: makeProducer(),
+    endo1: makeProducer(),
+    boardAux: {
+      brand: makeProducer(),
+      tofu: makeProducer(),
+      admin: makeProducer(),
+    },
   };
 
   /**
@@ -175,6 +187,8 @@ test('use the code that will go on chain to start the contract', async t => {
    * Here we simulate the ones needed for starting this contract.
    */
   const mockBootstrap = async () => {
+    const baggage = makeScalarMapStore('testing');
+    const zone = makeDurableZone(baggage);
     const board = { getId: noop };
     const chainStorage = Far('chainStorage', {
       makeChildNode: async () => chainStorage,
@@ -193,8 +207,24 @@ test('use the code that will go on chain to start the contract', async t => {
     const feeBrand = await E(feeIssuer).getBrand();
 
     const pFor = x => Promise.resolve(x);
-    const powers = {
-      consume: { zoe, chainStorage, startUpgradable, board },
+    const powers0 = {
+      zone,
+      produce: {
+        endo1: sync.endo1,
+        brandAuxPublisher: sync.boardAux.brand,
+        boardAuxTOFU: sync.boardAux.tofu,
+        boardAuxAdmin: sync.boardAux.admin,
+      },
+      consume: {
+        zoe,
+        chainStorage,
+        startUpgradable,
+        board,
+        endo1: sync.endo1.promise,
+        brandAuxPublisher: sync.boardAux.brand.promise,
+        boardAuxTOFU: sync.boardAux.tofu.promise,
+        boardAuxAdmin: sync.boardAux.admin.promise,
+      },
       brand: {
         consume: { IST: pFor(feeBrand) },
         produce: { Item: sync.brand },
@@ -206,6 +236,15 @@ test('use the code that will go on chain to start the contract', async t => {
       installation: { consume: { offerUp: sync.installation.promise } },
       instance: { produce: { offerUp: sync.instance } },
     };
+    /**
+     * @type {import('../src/platform-goals/core-types').BootstrapPowers
+     *   & import('../src/platform-goals/marshal-produce').Endo1Space
+     *   & import('../src/platform-goals/boardAux').BoardAuxPowers
+     *   & import('../src/offer-up-proposal.js').OfferUpPowers
+     * }
+     */
+    // @ts-expect-error mock
+    const powers = powers0;
     return powers;
   };
 
@@ -219,7 +258,11 @@ test('use the code that will go on chain to start the contract', async t => {
 
   // When the BLD staker governance proposal passes,
   // the startup function gets called.
-  await startOfferUpContract(powers);
+  await Promise.all([
+    produceEndoModules(powers),
+    produceBoardAuxManager(powers),
+    startOfferUpContract(powers),
+  ]);
   const instance = await sync.instance.promise;
 
   // Now that we have the instance, resume testing as above.
