@@ -109,8 +109,8 @@ export const start = async zcf => {
     const newItems = itemMint.mintGains(want);
     const charge = { Price: tradePrice };
     atomicRearrange(zcf, [
-      { fromSeat: buyerSeat, toSeat: proceeds, fromAmounts: charge },
-      { fromSeat: newItems, toSeat: buyerSeat, fromAmounts: want },
+      { from: buyerSeat, to: proceeds, amounts: charge },
+      { from: newItems, to: buyerSeat, amounts: want },
     ]);
 
     buyerSeat.exit(true);
