@@ -23,7 +23,7 @@ import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
-import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+import { atomicRearrange } from './platform-goals/zcfTools.js';
 import '@agoric/zoe/exported.js';
 
 const { Fail, quote: q } = assert;
@@ -107,15 +107,11 @@ export const start = async zcf => {
       Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
 
     const newItems = itemMint.mintGains(want);
-    atomicRearrange(
-      zcf,
-      harden([
-        // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: tradePrice }],
-        // new items to buyer
-        [newItems, buyerSeat, want],
-      ]),
-    );
+    const charge = { Price: tradePrice };
+    atomicRearrange(zcf, [
+      { from: buyerSeat, to: proceeds, amounts: charge },
+      { from: newItems, to: buyerSeat, amounts: want },
+    ]);
 
     buyerSeat.exit(true);
     newItems.exit();
