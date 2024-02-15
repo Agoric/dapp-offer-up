@@ -24,9 +24,8 @@ export const atomicRearrange = (zcf, transferParts) => {
       if (Array.isArray(part)) {
         return part;
       }
-      const toAmounts = part.mappedTo
-        ? mapKeywords(part.amounts, part.mappedTo)
-        : undefined;
+      const toAmounts =
+        part.mappedTo && mapKeywords(part.amounts, part.mappedTo);
       return [part.from, part.to, part.amounts, toAmounts];
     }),
   );
