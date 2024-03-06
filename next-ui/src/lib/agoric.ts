@@ -23,7 +23,7 @@ export const watcher = makeAgoricChainStorageWatcher(
 export type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const { fromEntries } = Object;
-export const getAgoricInstance = async (instance: string) => {
+export const getdappInstance = async (instance: string) => {
   return new Promise(resolve => {
     watcher.watchLatest<Array<[string, unknown]>>(
       [Kind.Data, 'published.agoricNames.instance'],

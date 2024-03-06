@@ -10,8 +10,8 @@ import { Logos } from './components/Logos.tsx';
 import {
   Wallet,
   connectWallet,
-  getAgoricInstance,
   getBrands,
+  getdappInstance,
 } from '../lib/agoric.ts';
 
 const { entries } = Object;
@@ -27,7 +27,7 @@ console.log('zustand create', create);
 const useAppStore = create<AppState>(() => ({}));
 
 const setup = async () => {
-  const offerUpInstance = await getAgoricInstance('offerUp');
+  const offerUpInstance = await getdappInstance('offerUp');
   if (!offerUpInstance) throw Error('no contract instance');
   const brands = await getBrands();
   if (!brands) throw Error('no brands');
