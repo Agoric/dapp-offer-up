@@ -23,6 +23,7 @@ interface AppState {
   purses?: Array<Purse>;
 }
 
+console.log('zustand create', create);
 const useAppStore = create<AppState>(() => ({}));
 
 const setup = async () => {
