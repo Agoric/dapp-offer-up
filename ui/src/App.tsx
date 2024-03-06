@@ -3,11 +3,14 @@ import { Logos } from './components/Logos';
 import { Inventory } from './components/Inventory';
 import { Trade } from './components/Trade';
 import { ContractProvider } from './providers/Contract';
-import { AgoricProvider } from '@agoric/react-components';
+import { AgoricProvider, AmountInput } from '@agoric/react-components';
 import { wallets } from 'cosmos-kit';
 import '@agoric/react-components/dist/style.css';
+import { useState } from 'react';
 
 const App = () => {
+  const [value, setValue] = useState(0n);
+
   return (
     <AgoricProvider
       wallets={wallets.extension}
@@ -29,6 +32,14 @@ const App = () => {
           <Trade />
           <hr />
           <Inventory />
+          <AmountInput
+            value={value}
+            onChange={v => {
+              console.log(v);
+              setValue(v);
+            }}
+            decimalPlaces={6}
+          />
         </div>
       </ContractProvider>
     </AgoricProvider>

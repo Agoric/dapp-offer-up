@@ -27,8 +27,8 @@
     "chain-registry": "^1.28.0",
     "cosmos-kit": "^2.9.0",
     "@testing-library/react": "^14.1.2",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "18.2.63",
+    "@types/react-dom": "18.2.20",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
@@ -40,14 +40,14 @@
     "happy-dom": "^13.3.1",
     "prettier": "^3.2.4",
     "puppeteer": "^21.9.0",
-    "ses": "^0.18.8",
+    "ses": "1.3.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vitest": "^1.2.1",
     "zustand": "^4.4.1"
   },
   "resolutions": {
-    "**/ses": "^0.18.8",
+    "**/ses": "1.3.0",
     "**/@agoric/xsnap": "0.14.3-dev-9f085d3.0"
   },
   "prettier": {
