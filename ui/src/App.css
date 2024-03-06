@@ -78,7 +78,7 @@
   align-items: center;
 }
 
-input {
+.input {
   border: none;
   background: #242424;
   text-align: center;
@@ -93,7 +93,7 @@ input {
     background: #fafafa;
     border: 1px solid #e5e5e5;
   }
-  input {
+  .input {
     background: #e5e5e5;
   }
 }
@@ -104,6 +104,6 @@ input {
 }
 
 /* increment/decrement arrows always visible */
-input[type='number']::-webkit-inner-spin-button {
+.input[type='number']::-webkit-inner-spin-button {
   opacity: 1;
 }

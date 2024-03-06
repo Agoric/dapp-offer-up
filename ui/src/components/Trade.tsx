@@ -54,6 +54,7 @@ const makeOffer = (
     { give, want },
     undefined,
     (update: { status: string; data?: unknown }) => {
+      console.log('UPDATE', update);
       if (update.status === 'error') {
         alert(`Offer error: ${update.data}`);
       }
@@ -98,7 +99,7 @@ const Item = ({
       value={value}
       step={inputStep || '1'}
       onChange={onChange}
-      className={`trade-input ${inputClassName}`}
+      className={`input trade-input ${inputClassName}`}
     />
   </div>
 );
@@ -168,6 +169,7 @@ const Trade = () => {
       <div>
         {walletConnection && brands && instance ? (
           <button
+            className="button"
             onClick={() => makeOffer(walletConnection, giveValue, choices)}
           >
             Make an Offer

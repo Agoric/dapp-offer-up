@@ -12,7 +12,7 @@ const Inventory = () => {
     <div className="card">
       <h3>My Wallet</h3>
       <div>
-        <ConnectWalletButton />
+        <ConnectWalletButton className="button" />
         {walletConnection && (
           <div style={{ textAlign: 'left' }}>
             <div>
