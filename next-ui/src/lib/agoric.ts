@@ -12,14 +12,14 @@ export const ENDPOINTS = {
   RPC: process.env.NEXT_PUBLIC_RPC_ENDPOINT,
   API: process.env.NEXT_PUBLIC_LCD_ENDPOINT,
 };
-
+const chainId = process.env.NEXT_PUBLIC_CHAIN_ID;
+if (!chainId) {
+  throw new Error('Missing chain ID');
+}
 if (!ENDPOINTS.RPC || !ENDPOINTS.API) {
   throw new Error('Missing RPC or API endpoint');
 }
-export const watcher = makeAgoricChainStorageWatcher(
-  ENDPOINTS.API,
-  'agoriclocal',
-);
+export const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, chainId);
 export type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const { fromEntries } = Object;
@@ -51,7 +51,7 @@ export const connectWallet = async () => {
   const walletpurses: Array<Purse> = [];
   try {
     await suggestChain('https://local.agoric.net/network-config');
-    const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
+    const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC!);
     const { pursesNotifier } = wallet;
     for await (const purses of subscribeLatest(pursesNotifier)) {
       console.log('got purses', purses);
@@ -61,4 +61,5 @@ export const connectWallet = async () => {
   } catch (err) {
     console.error('Error connecting wallet', err);
     throw err;
+  }
 };
