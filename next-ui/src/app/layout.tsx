@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
-import React, { PropsWithChildren } from 'react';
+import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 export const metadata: Metadata = {
-  title: 'Dapp Offer Up',
+  title: 'Dapp Offer Up Nextjs',
   description: 'Dapp Offer Up Next.js UI',
 };
 
@@ -9,7 +10,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/public/agoric.svg" />
+        <Link rel="icon" type="image/svg+xml" href="/public/agoric.svg" />
       </head>
       <body>
         <div id="root">{children}</div>

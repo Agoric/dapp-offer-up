@@ -1,33 +1,20 @@
-import './installSesLockdown.ts';
+import './installSesLockdown.ts'; // Must be the first
 import { useEffect } from 'react';
-
-import './App.css';
-import {
-  makeAgoricChainStorageWatcher,
-  AgoricChainStoragePathKind as Kind,
-} from '@agoric/rpc';
 import { create } from 'zustand';
-import {
-  makeAgoricWalletConnection,
-  suggestChain,
-} from '@agoric/web-components';
-import { subscribeLatest } from '@agoric/notifier';
+import './App.css';
 import { Inventory } from './components/Inventory';
 import { Trade } from './components/Trade';
 import { makeCopyBag } from '@agoric/store';
-import React from 'react';
 import { Logos } from './components/Logos.tsx';
 
-const { entries, fromEntries } = Object;
+import {
+  Wallet,
+  connectWallet,
+  getAgoricInstance,
+  getBrands,
+} from '../lib/agoric.ts';
 
-type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
-
-const ENDPOINTS = {
-  RPC: 'http://localhost:26657',
-  API: 'http://localhost:1317',
-};
-
-const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
+const { entries } = Object;
 
 interface AppState {
   wallet?: Wallet;
@@ -39,36 +26,11 @@ interface AppState {
 const useAppStore = create<AppState>(() => ({}));
 
 const setup = async () => {
-  watcher.watchLatest<Array<[string, unknown]>>(
-    [Kind.Data, 'published.agoricNames.instance'],
-    instances => {
-      console.log('got instances', instances);
-      useAppStore.setState({
-        offerUpInstance: instances.find(([name]) => name === 'offerUp')!.at(1),
-      });
-    },
-  );
-
-  watcher.watchLatest<Array<[string, unknown]>>(
-    [Kind.Data, 'published.agoricNames.brand'],
-    brands => {
-      console.log('Got brands', brands);
-      useAppStore.setState({
-        brands: fromEntries(brands),
-      });
-    },
-  );
-};
-
-const connectWallet = async () => {
-  await suggestChain('https://local.agoric.net/network-config');
-  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
-  useAppStore.setState({ wallet });
-  const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest(pursesNotifier)) {
-    console.log('got purses', purses);
-    useAppStore.setState({ purses });
-  }
+  const offerUpInstance = await getAgoricInstance('offerUp');
+  if (!offerUpInstance) throw Error('no contract instance');
+  const brands = await getBrands();
+  if (!brands) throw Error('no brands');
+  useAppStore.setState({ offerUpInstance, brands });
 };
 
 const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
@@ -116,18 +78,11 @@ function App() {
   const istPurse = purses?.find(p => p.brandPetname === 'IST');
   const itemsPurse = purses?.find(p => p.brandPetname === 'Item');
 
-  const tryConnectWallet = () => {
-    connectWallet().catch(err => {
-      switch (err.message) {
-        case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
-          alert(
-            'no smart wallet at that address; try: yarn docker:make print-key',
-          );
-          break;
-        default:
-          alert(err.message);
-      }
-    });
+  const tryConnectWallet = async () => {
+    const { wallet, walletpurses } = await connectWallet();
+    console.log('wallet', wallet);
+    console.log('walletpurses', walletpurses);
+    useAppStore.setState({ wallet, purses: walletpurses });
   };
 
   return (

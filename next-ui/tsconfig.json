@@ -32,13 +32,19 @@
       }
     ]
   },
+  "paths": {
+    "next": [
+      ".next"
+    ],
+    "@/*": [
+      "src/*"
+    ],
+  },
   "include": [
     "./src",
-    "./dist/types/**/*.ts",
     "./next-env.d.ts",
-    ".next/types/**/*.ts",
-    "./src/app/index.d.ts"
-  ],
+    "./src/app/index.d.ts",
+    ".next/types/**/*.ts",  ],
   "exclude": [
     "./node_modules"
   ]

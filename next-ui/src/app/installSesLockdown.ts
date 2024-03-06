@@ -8,5 +8,5 @@ lockdown({
   overrideTaming: 'severe',
   consoleTaming,
 });
-
+console.log('SES lockdown successful!');
 Error.stackTraceLimit = Infinity;
