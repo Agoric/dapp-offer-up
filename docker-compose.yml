@@ -2,9 +2,8 @@ version: '3.5'
 
 services:
   agd:
-    # image publication is WIP
-    # cf. https://github.com/Agoric/agoric-3-proposals/issues/6
-    image: ghcr.io/agoric/agoric-3-proposals:main
+    # cf. https://github.com/Agoric/agoric-3-proposals
+    image: ghcr.io/agoric/agoric-3-proposals:latest
     platform: linux/amd64
     ports:
       - 26656:26656
