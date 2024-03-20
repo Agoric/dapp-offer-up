@@ -1,10 +1,10 @@
-name: Lint and Test
+name: CI
 
 on:
   pull_request:
 
 jobs:
-  all:
+  unit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           # use node 18.8.x until Agoric/agoric-sdk#8636
-          node-version: '18.8.x'
+          node-version: "18.8.x"
       - name: yarn install
         run: yarn
       - name: yarn lint
@@ -24,3 +24,43 @@ jobs:
         run: yarn test
       - name: yarn test:e2e
         run: yarn test:e2e
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: yarn install
+        run: yarn
+      - name: yarn start:docker
+        run: yarn start:docker
+      - name: yarn build
+        run: yarn build
+      # Borrowed from https://github.com/DCFoundation/cosmos-proposal-builder/blob/main/.github/workflows/pr.yml#L43-L61
+      - name: Wait for Docker container to be ready
+        run: |
+          timeout 300 bash -c '
+            TARGET_HEIGHT=1111
+            SLEEP=10
+            echo "Waiting for the Agoric service to be fully ready..."
+            echo "Target block height: $TARGET_HEIGHT"
+            while true; do
+              response=$(curl --silent http://localhost:26657/abci_info);
+              height=$(echo $response | jq -r ".result.response.last_block_height | tonumber");
+              if [ "$height" -ge $TARGET_HEIGHT ]; then
+                echo "Service is ready! Last block height: $height";
+                break;
+              else
+                echo "Waiting for last block height to reach $TARGET_HEIGHT. Current height: $height";
+              fi;
+              sleep $SLEEP;
+            done
+          '
+      - name: yarn start:contract
+        run: yarn start:contract
+      - name: verify contracts started onchain
+        run: |
+          curl http://localhost:1317/agoric/vstorage/data/published.agoricNames.instance | grep offerUp
