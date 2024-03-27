@@ -10,7 +10,7 @@
     "docker:bash": "docker compose exec agd bash",
     "docker:make": "docker compose exec agd make -C /workspace/contract",
     "make:help": "make list",
-    "start": "yarn docker:make clean start-contract print-key",
+    "start": "yarn docker:make clean start-contract",
     "build": "agoric run scripts/build-contract-deployer.js",
     "test": "ava --verbose",
     "lint": "eslint '**/*.js'",
