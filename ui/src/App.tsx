@@ -7,6 +7,7 @@ import {
   AgoricProvider,
   NetworkDropdown,
   NodeSelectorModal,
+  OnboardIstModal,
 } from '@agoric/react-components';
 import { wallets } from 'cosmos-kit';
 import '@agoric/react-components/dist/style.css';
@@ -54,6 +55,7 @@ const App = () => {
           <ContractProvider>
             <Logos />
             <NetworkDropdown networkConfigs={[mainnet, emerynet, localnet]} />
+            <OnboardIstModal />
             <NodeSelectorModal
               onClose={() => setIsOpen(false)}
               isOpen={isOpen}
