@@ -95,14 +95,6 @@ vote:
 instance-q:
 	agd query vstorage data published.agoricNames.instance -o json
 
-print-key: /root/.agoric/user1.key
-	@echo Import the following mnemonic into Keplr:
-	@cat $<
-	@echo
-	@echo -n 'The resulting address should be: '
-	@agd keys show user1 -a --keyring-backend="test"
-	@echo
-
 SCRIPT=start-offer-up.js
 PERMIT=start-offer-up-permit.json
 start-contract: $(SCRIPT) $(PERMIT) install-bundles
