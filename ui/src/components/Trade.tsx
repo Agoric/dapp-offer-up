@@ -5,7 +5,7 @@ import istIcon from '../assets/IST.svg';
 import mapIcon from '../assets/map.png';
 import potionIcon from '../assets/potionBlue.png';
 import { usePurse } from '../hooks/usePurse';
-import { AgoricWalletConnection, useAgoric } from '@agoric/react-components';
+import { type AgoricState, useAgoric } from '@agoric/react-components';
 import { makeCopyBag } from '@agoric/store';
 import { useContractStore } from '../store/contract';
 import type { Purse } from '../types';
@@ -32,11 +32,13 @@ const parseValue = (numeral: string, purse: Purse): bigint => {
 };
 
 const makeOffer = (
-  wallet: AgoricWalletConnection,
+  checkSmartWalletProvisionAndMakeOffer: AgoricState['checkSmartWalletProvisionAndMakeOffer'],
   giveValue: bigint,
   wantChoices: Record<string, bigint>,
 ) => {
   const { instance, brands } = useContractStore.getState();
+  if (!checkSmartWalletProvisionAndMakeOffer)
+    throw Error('no wallet connection');
   if (!instance) throw Error('no contract instance');
   if (!(brands && brands.IST && brands.Item))
     throw Error('brands not available');
@@ -45,7 +47,7 @@ const makeOffer = (
   const want = { Items: { brand: brands.Item, value } };
   const give = { Price: { brand: brands.IST, value: giveValue } };
 
-  wallet?.makeOffer(
+  checkSmartWalletProvisionAndMakeOffer(
     {
       source: 'contract',
       instance,
@@ -109,7 +111,7 @@ const Trade = () => {
   const { brands, instance } = useContractStore();
   const [giveValue, setGiveValue] = useState(terms.price);
   const [choices, setChoices] = useState<ItemChoices>({ map: 1n, scroll: 2n });
-  const { walletConnection } = useAgoric();
+  const { checkSmartWalletProvisionAndMakeOffer } = useAgoric();
 
   const changeChoice = (ev: FormEvent) => {
     if (!ev.target) return;
@@ -167,10 +169,16 @@ const Trade = () => {
         </div>
       </div>
       <div>
-        {walletConnection && brands && instance ? (
+        {checkSmartWalletProvisionAndMakeOffer && brands && instance ? (
           <button
             className="button"
-            onClick={() => makeOffer(walletConnection, giveValue, choices)}
+            onClick={() =>
+              makeOffer(
+                checkSmartWalletProvisionAndMakeOffer,
+                giveValue,
+                choices,
+              )
+            }
           >
             Make an Offer
           </button>
