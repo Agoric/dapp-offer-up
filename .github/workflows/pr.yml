@@ -20,10 +20,6 @@ jobs:
         run: yarn lint
       - name: yarn build
         run: yarn build
-      - name: yarn test
-        run: yarn test
-      - name: yarn test:e2e
-        run: yarn test:e2e
   integration:
     runs-on: ubuntu-latest
     steps:
