@@ -11,6 +11,7 @@
     "docker:make": "docker compose exec agd make -C /workspace/contract",
     "make:help": "make list",
     "start": "yarn docker:make clean start-contract",
+    "send-funds": "docker compose exec agd bash /workspace/contract/scripts/send-funds.sh",
     "build": "agoric run scripts/build-contract-deployer.js",
     "test": "ava --verbose",
     "lint": "eslint '**/*.js'",

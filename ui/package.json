@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "test": "vitest spec",
     "test:e2e": "EXTENSION=keplr synpress run --configFile=test/e2e/synpress.config.cjs",
+    "test:e2e:ci": "start-server-and-test 'yarn dev' http-get://localhost:5173 'yarn test:e2e'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "yarn lint --fix",
     "preview": "vite preview"

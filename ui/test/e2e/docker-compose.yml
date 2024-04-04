@@ -1,0 +1,100 @@
+version: '3.9'
+
+services:
+  synpress:
+    profiles:
+      - synpress
+    container_name: synpress
+    build: ../../../
+    environment:
+      - DISPLAY=display:0.0
+      - CYPRESS_PRIVATE_KEY_WITH_FUNDS=${CYPRESS_PRIVATE_KEY_WITH_FUNDS}
+      - DEBUG=${DEBUG}
+      - CYPRESS_DOCKER_RUN=true
+      - GH_PAT=${GH_PAT}
+      - GH_USERNAME=${GH_USERNAME}
+      - CI=${CI}
+      # Cypress Dashboard
+      - CYPRESS_GROUP=${CYPRESS_GROUP}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - CYPRESS_PROJECT_ID=${CYPRESS_PROJECT_ID}
+      - CYPRESS_RECORD_KEY=${CYPRESS_RECORD_KEY}
+      - COMMIT_INFO_MESSAGE=${COMMIT_INFO_MESSAGE}
+      - COMMIT_INFO_SHA=${COMMIT_INFO_SHA}
+      # CI variables
+      - GITHUB_ACTIONS=${GITHUB_ACTIONS}
+      - GITHUB_WORKFLOW=${GITHUB_WORKFLOW}
+      - GITHUB_ACTION=${GITHUB_ACTION}
+      - GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}
+      - GITHUB_RUN_ID=${GITHUB_RUN_ID}
+      - GITHUB_RUN_ATTEMPT=${GITHUB_RUN_ATTEMPT}
+      - GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
+      - GH_BRANCH=${GH_BRANCH}
+      - GITHUB_SHA=${GITHUB_SHA}
+      - GITHUB_REF=${GITHUB_REF}
+      - GITHUB_BASE_REF=${GITHUB_BASE_REF}
+      - GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
+      - SECRET_WORDS="orbit bench unit task food shock brand bracket domain regular warfare company announce wheel grape trust sphere boy doctor half guard ritual three ecology"
+    depends_on:
+      - display
+    entrypoint: []
+    working_dir: /app
+    volumes:
+      - ./cypress/videos:/app/ui/test/e2e/videos
+      - ./cypress/screenshots:/app/ui/test/e2e/screenshots
+    command: >
+      bash -c 'echo -n "======> local noVNC URL: http://localhost:8080/vnc.html?autoconnect=true " && yarn wait-on http://display:8080 && echo -n "======> remote noVNC URL: " && curl -s ngrok:4040/api/tunnels | jq -r .tunnels[0].public_url && nginx && yarn test:e2e:ci'
+    networks:
+      - x11
+
+  display:
+    profiles:
+      - synpress
+    container_name: display
+    image: synthetixio/display:016121eafdfff448414894d0ca5a50b1d72b62eb-base
+    environment:
+      - RUN_XTERM=no
+      - DISPLAY_WIDTH=1920
+      - DISPLAY_HEIGHT=1080
+    ports:
+      - '8080:8080'
+    networks:
+      - x11
+
+  ngrok:
+    profiles:
+      - ngrok
+    container_name: ngrok
+    image: synthetixio/ngrok:016121eafdfff448414894d0ca5a50b1d72b62eb-base
+    ports:
+      - '4040:4040'
+    command: ['ngrok', 'http', 'display:8080', '--authtoken', '${NGROK_AUTH}']
+    environment:
+      - NGROK_AUTH=${NGROK_AUTH}
+      - NGROK_BASIC_AUTH=${NGROK_BASIC_AUTH}
+    depends_on:
+      - display
+    networks:
+      - x11
+
+  agd:
+    profiles:
+      - agd
+    container_name: agoric_chain
+    image: ghcr.io/agoric/agoric-3-proposals:latest
+    platform: linux/amd64
+    ports:
+      - 26656:26656
+      - 26657:26657
+      - 1317:1317
+    environment:
+      DEST: 1
+      DEBUG: "SwingSet:ls,SwingSet:vat"
+    volumes:
+      - ../../..:/workspace
+    entrypoint: /workspace/contract/scripts/run-chain.sh
+    networks:
+      - x11
+
+networks:
+  x11:
