@@ -28,7 +28,7 @@ jobs:
       - name: Use Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "18.18"
       - name: yarn install
         run: yarn
       - name: yarn start:docker
@@ -60,3 +60,38 @@ jobs:
       - name: verify contracts started onchain
         run: |
           curl http://localhost:1317/agoric/vstorage/data/published.agoricNames.instance | grep offerUp
+      
+      - name: Install linux deps
+        run: |
+          sudo apt-get install --no-install-recommends -y \
+          fluxbox \
+          xvfb
+
+      - name: Run xvfb and fluxbox
+        run: |
+          Xvfb :0 -screen 0 1024x768x24 -listen tcp -ac &
+          fluxbox &
+        env:
+          DISPLAY: :0.0
+            
+      - name: Run e2e tests
+        uses: cypress-io/github-action@248bde77443c376edc45906ede03a1aba9da0462
+        with:
+          start: npx serve ui/dist -p 5173
+          command: yarn test:e2e
+          wait-on: 'http://localhost:5173'
+          wait-on-timeout: 120
+          browser: chrome
+        env:
+          DISPLAY: :0.0
+          SECRET_WORDS: "orbit bench unit task food shock brand bracket domain regular warfare company announce wheel grape trust sphere boy doctor half guard ritual three ecology"
+
+      - name: Archive e2e artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-artifacts
+          path: |
+              ui/test/e2e/videos
+              ui/test/e2e/screenshots
+        continue-on-error: true
