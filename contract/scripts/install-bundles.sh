@@ -1,9 +1,16 @@
 #!/bin/bash
 # NOTE: intended to run _inside_ the agd container
 
-set -xueo pipefail
+set -ueo pipefail
+
+. /usr/src/upgrade-test-scripts/env_setup.sh
 
 cd /workspace/contract
+
+# wait for blocks to start being produced
+# avoid collision with run-chain.sh who is also migrating keys
+waitForBlock 4
+set -x
 
 # TODO: try `agoric publish` to better track outcome
 install_bundle() {
