@@ -1,43 +1,6 @@
 #!/bin/bash
 
-wait_for_bootstrap() {
-  endpoint="localhost"
-  while true; do
-    if json=$(curl -s --fail -m 15 "$endpoint:26657/status"); then
-      if [[ "$(echo "$json" | jq -r .jsonrpc)" == "2.0" ]]; then
-        if last_height=$(echo "$json" | jq -r .result.sync_info.latest_block_height); then
-          if [[ "$last_height" != "1" ]]; then
-            echo "$last_height"
-            return
-          else
-            echo "$last_height"
-          fi
-        fi
-      fi
-    fi
-    echo "waiting for next block..."
-    sleep 5
-  done
-  echo "done"
-}
-
-waitForBlock() (
-  echo "waiting for block..."
-  times=${1:-1}
-  echo "$times"
-  for ((i = 1; i <= times; i++)); do
-    b1=$(wait_for_bootstrap)
-    while true; do
-      b2=$(wait_for_bootstrap)
-      if [[ "$b1" != "$b2" ]]; then
-        echo "block produced"
-        break
-      fi
-      sleep 5
-    done
-  done
-  echo "done"
-)
+. /usr/src/upgrade-test-scripts/env_setup.sh
 
 approveProposals() {
     while true; do
