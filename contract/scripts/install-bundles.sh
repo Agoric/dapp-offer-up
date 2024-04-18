@@ -9,7 +9,7 @@ cd /workspace/contract
 
 # wait for blocks to start being produced
 # avoid collision with run-chain.sh who is also migrating keys
-waitForBlock 4
+waitForBlock 2
 set -x
 
 # TODO: try `agoric publish` to better track outcome
