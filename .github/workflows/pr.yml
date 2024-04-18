@@ -37,9 +37,6 @@ jobs:
         run: yarn build
       - name: yarn start:contract
         run: yarn start:contract
-      - name: verify contracts started onchain
-        run: |
-          curl http://localhost:1317/agoric/vstorage/data/published.agoricNames.instance | grep offerUp
       
       - name: Install linux deps
         run: |

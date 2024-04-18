@@ -20,3 +20,15 @@ agd tx gov submit-proposal swingset-core-eval "$PERMIT" "$SCRIPT" \
 set +x # not so noisy for this part
 . /usr/src/upgrade-test-scripts/env_setup.sh
 voteLatestProposalAndWait
+
+sleep 2
+
+parseInstances() {
+  # extract latest value; parse smallCaps; yield 1 line per entry
+  jq -c '.value | fromjson | .values[-1] | fromjson | .body[1:] | fromjson | .[]'
+}
+
+# check that the contract was actually started
+api=http://localhost:1317
+curl $api/agoric/vstorage/data/published.agoricNames.instance \
+  | parseInstances | grep offerUp
