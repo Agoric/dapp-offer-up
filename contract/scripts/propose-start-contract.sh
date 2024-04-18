@@ -22,7 +22,7 @@ set +x # not so noisy for this part
 voteLatestProposalAndWait
 
 # Give the core-eval script a block or two to run.
-sleep 2
+waitForBlock 2
 
 parseInstances() {
   # extract latest value; parse smallCaps; yield 1 line per entry
