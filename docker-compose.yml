@@ -1,5 +1,3 @@
-version: '3.5'
-
 services:
   agd:
     # cf. https://github.com/Agoric/agoric-3-proposals
