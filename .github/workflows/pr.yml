@@ -9,11 +9,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - name: Use Node.js 18.8.x
+      - name: Use Node.js LTS versions
         uses: actions/setup-node@v3
         with:
           # use node 18.8.x until Agoric/agoric-sdk#8636
-          node-version: "18.8.x"
+          node-version: ['18.x', '20.x']
       - name: yarn install
         run: yarn
       - name: yarn lint
