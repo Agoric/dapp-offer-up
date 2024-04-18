@@ -20,6 +20,8 @@ jobs:
         run: yarn lint
       - name: yarn build
         run: yarn build
+      - name: yarn test
+        run: yarn test --exclude "**/e2e/**"
   integration:
     runs-on: ubuntu-latest
     steps:
