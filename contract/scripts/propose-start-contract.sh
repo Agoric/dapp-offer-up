@@ -21,6 +21,7 @@ set +x # not so noisy for this part
 . /usr/src/upgrade-test-scripts/env_setup.sh
 voteLatestProposalAndWait
 
+# Give the core-eval script a block or two to run.
 sleep 2
 
 parseInstances() {
