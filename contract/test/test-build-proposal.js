@@ -20,7 +20,8 @@ test.only('proposal builder generates compressed bundles less than 1MB', async t
     const buffer = await t.context.compressFile(bundle);
     t.assert(buffer);
     const sizeInMb = buffer.length / (1024 * 1024);
-    t.assert(sizeInMb < 1, 'Compressed bundle is less than 1MB');
+    // JSON RPC hex encoding doubles the size
+    t.assert(sizeInMb * 2 < 1, 'Compressed bundle is less than 0.5MB');
     t.log({
       bundleId: bundle.split('cache/')[1].split('.json')[0],
       compressedSize: `${sizeInMb} MB`,
