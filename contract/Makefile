@@ -112,4 +112,4 @@ clean:
 	@rm -rf $(SCRIPT) $(PERMIT) bundles/
 
 wait-for-container-ready:
-	./scripts/wait-for-container-ready.sh
+	TARGET_HEIGHT=1111 ./scripts/wait-for-container-ready.sh

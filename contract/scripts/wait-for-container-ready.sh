@@ -2,8 +2,10 @@
 
 cd demo
 
+TARGET_HEIGHT=${TARGET_HEIGHT:1111}
+
 timeout 300 bash -c '
-TARGET_HEIGHT=1111
+TARGET_HEIGHT=TARGET_HEIGHT='$TARGET_HEIGHT'
 SLEEP=10
 echo "Waiting for the Agoric service to be fully ready..."
 echo "Target block height: $TARGET_HEIGHT"
