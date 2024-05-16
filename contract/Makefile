@@ -108,6 +108,8 @@ build-proposal: bundles/bundle-list
 bundles/bundle-list $(SCRIPT) $(PERMIT):
 	./scripts/build-proposal.sh
 
-
 clean:
 	@rm -rf $(SCRIPT) $(PERMIT) bundles/
+
+wait-for-container-ready:
+	./scripts/wait-for-container-ready.sh
