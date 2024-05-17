@@ -16,8 +16,8 @@ jobs:
           node-version: "18.8.x"
       - name: yarn install
         run: yarn
-      - name: yarn make:waitForBlocks
-        run: yarn make:waitForBlocks
+      - name: yarn runWaitForBlocks
+        run: yarn runWaitForBlocks
       - name: yarn lint
         run: yarn lint
       - name: yarn build
