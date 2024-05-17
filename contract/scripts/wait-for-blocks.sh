@@ -5,7 +5,6 @@
 # # It does so by polling the `/abci_info` endpoint of the Agoric service until the last block height is greater than or equal to the target height.
 # # The target height is set to 1111 by default, but can be overridden by setting the `TARGET_HEIGHT` environment variable.
 
-cd demo
 
 TARGET_HEIGHT=${TARGET_HEIGHT:1111}
 
