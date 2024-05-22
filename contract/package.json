@@ -6,5 +6,8 @@
   "type": "module",
   "dependencies": {
     "@endo/far": "0.2.18"
+  },
+  "devDependencies": {
+    "@endo/init": "0.5.56"
   }
 }

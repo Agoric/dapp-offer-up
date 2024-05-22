@@ -4,6 +4,9 @@
   "license": "Apache-2.0",
   "private": true,
   "type": "module",
+  "devDependencies": {
+    "ava": "5.3.1"
+  },
   "workspaces": [
     "contract"
   ]
