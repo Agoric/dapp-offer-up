@@ -70,6 +70,7 @@ const connectWallet = async () => {
 };
 
 const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
+//const makeOffer = (giveValue: bigint) => {
   const { wallet, offerUpInstance, brands } = useAppStore.getState();
   if (!offerUpInstance) throw Error('no contract instance');
   if (!(brands && brands.IST && brands.Item))
@@ -78,18 +79,20 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
   const value = makeCopyBag(entries(wantChoices));
   const want = { Items: { brand: brands.Item, value } };
   const give = { Price: { brand: brands.IST, value: giveValue } };
-
+  
+  
   wallet?.makeOffer(
     {
       source: 'contract',
       instance: offerUpInstance,
       publicInvitationMaker: 'makeTradeInvitation',
     },
-    { give, want },
-    undefined,
+    { give },
+    // undefined,
+    { want },
     (update: { status: string; data?: unknown }) => {
       if (update.status === 'error') {
-        alert(`Offer error: ${update.data}`);
+        alert(`Offer error: ${ JSON.stringify(update.data) }`);
       }
       if (update.status === 'accepted') {
         alert('Offer accepted');

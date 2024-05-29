@@ -91,7 +91,7 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
   const choiceBag = makeCopyBag(choices.map(name => [name, 1n]));
   const proposal = {
     give: { Price: tradePrice },
-    want: { Items: AmountMath.make(brands.Item, choiceBag) },
+    // want: { Items: AmountMath.make(brands.Item, choiceBag) },
   };
   const pmt = await E(purse).withdraw(tradePrice);
   t.log('Alice gives', proposal.give);
@@ -105,7 +105,7 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
   const actual = await E(issuers.Item).getAmountOf(items);
   t.log('Alice payout brand', actual.brand);
   t.log('Alice payout value', actual.value);
-  t.deepEqual(actual, proposal.want.Items);
+  //t.deepEqual(actual, proposal.want.Items);
 };
 
 test('Alice trades: give some play money, want items', async t => {

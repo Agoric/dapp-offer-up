@@ -21,9 +21,9 @@
 
 import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
-import { AssetKind } from '@agoric/ertp/src/amountMath.js';
+import { AssetKind, AmountMath } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
-import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+import { atomicRearrange, atomicTransfer } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
 const { Fail, quote: q } = assert;
@@ -70,7 +70,7 @@ export const customTermsShape = meta.customTermsShape;
  * @param {ZCF<OfferUpTerms>} zcf
  */
 export const start = async zcf => {
-  const { tradePrice, maxItems = 3n } = zcf.getTerms();
+  const { tradePrice, maxItems = 1n } = zcf.getTerms();
 
   /**
    * a new ERTP mint for items, accessed thru the Zoe Contract Facet.
@@ -91,34 +91,88 @@ export const start = async zcf => {
    */
   const proposalShape = harden({
     give: { Price: M.gte(tradePrice) },
-    want: { Items: { brand: itemBrand, value: M.bag() } },
+    // want: { Items: { brand: itemBrand, value: M.bag() } },
+    want: { },
     exit: M.any(),
   });
 
   /** a seat for allocating proceeds of sales */
   const proceeds = zcf.makeEmptySeatKit().zcfSeat;
+  let bidsRegister = new Map();
+  let currentNumOfBids = 0;
+  const maxBids = 3;
+  
 
   /** @type {OfferHandler} */
-  const tradeHandler = buyerSeat => {
+  const tradeHandler = (buyerSeat, offerArgs) => {
     // give and want are guaranteed by Zoe to match proposalShape
-    const { want } = buyerSeat.getProposal();
+    const { give } = buyerSeat.getProposal();
+    const { want } = offerArgs;
+    // const { offerArgs } = buyerSeat.getOfferArgs();
 
     sum(bagCounts(want.Items.value)) <= maxItems ||
-      Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
+     Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
 
-    const newItems = itemMint.mintGains(want);
+    // const newItems = itemMint.mintGains(want);
+    
     atomicRearrange(
       zcf,
       harden([
         // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: tradePrice }],
-        // new items to buyer
-        [newItems, buyerSeat, want],
+        [buyerSeat, proceeds, { Price: give.Price }],
       ]),
     );
+    ++currentNumOfBids;
+    const buyerKey = Date.now().toString();
+    bidsRegister.set( buyerKey, {buyerSeat , bidValue: give.Price} );
+    
 
+    if (currentNumOfBids == maxBids) {
+      currentNumOfBids = 0;
+      // Find maximum bids - if there are multiple bids with maximum value, the first one is picked.
+      // let maxBidValue = {...give.Price };
+      let maxBidValue = 0;
+      let buyerSeat;
+
+      bidsRegister.forEach((value) => {
+        // We need to use Amount.isGTE instead
+        if ( value.bidValue.value > maxBidValue ) {
+          maxBidValue = value.bidValue.value;
+          buyerSeat = value.buyerSeat;
+        }
+      });
+  
+      const newItems = itemMint.mintGains(want);
+    
+      atomicRearrange(
+        zcf,
+        harden([
+          [newItems, buyerSeat, want],
+        ]),
+      );
+      newItems.exit();
+      
+      bidsRegister.forEach((value) => {
+        // We need to use Amount.isGTE instead
+        if (value.bidValue.value < maxBidValue) {
+          //maxBidValue = value.bidValue;
+          buyerSeat = value.buyerSeat;
+          atomicRearrange(
+            zcf,
+            harden([
+              [proceeds, buyerSeat, value.bidValue ],
+              
+            ]),
+          );
+
+        }
+      });
+      bidsRegister.clear();
+
+    }
+    
     buyerSeat.exit(true);
-    newItems.exit();
+    
     return 'trade complete';
   };
 
