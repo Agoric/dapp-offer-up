@@ -87,7 +87,7 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
       instance: offerUpInstance,
       publicInvitationMaker: 'makeTradeInvitation',
     },
-    { give },
+    { give},
     // undefined,
     { want },
     (update: { status: string; data?: unknown }) => {

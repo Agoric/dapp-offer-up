@@ -102,9 +102,9 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
   const seat = E(zoe).offer(toTrade, proposal, { Price: pmt });
   const items = await E(seat).getPayout('Items');
 
-  const actual = await E(issuers.Item).getAmountOf(items);
-  t.log('Alice payout brand', actual.brand);
-  t.log('Alice payout value', actual.value);
+  // const actual = await E(issuers.Item).getAmountOf(items);
+  // t.log('Alice payout brand', actual.brand);
+  // t.log('Alice payout value', actual.value);
   //t.deepEqual(actual, proposal.want.Items);
 };
 
@@ -225,5 +225,29 @@ test('use the code that will go on chain to start the contract', async t => {
   // Now that we have the instance, resume testing as above.
   const { feeMintAccess, bundleCache } = t.context;
   const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
+  await alice(t, zoe, instance, await faucet(5n * UNIT6));
+});
+
+
+test('buySeats saved in Maps', async t => {
+
+  const startContract = async ({ zoe, bundle }) => {
+    /** @type {ERef<Installation<AssetContractFn>>} */
+    const installation = E(zoe).install(bundle);
+    const feeIssuer = await E(zoe).getFeeIssuer();
+    const feeBrand = await E(feeIssuer).getBrand();
+    const tradePrice = AmountMath.make(feeBrand, 25n * CENT);
+    return E(zoe).startInstance(
+      installation,
+      { Price: feeIssuer },
+      { tradePrice },
+    );
+  };
+
+  const { zoe, bundle, bundleCache, feeMintAccess } = t.context;
+  const { instance } = await startContract({ zoe, bundle });
+  const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
+  await alice(t, zoe, instance, await faucet(5n * UNIT6));
+  await alice(t, zoe, instance, await faucet(5n * UNIT6));
   await alice(t, zoe, instance, await faucet(5n * UNIT6));
 });

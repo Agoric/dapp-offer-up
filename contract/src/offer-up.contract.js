@@ -23,10 +23,21 @@ import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind, AmountMath } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
-import { atomicRearrange, atomicTransfer } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+import {
+  atomicRearrange,
+  atomicTransfer,
+} from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
+import {
+  withdrawFromSeat,
+  depositToSeat,
+} from '@agoric/zoe/src/contractSupport/index.js';
 
 const { Fail, quote: q } = assert;
+
+// Added for debugging/console.log
+const bigintReplacer = (key, value) =>
+  typeof value === 'bigint' ? value.toString() : value;
 
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
@@ -59,6 +70,32 @@ export const meta = {
     { maxItems: M.bigint() },
   ),
 };
+
+const isObject = object => {
+  return object != null && typeof object === 'object';
+};
+const isDeepEqual = (object1, object2) => {
+  const objKeys1 = Object.keys(object1);
+  const objKeys2 = Object.keys(object2);
+
+  if (objKeys1.length !== objKeys2.length) return false;
+
+  for (var key of objKeys1) {
+    const value1 = object1[key];
+    const value2 = object2[key];
+
+    const isObjects = isObject(value1) && isObject(value2);
+
+    if (
+      (isObjects && !isDeepEqual(value1, value2)) ||
+      (!isObjects && value1 !== value2)
+    ) {
+      return false;
+    }
+  }
+  return true;
+};
+
 // compatibility with an earlier contract metadata API
 export const customTermsShape = meta.customTermsShape;
 
@@ -92,7 +129,7 @@ export const start = async zcf => {
   const proposalShape = harden({
     give: { Price: M.gte(tradePrice) },
     // want: { Items: { brand: itemBrand, value: M.bag() } },
-    want: { },
+    want: {},
     exit: M.any(),
   });
 
@@ -101,7 +138,6 @@ export const start = async zcf => {
   let bidsRegister = new Map();
   let currentNumOfBids = 0;
   const maxBids = 3;
-  
 
   /** @type {OfferHandler} */
   const tradeHandler = (buyerSeat, offerArgs) => {
@@ -111,68 +147,67 @@ export const start = async zcf => {
     // const { offerArgs } = buyerSeat.getOfferArgs();
 
     sum(bagCounts(want.Items.value)) <= maxItems ||
-     Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
+      Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
 
-    // const newItems = itemMint.mintGains(want);
-    
-    atomicRearrange(
-      zcf,
-      harden([
-        // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: give.Price }],
-      ]),
-    );
+    // atomicRearrange(
+    //   zcf,
+    //   harden([
+    //     // price from buyer to proceeds
+    //     [buyerSeat, proceeds, { Price: give.Price }],
+    //   ]),
+    // );
+
     ++currentNumOfBids;
-    const buyerKey = Date.now().toString();
-    bidsRegister.set( buyerKey, {buyerSeat , bidValue: give.Price} );
-    
+    // const buyerKey = Date.now().toString();
+    bidsRegister.set(currentNumOfBids.toString(), {
+      buyerSeat,
+      bidValue: give.Price,
+    });
+
+    console.log(
+      `New offer received: ${JSON.stringify(
+        give.Price,
+        bigintReplacer,
+      )} ${JSON.stringify(bidsRegister, bigintReplacer)}`,
+    );
+
+    // bidsRegister.forEach((value, key) => {
+    //   console.log(`Bids Register holds following data values : ${value}`);
+    // });
 
     if (currentNumOfBids == maxBids) {
+      
       currentNumOfBids = 0;
       // Find maximum bids - if there are multiple bids with maximum value, the first one is picked.
-      // let maxBidValue = {...give.Price };
-      let maxBidValue = 0;
+      let maxBidValue = harden({ ...give.Price });
+      // let maxBidValue = give.Price;
       let buyerSeat;
-
-      bidsRegister.forEach((value) => {
+      bidsRegister.forEach(value => {
         // We need to use Amount.isGTE instead
-        if ( value.bidValue.value > maxBidValue ) {
-          maxBidValue = value.bidValue.value;
+        if (AmountMath.isGTE(value.bidValue, maxBidValue)) {
+          maxBidValue = value.bidValue;
           buyerSeat = value.buyerSeat;
         }
       });
-  
       const newItems = itemMint.mintGains(want);
-    
-      atomicRearrange(
-        zcf,
-        harden([
-          [newItems, buyerSeat, want],
-        ]),
-      );
+      atomicRearrange(zcf, harden([
+        [newItems, buyerSeat, want],
+        [buyerSeat, proceeds, {Price: maxBidValue}]
+      ]));
       newItems.exit();
-      
-      bidsRegister.forEach((value) => {
-        // We need to use Amount.isGTE instead
-        if (value.bidValue.value < maxBidValue) {
-          //maxBidValue = value.bidValue;
-          buyerSeat = value.buyerSeat;
-          atomicRearrange(
-            zcf,
-            harden([
-              [proceeds, buyerSeat, value.bidValue ],
-              
-            ]),
-          );
+      buyerSeat.exit(true);
 
+      bidsRegister.forEach(async value => {
+        if ( !value.buyerSeat.hasExited() ) {
+          
+          value.buyerSeat.exit(true);
         }
       });
       bidsRegister.clear();
-
     }
-    
-    buyerSeat.exit(true);
-    
+
+    // buyerSeat.exit(true);
+
     return 'trade complete';
   };
 
