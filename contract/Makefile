@@ -112,4 +112,4 @@ clean:
 	@rm -rf $(SCRIPT) $(PERMIT) bundles/
 
 wait-for-blocks:
-	TARGET_HEIGHT=1111 ./scripts/wait-for-blocks.sh
+	TARGET_HEIGHT=1234 ./scripts/wait-for-blocks.sh

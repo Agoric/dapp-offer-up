@@ -3,10 +3,7 @@
 # # Borrowed from https://github.com/DCFoundation/cosmos-proposal-builder/blob/main/.github/workflows/pr.yml#L43-L61
 # # This script waits for the Agoric service to be fully ready before running the tests.
 # # It does so by polling the `/abci_info` endpoint of the Agoric service until the last block height is greater than or equal to the target height.
-# # The target height is set to 1111 by default, but can be overridden by setting the `TARGET_HEIGHT` environment variable.
 
-
-TARGET_HEIGHT=${TARGET_HEIGHT:1111}
 
 timeout 300 bash -c '
 TARGET_HEIGHT='$TARGET_HEIGHT'
