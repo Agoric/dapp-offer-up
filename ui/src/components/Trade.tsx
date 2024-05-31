@@ -34,6 +34,7 @@ const Item = ({
   onChange,
   inputClassName,
   inputStep,
+  option,
 }: {
   icon?: string;
   coinIcon?: string;
@@ -42,25 +43,45 @@ const Item = ({
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   inputClassName: string;
   inputStep?: string;
-}) => (
-  <div className="item-col">
-    <label htmlFor={label}>
-      {label.charAt(0).toUpperCase() + label.slice(1)}
-    </label>
-    {icon && <img className="piece" src={icon} title={label} />}
-    {coinIcon && <img className="coin" src={coinIcon} title={label} />}
-    <input
-      title={label}
-      type="number"
-      min="0"
-      max="3"
-      value={value}
-      step={inputStep || '1'}
-      onChange={onChange}
-      className={`trade-input ${inputClassName}`}
-    />
-  </div>
-);
+  option: boolean;
+}) => {
+  let inputField;
+  if (option) {
+    inputField = (
+      <input
+        name="bid-option"
+        title={label}
+        type="radio"
+        value={value}
+        onChange={onChange}
+        className={`trade-input ${inputClassName}`}
+      />
+    );
+  } else {
+    inputField = (
+      <input
+        title={label}
+        type="number"
+        min="0"
+        max="3"
+        value={value}
+        step={inputStep || '1'}
+        onChange={onChange}
+        className={`trade-input ${inputClassName}`}
+      />
+    );
+  }
+  return (
+    <div className="item-col">
+      <label htmlFor={label}>
+        {label.charAt(0).toUpperCase() + label.slice(1)}
+      </label>
+      {icon && <img className="piece" src={icon} title={label} />}
+      {coinIcon && <img className="coin" src={coinIcon} title={label} />}
+      {inputField}
+    </div>
+  );
+};
 
 type TradeProps = {
   makeOffer: (giveValue: bigint, wantChoices: Record<string, bigint>) => void;
@@ -71,23 +92,21 @@ type TradeProps = {
 // TODO: IST displayInfo is available in vbankAsset or boardAux
 const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
   const [giveValue, setGiveValue] = useState(terms.price);
-  const [choices, setChoices] = useState<ItemChoices>({ map: 1n, scroll: 2n });
+  const [choices, setChoices] = useState<ItemChoices>({ map: 1n });
   const changeChoice = (ev: FormEvent) => {
     if (!ev.target) return;
     const elt = ev.target as HTMLInputElement;
     const title = elt.title as ItemName;
     if (!title) return;
-    const qty = BigInt(elt.value);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [title]: _old, ...rest }: ItemChoices = choices;
-    const newChoices = qty > 0 ? { ...rest, [title]: qty } : rest;
+    const qty = BigInt(1);
+    const newChoices = { [title]: qty };
     setChoices(newChoices);
   };
 
   return (
     <>
       <div className="trade">
-        <h3>Want: Choose up to 3 items</h3>
+        <h3>Want: Choose 1 item to bid on</h3>
         <div className="row-center">
           {entries(nameToIcon).map(([title, icon]) => (
             <Item
@@ -99,12 +118,13 @@ const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
               inputClassName={
                 sum(values(choices)) <= terms.maxItems ? 'ok' : 'error'
               }
+              option={true}
             />
           ))}
         </div>
       </div>
       <div className="trade">
-        <h3>Give: Offer at least 0.25 IST</h3>
+        <h3>Give: Bid at least 0.25 IST</h3>
         <div className="row-center">
           <Item
             key="IST"
@@ -124,13 +144,14 @@ const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
             }
             inputClassName={giveValue >= terms.price ? 'ok' : 'error'}
             inputStep="0.01"
+            option={false}
           />
         </div>
       </div>
       <div>
         {walletConnected && (
           <button onClick={() => makeOffer(giveValue, choices)}>
-            Make an Offer
+            Place Bid
           </button>
         )}
       </div>
