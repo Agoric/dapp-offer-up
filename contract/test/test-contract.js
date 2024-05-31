@@ -121,35 +121,25 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll'], bidVa
   // }
 
 };
-const verifyBidSeat = async (t, seat, proposal, pmt, zoe, instance, purse, isMaxbid = false) => {
+const verifyBidSeat = async (t, seat, proposal, zoe, instance, purse, isMaxbid = false) => {
 
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, tradePrice } = terms;
-  // const bidPrice = AmountMath.make(tradePrice.brand, bidValue);
   const zeroPrice = AmountMath.make(tradePrice.brand, 0n);
 
 
-  // t.log('Alice payout brand', actual.brand);
-  // t.log('Alice payout value', actual.value);
   if (isMaxbid){
-    if ( seat.hasExited() ){
-      console.log("User Seat has exited.");
-    }
     const items = await E(seat).getPayout('Items') ;
     const actual = await E(issuers.Item).getAmountOf(items);
     t.deepEqual(actual, proposal.want.Items);
+    const pmt = await E(seat).getPayout('Price') ;
     const pmtAmount = await E(purse).deposit(pmt);
     t.deepEqual(zeroPrice, pmtAmount);
   } else {
-    // t.notDeepEqual(actual, proposal.want.Items);
-    if (seat.hasExited()){
-      console.log("User Seat has exited.");
-    }
-    const pmt = await E(seat).getPayout('IST') ;
+    const pmt = await E(seat).getPayout('Price') ;
     const pmtAmount = await E(purse).deposit(pmt);
     t.notDeepEqual(zeroPrice, pmtAmount);
   }
-
 
 };
 
@@ -294,10 +284,10 @@ test('bidSeats saved in Maps', async t => {
   const purse1 = await faucet(500n * UNIT6);
   const purse2 = await faucet(500n * UNIT6);
   const purse3 = await faucet(500n * UNIT6);
-  const {seat: seat1, proposal: proposal1, pmt: pmt1} = await alice(t, zoe, instance, purse1 , ['map'], 8n* UNIT6);
-  const {seat: seat2, proposal:proposal2, pmt: pmt2} = await alice(t, zoe, instance, purse2, ['map'], 7n* UNIT6, false);
-  const {seat: seat3, proposal:proposal3, pmt: pmt3} = await alice(t, zoe, instance, purse3, ['map'], 6n* UNIT6);
-  await verifyBidSeat(t, seat1, proposal1, pmt1, zoe, instance, purse1,true);
-  await verifyBidSeat(t, seat2, proposal2, pmt2, zoe, instance, purse2,false);
-  await verifyBidSeat(t, seat3, proposal3, pmt3, zoe, instance, purse3,false);
+  const {seat: seat1, proposal: proposal1} = await alice(t, zoe, instance, purse1 , ['map'], 8n* UNIT6);
+  const {seat: seat2, proposal:proposal2} = await alice(t, zoe, instance, purse2, ['map'], 7n* UNIT6, false);
+  const {seat: seat3, proposal:proposal3} = await alice(t, zoe, instance, purse3, ['map'], 6n* UNIT6);
+  await verifyBidSeat(t, seat1, proposal1, zoe, instance, purse1,true);
+  await verifyBidSeat(t, seat2, proposal2, zoe, instance, purse2,false);
+  await verifyBidSeat(t, seat3, proposal3, zoe, instance, purse3,false);
 });
