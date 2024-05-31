@@ -28,10 +28,6 @@ import {
   atomicTransfer,
 } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
-import {
-  withdrawFromSeat,
-  depositToSeat,
-} from '@agoric/zoe/src/contractSupport/index.js';
 
 const { Fail, quote: q } = assert;
 
@@ -74,6 +70,7 @@ export const meta = {
 const isObject = object => {
   return object != null && typeof object === 'object';
 };
+
 const isDeepEqual = (object1, object2) => {
   const objKeys1 = Object.keys(object1);
   const objKeys2 = Object.keys(object2);
@@ -128,37 +125,30 @@ export const start = async zcf => {
    */
   const proposalShape = harden({
     give: { Price: M.gte(tradePrice) },
-    // want: { Items: { brand: itemBrand, value: M.bag() } },
-    want: {},
+    want: { Items: { brand: itemBrand, value: M.bag() } },
+//    want: {},
     exit: M.any(),
   });
 
   /** a seat for allocating proceeds of sales */
   const proceeds = zcf.makeEmptySeatKit().zcfSeat;
   let bidsRegister = new Map();
+  //TODO: Instead use the size of bids array
   let currentNumOfBids = 0;
   const maxBids = 3;
 
   /** @type {OfferHandler} */
-  const tradeHandler = (buyerSeat, offerArgs) => {
+  const tradeHandler = (buyerSeat) => {
     // give and want are guaranteed by Zoe to match proposalShape
-    const { give } = buyerSeat.getProposal();
-    const { want } = offerArgs;
+    // const { want } = offerArgs;
+    const { give, want } = buyerSeat.getProposal();
+    
     // const { offerArgs } = buyerSeat.getOfferArgs();
 
     sum(bagCounts(want.Items.value)) <= maxItems ||
       Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
 
-    // atomicRearrange(
-    //   zcf,
-    //   harden([
-    //     // price from buyer to proceeds
-    //     [buyerSeat, proceeds, { Price: give.Price }],
-    //   ]),
-    // );
-
     ++currentNumOfBids;
-    // const buyerKey = Date.now().toString();
     bidsRegister.set(currentNumOfBids.toString(), {
       buyerSeat,
       bidValue: give.Price,
@@ -170,11 +160,8 @@ export const start = async zcf => {
         bigintReplacer,
       )} ${JSON.stringify(bidsRegister, bigintReplacer)}`,
     );
-
-    // bidsRegister.forEach((value, key) => {
-    //   console.log(`Bids Register holds following data values : ${value}`);
-    // });
-
+    console.log("\n\n\n The number of bids currently available is :", bidsRegister.size);
+    
     if (currentNumOfBids == maxBids) {
       
       currentNumOfBids = 0;
@@ -199,16 +186,13 @@ export const start = async zcf => {
 
       bidsRegister.forEach(async value => {
         if ( !value.buyerSeat.hasExited() ) {
-          
           value.buyerSeat.exit(true);
         }
       });
       bidsRegister.clear();
     }
-
-    // buyerSeat.exit(true);
-
-    return 'trade complete';
+    
+    return 'bid placed.';
   };
 
   /**

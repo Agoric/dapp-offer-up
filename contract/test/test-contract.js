@@ -16,6 +16,7 @@ import { AmountMath, makeIssuerKit } from '@agoric/ertp';
 
 import { makeStableFaucet } from './mintStable.js';
 import { startOfferUpContract } from '../src/offer-up-proposal.js';
+import { verify } from 'crypto';
 
 /** @typedef {typeof import('../src/offer-up.contract.js').start} AssetContractFn */
 
@@ -82,30 +83,74 @@ test('Start the contract', async t => {
  * @param {Purse} purse
  * @param {string[]} choices
  */
-const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
+const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll'], bidValue = 25n * CENT, isMaxbid = false) => {
   const publicFacet = E(zoe).getPublicFacet(instance);
   // @ts-expect-error Promise<Instance> seems to work
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, tradePrice } = terms;
+  const bidPrice = AmountMath.make(tradePrice.brand, bidValue);
+  const zeroPrice = AmountMath.make(tradePrice.brand, 0n);
 
   const choiceBag = makeCopyBag(choices.map(name => [name, 1n]));
   const proposal = {
-    give: { Price: tradePrice },
-    // want: { Items: AmountMath.make(brands.Item, choiceBag) },
+    give: { Price: bidPrice },
+    want: { Items: AmountMath.make(brands.Item, choiceBag) },
   };
-  const pmt = await E(purse).withdraw(tradePrice);
+  const pmt = await E(purse).withdraw(bidPrice);
   t.log('Alice gives', proposal.give);
   // #endregion makeProposal
 
   const toTrade = E(publicFacet).makeTradeInvitation();
 
-  const seat = E(zoe).offer(toTrade, proposal, { Price: pmt });
-  const items = await E(seat).getPayout('Items');
+  const seat = await E(zoe).offer(toTrade, proposal, { Price: pmt } );
+  return {seat, proposal, pmt};
 
+  // const items = await E(seat).getPayout('Items') ;
   // const actual = await E(issuers.Item).getAmountOf(items);
+
   // t.log('Alice payout brand', actual.brand);
   // t.log('Alice payout value', actual.value);
-  //t.deepEqual(actual, proposal.want.Items);
+  // if (isMaxbid){
+  //   t.deepEqual(actual, proposal.want.Items);
+  //   const pmtAmount = await E(purse).deposit(pmt);
+  //   t.deepEqual(zeroPrice, pmtAmount);
+  // } else {
+  //   t.notDeepEqual(actual, proposal.want.Items);
+  //   const pmtAmount = await E(purse).deposit(pmt);
+  //   t.notDeepEqual(zeroPrice, pmtAmount);
+  // }
+
+};
+const verifyBidSeat = async (t, seat, proposal, pmt, zoe, instance, purse, isMaxbid = false) => {
+
+  const terms = await E(zoe).getTerms(instance);
+  const { issuers, brands, tradePrice } = terms;
+  // const bidPrice = AmountMath.make(tradePrice.brand, bidValue);
+  const zeroPrice = AmountMath.make(tradePrice.brand, 0n);
+
+
+  // t.log('Alice payout brand', actual.brand);
+  // t.log('Alice payout value', actual.value);
+  if (isMaxbid){
+    if ( seat.hasExited() ){
+      console.log("User Seat has exited.");
+    }
+    const items = await E(seat).getPayout('Items') ;
+    const actual = await E(issuers.Item).getAmountOf(items);
+    t.deepEqual(actual, proposal.want.Items);
+    const pmtAmount = await E(purse).deposit(pmt);
+    t.deepEqual(zeroPrice, pmtAmount);
+  } else {
+    // t.notDeepEqual(actual, proposal.want.Items);
+    if (seat.hasExited()){
+      console.log("User Seat has exited.");
+    }
+    const pmt = await E(seat).getPayout('IST') ;
+    const pmtAmount = await E(purse).deposit(pmt);
+    t.notDeepEqual(zeroPrice, pmtAmount);
+  }
+
+
 };
 
 test('Alice trades: give some play money, want items', async t => {
@@ -229,7 +274,7 @@ test('use the code that will go on chain to start the contract', async t => {
 });
 
 
-test('buySeats saved in Maps', async t => {
+test('bidSeats saved in Maps', async t => {
 
   const startContract = async ({ zoe, bundle }) => {
     /** @type {ERef<Installation<AssetContractFn>>} */
@@ -243,11 +288,16 @@ test('buySeats saved in Maps', async t => {
       { tradePrice },
     );
   };
-
   const { zoe, bundle, bundleCache, feeMintAccess } = t.context;
   const { instance } = await startContract({ zoe, bundle });
   const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
-  await alice(t, zoe, instance, await faucet(5n * UNIT6));
-  await alice(t, zoe, instance, await faucet(5n * UNIT6));
-  await alice(t, zoe, instance, await faucet(5n * UNIT6));
+  const purse1 = await faucet(500n * UNIT6);
+  const purse2 = await faucet(500n * UNIT6);
+  const purse3 = await faucet(500n * UNIT6);
+  const {seat: seat1, proposal: proposal1, pmt: pmt1} = await alice(t, zoe, instance, purse1 , ['map'], 8n* UNIT6);
+  const {seat: seat2, proposal:proposal2, pmt: pmt2} = await alice(t, zoe, instance, purse2, ['map'], 7n* UNIT6, false);
+  const {seat: seat3, proposal:proposal3, pmt: pmt3} = await alice(t, zoe, instance, purse3, ['map'], 6n* UNIT6);
+  await verifyBidSeat(t, seat1, proposal1, pmt1, zoe, instance, purse1,true);
+  await verifyBidSeat(t, seat2, proposal2, pmt2, zoe, instance, purse2,false);
+  await verifyBidSeat(t, seat3, proposal3, pmt3, zoe, instance, purse3,false);
 });

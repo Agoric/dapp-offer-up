@@ -87,9 +87,9 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
       instance: offerUpInstance,
       publicInvitationMaker: 'makeTradeInvitation',
     },
-    { give},
-    // undefined,
-    { want },
+    { give, want},
+    undefined,
+    // { want },
     (update: { status: string; data?: unknown }) => {
       if (update.status === 'error') {
         alert(`Offer error: ${ JSON.stringify(update.data) }`);
