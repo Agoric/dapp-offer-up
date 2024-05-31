@@ -131,7 +131,7 @@ function App() {
   return (
     <>
       <Logos />
-      <h1>Items Listed on Offer Up</h1>
+      <h1>Items Listed for Auction</h1>
 
       <div className="card">
         <Trade
