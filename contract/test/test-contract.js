@@ -16,7 +16,7 @@ import { AmountMath, makeIssuerKit } from '@agoric/ertp';
 
 import { makeStableFaucet } from './mintStable.js';
 import { startOfferUpContract } from '../src/offer-up-proposal.js';
-import { verify } from 'crypto';
+
 
 /** @typedef {typeof import('../src/offer-up.contract.js').start} AssetContractFn */
 
@@ -48,8 +48,6 @@ const makeTestContext = async _t => {
 
 test.before(async t => (t.context = await makeTestContext(t)));
 
-// IDEA: use test.serial and pass work products
-// between tests using t.context.
 
 test('Install the contract', async t => {
   const { zoe, bundle } = t.context;
@@ -64,7 +62,7 @@ test('Start the contract', async t => {
 
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
-  const terms = { tradePrice: AmountMath.make(money.brand, 5n) };
+  const terms = { minBidPrice: AmountMath.make(money.brand, 5n) };
   t.log('terms:', terms);
 
   /** @type {ERef<Installation<AssetContractFn>>} */
@@ -83,14 +81,13 @@ test('Start the contract', async t => {
  * @param {Purse} purse
  * @param {string[]} choices
  */
-const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll'], bidValue = 25n * CENT, isMaxbid = false) => {
+const alice = async (t, zoe, instance, purse, choices = ['map'], bidValue = 25n * CENT, isMaxbid = false) => {
   const publicFacet = E(zoe).getPublicFacet(instance);
   // @ts-expect-error Promise<Instance> seems to work
   const terms = await E(zoe).getTerms(instance);
-  const { issuers, brands, tradePrice } = terms;
-  const bidPrice = AmountMath.make(tradePrice.brand, bidValue);
-  const zeroPrice = AmountMath.make(tradePrice.brand, 0n);
-
+  const { brands, minBidPrice } = terms;
+  const bidPrice = AmountMath.make(minBidPrice.brand, bidValue);
+  
   const choiceBag = makeCopyBag(choices.map(name => [name, 1n]));
   const proposal = {
     give: { Price: bidPrice },
@@ -105,27 +102,12 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll'], bidVa
   const seat = await E(zoe).offer(toTrade, proposal, { Price: pmt } );
   return {seat, proposal, pmt};
 
-  // const items = await E(seat).getPayout('Items') ;
-  // const actual = await E(issuers.Item).getAmountOf(items);
-
-  // t.log('Alice payout brand', actual.brand);
-  // t.log('Alice payout value', actual.value);
-  // if (isMaxbid){
-  //   t.deepEqual(actual, proposal.want.Items);
-  //   const pmtAmount = await E(purse).deposit(pmt);
-  //   t.deepEqual(zeroPrice, pmtAmount);
-  // } else {
-  //   t.notDeepEqual(actual, proposal.want.Items);
-  //   const pmtAmount = await E(purse).deposit(pmt);
-  //   t.notDeepEqual(zeroPrice, pmtAmount);
-  // }
-
 };
 const verifyBidSeat = async (t, seat, proposal, zoe, instance, purse, isMaxbid = false) => {
 
   const terms = await E(zoe).getTerms(instance);
-  const { issuers, brands, tradePrice } = terms;
-  const zeroPrice = AmountMath.make(tradePrice.brand, 0n);
+  const { issuers, minBidPrice } = terms;
+  const zeroPrice = AmountMath.make(minBidPrice.brand, 0n);
 
 
   if (isMaxbid){
@@ -143,51 +125,6 @@ const verifyBidSeat = async (t, seat, proposal, zoe, instance, purse, isMaxbid =
 
 };
 
-test('Alice trades: give some play money, want items', async t => {
-  const { zoe, bundle } = t.context;
-
-  const money = makeIssuerKit('PlayMoney');
-  const issuers = { Price: money.issuer };
-  const terms = { tradePrice: AmountMath.make(money.brand, 5n) };
-
-  /** @type {ERef<Installation<AssetContractFn>>} */
-  const installation = E(zoe).install(bundle);
-  const { instance } = await E(zoe).startInstance(installation, issuers, terms);
-  t.log(instance);
-  t.is(typeof instance, 'object');
-
-  const alicePurse = money.issuer.makeEmptyPurse();
-  const amountOfMoney = AmountMath.make(money.brand, 10n);
-  const moneyPayment = money.mint.mintPayment(amountOfMoney);
-  alicePurse.deposit(moneyPayment);
-  await alice(t, zoe, instance, alicePurse);
-});
-
-test('Trade in IST rather than play money', async t => {
-  /**
-   * Start the contract, providing it with
-   * the IST issuer.
-   *
-   * @param {{ zoe: ZoeService, bundle: {} }} powers
-   */
-  const startContract = async ({ zoe, bundle }) => {
-    /** @type {ERef<Installation<AssetContractFn>>} */
-    const installation = E(zoe).install(bundle);
-    const feeIssuer = await E(zoe).getFeeIssuer();
-    const feeBrand = await E(feeIssuer).getBrand();
-    const tradePrice = AmountMath.make(feeBrand, 25n * CENT);
-    return E(zoe).startInstance(
-      installation,
-      { Price: feeIssuer },
-      { tradePrice },
-    );
-  };
-
-  const { zoe, bundle, bundleCache, feeMintAccess } = t.context;
-  const { instance } = await startContract({ zoe, bundle });
-  const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
-  await alice(t, zoe, instance, await faucet(5n * UNIT6));
-});
 
 test('use the code that will go on chain to start the contract', async t => {
   const noop = harden(() => {});
@@ -261,6 +198,8 @@ test('use the code that will go on chain to start the contract', async t => {
   const { feeMintAccess, bundleCache } = t.context;
   const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
   await alice(t, zoe, instance, await faucet(5n * UNIT6));
+  t.log(instance);
+  t.is(typeof instance, 'object');
 });
 
 
@@ -271,11 +210,11 @@ test('bidSeats saved in Maps', async t => {
     const installation = E(zoe).install(bundle);
     const feeIssuer = await E(zoe).getFeeIssuer();
     const feeBrand = await E(feeIssuer).getBrand();
-    const tradePrice = AmountMath.make(feeBrand, 25n * CENT);
+    const minBidPrice = AmountMath.make(feeBrand, 25n * CENT);
     return E(zoe).startInstance(
       installation,
       { Price: feeIssuer },
-      { tradePrice },
+      { minBidPrice },
     );
   };
   const { zoe, bundle, bundleCache, feeMintAccess } = t.context;
@@ -290,4 +229,42 @@ test('bidSeats saved in Maps', async t => {
   await verifyBidSeat(t, seat1, proposal1, zoe, instance, purse1,true);
   await verifyBidSeat(t, seat2, proposal2, zoe, instance, purse2,false);
   await verifyBidSeat(t, seat3, proposal3, zoe, instance, purse3,false);
+});
+
+
+
+test('bid on multiple Items', async t => {
+
+  const startContract = async ({ zoe, bundle }) => {
+    /** @type {ERef<Installation<AssetContractFn>>} */
+    const installation = E(zoe).install(bundle);
+    const feeIssuer = await E(zoe).getFeeIssuer();
+    const feeBrand = await E(feeIssuer).getBrand();
+    const minBidPrice = AmountMath.make(feeBrand, 25n * CENT);
+    return E(zoe).startInstance(
+      installation,
+      { Price: feeIssuer },
+      { minBidPrice },
+    );
+  };
+  const { zoe, bundle, bundleCache, feeMintAccess } = t.context;
+  const { instance } = await startContract({ zoe, bundle });
+  const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
+  const purse1 = await faucet(500n * UNIT6);
+  const purse2 = await faucet(500n * UNIT6);
+  const purse3 = await faucet(500n * UNIT6);
+  const {seat: seat1, proposal: proposal1} = await alice(t, zoe, instance, purse1 , ['map'], 6n* UNIT6);
+  const {seat: seat4, proposal: proposal4} = await alice(t, zoe, instance, purse1 , ['scroll'], 6n* UNIT6);
+  const {seat: seat5, proposal: proposal5} = await alice(t, zoe, instance, purse2 , ['scroll'], 9n* UNIT6);
+  const {seat: seat2, proposal:proposal2} = await alice(t, zoe, instance, purse2, ['map'], 7n* UNIT6, false);
+  const {seat: seat3, proposal:proposal3} = await alice(t, zoe, instance, purse3, ['map'], 5n* UNIT6);
+  const {seat: seat6, proposal: proposal6} = await alice(t, zoe, instance, purse3 , ['scroll'], 6n* UNIT6);
+  
+  await verifyBidSeat(t, seat1, proposal1, zoe, instance, purse1,false);
+  await verifyBidSeat(t, seat2, proposal2, zoe, instance, purse2,true);
+  await verifyBidSeat(t, seat3, proposal3, zoe, instance, purse3,false);
+
+  await verifyBidSeat(t, seat4, proposal4, zoe, instance, purse1,false);
+  await verifyBidSeat(t, seat5, proposal5, zoe, instance, purse2,true);
+  await verifyBidSeat(t, seat6, proposal6, zoe, instance, purse3,false);
 });

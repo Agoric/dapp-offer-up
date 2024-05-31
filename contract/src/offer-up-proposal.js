@@ -67,7 +67,7 @@ export const startOfferUpContract = async permittedPowers => {
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  const terms = { tradePrice: AmountMath.make(istBrand, 25n * CENT) };
+  const terms = { minBidPrice: AmountMath.make(istBrand, 25n * CENT), maxBids: 3n };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
   const installation = await offerUpInstallationP;
