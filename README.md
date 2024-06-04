@@ -8,6 +8,10 @@ Offer Up is a simple Dapp for the [Agoric smart contract platform](https://docs.
 
 ## Getting started
 
+<a href="https://idx.google.com/import?url=https%3A%2F%2Fgithub.com%2FAgoric%2Fdapp-offer-up">
+  <img height="32" alt="Try in IDX" src="https://cdn.idx.dev/btn/try_light_32.svg">
+</a>
+
 Detailed instructions regarding setting up the environment with a video walkthrough is available at [Your First Agoric Dapp](https://docs.agoric.com/guides/getting-started/) tutorial. But if you have the environment set, i.e., have correct version of node, yarn, docker, and Keplr wallet installed, here are the steps that you need to follow:
 - run the `yarn install` command to install any solution dependencies. *Downloading all the required dependencies may take several minutes. The UI depends on the React framework, and the contract depends on the Agoric framework. The packages in this project also have development dependencies for testing, code formatting, and static analysis.*
 - start a local Agoric blockchain using the `yarn start:docker` command.

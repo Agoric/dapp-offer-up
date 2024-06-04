@@ -59,7 +59,10 @@ const setup = async () => {
 };
 
 const connectWallet = async () => {
-  await suggestChain('https://local.agoric.net/network-config');
+  const networkConfig = process.env.WEB_HOST ? '/network-config.json' : 'https://local.agoric.net/network-config';
+  console.log({ networkConfig });
+  await suggestChain(networkConfig);
+
   const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
   useAppStore.setState({ wallet });
   const { pursesNotifier } = wallet;
