@@ -46,6 +46,7 @@
       onCreate = {
         # Example: install JS dependencies from NPM
         npm-install = "yarn install";
+        docker-pull = "docker compose pull";
       };
       # Runs when the workspace is (re)started
       onStart = {
