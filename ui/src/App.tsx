@@ -21,8 +21,8 @@ const { entries, fromEntries } = Object;
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
 const ENDPOINTS = {
-  RPC: 'http://localhost:26657',
-  API: 'http://localhost:1317',
+  RPC: 'https://supreme-space-enigma-vr6674qvx56cpvgg-26657.app.github.dev/',
+  API: 'https://supreme-space-enigma-vr6674qvx56cpvgg-1317.app.github.dev/',
 };
 
 const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
