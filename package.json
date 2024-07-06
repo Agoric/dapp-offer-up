@@ -41,7 +41,7 @@
     "docker:bash": "cd contract; docker compose exec agd bash",
     "docker:make": "cd contract; docker compose exec agd make -C /workspace/contract",
     "make:help": "make -C contract list",
-    "start:contract": "cd contract && yarn start",
+    "start:contract": "./set.hostname.sh && cd contract && yarn start",
     "start:ui": "cd ui && yarn dev",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
