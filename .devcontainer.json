@@ -1,0 +1,22 @@
+{
+  "forwardPorts": [5173, 1317, 26657, 26656],
+  "portsAttributes": {
+      "5173": {
+        "label": "UI",
+        "onAutoForward": "openBrowser"
+      },
+      "1317": {
+        "label": "API",
+        "onAutoForward": "silent"
+      },
+      "26657": {
+          "label": "RPC",
+          "onAutoForward": "silent"
+      },
+      "26656": {
+        "label": "P2P",
+        "onAutoForward": "silent"
+      }
+  },
+  "postStartCommand": "/bin/bash ./make_ports_public.sh 5173 1317 26657"
+}
