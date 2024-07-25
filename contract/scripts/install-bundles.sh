@@ -17,7 +17,7 @@ install_bundle() {
   ls -sh "$1"
   agd tx swingset install-bundle --compress "@$1" \
     --from user1 --keyring-backend=test --gas=auto --gas-adjustment=1.2 \
-    --chain-id=agoriclocal -bblock --yes -o json
+    --chain-id=agoriclocal -b block --yes -o json
 }
 
 # exit fail if bundle-list is emtpy
