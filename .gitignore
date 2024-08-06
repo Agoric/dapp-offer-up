@@ -27,3 +27,10 @@ dist-ssr
 # Synpress directories and files
 screenshots
 videos
+
+# Yarn related
+.yarnrc.yml
+.yarn/install-state.gz
+
+# contract tx
+contract/,tx.json
