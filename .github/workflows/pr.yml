@@ -6,14 +6,16 @@ on:
 jobs:
   unit:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
       - name: Use Node.js LTS versions
         uses: actions/setup-node@v3
         with:
-          # use node 18.8.x until Agoric/agoric-sdk#8636
-          node-version: ['18.x', '20.x']
+          node-version: ${{ matrix.node-version }}
       - name: yarn install
         run: yarn
       - name: yarn lint
