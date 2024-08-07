@@ -141,7 +141,7 @@ export const start = async (zcf, _privateArgs, baggage) => {
   const makeTradeInvitation = () =>
     zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
 
-  // Mark the publicFacet Far, i.e. reachable from outside the contract
+  // Use zone.exo to make a publicFacet suitable for use by remote callers.
   const publicFacet = zone.exo('Items Public Facet', undefined, {
     makeTradeInvitation,
   });
