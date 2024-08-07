@@ -19,8 +19,6 @@
  */
 // @ts-check
 
-// import { Far } from '@endo/far';
-// import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
@@ -28,6 +26,12 @@ import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.
 import '@agoric/zoe/exported.js';
 const { Fail, quote: q } = assert;
 import { makeScalarBigMapStore } from '@agoric/vat-data';
+import { makeDurableZone } from '@agoric/zone/durable.js';
+
+/**
+ * @import { Baggage } from '@agoric/swingset-liveslots';
+ */
+
 
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
@@ -69,18 +73,11 @@ export const customTermsShape = meta.customTermsShape;
  *   - handles offers to buy up to `maxItems` items at a time.
  *
  * @param {ZCF<OfferUpTerms>} zcf
+ * @param {*} _privateArgs
+ * @param {Baggage} baggage
  */
 export const start = async (zcf, _privateArgs, baggage) => {
-  const zone = makeDurableZone(baggage);
-
-  /**
-   * TODO: below is somewhat fake way of generating a zone. This should be fixed by passing it as a parameter.
-   * RN I don't know how to do it.
-   */
-  const baggage = makeScalarBigMapStore('baggage', {
-    keyShape: M.string(),
-    durable: true,
-  });
+  const { tradePrice, maxItems = 3n } = zcf.getTerms();
   const zone = makeDurableZone(baggage);
 
   /**

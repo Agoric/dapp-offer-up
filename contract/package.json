@@ -14,8 +14,7 @@
     "build": "agoric run scripts/build-contract-deployer.js",
     "test": "ava --verbose",
     "lint": "eslint '**/*.js'",
-    "lint:fix": "eslint --fix '**/*.js'",
-    "make:waitForBlocks": "make wait-for-blocks"
+    "lint:fix": "eslint --fix '**/*.js'"
   },
   "devDependencies": {
     "@agoric/deploy-script-support": "^0.10.4-u12.0",
@@ -46,10 +45,10 @@
     "typescript": "~5.2.2"
   },
   "dependencies": {
+    "@agoric/vat-data": "^0.1.0",
+    "@agoric/zone": "^0.1.0",
     "@agoric/ertp": "^0.16.3-u12.0",
-    "@agoric/vat-data": "0.5.3-u16.1",
     "@agoric/zoe": "^0.26.3-u12.0",
-    "@agoric/zone": "^0.3.0-u16.1",
     "@endo/far": "^0.2.22",
     "@endo/marshal": "^0.8.9",
     "@endo/patterns": "^0.2.5"
