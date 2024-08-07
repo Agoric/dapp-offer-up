@@ -25,7 +25,6 @@ import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
-import { makeDurableZone } from '@agoric/zone/durable.js';
 const { Fail, quote: q } = assert;
 import { makeScalarBigMapStore } from '@agoric/vat-data';
 
