@@ -33,7 +33,6 @@ import { makeDurableZone } from '@agoric/zone/durable.js';
  *
  */
 const { Fail, quote: q } = assert;
-import { makeScalarBigMapStore } from '@agoric/vat-data';
 
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
