@@ -20,12 +20,12 @@
 // @ts-check
 
 // import { Far } from '@endo/far';
+// import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
-import { makeDurableZone } from '@agoric/zone/durable.js';
 const { Fail, quote: q } = assert;
 import { makeScalarBigMapStore } from '@agoric/vat-data';
 
@@ -70,8 +70,8 @@ export const customTermsShape = meta.customTermsShape;
  *
  * @param {ZCF<OfferUpTerms>} zcf
  */
-export const start = async zcf => {
-  const { tradePrice, maxItems = 3n } = zcf.getTerms();
+export const start = async (zcf, _privateArgs, baggage) => {
+  const zone = makeDurableZone(baggage);
 
   /**
    * TODO: below is somewhat fake way of generating a zone. This should be fixed by passing it as a parameter.
@@ -143,8 +143,7 @@ export const start = async zcf => {
   const makeTradeInvitation = () =>
     zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
 
-  // Mark the publicFacet Far, i.e. reachable from outside the contract
-  // const myexo = makeExo('Items Public Facet', undefined);
+  // Use zone.exo to make a publicFacet suitable for use by remote callers.
   const publicFacet = zone.exo('Items Public Facet', undefined, {
     makeTradeInvitation,
   });
