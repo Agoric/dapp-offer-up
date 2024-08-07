@@ -45,7 +45,7 @@
     "typescript": "~5.2.2"
   },
   "dependencies": {
-    "@agoric/vat-data": "^0.1.0",
+    "@agoric/vat-data": "^0.5.3-u14.0",
     "@agoric/zone": "^0.2.3-u14.0",
     "@agoric/ertp": "^0.16.3-u12.0",
     "@agoric/zoe": "^0.26.3-u12.0",
