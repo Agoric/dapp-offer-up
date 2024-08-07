@@ -26,7 +26,6 @@ import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 const { Fail, quote: q } = assert;
-import { makeScalarBigMapStore } from '@agoric/vat-data';
 
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
