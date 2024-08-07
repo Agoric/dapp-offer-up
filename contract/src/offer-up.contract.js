@@ -23,14 +23,10 @@ import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
-import '@agoric/zoe/exported.js';
-const { Fail, quote: q } = assert;
-import { makeScalarBigMapStore } from '@agoric/vat-data';
 import { makeDurableZone } from '@agoric/zone/durable.js';
+import '@agoric/zoe/exported.js';
 
-/**
- * @import { Baggage } from '@agoric/swingset-liveslots';
- */
+const { Fail, quote: q } = assert;
 
 
 // #region bag utilities
@@ -74,7 +70,7 @@ export const customTermsShape = meta.customTermsShape;
  *
  * @param {ZCF<OfferUpTerms>} zcf
  * @param {*} _privateArgs
- * @param {Baggage} baggage
+ * @param {import('@agoric/ertp').Baggage} baggage
  */
 export const start = async (zcf, _privateArgs, baggage) => {
   const { tradePrice, maxItems = 3n } = zcf.getTerms();
