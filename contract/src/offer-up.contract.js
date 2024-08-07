@@ -78,17 +78,7 @@ harden(customTermsShape);
  *
  * @param {ZCF<OfferUpTerms>} zcf
  */
-export const start = async zcf => {
-  const { tradePrice, maxItems = 3n } = zcf.getTerms();
-
-  /**
-   * TODO: below is somewhat fake way of generating a zone. This should be fixed by passing it as a parameter.
-   * RN I don't know how to do it.
-   */
-  const baggage = makeScalarBigMapStore('baggage', {
-    keyShape: M.string(),
-    durable: true,
-  });
+export const start = async (zcf, _privateArgs, baggage) => {
   const zone = makeDurableZone(baggage);
 
   /**
