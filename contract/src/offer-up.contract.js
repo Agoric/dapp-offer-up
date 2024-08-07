@@ -33,6 +33,13 @@ import { makeDurableZone } from '@agoric/zone/durable.js';
  *
  */
 const { Fail, quote: q } = assert;
+import { makeScalarBigMapStore } from '@agoric/vat-data';
+import { makeDurableZone } from '@agoric/zone/durable.js';
+
+/**
+ * @import { Baggage } from '@agoric/swingset-liveslots';
+ */
+
 
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
@@ -76,8 +83,11 @@ harden(customTermsShape);
  *   - handles offers to buy up to `maxItems` items at a time.
  *
  * @param {ZCF<OfferUpTerms>} zcf
+ * @param {*} _privateArgs
+ * @param {Baggage} baggage
  */
 export const start = async (zcf, _privateArgs, baggage) => {
+  const { tradePrice, maxItems = 3n } = zcf.getTerms();
   const zone = makeDurableZone(baggage);
 
   /**
