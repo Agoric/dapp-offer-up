@@ -6,12 +6,9 @@
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bookworm",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5173, 1317, 26657, 26656],
+	"forwardPorts": [1317, 26657],
 	"portsAttributes": {
-      "5173": {
-        "label": "UI",
-        "onAutoForward": "openBrowser"
-      },
+
       "1317": {
         "label": "API",
         "onAutoForward": "silent"
@@ -19,15 +16,9 @@
       "26657": {
           "label": "RPC",
           "onAutoForward": "silent"
-      },
-      "26656": {
-        "label": "P2P",
-        "onAutoForward": "silent"
       }
 	},
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bash /workspaces/dapp-offer-up/make_ports_public.sh 26657 5173 1317",
-	"postStartCommand": "yarn install",
+	"postStartCommand": "yarn install && bash /workspaces/dapp-offer-up/make_ports_public.sh 26657 1317",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {}
