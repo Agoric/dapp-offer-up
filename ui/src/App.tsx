@@ -26,7 +26,9 @@ const ENDPOINTS = {
 };
 
 const codeSpaceHostName = import.meta.env.VITE_HOSTNAME;
-const codeSpaceDomain = import.meta.env.VITE_GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
+
+const codeSpaceDomain = import.meta.env
+  .VITE_GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
 
 if (codeSpaceHostName) {
   ENDPOINTS.API = `https://${codeSpaceHostName}-1317.${codeSpaceDomain}`;
