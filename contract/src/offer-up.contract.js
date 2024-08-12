@@ -19,11 +19,11 @@
  */
 // @ts-check
 
-import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+
 import '@agoric/zoe/exported.js';
 
 const { Fail, quote: q } = assert;
@@ -69,8 +69,8 @@ export const customTermsShape = meta.customTermsShape;
  *
  * @param {ZCF<OfferUpTerms>} zcf
  */
-export const start = async zcf => {
-  const { tradePrice, maxItems = 3n } = zcf.getTerms();
+export const start = async (zcf, _privateArgs, baggage) => {
+  const zone = makeDurableZone(baggage);
 
   /**
    * a new ERTP mint for items, accessed thru the Zoe Contract Facet.
@@ -132,8 +132,8 @@ export const start = async zcf => {
   const makeTradeInvitation = () =>
     zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
 
-  // Mark the publicFacet Far, i.e. reachable from outside the contract
-  const publicFacet = Far('Items Public Facet', {
+  // Use zone.exo to make a publicFacet suitable for use by remote callers.
+  const publicFacet = zone.exo('Items Public Facet', undefined, {
     makeTradeInvitation,
   });
   return harden({ publicFacet });
