@@ -176,6 +176,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/cosmic-proto@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@agoric/cosmic-proto@npm:0.3.0"
+  dependencies:
+    protobufjs: "npm:^7.0.0"
+  checksum: 10c0/ae82ee5389f2a15aef5f7f44d0ca367aac95a15b5f79d842e2d2c916a49b2127017c6b82ab03f7dc24828844e31d5aea6c42710bd701b1633aedf7847209a238
+  languageName: node
+  linkType: hard
+
 "@agoric/cosmic-proto@npm:0.4.1-upgrade-16a-dev-fb592e4.0+fb592e4":
   version: 0.4.1-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/cosmic-proto@npm:0.4.1-upgrade-16a-dev-fb592e4.0"
@@ -214,7 +223,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/ertp@npm:^0.16.3-u16.1":
+"@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/ertp@npm:^0.16.3-dev-e2e36cc.0, @agoric/ertp@npm:^0.16.3-u16.1":
   version: 0.16.3-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0"
   dependencies:
@@ -268,13 +277,6 @@ __metadata:
     prettier: ^3.0.3
     typescript-eslint: ^7.13.1
   checksum: 10c0/a3983607afd1f9db958811f83d3759044764a29e459c4afe5a56922eb75e9eb357b3c0d5f80f6191b110f509341630ac4d23e98cd7712952fc94dc344bd6ef48
-  languageName: node
-  linkType: hard
-
-"@agoric/eventual-send@npm:^0.14.1":
-  version: 0.14.1
-  resolution: "@agoric/eventual-send@npm:0.14.1"
-  checksum: 10c0/eeee25ffbdc8d0adb20387f7c0b9cb532afc2c51ad6301d79c4bc813c2a72d4e5398e3717dd2408361d5809064e45bfe60e20370710cd6f25cfbb2886fe098eb
   languageName: node
   linkType: hard
 
@@ -1264,44 +1266,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/wallet-ui@npm:0.1.3-solo.0":
-  version: 0.1.3-solo.0
-  resolution: "@agoric/wallet-ui@npm:0.1.3-solo.0"
-  checksum: 10c0/f55195f9800e19aff595d6f084e0e4b39b02e7f9dbfd9ed3f762d81212aefb690a983779683bd0d98fb4e58795eaa1580db0e86305b998b1655e7943307178e0
-  languageName: node
-  linkType: hard
-
-"@agoric/wallet@npm:^0.18.3":
-  version: 0.18.3
-  resolution: "@agoric/wallet@npm:0.18.3"
-  dependencies:
-    "@agoric/wallet-ui": "npm:0.1.3-solo.0"
-    agoric: "npm:^0.21.1"
-    babel-eslint: "npm:^10.0.3"
-    eslint-plugin-eslint-comments: "npm:^3.1.2"
-    import-meta-resolve: "npm:^2.2.1"
-  checksum: 10c0/29d22544f16bc266c76d886693300179e43103181f328409995cd6a5200a57bc27dba70ba1a687abf243e1ea462f1aa6d272c92dcd6353653140ada470048d16
-  languageName: node
-  linkType: hard
-
-"@agoric/web-components@npm:^0.15.0":
-  version: 0.15.0
-  resolution: "@agoric/web-components@npm:0.15.0"
+"@agoric/web-components@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@agoric/web-components@npm:0.16.0"
   dependencies:
     "@agoric/assert": "npm:^0.6.0"
     "@agoric/cache": "npm:^0.3.2"
     "@agoric/casting": "npm:^0.4.3-u13.0"
-    "@agoric/ertp": "npm:^0.16.2"
+    "@agoric/cosmic-proto": "npm:0.3.0"
+    "@agoric/ertp": "npm:^0.16.3-dev-e2e36cc.0"
     "@agoric/notifier": "npm:^0.6.3-dev-8c14632.0"
     "@agoric/smart-wallet": "npm:^0.5.3"
-    "@agoric/wallet": "npm:^0.18.3"
     "@endo/captp": "npm:^3.1.1"
     "@endo/eventual-send": "npm:^0.17.5"
     "@endo/marshal": "npm:^0.8.5"
-    "@endo/promise-kit": "npm:^0.2.56"
-    "@lit-labs/react": "npm:^1.0.1"
-    lit: "npm:2.0.2"
-  checksum: 10c0/1b5918c4bf1885f67ef6ab85c9022dc4ced24d0417f5940ee92e51e3f73edafc6c5639a11b87a6df8cc28ad001d6259fd0f54ba19bec676379e19f977a0a8bb6
+  checksum: 10c0/2d23d2a8cf8ebba634c7a1eb4ad1276d3b449e878a3f67d92785b0f1a0bf9e20543a790c2673882ffdd28757801bc8f19e46ac9ecb6e599395fafd19f50d1674
   languageName: node
   linkType: hard
 
@@ -1810,7 +1789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.17.3, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.3, @babel/parser@npm:^7.7.0":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.17.3, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.3":
   version: 7.23.3
   resolution: "@babel/parser@npm:7.23.3"
   bin:
@@ -1931,7 +1910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.17.3, @babel/traverse@npm:^7.23.2, @babel/traverse@npm:^7.23.3, @babel/traverse@npm:^7.7.0":
+"@babel/traverse@npm:^7.17.3, @babel/traverse@npm:^7.23.2, @babel/traverse@npm:^7.23.3":
   version: 7.23.3
   resolution: "@babel/traverse@npm:7.23.3"
   dependencies:
@@ -1982,7 +1961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.17.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.7.0":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.17.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3":
   version: 7.23.3
   resolution: "@babel/types@npm:7.23.3"
   dependencies:
@@ -3545,29 +3524,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/react@npm:^1.0.1":
-  version: 1.2.1
-  resolution: "@lit-labs/react@npm:1.2.1"
-  checksum: 10c0/c92364101348400a06c3eb45a6384ca7d47c32765fdcad892827b360d0bad6cef7916f9a17744f2f471a5da3d7d73750767b885fc1521cd5e5e724badb71f014
-  languageName: node
-  linkType: hard
-
-"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0":
-  version: 1.1.2
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
-  checksum: 10c0/e51c7c156317ac95cac8d534d8608ac2a9dda7441f14f73e9e66a995d277851a90315324fe74690d1169a66dce645ed9674a8f5a9a467d183156de1c87549b23
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^1.0.0, @lit/reactive-element@npm:^1.3.0":
-  version: 1.6.3
-  resolution: "@lit/reactive-element@npm:1.6.3"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.0.0"
-  checksum: 10c0/10f1d25e24e32feb21c4c6f9e11d062901241602e12c4ecf746b3138f87fed4d8394194645514d5c1bfd5f33f3fd56ee8ef41344e2cb4413c40fe4961ec9d419
-  languageName: node
-  linkType: hard
-
 "@noble/curves@npm:1.2.0, @noble/curves@npm:~1.2.0":
   version: 1.2.0
   resolution: "@noble/curves@npm:1.2.0"
@@ -4530,13 +4486,6 @@ __metadata:
   version: 1.3.5
   resolution: "@types/triple-beam@npm:1.3.5"
   checksum: 10c0/d5d7f25da612f6d79266f4f1bb9c1ef8f1684e9f60abab251e1261170631062b656ba26ff22631f2760caeafd372abc41e64867cde27fba54fafb73a35b9056a
-  languageName: node
-  linkType: hard
-
-"@types/trusted-types@npm:^2.0.2":
-  version: 2.0.6
-  resolution: "@types/trusted-types@npm:2.0.6"
-  checksum: 10c0/8d942c25bfabd89463170e22f0b3312b776885735a9c259495266b90c590f040b2112cb25e05cc2dee6e397301597b979b8ea8b0d10f2232adf38c542a16324b
   languageName: node
   linkType: hard
 
@@ -5785,22 +5734,6 @@ __metadata:
   version: 1.6.4
   resolution: "b4a@npm:1.6.4"
   checksum: 10c0/a0af707430c3643fd8d9418c732849d3626f1c9281489e021fcad969fb4808fb9f67b224de36b59c9c3b5a13d853482fee0c0eb53f7aec12d540fa67f63648b6
-  languageName: node
-  linkType: hard
-
-"babel-eslint@npm:^10.0.3":
-  version: 10.1.0
-  resolution: "babel-eslint@npm:10.1.0"
-  dependencies:
-    "@babel/code-frame": "npm:^7.0.0"
-    "@babel/parser": "npm:^7.7.0"
-    "@babel/traverse": "npm:^7.7.0"
-    "@babel/types": "npm:^7.7.0"
-    eslint-visitor-keys: "npm:^1.0.0"
-    resolve: "npm:^1.12.0"
-  peerDependencies:
-    eslint: ">= 4.12.1"
-  checksum: 10c0/a1596111871ce3615410a2ffb87ab8383b35a8c8e1942b47130cb12bca2578c8eb9d8e56c3c84f44d7abe716684f6794f2e6c1e5b4e6d09f171ae51670be44b9
   languageName: node
   linkType: hard
 
@@ -8637,7 +8570,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-eslint-comments@npm:^3.1.2, eslint-plugin-eslint-comments@npm:^3.2.0":
+"eslint-plugin-eslint-comments@npm:^3.2.0":
   version: 3.2.0
   resolution: "eslint-plugin-eslint-comments@npm:3.2.0"
   dependencies:
@@ -8905,13 +8838,6 @@ __metadata:
   peerDependencies:
     eslint: ">=5"
   checksum: 10c0/45aa2b63667a8d9b474c98c28af908d0a592bed1a4568f3145cd49fb5d9510f545327ec95561625290313fe126e6d7bdfe3fdbdb6f432689fab6b9497d3bfb52
-  languageName: node
-  linkType: hard
-
-"eslint-visitor-keys@npm:^1.0.0":
-  version: 1.3.0
-  resolution: "eslint-visitor-keys@npm:1.3.0"
-  checksum: 10c0/10c91fdbbe36810dd4308e57f9a8bc7177188b2a70247e54e3af1fa05ebc66414ae6fd4ce3c6c6821591f43a556e9037bc6b071122e099b5f8b7d2f76df553e3
   languageName: node
   linkType: hard
 
@@ -12048,37 +11974,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-element@npm:^3.0.0":
-  version: 3.3.3
-  resolution: "lit-element@npm:3.3.3"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.1.0"
-    "@lit/reactive-element": "npm:^1.3.0"
-    lit-html: "npm:^2.8.0"
-  checksum: 10c0/f44c12fa3423a4e9ca5b84651410687e14646bb270ac258325e6905affac64a575f041f8440377e7ebaefa3910b6f0d6b8b1e902cb1aa5d0849b3fdfbf4fb3b6
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^2.0.0, lit-html@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "lit-html@npm:2.8.0"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.2"
-  checksum: 10c0/90057dee050803823ac884c1355b0213ab8c05fbe2ec63943c694b61aade5d36272068f3925f45a312835e504f9c9784738ef797009f0a756a750351eafb52d5
-  languageName: node
-  linkType: hard
-
-"lit@npm:2.0.2":
-  version: 2.0.2
-  resolution: "lit@npm:2.0.2"
-  dependencies:
-    "@lit/reactive-element": "npm:^1.0.0"
-    lit-element: "npm:^3.0.0"
-    lit-html: "npm:^2.0.0"
-  checksum: 10c0/f47404b026cbbf6e5cb50b78c272226dc2d44e66e3252d2c914b7463a203503bb65712d02aaa17bf592f4c308d570684a0cab18e93cf4478e0294f61e2223b50
-  languageName: node
-  linkType: hard
-
 "load-json-file@npm:^7.0.0":
   version: 7.0.1
   resolution: "load-json-file@npm:7.0.1"
@@ -12251,6 +12146,13 @@ __metadata:
   version: 4.0.0
   resolution: "long@npm:4.0.0"
   checksum: 10c0/50a6417d15b06104dbe4e3d4a667c39b137f130a9108ea8752b352a4cfae047531a3ac351c181792f3f8768fe17cca6b0f406674a541a86fb638aaac560d83ed
+  languageName: node
+  linkType: hard
+
+"long@npm:^5.0.0":
+  version: 5.2.3
+  resolution: "long@npm:5.2.3"
+  checksum: 10c0/6a0da658f5ef683b90330b1af76f06790c623e148222da9d75b60e266bbf88f803232dd21464575681638894a84091616e7f89557aa087fd14116c0f4e0e43d9
   languageName: node
   linkType: hard
 
@@ -13491,12 +13393,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "offer-up-ui@workspace:ui"
   dependencies:
-    "@agoric/eventual-send": "npm:^0.14.1"
-    "@agoric/notifier": "npm:^0.6.2"
     "@agoric/rpc": "npm:0.9.1-dev-f471a83.0"
-    "@agoric/store": "npm:^0.9.2"
     "@agoric/ui-components": "npm:^0.9.0"
-    "@agoric/web-components": "npm:^0.15.0"
+    "@agoric/web-components": "npm:^0.16.0"
     "@testing-library/react": "npm:^14.1.2"
     "@types/react": "npm:^18.2.15"
     "@types/react-dom": "npm:^18.2.7"
@@ -14459,6 +14358,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"protobufjs@npm:^7.0.0":
+  version: 7.3.2
+  resolution: "protobufjs@npm:7.3.2"
+  dependencies:
+    "@protobufjs/aspromise": "npm:^1.1.2"
+    "@protobufjs/base64": "npm:^1.1.2"
+    "@protobufjs/codegen": "npm:^2.0.4"
+    "@protobufjs/eventemitter": "npm:^1.1.0"
+    "@protobufjs/fetch": "npm:^1.1.0"
+    "@protobufjs/float": "npm:^1.0.2"
+    "@protobufjs/inquire": "npm:^1.1.0"
+    "@protobufjs/path": "npm:^1.1.2"
+    "@protobufjs/pool": "npm:^1.1.0"
+    "@protobufjs/utf8": "npm:^1.1.0"
+    "@types/node": "npm:>=13.7.0"
+    long: "npm:^5.0.0"
+  checksum: 10c0/b87e38fffc989793099010439a7ff45a0a57ef5b8f44b5209f06bfa5085ac96a365aa37eb3c79bd6954d6ef1b50fc69da37dae8ea2a31d90b7bc8fb2fa0e3955
+  languageName: node
+  linkType: hard
+
 "proxy-addr@npm:~2.0.7":
   version: 2.0.7
   resolution: "proxy-addr@npm:2.0.7"
@@ -14933,7 +14852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.12.0, resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.22.4":
+"resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.22.4":
   version: 1.22.8
   resolution: "resolve@npm:1.22.8"
   dependencies:
@@ -14946,7 +14865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.12.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.17.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.17.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
   version: 1.22.8
   resolution: "resolve@patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
   dependencies:
