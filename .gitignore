@@ -29,8 +29,7 @@ screenshots
 videos
 
 # Yarn related
-.yarnrc.yml
 .yarn/install-state.gz
 
-# contract tx
+# contract tx log
 contract/,tx.json
