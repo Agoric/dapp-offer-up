@@ -11,9 +11,6 @@ SLEEP=10
 echo "Waiting for the Agoric service to be fully ready..."
 echo "Target block height: $TARGET_HEIGHT"
 RPC=http://localhost:26657
-if [ -n "$HOSTNAME" ] && [ -n "$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN" ]; then
-  RPC="https://${HOSTNAME}-26657.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
-fi
 while true; do
   response=$(curl --silent $RPC/abci_info)
   height=$(echo $response | jq -r ".result.response.last_block_height | tonumber")

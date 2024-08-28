@@ -31,9 +31,5 @@ parseInstances() {
 
 # check that the contract was actually started
 api=http://localhost:1317
-# Check if both HOSTNAME and GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN are set
-if [ -n "$HOSTNAME" ] && [ -n "$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN" ]; then
-  api="https://${HOSTNAME}-1317.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
-fi
 curl $api/agoric/vstorage/data/published.agoricNames.instance \
   | parseInstances | grep offerUp
