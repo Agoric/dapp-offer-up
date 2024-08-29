@@ -1,7 +1,7 @@
 #!/bin/sh
 # NOTE: intended to run _inside_ the agd container
 
-cd /workspace/contract
+cd /ws-offer-up/contract
 
 mkdir -p bundles
 (agoric run ./scripts/build-contract-deployer.js )>/tmp/,run.log
