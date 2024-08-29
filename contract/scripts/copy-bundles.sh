@@ -2,17 +2,17 @@
 
 # Ensure the necessary directories exist on the container before copying files
 
-echo "Creating directory /workspace/contract in container agd..."
-docker exec agd mkdir -p /workspace/contract
+echo "Creating directory /ws-offer-up/contract in container agd..."
+docker exec agd mkdir -p /ws-offer-up/contract
 
-echo "Copying 'bundles' directory to /workspace/contract in container agd..."
-docker cp bundles agd:/workspace/contract/
+echo "Copying 'bundles' directory to /ws-offer-up/contract in container agd..."
+docker cp bundles agd:/ws-offer-up/contract/
 
-echo "Copying 'start-offer-up-permit.json' to /workspace/contract in container agd..."
-docker cp start-offer-up-permit.json agd:/workspace/contract/
+echo "Copying 'start-offer-up-permit.json' to /ws-offer-up/contract in container agd..."
+docker cp start-offer-up-permit.json agd:/ws-offer-up/contract/
 
-echo "Copying 'start-offer-up.js' to /workspace/contract in container agd..."
-docker cp start-offer-up.js agd:/workspace/contract/
+echo "Copying 'start-offer-up.js' to /ws-offer-up/contract in container agd..."
+docker cp start-offer-up.js agd:/ws-offer-up/contract/
 
 #!/bin/bash
 
@@ -51,4 +51,4 @@ done < "$source_file"
 # Move the temporary file back to the original source file
 echo "Updating bundle list file in container agd..."
 mv "$temp_file" "$source_file"
-docker cp "$source_file" agd:/workspace/contract/$source_file
+docker cp "$source_file" agd:/ws-offer-up/contract/$source_file
