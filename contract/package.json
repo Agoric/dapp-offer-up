@@ -14,7 +14,7 @@
     "docker:copy-Makefile": "docker exec agd mkdir -p /ws-offer-up/contract; docker cp Makefile agd:/ws-offer-up/contract/",
     "docker:copy-scripts": "docker exec agd mkdir -p /ws-offer-up/contract; docker cp scripts agd:/ws-offer-up/contract/",
     "make:help": "make list",
-    "start": "yarn docker:copy-scripts && docker:copy-Makefile && yarn build-proposal && yarn docker:copy-bundles && yarn docker:make start-contract",
+    "start": "yarn docker:copy-scripts && yarn docker:copy-Makefile && yarn build-proposal && yarn docker:copy-bundles && yarn docker:make start-contract",
     "build-proposal": "mkdir -p bundles && yarn build >/tmp/,run.log && ./scripts/parseProposals.mjs </tmp/,run.log | jq -r '.bundles[]' | sort -u > bundles/bundle-list",
     "build": "agoric run scripts/build-contract-deployer.js",
     "test": "ava --verbose",
