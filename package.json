@@ -41,8 +41,8 @@
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
     "docker:logs": "cd contract; docker compose logs --tail 200 -f",
-    "docker:bash": "cd contract; docker compose exec agd bash",
-    "docker:make": "cd contract; docker compose exec agd make -C /ws-offer-up/contract",
+    "docker:bash": "cd contract; docker exec agd bash",
+    "docker:make": "cd contract; docker exec agd make -C /ws-offer-up/contract",
     "make:help": "make -C contract list",
     "start:contract": "cd contract && yarn start",
     "start:ui": "cd ui && yarn dev",
