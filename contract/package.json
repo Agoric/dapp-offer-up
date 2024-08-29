@@ -12,6 +12,7 @@
     "docker:lower-bundle-cost": "yarn docker:make mint100 lower-bundle-cost",
     "docker:copy-bundles": "./scripts/copy-bundles.sh",
     "docker:copy-Makefile": "docker exec agd mkdir -p /ws-offer-up/contract; docker cp Makefile agd:/ws-offer-up/contract/",
+    "docker:copy-scripts": "docker exec agd mkdir -p /ws-offer-up/contract; docker cp scripts agd:/ws-offer-up/contract/",
     "make:help": "make list",
     "start": "./scripts/wait-for-chain.sh && yarn docker:make clean start-contract",
     "build": "agoric run scripts/build-contract-deployer.js",
