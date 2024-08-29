@@ -7,8 +7,8 @@
   "scripts": {
     "start:docker": "docker compose up -d",
     "docker:logs": "docker compose logs --tail 200 -f",
-    "docker:bash": "docker compose exec agd bash",
-    "docker:make": "docker compose exec agd make -C /ws-offer-up/contract",
+    "docker:bash": "docker exec agd bash",
+    "docker:make": "docker exec agd make -C /ws-offer-up/contract",
     "docker:lower-bundle-cost": "yarn docker:make mint100 lower-bundle-cost",
     "docker:copy-bundles": "./scripts/copy-bundles.sh",
     "docker:copy-Makefile": "docker exec agd mkdir -p /ws-offer-up/contract; docker cp Makefile agd:/ws-offer-up/contract/",
