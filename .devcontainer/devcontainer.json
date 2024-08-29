@@ -1,0 +1,26 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+	"name": "Node.js",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bookworm",
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [1317, 26657],
+	"portsAttributes": {
+
+      "1317": {
+        "label": "API",
+        "onAutoForward": "silent"
+      },
+      "26657": {
+          "label": "RPC",
+          "onAutoForward": "silent"
+      }
+	},
+	"postStartCommand": "/bin/bash /workspaces/dapp-offer-up/make_ports_public.sh 26657 1317",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	}
+}

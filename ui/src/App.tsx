@@ -25,6 +25,23 @@ const ENDPOINTS = {
   API: 'http://localhost:1317',
 };
 
+const codeSpaceHostName = import.meta.env.VITE_HOSTNAME;
+
+const codeSpaceDomain = import.meta.env
+  .VITE_GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
+
+if (codeSpaceHostName) {
+  ENDPOINTS.API = `https://${codeSpaceHostName}-1317.${codeSpaceDomain}`;
+  ENDPOINTS.RPC = `https://${codeSpaceHostName}-26657.${codeSpaceDomain}`;
+}
+if (codeSpaceHostName && codeSpaceDomain) {
+  ENDPOINTS.API = `https://${codeSpaceHostName}-1317.${codeSpaceDomain}`;
+  ENDPOINTS.RPC = `https://${codeSpaceHostName}-26657.${codeSpaceDomain}`;
+} else {
+  console.error(
+    'Missing environment variables: VITE_HOSTNAME or VITE_GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN',
+  );
+}
 const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
 
 interface AppState {

@@ -8,7 +8,7 @@ Offer Up is a simple Dapp for the [Agoric smart contract platform](https://docs.
 
 ## Getting started
 
-Detailed instructions regarding setting up the environment with a video walkthrough is available at [Your First Agoric Dapp](https://docs.agoric.com/guides/getting-started/) tutorial. But if you have the environment set, i.e., have correct version of node, yarn, docker, and Keplr wallet installed, here are the steps that you need to follow:
+Detailed instructions regarding setting up the environment with a video walkthrough is available at [Your First Agoric Dapp](https://docs.agoric.com/guides/getting-started/) tutorial. But if you have the environment set, i.e., have correct version of node, yarn, docker, and Keplr wallet installed, below are the steps that you need to follow. *You can also use the same instructions to follow along in Github Codespaces without any installation or downloads on your local machine, apart from Keplr which is needed to connect to dApp.*
 - run the `yarn install` command to install any solution dependencies. *Downloading all the required dependencies may take several minutes. The UI depends on the React framework, and the contract depends on the Agoric framework. The packages in this project also have development dependencies for testing, code formatting, and static analysis.*
 - start a local Agoric blockchain using the `yarn start:docker` command.
 - run `yarn docker:logs` to check the logs. Once your logs resemble the following, stop the logs by pressing `ctrl+c`.
@@ -20,6 +20,7 @@ demo-agd-1  | 2023-12-27T04:08:07.398Z block-manager: block 1004 commit
 demo-agd-1  | 2023-12-27T04:08:08.405Z block-manager: block 1005 begin
 demo-agd-1  | 2023-12-27T04:08:08.407Z block-manager: block 1005 commit
 ```
+- **Only if you are running this in a github codespace:** go to `PORTS` in bottom-right panel, and make all listed ports `public` by selecting `Port Visibility` after right-click.
 - run `yarn start:contract` to start the smart contract. 
 - run `yarn start:ui` to start the smart contract. You can use the link in the output to load the smart contract UI in a browser.
 
