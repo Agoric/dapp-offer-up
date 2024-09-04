@@ -21,9 +21,10 @@
 
 import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
-import { AssetKind } from '@agoric/ertp/src/amountMath.js';
+import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
+import { makeIssuerKit } from '@agoric/ertp';
 import '@agoric/zoe/exported.js';
 
 const { Fail, quote: q } = assert;
@@ -48,29 +49,30 @@ const bagCounts = bag => {
  * optionally, a maximum number of items sold for that price (default: 3).
  *
  * @typedef {{
- *   tradePrice: Amount;
- *   maxItems?: bigint;
- * }} OfferUpTerms
+ *   subscriptionPrice: Amount;
+ *   subscriptionPeriod?: string;
+ *   serviceToAvail?: string;
+ * }} SubscriptionServiceTerms
  */
 
-export const meta = {
-  customTermsShape: M.splitRecord(
-    { tradePrice: AmountShape },
-    { maxItems: M.bigint() },
-  ),
-};
+// export const meta = {
+//   customTermsShape: M.splitRecord(
+//     { tradePrice: AmountShape },
+//     { maxItems: M.bigint() },
+//   ),
+// };
 // compatibility with an earlier contract metadata API
-export const customTermsShape = meta.customTermsShape;
+// export const customTermsShape = meta.customTermsShape;
 
 /**
  * Start a contract that
  *   - creates a new non-fungible asset type for Items, and
  *   - handles offers to buy up to `maxItems` items at a time.
  *
- * @param {ZCF<OfferUpTerms>} zcf
+ * @param {ZCF<SubscriptionServiceTerms>} zcf
  */
 export const start = async zcf => {
-  const { tradePrice, maxItems = 3n } = zcf.getTerms();
+  const { subscriptionPrice, subscriptionPeriod = 'MONTHLY', serviceToAvail = 'NETFLIX'  } = zcf.getTerms();
 
   /**
    * a new ERTP mint for items, accessed thru the Zoe Contract Facet.
@@ -80,8 +82,7 @@ export const start = async zcf => {
    * AssetKind.COPY_BAG can express non-fungible (or rather: semi-fungible)
    * amounts such as: 3 potions and 1 map.
    */
-  const itemMint = await zcf.makeZCFMint('Item', AssetKind.COPY_BAG);
-  const { brand: itemBrand } = itemMint.getIssuerRecord();
+ 
 
   /**
    * a pattern to constrain proposals given to {@link tradeHandler}
@@ -90,8 +91,8 @@ export const start = async zcf => {
    * The `Items` amount must use the `Item` brand and a bag value.
    */
   const proposalShape = harden({
-    give: { Price: M.gte(tradePrice) },
-    want: { Items: { brand: itemBrand, value: M.bag() } },
+    give: { Price: M.eq(subscriptionPrice) },
+    want: { Items: { brand: M.any(), value: 1 } },
     exit: M.any(),
   });
 
@@ -99,27 +100,57 @@ export const start = async zcf => {
   const proceeds = zcf.makeEmptySeatKit().zcfSeat;
 
   /** @type {OfferHandler} */
-  const tradeHandler = buyerSeat => {
+  const tradeHandler = async buyerSeat => {
+
+   
+    // Without ZCF/ZOE
+
+    // const { brand, mint, issuer } = makeIssuerKit('Subscription', AssetKind.COPY_BAG)
+
+    // const amountObject  = AmountMath.make(brand, harden({ expiryTime: Date.now() }))
+
+    // const paymentObj = mint.mintPayment(amountObject)
+
+    // // Verify
+
+    // issuer.getAmountOf(paymentObj).then((amount) => {
+
+    //   console.log("Amount", amount)
+
+    // } )
+
+    // WITH ZOE
+
+    // mint.mintPayment()
+
+
+    const itemMint = await zcf.makeZCFMint('Item', AssetKind.COPY_BAG);
+  
+    const { brand } = itemMint.getIssuerRecord();
+    
     // give and want are guaranteed by Zoe to match proposalShape
-    const { want } = buyerSeat.getProposal();
 
-    sum(bagCounts(want.Items.value)) <= maxItems ||
-      Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
+    // const { want } = buyerSeat.getProposal();
+    const amountObject = AmountMath.make(brand, harden({ expiryTime: Date.now() }))
+    const _want = { Subs: amountObject}
 
-    const newItems = itemMint.mintGains(want);
+    const newSubscription = itemMint.mintGains(_want);
+
+    // itemMint.
+    debugger;
     atomicRearrange(
       zcf,
       harden([
         // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: tradePrice }],
+        [buyerSeat, proceeds, { Price: subscriptionPrice }],
         // new items to buyer
-        [newItems, buyerSeat, want],
+        [newSubscription, buyerSeat, _want],
       ]),
     );
-
+    debugger;
     buyerSeat.exit(true);
-    newItems.exit();
-    return 'trade complete';
+    newSubscription.exit();
+    return 'Subscription Granted';
   };
 
   /**
