@@ -86,14 +86,17 @@ const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
   const publicFacet = E(zoe).getPublicFacet(instance);
   // @ts-expect-error Promise<Instance> seems to work
   const terms = await E(zoe).getTerms(instance);
-  const { issuers, brands, tradePrice } = terms;
+  const { issuers, brands, subscriptionPrice } = terms;
 
-  const choiceBag = makeCopyBag(choices.map(name => [name, 1n]));
+  const choiceBag = makeCopyBag([[{expiryTime: '123'}, 1n]]);
+
+  const subscriptionPriceV2 = { ...subscriptionPrice, value: 500n }
+// 
   const proposal = {
-    give: { Price: tradePrice },
+    give: { Price: subscriptionPriceV2},
     want: { Items: AmountMath.make(brands.Item, choiceBag) },
   };
-  const pmt = await E(purse).withdraw(tradePrice);
+  const pmt = await E(purse).withdraw(subscriptionPriceV2);
   t.log('Alice gives', proposal.give);
   // #endregion makeProposal
 
@@ -113,8 +116,8 @@ test('Alice trades: give some play money, want items', async t => {
 
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
-  const terms = { tradePrice: AmountMath.make(money.brand, 5n) };
-
+  const terms = { subscriptionPrice: AmountMath.make(money.brand, 5n) };
+  t.log('terms:', terms);
   /** @type {ERef<Installation<AssetContractFn>>} */
   const installation = E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(installation, issuers, terms);
@@ -220,10 +223,10 @@ test('use the code that will go on chain to start the contract', async t => {
   // When the BLD staker governance proposal passes,
   // the startup function gets called.
   await startOfferUpContract(powers);
-  // const instance = await sync.instance.promise;
+  const instance = await sync.instance.promise;
 
   // Now that we have the instance, resume testing as above.
-  // const { feeMintAccess, bundleCache } = t.context;
-  // const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
-  // await alice(t, zoe, instance, await faucet(5n * UNIT6));
+  const { feeMintAccess, bundleCache } = t.context;
+  const { faucet } = makeStableFaucet({ bundleCache, feeMintAccess, zoe });
+  await alice(t, zoe, instance, await faucet(5n * UNIT6));
 });

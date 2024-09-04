@@ -22,6 +22,7 @@
 import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
+import { makeCopyBag } from '@endo/patterns';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import { makeIssuerKit } from '@agoric/ertp';
@@ -82,7 +83,9 @@ export const start = async zcf => {
    * AssetKind.COPY_BAG can express non-fungible (or rather: semi-fungible)
    * amounts such as: 3 potions and 1 map.
    */
- 
+  const itemMint = await zcf.makeZCFMint('Item', AssetKind.COPY_BAG);
+  
+  const { brand } = itemMint.getIssuerRecord();
 
   /**
    * a pattern to constrain proposals given to {@link tradeHandler}
@@ -91,8 +94,8 @@ export const start = async zcf => {
    * The `Items` amount must use the `Item` brand and a bag value.
    */
   const proposalShape = harden({
-    give: { Price: M.eq(subscriptionPrice) },
-    want: { Items: { brand: M.any(), value: 1 } },
+    give: { Price: subscriptionPrice },
+    want: { Items: { brand: M.any(), value: M.bag() } },
     exit: M.any(),
   });
 
@@ -123,31 +126,25 @@ export const start = async zcf => {
 
     // mint.mintPayment()
 
-
-    const itemMint = await zcf.makeZCFMint('Item', AssetKind.COPY_BAG);
-  
-    const { brand } = itemMint.getIssuerRecord();
     
     // give and want are guaranteed by Zoe to match proposalShape
 
     // const { want } = buyerSeat.getProposal();
-    const amountObject = AmountMath.make(brand, harden({ expiryTime: Date.now() }))
-    const _want = { Subs: amountObject}
+    const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123' }, 1n]]))
+    const want = { Items: amountObject };
 
-    const newSubscription = itemMint.mintGains(_want);
+    const newSubscription = itemMint.mintGains(want);
 
-    // itemMint.
-    debugger;
     atomicRearrange(
       zcf,
       harden([
         // price from buyer to proceeds
         [buyerSeat, proceeds, { Price: subscriptionPrice }],
         // new items to buyer
-        [newSubscription, buyerSeat, _want],
+        [newSubscription, buyerSeat, want],
       ]),
     );
-    debugger;
+
     buyerSeat.exit(true);
     newSubscription.exit();
     return 'Subscription Granted';
