@@ -81,78 +81,72 @@ export const start = async zcf => {
    */
   const propertyMints = await Promise.all(
     [...Array(Number(propertiesToCreate))].map((_, index) =>
-      makeIssuerKit(`PlayProperty_${index}`),
+      zcf.makeZCFMint(`PlayProperty_${index}`),
     ),
   );
   console.log('propertyMints: ', propertyMints);
-
-  /**
-   * Mint coins according to the `COINS_PER_PROPERTIES` value
-   */
-  const payments = propertyMints.map(propertyMint =>
-    propertyMint.mint.mintPayment(
-      AmountMath.make(propertyMint.brand, BigInt(COINS_PER_PROPERTIES)),
-    ),
+  const zcfSeats = propertyMints.map(propertyMint =>
+    propertyMint.mintGains({
+      Items: AmountMath.make(
+        propertyMint.getIssuerRecord().brand,
+        BigInt(COINS_PER_PROPERTIES),
+      ),
+    }),
   );
-  propertyMints.map(propertyMint =>
-    zcf.saveIssuer(propertyMint.issuer, propertyMint.brand.getAllegedName()),
+
+  const zcfSeatsMap = zcfSeats.reduce(
+    (acc, zcfSeat, index) => ({
+      ...acc,
+      [propertyMints[index].getIssuerRecord().brand.getAllegedName()]: zcfSeat,
+    }),
+    {},
   );
-  console.log('payments: ', payments);
+  console.log('purseMap: ', zcfSeatsMap);
 
-  /**
-   * Deposit all the coins in a corresponding wallet.
-   * This wallet will hold the number of available coins
-   * that can be bought
-   */
-  const purses = propertyMints.map(propertyMint =>
-    propertyMint.issuer.makeEmptyPurse(),
-  );
-  purses.forEach((purse, index) => purse.deposit(payments[index]));
-
-  const purseMap = propertyMints.reduce((acc, mint, index) => (
-    {
-        ...acc,
-        [mint.brand.getAllegedName()]: purses[index]
-    }
-  ), {})
-  console.log('purseMap: ', purseMap);
-
-  /**
-   * a pattern to constrain proposals given to {@link tradeHandler}
-   *
-   * The `Price` amount must be >= `tradePrice` term.
-   * The `Items` amount must use the `Item` brand and a bag value.
-   */
   const proposalShape = harden({
     give: { Price: M.any() },
-    want: { Items: { brand: M.any(), value: M.bag() } },
+    want: { Items: { brand: M.any(), value: M.bigint() } },
     exit: M.any(),
   });
 
   const tradeHandler = buyerSeat => {
     const { give, want } = buyerSeat.getProposal();
-    console.log("purseMap[want.Items.brand]?.getCurrentAmount(): ", purseMap[want.Items.brand]?.getCurrentAmount());
+    const zcfSeat = zcfSeatsMap[want.Items.brand.getAllegedName()];
 
-    // sum(bagCounts(want.Items.value)) <= maxItems ||
-    //   Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
+    !!zcfSeat || Fail`Brand ${q(want.Items.brand)} not allowed`;
 
-    // const newItems = itemMint.mintGains(want);
-    // atomicRearrange(
-    //   zcf,
-    //   harden([
-    //     // price from buyer to proceeds
-    //     [buyerSeat, proceeds, { Price: tradePrice }],
-    //     // new items to buyer
-    //     [newItems, buyerSeat, want],
-    //   ]),
-    // );
+    const maxItems = zcfSeat.getCurrentAllocation().Items.value;
+    const minimumTradePrice =
+      tradePrice[
+        propertyMints.findIndex(
+          propertyMint =>
+            propertyMint.getIssuerRecord().brand.getAllegedName() ===
+            want.Items.brand.getAllegedName(),
+        )
+      ];
+
+    (maxItems && maxItems >= want.Items.value) ||
+      Fail`max ${q(maxItems)} items allowed: ${q(want.Items)}`;
+    (minimumTradePrice && AmountMath.isGTE(give.Price, minimumTradePrice)) ||
+      Fail`Price ${q(give.Price)} is less then minimum price ${q(
+        minimumTradePrice,
+      )}`;
+
+    atomicRearrange(
+      zcf,
+      harden([
+        [buyerSeat, zcfSeat, { Price: give.Price }],
+        [zcfSeat, buyerSeat, want],
+      ]),
+    );
 
     buyerSeat.exit(true);
-    // newItems.exit();
+    zcfSeat.exit();
     return 'trade complete';
   };
 
-  const getPropertyIssuers = () => propertyMints.map((propertyMint) => propertyMint.issuer);
+  const getPropertyIssuers = () =>
+    propertyMints.map(propertyMint => propertyMint.getIssuerRecord());
 
   const makeTradeInvitation = () =>
     zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);

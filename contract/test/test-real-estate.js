@@ -1,6 +1,5 @@
 /* eslint-disable import/order -- https://github.com/endojs/endo/issues/1235 */
 import { test as anyTest } from './prepare-test-env-ava.js';
-import { makeCopyBag } from '@endo/patterns';
 import { createRequire } from 'module';
 import { E } from '@endo/far';
 import { makeNodeBundleCache } from '@endo/bundle-source/cache.js';
@@ -40,12 +39,10 @@ test('Install the real estate contract', async t => {
 test('Start the real estate contract', async t => {
   const { bundle, issuers, zoe } = t.context;
 
-  const money = makeIssuerKit('PlayMoney');
+  const money = makeIssuerKit('ist');
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
-    tradePrice: issuers.map((issuer, index) =>
-      AmountMath.make(issuer.brand, 5n + BigInt(index)),
-    ),
+    tradePrice: issuers.map((_, index) => AmountMath.make(money.brand, 5n + BigInt(index))),
   };
   t.log('terms:', terms);
 
@@ -56,21 +53,27 @@ test('Start the real estate contract', async t => {
     terms,
   );
   const publicFacet = E(zoe).getPublicFacet(instance);
-  console.log("E(publicFacet).getPropertyIssuers(): ", E(publicFacet).getPropertyIssuers());
+  const issuer = (await E(publicFacet).getPropertyIssuers())[0];
 
   const proposal = {
     give: { Price: AmountMath.make(money.brand, 5n) },
     want: {
       Items: AmountMath.make(
-        (await E(publicFacet).getPropertyIssuers())[0].getBrand(),
-        makeCopyBag([[(await E(publicFacet).getPropertyIssuers())[0].getBrand(), 5n]]),
+        issuer.brand,
+        5n,
       ),
     },
   };
-  await E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
+
+  const seat = await E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
     Price: money.mint.mintPayment(AmountMath.make(money.brand, 5n)),
   });
+  const items = await E(seat).getPayout(issuer.brand.getAllegedName());
 
-  t.log(instance);
-  t.is(typeof instance, 'object');
+  t.log('items: ', items);
+
+  const actual = await E(issuer.issuer).getAmountOf(items);
+  t.log('Alice payout brand', actual.brand);
+  t.log('Alice payout value', actual.value);
+  t.deepEqual(actual, proposal.want.Items);
 });
