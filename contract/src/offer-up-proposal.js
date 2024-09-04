@@ -67,7 +67,12 @@ export const startOfferUpContract = async permittedPowers => {
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  const terms = { tradePrice: AmountMath.make(istBrand, 25n * CENT) };
+  // const terms = { tradePrice: AmountMath.make(istBrand, 25n * CENT) };
+
+  // Subscription Service Terms
+
+  const subscriptionTerms = { subscriptionPrice: AmountMath.make(istBrand, 10n * CENT) }
+
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
   const installation = await offerUpInstallationP;
@@ -76,7 +81,7 @@ export const startOfferUpContract = async permittedPowers => {
     installation,
     issuerKeywordRecord: { Price: istIssuer },
     label: 'offerUp',
-    terms,
+    terms: subscriptionTerms,
   });
   console.log('CoreEval script: started contract', instance);
   const {
