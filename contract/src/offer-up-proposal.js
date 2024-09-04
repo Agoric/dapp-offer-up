@@ -71,7 +71,7 @@ export const startOfferUpContract = async permittedPowers => {
 
   // Subscription Service Terms
 
-  const subscriptionTerms = { subscriptionPrice: AmountMath.make(istBrand, 10n * CENT) }
+  const subscriptionTerms = { subscriptionPrice: AmountMath.make(istBrand, 500n) }
 
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
