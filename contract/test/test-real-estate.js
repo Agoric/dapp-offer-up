@@ -28,23 +28,58 @@ const makeTestContext = async _t => {
 
 test.before(async t => (t.context = await makeTestContext(t)));
 
-test('Install the real estate contract', async t => {
-  const { zoe, bundle } = t.context;
-
-  const installation = await E(zoe).install(bundle);
-  t.log(installation);
-  t.is(typeof installation, 'object');
-});
-
-test('Start the real estate contract', async t => {
+test('Real estate buy', async t => {
   const { bundle, issuers, zoe } = t.context;
 
   const money = makeIssuerKit('ist');
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
-    tradePrice: issuers.map((_, index) => AmountMath.make(money.brand, 5n + BigInt(index))),
+    tradePrice: issuers.map((_, index) =>
+      AmountMath.make(money.brand, 5n + BigInt(index)),
+    ),
   };
-  t.log('terms:', terms);
+
+  const installation = E(zoe).install(bundle);
+  const { instance } = await E(zoe).startInstance(
+    installation,
+    { SellAsset: money.issuer },
+    terms,
+  );
+
+  const publicFacet = E(zoe).getPublicFacet(instance);
+  const issuersFacet = await E(publicFacet).getPropertyIssuers();
+
+  //   const issuerToTest = Math.floor(Math.random() * issuersFacet.length);
+  const issuerToTest = 0;
+
+  const issuer = issuersFacet[issuerToTest];
+
+  const proposal = {
+    give: { SellAsset: AmountMath.make(money.brand, 5n) },
+    want: {
+      BuyAsset: AmountMath.make(issuer.brand, 5n),
+    },
+  };
+
+  const seat = E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
+    SellAsset: money.mint.mintPayment(AmountMath.make(money.brand, 5n)),
+  });
+
+  const items = await E(seat).getPayout('BuyAsset');
+  const actual = await E(issuer.issuer).getAmountOf(items);
+  t.deepEqual(actual, proposal.want.BuyAsset);
+});
+
+test('Test real estate sell', async t => {
+  const { bundle, issuers, zoe } = t.context;
+
+  const money = makeIssuerKit('ist');
+  const terms = {
+    propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
+    tradePrice: issuers.map((_, index) =>
+      AmountMath.make(money.brand, 5n + BigInt(index)),
+    ),
+  };
 
   const installation = E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(
@@ -52,28 +87,27 @@ test('Start the real estate contract', async t => {
     { Price: money.issuer },
     terms,
   );
+
   const publicFacet = E(zoe).getPublicFacet(instance);
-  const issuer = (await E(publicFacet).getPropertyIssuers())[0];
+  const issuersFacet = await E(publicFacet).getPropertyIssuers();
+
+  //   const issuerToTest = Math.floor(Math.random() * issuersFacet.length);
+  const issuerToTest = 1;
+
+  const issuer = issuersFacet[issuerToTest];
 
   const proposal = {
     give: { Price: AmountMath.make(money.brand, 5n) },
     want: {
-      Items: AmountMath.make(
-        issuer.brand,
-        5n,
-      ),
+      Items: AmountMath.make(issuer.brand, 5n),
     },
   };
 
-  const seat = await E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
+  const seat = E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
     Price: money.mint.mintPayment(AmountMath.make(money.brand, 5n)),
   });
-  const items = await E(seat).getPayout(issuer.brand.getAllegedName());
 
-  t.log('items: ', items);
-
+  const items = await E(seat).getPayout('Items');
   const actual = await E(issuer.issuer).getAmountOf(items);
-  t.log('Alice payout brand', actual.brand);
-  t.log('Alice payout value', actual.value);
   t.deepEqual(actual, proposal.want.Items);
 });
