@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": true,
+  "packageManager": "yarn@4.4.1",
   "useWorkspaces": true,
   "workspaces": [
     "contract",
@@ -43,10 +44,10 @@
     "make:help": "make -C contract list",
     "start:contract": "cd contract && yarn start",
     "start:ui": "cd ui && yarn dev",
-    "lint": "yarn workspaces run lint",
-    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces foreach --all run lint",
+    "test": "yarn workspaces foreach --all run test",
     "test:e2e": "yarn workspace offer-up-ui test:e2e",
-    "build": "yarn workspaces run build",
+    "build": "yarn workspaces foreach --all run build",
     "runWaitForBlocks": "cd contract && yarn make:waitForBlocks"
   },
   "devDependencies": {
@@ -57,6 +58,5 @@
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-ui-testing": "^2.0.1",
     "serve": "^14.2.1"
-  },
-  "dependencies": {}
+  }
 }
