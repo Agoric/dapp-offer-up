@@ -47,19 +47,16 @@ export const startOfferUpContract = async permittedPowers => {
     consume: { board, chainStorage, startUpgradable, zoe },
     brand: {
       consume: { IST: istBrandP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
-      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemIssuer },
     },
     installation: {
       consume: { offerUp: offerUpInstallationP },
     },
     instance: {
-      // @ts-expect-error dynamic extension to promise space
       produce: { offerUp: produceInstance },
     },
   } = permittedPowers;
@@ -67,12 +64,9 @@ export const startOfferUpContract = async permittedPowers => {
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  // const terms = { tradePrice: AmountMath.make(istBrand, 25n * CENT) };
-
-  // Subscription Service Terms
-
-  const subscriptionTerms = { subscriptionPrice: AmountMath.make(istBrand, 500n) }
-
+  const subscriptionTerms = {
+    subscriptionPrice: AmountMath.make(istBrand, 500n),
+  };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
   const installation = await offerUpInstallationP;
