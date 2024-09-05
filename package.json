@@ -50,6 +50,9 @@
     "build": "yarn workspaces foreach --all run build",
     "runWaitForBlocks": "cd contract && yarn make:waitForBlocks"
   },
+  "dependencies": {
+    "eslint": "^8.57.0"
+  },
   "devDependencies": {
     "@agoric/synpress": "^3.8.1",
     "eslint-config-turbo": "^1.13.0",
