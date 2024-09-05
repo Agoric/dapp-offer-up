@@ -18,15 +18,15 @@
     "make:waitForBlocks": "make wait-for-blocks"
   },
   "devDependencies": {
-    "@agoric/deploy-script-support": "^0.10.4-u12.0",
-    "@agoric/eslint-config": "dev",
+    "@agoric/deploy-script-support": "^0.10.4-u16.2",
+    "@agoric/eslint-config": "^0.4.1-u16.0",
     "@endo/bundle-source": "^2.8.0",
     "@endo/eslint-plugin": "^2.2.1",
     "@endo/init": "^0.5.60",
     "@endo/promise-kit": "0.2.56",
     "@endo/ses-ava": "^0.2.44",
     "@jessie.js/eslint-plugin": "^0.4.1",
-    "agoric": "^0.21.2-u12.0",
+    "agoric": "^0.22.0-u16.2",
     "ava": "^5.3.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -45,8 +45,8 @@
     "typescript-eslint": "^7.13.1"
   },
   "dependencies": {
-    "@agoric/ertp": "^0.16.3-u12.0",
-    "@agoric/zoe": "^0.26.3-u12.0",
+    "@agoric/ertp": "^0.16.3-u16.1",
+    "@agoric/zoe": "^0.26.3-u16.1",
     "@endo/far": "^0.2.22",
     "@endo/marshal": "^0.8.9",
     "@endo/patterns": "^0.2.5"
