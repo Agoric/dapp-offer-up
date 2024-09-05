@@ -47,7 +47,7 @@ import '@agoric/zoe/exported.js';
 export const start = async zcf => {
   const {
     subscriptionPrice,
-    subscriptionPeriod = 'MONTHLY',
+    // subscriptionPeriod = 'MONTHLY',
     serviceToAvail = 'NETFLIX',
   } = zcf.getTerms();
 
@@ -142,7 +142,7 @@ export const start = async zcf => {
     const expiryTime = userSubscription.value.payload[0][0].expiryTime
 
     // Here we'll check with current time from time service. The expiryTime should be greater than current time
-    if (!expiryTime || expiryTime != '123')
+    if (!expiryTime || expiryTime !== '123')
       return false
     return true;
     // 
