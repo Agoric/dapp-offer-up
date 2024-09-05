@@ -47,8 +47,8 @@ import '@agoric/zoe/exported.js';
 export const start = async zcf => {
   const {
     subscriptionPrice,
-    // subscriptionPeriod = 'MONTHLY',
-    servicesToAvail = ['NETFLIX', 'AMAZON'],
+    subscriptionPeriod = 'MONTHLY',
+    servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
   } = zcf.getTerms();
 
   const subscriptionResources = {};

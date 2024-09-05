@@ -86,7 +86,7 @@ const alice = async (t, zoe, instance, purse) => {
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, subscriptionPrice } = terms;
 
-  const serviceType = 'NETFLIX'
+  const serviceType = 'Netflix'
   const choiceBag = makeCopyBag([[{ expiryTime: '123', serviceType }, 1n]]);
 
   const proposal = {
