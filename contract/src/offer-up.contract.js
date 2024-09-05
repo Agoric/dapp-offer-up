@@ -73,7 +73,11 @@ const bagCounts = bag => {
  * @param {ZCF<SubscriptionServiceTerms>} zcf
  */
 export const start = async zcf => {
-  const { subscriptionPrice, subscriptionPeriod = 'MONTHLY', serviceToAvail = 'NETFLIX'  } = zcf.getTerms();
+  const {
+    subscriptionPrice,
+    subscriptionPeriod = 'MONTHLY',
+    serviceToAvail = 'NETFLIX',
+  } = zcf.getTerms();
 
   /**
    * a new ERTP mint for items, accessed thru the Zoe Contract Facet.
@@ -84,7 +88,7 @@ export const start = async zcf => {
    * amounts such as: 3 potions and 1 map.
    */
   const itemMint = await zcf.makeZCFMint('Item', AssetKind.COPY_BAG);
-  
+
   const { brand } = itemMint.getIssuerRecord();
 
   /**
@@ -104,34 +108,13 @@ export const start = async zcf => {
 
   /** @type {OfferHandler} */
   const tradeHandler = async buyerSeat => {
+    // Creating a unit of subscription
+    const subscriptionAmount = AmountMath.make(
+      brand,
+      makeCopyBag([[{ expiryTime: '123' }, 1n]]),
+    );
 
-   
-    // Without ZCF/ZOE
-
-    // const { brand, mint, issuer } = makeIssuerKit('Subscription', AssetKind.COPY_BAG)
-
-    // const amountObject  = AmountMath.make(brand, harden({ expiryTime: Date.now() }))
-
-    // const paymentObj = mint.mintPayment(amountObject)
-
-    // // Verify
-
-    // issuer.getAmountOf(paymentObj).then((amount) => {
-
-    //   console.log("Amount", amount)
-
-    // } )
-
-    // WITH ZOE
-
-    // mint.mintPayment()
-
-    
-    // give and want are guaranteed by Zoe to match proposalShape
-
-    // const { want } = buyerSeat.getProposal();
-    const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123' }, 1n]]))
-    const want = { Items: amountObject };
+    const want = { Items: subscriptionAmount };
 
     const newSubscription = itemMint.mintGains(want);
 
@@ -158,7 +141,12 @@ export const start = async zcf => {
    *   - want: `Items`
    */
   const makeTradeInvitation = () =>
-    zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
+    zcf.makeInvitation(
+      tradeHandler,
+      'buy subscription',
+      undefined,
+      proposalShape,
+    );
 
   // Mark the publicFacet Far, i.e. reachable from outside the contract
   const publicFacet = Far('Items Public Facet', {
