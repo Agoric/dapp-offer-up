@@ -46,6 +46,7 @@
     "typescript": "~5.2.2"
   },
   "dependencies": {
+    "@agoric/zone": "0.2.3-u12.0",
     "@agoric/ertp": "^0.16.3-u12.0",
     "@agoric/zoe": "^0.26.3-u12.0",
     "@endo/far": "^0.2.22",
