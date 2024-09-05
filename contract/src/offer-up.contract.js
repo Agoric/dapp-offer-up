@@ -33,7 +33,7 @@ import '@agoric/zoe/exported.js';
  * @typedef {{
  *   subscriptionPrice: Amount;
  *   subscriptionPeriod?: string;
- *   serviceToAvail?: string;
+ *   servicesToAvail?: Array<string>;
  * }} SubscriptionServiceTerms
  */
 
@@ -48,12 +48,15 @@ export const start = async zcf => {
   const {
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
-    serviceToAvail = 'NETFLIX',
+    servicesToAvail = ['NETFLIX', 'AMAZON'],
   } = zcf.getTerms();
 
-  const subscriptionResources = {
-    'NETFLIX': ['Movie_1', 'Movie_2']
-  }
+
+  const subscriptionResources = {}
+
+  servicesToAvail.forEach(element => {
+    subscriptionResources[element] = [`${element}_Movie_1`, `${element}_Movie_2`]
+  });
 
   /**
    * a new ERTP mint for items, accessed thru the Zoe Contract Facet.
@@ -90,13 +93,14 @@ export const start = async zcf => {
 
     // @ts-ignore
     const userAddress = offerArgs.userAddress;
-    console.log("UserAddress", userAddress);
+    // @ts-ignore
+    const serviceType = offerArgs.serviceType;
 
     
 
     // prepareExpiryTime from time service (current time + 30 days)
   
-    const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123' }, 1n]]))
+    const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123', serviceType }, 1n]]))
     const want = { Items: amountObject };
 
     const newSubscription = itemMint.mintGains(want);
@@ -133,8 +137,7 @@ export const start = async zcf => {
       proposalShape,
     );
 
-  const checkUserHasSubscription = (userAddress) => {
-    const userSubscription = subscriptions.get(userAddress);
+  const isSubscriptionValid = (userSubscription) => {
 
     if (!userSubscription || !userSubscription.value.payload)
       return false
@@ -149,11 +152,14 @@ export const start = async zcf => {
   }
 
   const getSubscriptionResources  = (userAddress) => {
-    const userHasSubscription = checkUserHasSubscription(userAddress); 
+    const userSubscription = subscriptions.get(userAddress);
 
-  if (userHasSubscription) {
+    
+    const isValidSub = isSubscriptionValid(userSubscription);
+  if (isValidSub) {
     // User has a valid subscription, return the resources
-    return subscriptionResources[serviceToAvail];
+    const serviceType = userSubscription.value.payload[0][0].serviceType
+    return subscriptionResources[serviceType];
   } else {
     // User doesn't have a valid subscription
     return 'Access denied: You do not have a valid subscription.';
