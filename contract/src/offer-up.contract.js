@@ -20,29 +20,10 @@
 // @ts-check
 
 import { Far } from '@endo/far';
-import { M, getCopyBagEntries } from '@endo/patterns';
 import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
-import { makeCopyBag } from '@endo/patterns';
-import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
+import { makeCopyBag, M } from '@endo/patterns';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
-import { makeIssuerKit } from '@agoric/ertp';
 import '@agoric/zoe/exported.js';
-
-const { Fail, quote: q } = assert;
-
-// #region bag utilities
-/** @type { (xs: bigint[]) => bigint } */
-const sum = xs => xs.reduce((acc, x) => acc + x, 0n);
-
-/**
- * @param {import('@endo/patterns').CopyBag} bag
- * @returns {bigint[]}
- */
-const bagCounts = bag => {
-  const entries = getCopyBagEntries(bag);
-  return entries.map(([_k, ct]) => ct);
-};
-// #endregion
 
 /**
  * In addition to the standard `issuers` and `brands` terms,
@@ -56,17 +37,6 @@ const bagCounts = bag => {
  * }} SubscriptionServiceTerms
  */
 
-// export const meta = {
-//   customTermsShape: M.splitRecord(
-//     { tradePrice: AmountShape },
-//     { maxItems: M.bigint() },
-//   ),
-// };
-// harden(meta);
-// // compatibility with an earlier contract metadata API
-// export const customTermsShape = meta.customTermsShape;
-// harden(customTermsShape);
-
 /**
  * Start a contract that
  *   - creates a new non-fungible asset type for Items, and
@@ -77,8 +47,8 @@ const bagCounts = bag => {
 export const start = async zcf => {
   const {
     subscriptionPrice,
-    subscriptionPeriod = 'MONTHLY',
-    serviceToAvail = 'NETFLIX',
+    // subscriptionPeriod = 'MONTHLY',
+    // serviceToAvail = 'NETFLIX',
   } = zcf.getTerms();
 
   /**
