@@ -13482,7 +13482,6 @@ __metadata:
   resolution: "offer-up@workspace:."
   dependencies:
     "@agoric/synpress": "npm:^3.8.1"
-    eslint: "npm:^8.57.0"
     eslint-config-turbo: "npm:^1.13.0"
     eslint-plugin-chai-friendly: "npm:^0.7.4"
     eslint-plugin-cypress: "npm:^2.15.1"
