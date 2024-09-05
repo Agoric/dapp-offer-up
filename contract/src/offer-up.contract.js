@@ -48,7 +48,7 @@ export const start = async zcf => {
   const {
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
-    servicesToAvail = ['NETFLIX', 'AMAZON'],
+    servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
   } = zcf.getTerms();
 
 
