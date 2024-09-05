@@ -86,7 +86,8 @@ const alice = async (t, zoe, instance, purse) => {
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, subscriptionPrice } = terms;
 
-  const choiceBag = makeCopyBag([[{ expiryTime: '123' }, 1n]]);
+  const serviceType = 'NETFLIX'
+  const choiceBag = makeCopyBag([[{ expiryTime: '123', serviceType }, 1n]]);
 
   const proposal = {
     give: { Price: subscriptionPrice },
@@ -100,7 +101,7 @@ const alice = async (t, zoe, instance, purse) => {
 
   const userAddress = 'agoric123456';
 
-  const seat = E(zoe).offer(toTrade, proposal, { Price: pmt }, { userAddress });
+  const seat = E(zoe).offer(toTrade, proposal, { Price: pmt }, { userAddress, serviceType });
   const items = await E(seat).getPayout('Items');
 
   const actual = await E(issuers.Item).getAmountOf(items);
@@ -108,7 +109,7 @@ const alice = async (t, zoe, instance, purse) => {
   t.log('Alice payout value', actual.value);
   t.deepEqual(actual, proposal.want.Items);
 
-  const actualMovies = ['Movie_1', 'Movie_2']
+  const actualMovies = [`${serviceType}_Movie_1`, `${serviceType}_Movie_2`]
   const subscriptionMovies = await E(publicFacet).getSubscriptionResources(userAddress)
 
   t.deepEqual(actualMovies, subscriptionMovies)
