@@ -12,9 +12,6 @@ const BOARD_AUX = 'boardAux';
 
 const marshalData = makeMarshal(_val => Fail`data only`);
 
-const IST_UNIT = 1_000_000n;
-const CENT = IST_UNIT / 100n;
-
 /**
  * Make a storage node for auxilliary data for a value on the board.
  *
@@ -47,16 +44,19 @@ export const startOfferUpContract = async permittedPowers => {
     consume: { board, chainStorage, startUpgradable, zoe },
     brand: {
       consume: { IST: istBrandP },
+      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
+      // @ts-expect-error dynamic extension to promise space
       produce: { Item: produceItemIssuer },
     },
     installation: {
       consume: { offerUp: offerUpInstallationP },
     },
     instance: {
+      // @ts-expect-error dynamic extension to promise space
       produce: { offerUp: produceInstance },
     },
   } = permittedPowers;
@@ -64,7 +64,7 @@ export const startOfferUpContract = async permittedPowers => {
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  const subscriptionTerms = {
+  const terms = {
     subscriptionPrice: AmountMath.make(istBrand, 500n),
   };
 
@@ -75,7 +75,7 @@ export const startOfferUpContract = async permittedPowers => {
     installation,
     issuerKeywordRecord: { Price: istIssuer },
     label: 'offerUp',
-    terms: subscriptionTerms,
+    terms,
   });
   console.log('CoreEval script: started contract', instance);
   const {
