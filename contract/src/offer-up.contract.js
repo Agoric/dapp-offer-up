@@ -92,6 +92,10 @@ export const start = async zcf => {
     const userAddress = offerArgs.userAddress;
     console.log("UserAddress", userAddress);
 
+    
+
+    // prepareExpiryTime from time service (current time + 30 days)
+  
     const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123' }, 1n]]))
     const want = { Items: amountObject };
 
