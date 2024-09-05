@@ -291,13 +291,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/eventual-send@npm:^0.14.1":
-  version: 0.14.1
-  resolution: "@agoric/eventual-send@npm:0.14.1"
-  checksum: 10c0/eeee25ffbdc8d0adb20387f7c0b9cb532afc2c51ad6301d79c4bc813c2a72d4e5398e3717dd2408361d5809064e45bfe60e20370710cd6f25cfbb2886fe098eb
-  languageName: node
-  linkType: hard
-
 "@agoric/governance@npm:0.10.4-upgrade-16a-dev-fb592e4.0+fb592e4":
   version: 0.10.4-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/governance@npm:0.10.4-upgrade-16a-dev-fb592e4.0"
@@ -13989,7 +13982,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "offer-up-ui@workspace:ui"
   dependencies:
-    "@agoric/eventual-send": "npm:^0.14.1"
     "@agoric/notifier": "npm:^0.7.0-u16.1"
     "@agoric/rpc": "npm:0.9.1-dev-f471a83.0"
     "@agoric/store": "npm:^0.9.3-u16.0"
