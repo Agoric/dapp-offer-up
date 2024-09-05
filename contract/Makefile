@@ -95,8 +95,8 @@ vote:
 instance-q:
 	agd query vstorage data published.agoricNames.instance -o json
 
-SCRIPT=start-offer-up.js
-PERMIT=start-offer-up-permit.json
+SCRIPT=start-real-estate.js
+PERMIT=start-real-estate-permit.json
 start-contract: $(SCRIPT) $(PERMIT) install-bundles
 	scripts/propose-start-contract.sh
 

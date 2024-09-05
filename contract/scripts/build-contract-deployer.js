@@ -23,7 +23,7 @@ export const realEstateProposalBuilder = async ({ publishRef, install }) => {
       {
         realEstateRef: publishRef(
           install(
-            '../src/real-estate.contract.js',
+            '../src/real-estate-contract.js',
             '../bundles/bundle-real-estate.js',
             {
               persist: true,

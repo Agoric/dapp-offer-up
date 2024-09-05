@@ -17,10 +17,10 @@ import { AmountMath, makeIssuerKit } from '@agoric/ertp';
 import { makeStableFaucet } from './mintStable.js';
 import { startRealEstateContract } from '../src/real-estate-proposal.js';
 
-/** @typedef {typeof import('../src/real-estate.contract.js').start} AssetContractFn */
+/** @typedef {typeof import('../src/real-estate-contract.js').start} AssetContractFn */
 
 const myRequire = createRequire(import.meta.url);
-const contractPath = myRequire.resolve(`../src/real-estate.contract.js`);
+const contractPath = myRequire.resolve(`../src/real-estate-contract.js`);
 
 /** @type {import('ava').TestFn<Awaited<ReturnType<makeTestContext>>>} */
 const test = anyTest;
