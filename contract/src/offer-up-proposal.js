@@ -41,7 +41,13 @@ const publishBrandInfo = async (chainStorage, board, brand) => {
 export const startOfferUpContract = async permittedPowers => {
   console.error('startOfferUpContract()...');
   const {
-    consume: { board, chainStorage, startUpgradable, zoe },
+    consume: {
+      board,
+      chainStorage,
+      startUpgradable,
+      zoe,
+      chainTimerService: chainTimerServiceP,
+    },
     brand: {
       consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
@@ -63,9 +69,11 @@ export const startOfferUpContract = async permittedPowers => {
 
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
+  const timerService = await await chainTimerServiceP;
 
   const terms = {
-    subscriptionPrice: AmountMath.make(istBrand, 500n),
+    subscriptionPrice: AmountMath.make(istBrand, 10000000n),
+    timerService,
   };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
@@ -106,6 +114,7 @@ const offerUpManifest = {
       chainStorage: true, // to publish boardAux info for NFT brand
       startUpgradable: true, // to start contract and save adminFacet
       zoe: true, // to get contract terms, including issuer/brand
+      chainTimerService: true,
     },
     installation: { consume: { offerUp: true } },
     issuer: { consume: { IST: true }, produce: { Item: true } },

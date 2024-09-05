@@ -14,7 +14,9 @@ import { subscribeLatest } from '@agoric/notifier';
 import { makeCopyBag } from '@agoric/store';
 import { Logos } from './components/Logos';
 import { Inventory } from './components/Inventory';
-import { Trade } from './components/Trade';
+import { Subscribe } from './components/Trade';
+
+import { AmountMath } from '@agoric/ertp';
 
 const { entries, fromEntries } = Object;
 
@@ -86,15 +88,21 @@ const connectWallet = async () => {
   }
 };
 
-const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
+const makeOffer = (giveValue: bigint, wantChoice: string) => {
   const { wallet, offerUpInstance, brands } = useAppStore.getState();
   if (!offerUpInstance) throw Error('no contract instance');
   if (!(brands && brands.IST && brands.Item))
     throw Error('brands not available');
 
-  const value = makeCopyBag(entries(wantChoices));
-  const want = { Items: { brand: brands.Item, value } };
-  const give = { Price: { brand: brands.IST, value: giveValue } };
+  const choiceBag = makeCopyBag([
+    [{ expiryTime: '123', serviceType: wantChoice }, 1n],
+  ]);
+
+  // want: { Items: AmountMath.make(brands.Item, choiceBag) }
+
+  // const value = makeCopyBag(entries(wantChoices));
+  const want = { Items: AmountMath.make(brands.Item, choiceBag) };
+  const give = { Price: AmountMath.make(brands.IST, 10000000n) };
 
   wallet?.makeOffer(
     {
@@ -103,7 +111,10 @@ const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
       publicInvitationMaker: 'makeTradeInvitation',
     },
     { give, want },
-    undefined,
+    {
+      userAddress: wallet.address,
+      serviceType: wantChoice,
+    },
     (update: { status: string; data?: unknown }) => {
       if (update.status === 'error') {
         alert(`Offer error: ${update.data}`);
@@ -145,10 +156,10 @@ function App() {
   return (
     <>
       <Logos />
-      <h1>Items Listed on Offer Up</h1>
+      <h1>All-in-One Subscription Service</h1>
 
       <div className="card">
-        <Trade
+        <Subscribe
           makeOffer={makeOffer}
           istPurse={istPurse as Purse}
           walletConnected={!!wallet}

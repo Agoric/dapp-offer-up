@@ -19,7 +19,7 @@
  */
 // @ts-check
 
-import { Far } from '@endo/far';
+import { Far, E } from '@endo/far';
 import { AmountMath, AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { makeCopyBag, M } from '@endo/patterns';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
@@ -31,6 +31,7 @@ import '@agoric/zoe/exported.js';
  * optionally, a maximum number of items sold for that price (default: 3).
  *
  * @typedef {{
+ *   timerService: any;
  *   subscriptionPrice: Amount;
  *   subscriptionPeriod?: string;
  *   servicesToAvail?: Array<string>;
@@ -46,16 +47,19 @@ import '@agoric/zoe/exported.js';
  */
 export const start = async zcf => {
   const {
+    timerService,
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
     servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
   } = zcf.getTerms();
 
-
-  const subscriptionResources = {}
+  const subscriptionResources = {};
 
   servicesToAvail.forEach(element => {
-    subscriptionResources[element] = [`${element}_Movie_1`, `${element}_Movie_2`]
+    subscriptionResources[element] = [
+      `${element}_Movie_1`,
+      `${element}_Movie_2`,
+    ];
   });
 
   /**
@@ -87,20 +91,18 @@ export const start = async zcf => {
 
   const subscriptions = new Map();
 
-
   /** @type {OfferHandler} */
   const tradeHandler = async (buyerSeat, offerArgs) => {
-
     // @ts-ignore
     const userAddress = offerArgs.userAddress;
     // @ts-ignore
     const serviceType = offerArgs.serviceType;
+    const currentTimeRecord = await E(timerService).getCurrentTimestamp();
 
-    
-
-    // prepareExpiryTime from time service (current time + 30 days)
-  
-    const amountObject = AmountMath.make(brand, makeCopyBag([[{ expiryTime: '123', serviceType }, 1n]]))
+    const amountObject = AmountMath.make(
+      brand,
+      makeCopyBag([[{ serviceStarted: currentTimeRecord, serviceType }, 1n]]),
+    );
     const want = { Items: amountObject };
 
     const newSubscription = itemMint.mintGains(want);
@@ -137,36 +139,30 @@ export const start = async zcf => {
       proposalShape,
     );
 
-  const isSubscriptionValid = (userSubscription) => {
+  const isSubscriptionValid = userSubscription => {
+    if (!userSubscription || !userSubscription.value.payload) return false;
 
-    if (!userSubscription || !userSubscription.value.payload)
-      return false
+    const serviceStarted = userSubscription.value.payload[0][0].serviceStarted;
 
-    const expiryTime = userSubscription.value.payload[0][0].expiryTime
-
-    // Here we'll check with current time from time service. The expiryTime should be greater than current time
-    if (!expiryTime || expiryTime !== '123')
-      return false
+    // Here we'll check with current time from time service.
+    if (!serviceStarted || serviceStarted !== '123') return false;
     return true;
-    // 
-  }
-
-  const getSubscriptionResources  = (userAddress) => {
-    const userSubscription = subscriptions.get(userAddress);
-
-    
-    const isValidSub = isSubscriptionValid(userSubscription);
-  if (isValidSub) {
-    // User has a valid subscription, return the resources
-    const serviceType = userSubscription.value.payload[0][0].serviceType
-    return subscriptionResources[serviceType];
-  } else {
-    // User doesn't have a valid subscription
-    return 'Access denied: You do not have a valid subscription.';
-  }
-
+    //
   };
 
+  const getSubscriptionResources = userAddress => {
+    const userSubscription = subscriptions.get(userAddress);
+
+    const isValidSub = isSubscriptionValid(userSubscription);
+    if (isValidSub) {
+      // User has a valid subscription, return the resources
+      const serviceType = userSubscription.value.payload[0][0].serviceType;
+      return subscriptionResources[serviceType];
+    } else {
+      // User doesn't have a valid subscription
+      return 'Access denied: You do not have a valid subscription.';
+    }
+  };
 
   // Mark the publicFacet Far, i.e. reachable from outside the contract
   const publicFacet = Far('Items Public Facet', {
