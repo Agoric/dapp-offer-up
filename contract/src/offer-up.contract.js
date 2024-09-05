@@ -74,7 +74,7 @@ export const start = async zcf => {
    * The `Items` amount must use the `Item` brand and a bag value.
    */
   const proposalShape = harden({
-    give: { Price: subscriptionPrice },
+    give: { Price: M.eq(subscriptionPrice) },
     want: { Items: { brand: M.any(), value: M.bag() } },
     exit: M.any(),
   });
