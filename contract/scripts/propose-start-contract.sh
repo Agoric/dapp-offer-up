@@ -32,4 +32,4 @@ parseInstances() {
 # check that the contract was actually started
 api=http://localhost:1317
 curl $api/agoric/vstorage/data/published.agoricNames.instance \
-  | parseInstances | grep offerUp
+  | parseInstances | grep realEstate

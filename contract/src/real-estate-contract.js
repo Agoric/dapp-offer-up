@@ -13,15 +13,15 @@ import '@agoric/zoe/exported.js';
  * optionally, a maximum number of items sold for that price (default: 3).
  *
  * @typedef {{
- *   propertiesToCreate: bigint;
- *   tradePrice: Amount;
- * }} OfferUpTerms
+ *   propertiesCount: bigint;
+ *   tokensPerProperty: bigint;
+ * }} RealEstateTerms
  */
 
 export const meta = {
   customTermsShape: M.splitRecord(
-    { propertiesToCreate: M.bigint() },
-    { tradePrice: M.arrayOf(AmountShape) },
+    { propertiesCount: M.bigint() },
+    { tokensPerProperty: M.bigint() },
   ),
 };
 // compatibility with an earlier contract metadata API
@@ -32,15 +32,15 @@ export const customTermsShape = meta.customTermsShape;
  *   - creates a new non-fungible asset type for Items, and
  *   - handles offers to buy up to `maxItems` items at a time.
  *
- * @param {ZCF<OfferUpTerms>} zcf
+ * @param {ZCF<RealEstateTerms>} zcf
  */
 export const start = async zcf => {
-  const { propertiesToCreate } = zcf.getTerms();
+  const { propertiesCount } = zcf.getTerms();
 
   /**
    * Create mints according to the number of needed properties
    */
-  const issuerKits = [...Array(Number(propertiesToCreate))].map((_, index) =>
+  const issuerKits = [...Array(Number(propertiesCount))].map((_, index) =>
     {
       const issuer = makeIssuerKit(`PlayProperty_${index}`);
       zcf.saveIssuer(issuer.issuer, issuer.brand.getAllegedName());
