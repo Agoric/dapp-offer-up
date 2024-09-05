@@ -7,8 +7,6 @@ import { AmountMath } from '@agoric/ertp';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
-const { Fail, quote: q } = assert;
-
 /**
  * In addition to the standard `issuers` and `brands` terms,
  * this contract is parameterized by terms for price and,
@@ -29,8 +27,6 @@ export const meta = {
 // compatibility with an earlier contract metadata API
 export const customTermsShape = meta.customTermsShape;
 
-const COINS_PER_PROPERTIES = 100;
-
 /**
  * Start a contract that
  *   - creates a new non-fungible asset type for Items, and
@@ -39,7 +35,7 @@ const COINS_PER_PROPERTIES = 100;
  * @param {ZCF<OfferUpTerms>} zcf
  */
 export const start = async zcf => {
-  const { propertiesToCreate, tradePrice } = zcf.getTerms();
+  const { propertiesToCreate } = zcf.getTerms();
 
 
   /**
@@ -49,23 +45,6 @@ export const start = async zcf => {
     [...Array(Number(propertiesToCreate))].map((_, index) =>
       zcf.makeZCFMint(`PlayProperty_${index}`),
     ),
-  );
-
-  const zcfSeats = propertyMints.map(propertyMint =>
-    propertyMint.mintGains({
-      WantAsset: AmountMath.make(
-        propertyMint.getIssuerRecord().brand,
-        BigInt(COINS_PER_PROPERTIES),
-      ),
-    }),
-  );
-
-  const zcfSeatsMap = zcfSeats.reduce(
-    (acc, zcfSeat, index) => ({
-      ...acc,
-      [propertyMints[index].getIssuerRecord().brand.getAllegedName()]: zcfSeat,
-    }),
-    {},
   );
 
   const proposalShape = harden({
@@ -85,16 +64,13 @@ export const start = async zcf => {
       'give---------------------------------------------',
       give.GiveAsset.brand.getAllegedName(),
     );
-    if (give.GiveAsset.brand.getAllegedName() == 'Property') {
+    if (give.GiveAsset.brand.getAllegedName() === 'Property') {
       availableProperties[give.GiveAsset.brand.getAllegedName()] = buyerSeat;
       return 'Property has been made available for sale. Looking for buyers...';
     }
 
     // search brand of want in the availableProperties - if not found then exit the buyerSeat and return
-    if (!availableProperties[want.WantAsset.brand.getAllegedName()]) {
-      buyerSeat.exit();
-      return;
-    }
+    if (!availableProperties[want.WantAsset.brand.getAllegedName()]) return buyerSeat.exit();
 
     // if found then then see if the buyerSeat matches the corresponding availableProperties property
     const sellerSeat =
@@ -107,18 +83,14 @@ export const start = async zcf => {
         want.WantAsset,
       ) ||
       !AmountMath.isGTE(give.GiveAsset, sellerSeat.getProposal().want.WantAsset)
-    ) {
-      buyerSeat.exit();
-      return;
-    }
+    ) return buyerSeat.exit();
 
     // All conditions meet - let us execute the trade
-
     atomicRearrange(
       zcf,
       harden([
-        [sellerSeat, buyerSeat, sellerSeat.getProposal().give],
-        [buyerSeat, sellerSeat, buyerSeat.getProposal().give],
+        [buyerSeat, sellerSeat, give, sellerSeat.getProposal().want],
+        [sellerSeat, buyerSeat, sellerSeat.getProposal().give, want],
       ]),
     );
 
