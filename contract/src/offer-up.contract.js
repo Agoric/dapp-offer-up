@@ -59,8 +59,10 @@ export const meta = {
     { maxItems: M.bigint() },
   ),
 };
+harden(meta);
 // compatibility with an earlier contract metadata API
 export const customTermsShape = meta.customTermsShape;
+harden(customTermsShape);
 
 /**
  * Start a contract that
