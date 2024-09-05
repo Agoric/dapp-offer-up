@@ -98,13 +98,20 @@ const alice = async (t, zoe, instance, purse) => {
 
   const toTrade = E(publicFacet).makeTradeInvitation();
 
-  const seat = E(zoe).offer(toTrade, proposal, { Price: pmt });
+  const userAddress = 'agoric123456';
+
+  const seat = E(zoe).offer(toTrade, proposal, { Price: pmt }, { userAddress });
   const items = await E(seat).getPayout('Items');
 
   const actual = await E(issuers.Item).getAmountOf(items);
   t.log('Alice payout brand', actual.brand);
   t.log('Alice payout value', actual.value);
   t.deepEqual(actual, proposal.want.Items);
+
+  const actualMovies = ['Movie_1', 'Movie_2']
+  const subscriptionMovies = await E(publicFacet).getSubscriptionResources(userAddress)
+
+  t.deepEqual(actualMovies, subscriptionMovies)
 };
 
 test('Alice trades: give some play money, want subscription', async t => {
@@ -113,7 +120,6 @@ test('Alice trades: give some play money, want subscription', async t => {
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
   const terms = { subscriptionPrice: AmountMath.make(money.brand, 500n) };
-
   /** @type {ERef<Installation<AssetContractFn>>} */
   const installation = E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(installation, issuers, terms);
