@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": true,
+  "packageManager": "yarn@4.4.1",
   "useWorkspaces": true,
   "workspaces": [
     "contract",
@@ -57,6 +58,5 @@
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-ui-testing": "^2.0.1",
     "serve": "^14.2.1"
-  },
-  "dependencies": {}
+  }
 }
