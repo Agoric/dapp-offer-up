@@ -35,10 +35,6 @@ test('Test real estate sellP', async t => {
   const money5 = AmountMath.make(money.brand, 5n);
   const pmtMoney = money.mint.mintPayment(money5);
 
-  const proprty = makeIssuerKit('Property');
-  const property5 = AmountMath.make(proprty.brand, 5n);
-  const pmtProperty = proprty.mint.mintPayment(property5);
-
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
     tradePrice: issuers.map((_, index) =>
@@ -47,13 +43,33 @@ test('Test real estate sellP', async t => {
   };
 
   const installation = await E(zoe).install(bundle);
-  const { instance } = await E(zoe).startInstance(
+  const { instance, creatorFacet } = await E(zoe).startInstance(
     installation,
-    { Money: money.issuer, Property: proprty.issuer },
+    { Money: money.issuer },
     terms,
   );
 
+  const { issuers: iss, brands } = await E(zoe).getTerms(instance);
+  const creatorPayments = creatorFacet.getInitialPayments();
+  const creatorPurses = [
+    'PlayProperty_0',
+    'PlayProperty_1',
+    'PlayProperty_2',
+    'PlayProperty_3',
+  ]
+    .map((name, index) => {
+      const purse = iss[name].makeEmptyPurse();
+      purse.deposit(creatorPayments[index]);
+      return purse;
+    });
+
   const publicFacet = await E(zoe).getPublicFacet(instance);
+
+  
+  const proprty = iss.PlayProperty_0;
+  const property5 = AmountMath.make(brands.PlayProperty_0, 5n);
+  
+  const pmtProperty = creatorPurses[0].withdraw(property5);
 
   // Proposal to sell a property
   const proposal1 = {
@@ -89,7 +105,7 @@ test('Test real estate sellP', async t => {
 
   const propertiesBought = await E(buyerSeat).getPayout('WantAsset');
   t.deepEqual(
-    await E(proprty.issuer).getAmountOf(propertiesBought),
+    await E(proprty).getAmountOf(propertiesBought),
     proposal2.want.WantAsset,
   );
 

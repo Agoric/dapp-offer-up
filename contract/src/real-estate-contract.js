@@ -3,7 +3,7 @@
 import { Far } from '@endo/far';
 import { M } from '@endo/patterns';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
-import { AmountMath } from '@agoric/ertp';
+import { AmountMath, makeIssuerKit } from '@agoric/ertp';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
@@ -40,10 +40,16 @@ export const start = async zcf => {
   /**
    * Create mints according to the number of needed properties
    */
-  const propertyMints = await Promise.all(
-    [...Array(Number(propertiesToCreate))].map((_, index) =>
-      zcf.makeZCFMint(`PlayProperty_${index}`),
-    ),
+  const issuerKits = [...Array(Number(propertiesToCreate))].map((_, index) =>
+    {
+      const issuer = makeIssuerKit(`PlayProperty_${index}`);
+      zcf.saveIssuer(issuer.issuer, issuer.brand.getAllegedName());
+      return issuer;
+    }
+  );
+
+  const initialPayments = issuerKits.map(issuerKit =>
+    issuerKit.mint.mintPayment(AmountMath.make(issuerKit.brand, 100n)),
   );
 
   const proposalShape = harden({
@@ -63,7 +69,7 @@ export const start = async zcf => {
       'give---------------------------------------------',
       give.GiveAsset.brand.getAllegedName(),
     );
-    if (give.GiveAsset.brand.getAllegedName() === 'Property') {
+    if (give.GiveAsset.brand.getAllegedName().startsWith('PlayProperty_')) {
       availableProperties[give.GiveAsset.brand.getAllegedName()] = buyerSeat;
       return 'Property has been made available for sale. Looking for buyers...';
     }
@@ -85,7 +91,7 @@ export const start = async zcf => {
       !AmountMath.isGTE(give.GiveAsset, sellerSeat.getProposal().want.WantAsset)
     )
       return buyerSeat.exit();
-
+    debugger;
     // All conditions meet - let us execute the trade
     atomicRearrange(
       zcf,
@@ -100,17 +106,17 @@ export const start = async zcf => {
     delete availableProperties[want.WantAsset.brand.getAllegedName()];
   };
 
-  const getPropertyIssuers = () =>
-    propertyMints.map(propertyMint => propertyMint.getIssuerRecord());
-
   const makeTradeInvitation = () =>
     zcf.makeInvitation(tradeHandler, 'buy assets', undefined, proposalShape);
 
   const publicFacet = Far('Asset Public Facet', {
     makeTradeInvitation,
-    getPropertyIssuers,
   });
-  return harden({ publicFacet });
+
+  const creatorFacet = Far('Asset Creator Facet', {
+    getInitialPayments: () => initialPayments,
+  });
+  return harden({ publicFacet, creatorFacet });
 };
 
 harden(start);
