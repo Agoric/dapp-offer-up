@@ -26,7 +26,6 @@ const contractPath = myRequire.resolve(`../src/offer-up.contract.js`);
 const test = anyTest;
 
 const UNIT6 = 1_000_000n;
-const CENT = UNIT6 / 100n;
 
 /**
  * Tests assume access to the zoe service and that contracts are bundled.
@@ -63,7 +62,7 @@ test('Start the contract', async t => {
 
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
-  const terms = { tradePrice: AmountMath.make(money.brand, 5n) };
+  const terms = { subscriptionPrice: AmountMath.make(money.brand, 500n) };
   t.log('terms:', terms);
 
   /** @type {ERef<Installation<AssetContractFn>>} */
@@ -80,25 +79,22 @@ test('Start the contract', async t => {
  * @param {ZoeService} zoe
  * @param {ERef<import('@agoric/zoe/src/zoeService/utils').Instance<AssetContractFn>} instance
  * @param {Purse} purse
- * @param {string[]} choices
  */
-const alice = async (t, zoe, instance, purse, choices = ['map', 'scroll']) => {
+const alice = async (t, zoe, instance, purse) => {
   const publicFacet = E(zoe).getPublicFacet(instance);
   // @ts-expect-error Promise<Instance> seems to work
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, subscriptionPrice } = terms;
 
-  const choiceBag = makeCopyBag([[{expiryTime: '123'}, 1n]]);
+  const choiceBag = makeCopyBag([[{ expiryTime: '123' }, 1n]]);
 
-  const subscriptionPriceV2 = { ...subscriptionPrice, value: 500n }
-// 
   const proposal = {
-    give: { Price: subscriptionPriceV2},
+    give: { Price: subscriptionPrice },
     want: { Items: AmountMath.make(brands.Item, choiceBag) },
   };
-  const pmt = await E(purse).withdraw(subscriptionPriceV2);
+
+  const pmt = await E(purse).withdraw(subscriptionPrice);
   t.log('Alice gives', proposal.give);
-  // #endregion makeProposal
 
   const toTrade = E(publicFacet).makeTradeInvitation();
 
@@ -143,11 +139,11 @@ test('Trade in IST rather than play money', async t => {
     const installation = E(zoe).install(bundle);
     const feeIssuer = await E(zoe).getFeeIssuer();
     const feeBrand = await E(feeIssuer).getBrand();
-    const tradePrice = AmountMath.make(feeBrand, 25n * CENT);
+    const subscriptionPrice = AmountMath.make(feeBrand, 500n);
     return E(zoe).startInstance(
       installation,
       { Price: feeIssuer },
-      { tradePrice },
+      { subscriptionPrice },
     );
   };
 
