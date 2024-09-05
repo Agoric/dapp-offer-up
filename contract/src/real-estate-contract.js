@@ -40,7 +40,7 @@ const COINS_PER_PROPERTIES = 100;
  */
 export const start = async zcf => {
   const { propertiesToCreate, tradePrice } = zcf.getTerms();
-  
+
 
   /**
    * Create mints according to the number of needed properties
@@ -80,11 +80,14 @@ export const start = async zcf => {
   const tradeHandler = buyerSeat => {
     const { give, want } = buyerSeat.getProposal();
     // if brand associated with the give is not IST then push/insert the buyerSeat to the availableProperties
-    
-    console.log('give---------------', give.GiveAsset.brand.getAllegedName());
-    if (give.GiveAsset.brand.getAllegedName() !== 'IST') {
+
+    console.log(
+      'give---------------------------------------------',
+      give.GiveAsset.brand.getAllegedName(),
+    );
+    if (give.GiveAsset.brand.getAllegedName() == 'Property') {
       availableProperties[give.GiveAsset.brand.getAllegedName()] = buyerSeat;
-      return;
+      return 'Property has been made available for sale. Looking for buyers...';
     }
 
     // search brand of want in the availableProperties - if not found then exit the buyerSeat and return
@@ -94,7 +97,8 @@ export const start = async zcf => {
     }
 
     // if found then then see if the buyerSeat matches the corresponding availableProperties property
-    const sellerSeat = availableProperties[want.WantAsset.brand.getAllegedName()];
+    const sellerSeat =
+      availableProperties[want.WantAsset.brand.getAllegedName()];
 
     // if sellerSeat.give is not equal to or greater than the buyerSeat.want then exit the buyerSeat and vice versa
     if (
@@ -102,7 +106,7 @@ export const start = async zcf => {
         sellerSeat.getProposal().give.GiveAsset,
         want.WantAsset,
       ) ||
-      !AmountMath.isGTE( give.GiveAsset, sellerSeat.getProposal().want.WantAsset)
+      !AmountMath.isGTE(give.GiveAsset, sellerSeat.getProposal().want.WantAsset)
     ) {
       buyerSeat.exit();
       return;
@@ -113,13 +117,13 @@ export const start = async zcf => {
     atomicRearrange(
       zcf,
       harden([
-        [buyerSeat, sellerSeat, { GiveAsset: give.GiveAsset }],
-        [sellerSeat, buyerSeat, want],
+        [sellerSeat, buyerSeat, sellerSeat.getProposal().give],
+        [buyerSeat, sellerSeat, buyerSeat.getProposal().give],
       ]),
     );
 
     buyerSeat.exit(true);
-    
+
     // if sellerSeat.give is empty then delete the property from availableProperties and exit the sellerSeat
     if (AmountMath.isEmpty(sellerSeat.getProposal().give.GiveAsset)) {
       delete availableProperties[want.WantAsset.brand.getAllegedName()];
@@ -135,7 +139,7 @@ export const start = async zcf => {
 
   const publicFacet = Far('Asset Public Facet', {
     makeTradeInvitation,
-    getPropertyIssuers
+    getPropertyIssuers,
   });
   return harden({ publicFacet });
 };

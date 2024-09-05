@@ -70,19 +70,23 @@ test('Real estate buy', async t => {
   t.deepEqual(actual, proposal.want.BuyAsset);
 });
 
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 // create a test for the sell side
 test('Test real estate sellP', async t => {
   const { bundle, issuers, zoe } = t.context;
 
-  const money = makeIssuerKit('IST');
+  const money = makeIssuerKit('Money');
+  const money5 = AmountMath.make(money.brand, 5n);
+  const pmtMoney = money.mint.mintPayment( money5 );
+
   const proprty = makeIssuerKit('Property');
-
-  // E(zoe).zoeService.saveIssuer(proprty.issuer, 'Property');
-  // E(zoe).zoeService.saveIssuer(money.issuer, 'IST');
-
-  const pmtProperty = proprty.mint.mintPayment(AmountMath.make(proprty.brand, 5n));
-  const pmtMoney = money.mint.mintPayment(AmountMath.make(money.brand, 5n));
-
+  const property5 = AmountMath.make(proprty.brand, 5n);
+  const pmtProperty = proprty.mint.mintPayment(
+    property5
+  );
+  
 
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
@@ -94,7 +98,7 @@ test('Test real estate sellP', async t => {
   const installation = E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(
     installation,
-    { Price: money.issuer },
+    { Money: money.issuer, Property: proprty.issuer },
     terms,
   );
 
@@ -103,32 +107,41 @@ test('Test real estate sellP', async t => {
 
   //   const issuerToTest = Math.floor(Math.random() * issuersFacet.length);
   const issuerToTest = 1;
-
   const issuer = issuersFacet[issuerToTest];
 
-  const proposal = {
-    give: { GiveAsset: AmountMath.make(proprty.brand, 5n) },
+  // Proposal to sell a property
+  const proposal1 = {
+    give: { GiveAsset: property5 },
     want: {
-      WantAsset: AmountMath.make(money.brand, 5n),
+      WantAsset: money5
     },
   };
 
-  const seat = E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal, {
-    Price: pmtProperty
+  const seat1 = E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal1, {
+    GiveAsset: pmtProperty,
   });
-  console.log('seat', E(seat).getOfferResult());
-  t.assert( !E(seat).hasExited() );
 
+  // Proposal to buy a property
+  const proposal2 = {
+    give: { GiveAsset: money5 },
+    want: {
+      WantAsset: property5
+    },
+  };
 
+  const seat2 = E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal2, {
+    GiveAsset: pmtMoney,
+  });
 
+  const propertiesBought = await E(seat2).getPayout('WantAsset');
+  const tokensReceived = await E(seat1).getPayout('WantAsset');
 
+  t.assert(AmountMath.isEqual(tokensReceived, proposal.want.WantAsset));
+  t.assert(AmountMath.isEqual(propertiesBought, proposal2.want.WantAsset));
 
-
+  // console.log('seat', E(seat).getOfferResult());
+  // t.assert( !E(seat).hasExited() );
 });
-
-
-
-
 
 test('Test real estate sell', async t => {
   const { bundle, issuers, zoe } = t.context;
