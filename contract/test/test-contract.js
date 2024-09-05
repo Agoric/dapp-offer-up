@@ -107,13 +107,13 @@ const alice = async (t, zoe, instance, purse) => {
   t.deepEqual(actual, proposal.want.Items);
 };
 
-test('Alice trades: give some play money, want items', async t => {
+test('Alice trades: give some play money, want subscription', async t => {
   const { zoe, bundle } = t.context;
 
   const money = makeIssuerKit('PlayMoney');
   const issuers = { Price: money.issuer };
-  const terms = { subscriptionPrice: AmountMath.make(money.brand, 5n) };
-  t.log('terms:', terms);
+  const terms = { subscriptionPrice: AmountMath.make(money.brand, 500n) };
+
   /** @type {ERef<Installation<AssetContractFn>>} */
   const installation = E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(installation, issuers, terms);
@@ -121,7 +121,7 @@ test('Alice trades: give some play money, want items', async t => {
   t.is(typeof instance, 'object');
 
   const alicePurse = money.issuer.makeEmptyPurse();
-  const amountOfMoney = AmountMath.make(money.brand, 10n);
+  const amountOfMoney = AmountMath.make(money.brand, 500n);
   const moneyPayment = money.mint.mintPayment(amountOfMoney);
   alicePurse.deposit(moneyPayment);
   await alice(t, zoe, instance, alicePurse);
