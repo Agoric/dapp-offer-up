@@ -37,7 +37,6 @@ export const customTermsShape = meta.customTermsShape;
 export const start = async zcf => {
   const { propertiesToCreate } = zcf.getTerms();
 
-
   /**
    * Create mints according to the number of needed properties
    */
@@ -70,7 +69,8 @@ export const start = async zcf => {
     }
 
     // search brand of want in the availableProperties - if not found then exit the buyerSeat and return
-    if (!availableProperties[want.WantAsset.brand.getAllegedName()]) return buyerSeat.exit();
+    if (!availableProperties[want.WantAsset.brand.getAllegedName()])
+      return buyerSeat.exit();
 
     // if found then then see if the buyerSeat matches the corresponding availableProperties property
     const sellerSeat =
@@ -83,7 +83,8 @@ export const start = async zcf => {
         want.WantAsset,
       ) ||
       !AmountMath.isGTE(give.GiveAsset, sellerSeat.getProposal().want.WantAsset)
-    ) return buyerSeat.exit();
+    )
+      return buyerSeat.exit();
 
     // All conditions meet - let us execute the trade
     atomicRearrange(
@@ -95,12 +96,8 @@ export const start = async zcf => {
     );
 
     buyerSeat.exit(true);
-
-    // if sellerSeat.give is empty then delete the property from availableProperties and exit the sellerSeat
-    if (AmountMath.isEmpty(sellerSeat.getProposal().give.GiveAsset)) {
-      delete availableProperties[want.WantAsset.brand.getAllegedName()];
-      sellerSeat.exit();
-    }
+    sellerSeat.exit();
+    delete availableProperties[want.WantAsset.brand.getAllegedName()];
   };
 
   const getPropertyIssuers = () =>

@@ -33,14 +33,11 @@ test('Test real estate sellP', async t => {
 
   const money = makeIssuerKit('Money');
   const money5 = AmountMath.make(money.brand, 5n);
-  const pmtMoney = money.mint.mintPayment( money5 );
+  const pmtMoney = money.mint.mintPayment(money5);
 
   const proprty = makeIssuerKit('Property');
   const property5 = AmountMath.make(proprty.brand, 5n);
-  const pmtProperty = proprty.mint.mintPayment(
-    property5
-  );
-  
+  const pmtProperty = proprty.mint.mintPayment(property5);
 
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
@@ -49,39 +46,56 @@ test('Test real estate sellP', async t => {
     ),
   };
 
-  const installation = E(zoe).install(bundle);
+  const installation = await E(zoe).install(bundle);
   const { instance } = await E(zoe).startInstance(
     installation,
     { Money: money.issuer, Property: proprty.issuer },
     terms,
   );
 
-  const publicFacet = E(zoe).getPublicFacet(instance);
+  const publicFacet = await E(zoe).getPublicFacet(instance);
 
   // Proposal to sell a property
   const proposal1 = {
     give: { GiveAsset: property5 },
     want: {
-      WantAsset: money5
+      WantAsset: money5,
     },
   };
 
-  await E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal1, {
-    GiveAsset: pmtProperty,
-  });
+  const sellerSeat = await E(zoe).offer(
+    E(publicFacet).makeTradeInvitation(),
+    proposal1,
+    {
+      GiveAsset: pmtProperty,
+    },
+  );
 
   // Proposal to buy a property
   const proposal2 = {
     give: { GiveAsset: money5 },
     want: {
-      WantAsset: property5
+      WantAsset: property5,
     },
   };
 
-  const seat = await E(zoe).offer(E(publicFacet).makeTradeInvitation(), proposal2, {
-    GiveAsset: pmtMoney,
-  });
+  const buyerSeat = await E(zoe).offer(
+    E(publicFacet).makeTradeInvitation(),
+    proposal2,
+    {
+      GiveAsset: pmtMoney,
+    },
+  );
 
-  const propertiesBought = await E(seat).getPayout('WantAsset');
-  t.deepEqual(await E(proprty.issuer).getAmountOf(propertiesBought), proposal2.want.WantAsset);
+  const propertiesBought = await E(buyerSeat).getPayout('WantAsset');
+  t.deepEqual(
+    await E(proprty.issuer).getAmountOf(propertiesBought),
+    proposal2.want.WantAsset,
+  );
+
+  const moneyReceived = await E(sellerSeat).getPayout('WantAsset');
+  t.deepEqual(
+    await E(money.issuer).getAmountOf(moneyReceived),
+    proposal1.want.WantAsset,
+  );
 });
