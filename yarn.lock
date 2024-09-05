@@ -1087,7 +1087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/time@npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4":
+"@agoric/time@npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/time@npm:^0.3.3-u16.1":
   version: 0.3.3-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/time@npm:0.3.3-upgrade-16a-dev-fb592e4.0"
   dependencies:
@@ -13415,6 +13415,7 @@ __metadata:
     "@agoric/deploy-script-support": "npm:^0.10.4-u16.2"
     "@agoric/ertp": "npm:^0.16.3-u16.1"
     "@agoric/eslint-config": "npm:^0.4.1-u16.0"
+    "@agoric/time": "npm:^0.3.3-u16.1"
     "@agoric/zoe": "npm:^0.26.3-u16.1"
     "@endo/bundle-source": "npm:^3.4.0"
     "@endo/eslint-plugin": "npm:^2.2.1"
