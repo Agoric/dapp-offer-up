@@ -28,90 +28,103 @@ const makeTestContext = async _t => {
 
 test.before(async t => (t.context = await makeTestContext(t)));
 
-test('Test real estate sellP', async t => {
-  const { bundle, issuers, zoe } = t.context;
+test('Test real estate sell and buy', async t => {
+  const moneyBrandKeyword = 'Money';
+  const propertyUnitsToBuy = 4n;
+  const sellerPerUnitPrice = 5n;
 
-  const money = makeIssuerKit('Money');
-  const money5 = AmountMath.make(money.brand, 5n);
-  const pmtMoney = money.mint.mintPayment(money5);
+  const { bundle, zoe } = t.context;
+  const moneyIssuerKit = makeIssuerKit(moneyBrandKeyword);
+
+  const moneyAmountToOffer = AmountMath.make(
+    moneyIssuerKit.brand,
+    sellerPerUnitPrice,
+  );
 
   const terms = {
     propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
-    tradePrice: issuers.map((_, index) =>
-      AmountMath.make(money.brand, 5n + BigInt(index)),
-    ),
   };
 
   const installation = await E(zoe).install(bundle);
   const { instance, creatorFacet } = await E(zoe).startInstance(
     installation,
-    { Money: money.issuer },
+    { [moneyBrandKeyword]: moneyIssuerKit.issuer },
     terms,
   );
+  const { issuers, brands } = await E(zoe).getTerms(instance);
 
-  const { issuers: iss, brands } = await E(zoe).getTerms(instance);
   const creatorPayments = creatorFacet.getInitialPayments();
-  const creatorPurses = [
-    'PlayProperty_0',
-    'PlayProperty_1',
-    'PlayProperty_2',
-    'PlayProperty_3',
-  ]
-    .map((name, index) => {
-      const purse = iss[name].makeEmptyPurse();
-      purse.deposit(creatorPayments[index]);
-      return purse;
-    });
+  const propertyIssuers = Object.entries(issuers)
+    .filter(([brandKeyword]) => brandKeyword !== moneyBrandKeyword)
+    .reduce(
+      (acc, [brandKeyword, issuer]) => ({ ...acc, [brandKeyword]: issuer }),
+      {},
+    );
+
+  const creatorPurses = Object.entries(propertyIssuers).reduce(
+    (acc, [brandKeyword, issuer]) => {
+      const purse = issuer.makeEmptyPurse();
+      purse.deposit(creatorPayments[brandKeyword]);
+      return { ...acc, [brandKeyword]: purse };
+    },
+    {},
+  );
+
+  const brandToSell = Object.keys(propertyIssuers).find(Boolean);
 
   const publicFacet = await E(zoe).getPublicFacet(instance);
 
-  
-  const proprty = iss.PlayProperty_0;
-  const property5 = AmountMath.make(brands.PlayProperty_0, 5n);
-  
-  const pmtProperty = creatorPurses[0].withdraw(property5);
+  const property = issuers[brandToSell];
+  const propertyAmountToOffer = AmountMath.make(brands[brandToSell], 50n);
+
+  const propertyPayment = creatorPurses[brandToSell].withdraw(
+    propertyAmountToOffer,
+  );
 
   // Proposal to sell a property
-  const proposal1 = {
-    give: { GiveAsset: property5 },
+  const sellProposal = {
+    give: { GiveAsset: propertyAmountToOffer },
     want: {
-      WantAsset: money5,
+      WantAsset: moneyAmountToOffer,
     },
   };
 
   const sellerSeat = await E(zoe).offer(
     E(publicFacet).makeTradeInvitation(),
-    proposal1,
+    sellProposal,
     {
-      GiveAsset: pmtProperty,
+      GiveAsset: propertyPayment,
     },
   );
 
   // Proposal to buy a property
-  const proposal2 = {
-    give: { GiveAsset: money5 },
+  const buyProposal = {
+    give: { GiveAsset: AmountMath.make(moneyIssuerKit.brand, 20n) },
     want: {
-      WantAsset: property5,
+      WantAsset: AmountMath.make(brands[brandToSell], propertyUnitsToBuy),
     },
   };
+  const moneyPayment = moneyIssuerKit.mint.mintPayment(
+    AmountMath.make(moneyIssuerKit.brand, 20n),
+  );
 
   const buyerSeat = await E(zoe).offer(
     E(publicFacet).makeTradeInvitation(),
-    proposal2,
+    buyProposal,
     {
-      GiveAsset: pmtMoney,
+      GiveAsset: moneyPayment,
     },
   );
 
   const propertiesBought = await E(buyerSeat).getPayout('WantAsset');
   t.deepEqual(
-    await E(proprty).getAmountOf(propertiesBought),
-    proposal2.want.WantAsset,
+    await E(property).getAmountOf(propertiesBought),
+    buyProposal.want.WantAsset,
   );
 
   const moneyReceived = await E(sellerSeat).getPayout('WantAsset');
   t.deepEqual(
-    await E(money.issuer).getAmountOf(moneyReceived),
-    proposal1.want.WantAsset,
+    await E(moneyIssuerKit.issuer).getAmountOf(moneyReceived),
+    AmountMath.make(moneyIssuerKit.brand, sellerPerUnitPrice * propertyUnitsToBuy),
   );
 });
