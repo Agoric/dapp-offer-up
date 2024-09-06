@@ -1,6 +1,6 @@
 // @ts-check
 
-import { Far } from '@endo/far';
+import { E, Far } from '@endo/far';
 import { M } from '@endo/patterns';
 import { AmountMath } from '@agoric/ertp';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
@@ -25,7 +25,7 @@ const PROPERTY_BRAND_NAME_PREFIX = 'PlayProperty_';
 /**
  * @param {ZCF<OfferUpTerms>} zcf
  */
-export const start = async zcf => {
+export const start = async (zcf, privateArgs) => {
   const { propertiesCount, tokensPerProperty } = zcf.getTerms();
 
   /**
@@ -64,12 +64,40 @@ export const start = async zcf => {
    */
   const availableProperties = {};
 
+  const myContractDataNode = await E(privateArgs.storageNode).makeChildNode(
+    'offers',
+  );
+  const marshaller = await E(privateArgs.board).getPublishingMarshaller();
+
+  const updateVStorage = async () => {
+    await null;
+    const marshalData = JSON.stringify(
+      await E(marshaller).toCapData(
+        Object.fromEntries(
+          Object.entries(availableProperties).map(([brand, offer]) => [
+            brand,
+            {
+              give: offer.getProposal().give.GiveAsset.value,
+              want: offer.getProposal().want.WantAsset.value,
+            },
+          ]),
+        ),
+      ),
+    );
+    console.log(marshalData);
+    await E(myContractDataNode).setValue(marshalData);
+  };
+
+  await updateVStorage();
+
   /**
    * @param { ZCFSeat } buyerSeat
-   * @param {{ userAddress: string }} offerArgs
+   * @param {{ userAddress: string, sell: boolean, propertyName: string}} offerArgs
    */
   const tradeHandler = (buyerSeat, offerArgs) => {
     const userAddress = offerArgs?.userAddress || 'None';
+    const propertyName = offerArgs?.propertyName;
+    const sell = offerArgs?.sell;
 
     const { give: buyerGiveProposal, want: buyerWantProposal } =
       buyerSeat.getProposal();
@@ -79,36 +107,41 @@ export const start = async zcf => {
       return buyerSeat.exit();
     }
 
-    if (
-      buyerGiveProposal.GiveAsset.brand
-        .getAllegedName()
-        .startsWith(PROPERTY_BRAND_NAME_PREFIX)
-    )
-      availableProperties[buyerGiveProposal.GiveAsset.brand.getAllegedName()] =
-        buyerSeat;
-    else {
-      if (
-        !availableProperties[buyerWantProposal.WantAsset.brand.getAllegedName()]
-      )
+    console.log('fraz', propertyName);
+    console.log(offerArgs);
+    if (sell && propertyName.startsWith(PROPERTY_BRAND_NAME_PREFIX)) {
+      availableProperties[propertyName] = buyerSeat;
+      updateVStorage();
+    } else {
+      if (!availableProperties[propertyName]) {
+        console.log('in condition B');
         return buyerSeat.exit();
+      }
 
       // if found then then see if the buyerSeat matches the corresponding availableProperties property
-      const sellerSeat =
-        availableProperties[buyerWantProposal.WantAsset.brand.getAllegedName()];
+      const sellerSeat = availableProperties[propertyName];
       const { give: sellerGiveProposal, want: sellerWantProposal } =
         sellerSeat.getProposal();
 
       // if sellerSeat.give is not equal to or greater than the buyerSeat.want then exit the buyerSeat and vice versa
       if (
         !(
+          buyerWantProposal.WantAsset.value &&
           sellerGiveProposal.GiveAsset.value >=
-            buyerWantProposal.WantAsset.value &&
-          buyerGiveProposal.GiveAsset.value /
-            buyerWantProposal.WantAsset.value >=
-            sellerWantProposal.WantAsset.value
+            buyerWantProposal.WantAsset.value
         )
-      )
+      ) {
+        console.log('buyer want', buyerWantProposal.WantAsset.value);
+        console.log('seller give', sellerGiveProposal.GiveAsset.value);
+        console.log('buyer give', buyerGiveProposal.GiveAsset.value);
+        console.log('seller want', sellerWantProposal.WantAsset.value);
+        console.log(
+          'buyer give / want',
+          buyerGiveProposal.GiveAsset.value / buyerWantProposal.WantAsset.value,
+        );
+        console.log('in condition A');
         return buyerSeat.exit();
+      }
 
       // All conditions meet - let us execute the trade
       atomicRearrange(
@@ -143,11 +176,13 @@ export const start = async zcf => {
         ]),
       );
 
+      console.log('before exit');
       buyerSeat.exit(true);
       sellerSeat.exit();
-      delete availableProperties[
-        buyerWantProposal.WantAsset.brand.getAllegedName()
-      ];
+      delete availableProperties[propertyName];
+      updateVStorage();
+
+      console.log('after exit');
     }
   };
 

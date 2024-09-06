@@ -14,7 +14,7 @@ const marshalData = makeMarshal(_val => Fail`data only`);
 
 const IST_UNIT = 1_000_000n;
 const CENT = IST_UNIT / 100n;
-const propertiesCount = 4n;
+const propertiesCount = 1n;
 
 const tokenNames = [...Array(Number(propertiesCount))].map(
   (_, index) => `PlayProperty_${index}`,
@@ -75,6 +75,8 @@ export const startrealEstateContract = async permittedPowers => {
     permittedPowers,
   );
 
+  const storageNode = await E(chainStorage).makeChildNode('realEstate');
+
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
@@ -88,14 +90,55 @@ export const startrealEstateContract = async permittedPowers => {
     issuerKeywordRecord: { Price: istIssuer },
     label: 'realEstate',
     terms,
+    privateArgs: {
+      storageNode,
+      board,
+    },
   });
   console.log('CoreEval script: started contract', instance);
   const { brands, issuers } = await E(zoe).getTerms(instance);
 
-  console.log(
-    'CoreEval script: share via agoricNames:',
-    await E(zoe).getTerms(instance),
-  );
+  // const creatorPayments = creatorFacet.getInitialPayments();
+  // const creatorPurses = Object.entries(issuers).reduce(
+  //   (acc, [brandKeyword, issuer]) => {
+  //     const purse = issuer.makeEmptyPurse();
+  //     purse.deposit(creatorPayments[brandKeyword]);
+  //     return { ...acc, [brandKeyword]: purse };
+  //   },
+  //   {},
+  // );
+
+  // const brandToSell = 'PlayProperty_0';
+
+  // const publicFacet = await E(zoe).getPublicFacet(instance);
+
+  // const propertyAmountToOffer = AmountMath.make(brands[brandToSell], 100n);
+
+  // const propertyPayment = creatorPurses[brandToSell].withdraw(
+  //   propertyAmountToOffer,
+  // );
+
+  // const moneyAmountToOffer = AmountMath.make(istIssuer.brand, 100n);
+  // // Proposal to sell a property
+  // const sellProposal = {
+  //   give: { GiveAsset: propertyAmountToOffer },
+  //   want: {
+  //     WantAsset: moneyAmountToOffer,
+  //   },
+  // };
+
+  // const sellerSeat = await E(zoe).offer(
+  //   E(publicFacet).makeTradeInvitation(),
+  //   sellProposal,
+  //   {
+  //     GiveAsset: propertyPayment,
+  //   },
+  // );
+
+  console.log('CoreEval script: share via agoricNames:', {
+    brands,
+    issuers,
+  });
 
   produceInstance.reset();
   produceInstance.resolve(instance);
