@@ -43,7 +43,7 @@ test('Test real estate sell and buy', async t => {
 
   const terms = {
     propertiesCount: BigInt(PROPERTIES_TO_CREATE),
-    tokensPerProperty: BigInt(10),
+    tokensPerProperty: 100n,
   };
 
   const installation = await E(zoe).install(bundle);
@@ -71,7 +71,12 @@ test('Test real estate sell and buy', async t => {
     {},
   );
 
-  const brandToSell = Object.keys(propertyIssuers).find(Boolean);
+  const randomBrandIndex = Math.floor(
+    Math.random() * Object.keys(propertyIssuers).length,
+  );
+  const brandToSell = Object.keys(propertyIssuers).find(
+    (_, index) => randomBrandIndex === index,
+  );
 
   const publicFacet = await E(zoe).getPublicFacet(instance);
 

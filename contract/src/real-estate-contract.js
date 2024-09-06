@@ -37,9 +37,9 @@ export const start = async zcf => {
 
   // eslint-disable-next-line github/array-foreach
   await Promise.all(
-    issuerKits.map(async issuerKit => {
-      await zcf.saveIssuer(issuerKit.issuer, issuerKit.brand.getAllegedName());
-    }),
+    issuerKits.map(issuerKit =>
+      zcf.saveIssuer(issuerKit.issuer, issuerKit.brand.getAllegedName()),
+    ),
   );
 
   const initialPayments = issuerKits.reduce(

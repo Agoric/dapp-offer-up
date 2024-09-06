@@ -1,87 +1,37 @@
 // @ts-check
 import { E } from '@endo/far';
-import { makeMarshal } from '@endo/marshal';
-import { AmountMath } from '@agoric/ertp/src/amountMath.js';
 
 console.warn('start proposal module evaluating');
 
-const { Fail } = assert;
-
-// vstorage paths under published.*
-const BOARD_AUX = 'boardAux';
-
-const marshalData = makeMarshal(_val => Fail`data only`);
-
-const IST_UNIT = 1_000_000n;
-const CENT = IST_UNIT / 100n;
 const propertiesCount = 4n;
 
 const tokenNames = [...Array(Number(propertiesCount))].map(
   (_, index) => `PlayProperty_${index}`,
 );
 
-/**
- * Make a storage node for auxilliary data for a value on the board.
- *
- * @param {ERef<StorageNode>} chainStorage
- * @param {string} boardId
- */
-const makeBoardAuxNode = async (chainStorage, boardId) => {
-  const boardAux = E(chainStorage).makeChildNode(BOARD_AUX);
-  return E(boardAux).makeChildNode(boardId);
-};
-
-const publishBrandInfo = async (chainStorage, board, brand) => {
-  const [id, displayInfo] = await Promise.all([
-    E(board).getId(brand),
-    E(brand).getDisplayInfo(),
-  ]);
-  const node = makeBoardAuxNode(chainStorage, id);
-  const aux = marshalData.toCapData(harden({ displayInfo }));
-  await E(node).setValue(JSON.stringify(aux));
-};
-
-/**
- * Core eval script to start contract
- *
- * @param {BootstrapPowers} permittedPowers
- */
 export const startrealEstateContract = async permittedPowers => {
   console.error('startrealEstateContract()...');
   const {
-    consume: { board, chainStorage, startUpgradable, zoe },
-    brand: {
-      consume: { IST: istBrandP },
-      // @ts-expect-error dynamic extension to promise space
-      produce: brandProducers,
-    },
-    issuer: {
-      consume: { IST: istIssuerP },
-      // @ts-expect-error dynamic extension to promise space
-      produce: issueProducers,
-    },
+    brand: { produce: brandProducers },
+    consume: { startUpgradable, zoe },
     installation: {
       consume: { realEstate: realEstateInstallationP },
     },
     instance: {
-      // @ts-expect-error dynamic extension to promise space
       produce: { realEstate: produceInstance },
+    },
+    issuer: {
+      consume: { IST: istIssuerP },
+      produce: issueProducers,
     },
   } = permittedPowers;
 
-  // print all the powers
-  console.log(
-    '**************************************************',
-    permittedPowers,
-  );
-
-  const istIssuer = await istIssuerP;
-  const istBrand = await istBrandP;
+  const [installation, istIssuer] = await Promise.all([
+    istIssuerP,
+    realEstateInstallationP,
+  ]);
 
   const terms = { propertiesCount, tokensPerProperty: 100n };
-
-  // agoricNames gets updated each time; the promise space only once XXXXXXX
-  const installation = await realEstateInstallationP;
 
   const { instance } = await E(startUpgradable)({
     installation,
@@ -89,12 +39,13 @@ export const startrealEstateContract = async permittedPowers => {
     label: 'realEstate',
     terms,
   });
+
   console.log('CoreEval script: started contract', instance);
-  const { brands, issuers } = await E(zoe).getTerms(instance);
+  const { brands, issuers, ...rest } = await E(zoe).getTerms(instance);
 
   console.log(
     'CoreEval script: share via agoricNames:',
-    await E(zoe).getTerms(instance),
+    { brands, issuers, ...rest },
   );
 
   produceInstance.reset();
@@ -109,7 +60,7 @@ export const startrealEstateContract = async permittedPowers => {
     issueProducers[token].resolve(issuer);
   }
 
-  //   await publishBrandInfo(chainStorage, board, brand);
+  // await publishBrandInfo(chainStorage, board, brand);
   console.log('realEstate (re)started');
 };
 
