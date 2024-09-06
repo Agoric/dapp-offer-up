@@ -48,12 +48,12 @@ export const startrealEstateContract = async permittedPowers => {
     brand: {
       consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { PlayProperty_0: producePlayPropertyBrand },
+      produce: {  },
     },
     issuer: {
       consume: { IST: istIssuerP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { PlayProperty_0: producePlayPropertyIssuer },
+      produce: {  },
     },
     installation: {
       consume: { realEstate: realEstateInstallationP },
@@ -69,7 +69,6 @@ export const startrealEstateContract = async permittedPowers => {
 
 
   const istIssuer = await istIssuerP;
-  const PlayProperty_0Issuer = await producePlayPropertyIssuer;
   const istBrand = await istBrandP;
 
   const terms = { propertiesCount: 4n, tokensPerProperty: 100n };
@@ -79,14 +78,14 @@ export const startrealEstateContract = async permittedPowers => {
 
   const { instance } = await E(startUpgradable)({
     installation,
-    issuerKeywordRecord: { Price: istIssuer, PlayProperty_0: PlayProperty_0Issuer },
+    issuerKeywordRecord: { Price: istIssuer},
     label: 'realEstate',
     terms,
   });
   console.log('CoreEval script: started contract', instance);
   const {
-    brands: { PlayProperty_0: brand },
-    issuers: { PlayProperty_0: issuer },
+    brands: { },
+    issuers: { },
   } = await E(zoe).getTerms(instance);
 
   console.log('CoreEval script: share via agoricNames:', (await E(zoe).getTerms(instance)) );
@@ -94,12 +93,7 @@ export const startrealEstateContract = async permittedPowers => {
   produceInstance.reset();
   produceInstance.resolve(instance);
 
-  producePlayPropertyBrand.reset();
-  producePlayPropertyIssuer.reset();
-  producePlayPropertyBrand.resolve(brand);
-  producePlayPropertyIssuer.resolve(issuer);
-
-  await publishBrandInfo(chainStorage, board, brand);
+//   await publishBrandInfo(chainStorage, board, brand);
   console.log('realEstate (re)started');
 };
 
@@ -114,8 +108,8 @@ const realEstateManifest = {
       zoe: true, // to get contract terms, including issuer/brand
     },
     installation: { consume: { realEstate: true } },
-    issuer: { consume: { IST: true }, produce: { PlayProperty_0: true } },
-    brand: { consume: { IST: true }, produce: { PlayProperty_0: true } },
+    issuer: { consume: { IST: true }, produce: {  } },
+    brand: { consume: { IST: true }, produce: {  } },
     instance: { produce: { realEstate: true } },
   },
 };

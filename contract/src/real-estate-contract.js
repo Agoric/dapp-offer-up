@@ -8,12 +8,13 @@ import '@agoric/zoe/exported.js';
 
 /**
  * @typedef {{
- *   propertiesToCreate: bigint;
+ *   propertiesCount: bigint;
+ * tokensPerProperty: bigint
  * }} OfferUpTerms
  */
 
 export const meta = {
-  customTermsShape: M.splitRecord({ propertiesToCreate: M.bigint() }),
+  customTermsShape: M.splitRecord({ propertiesCount: M.bigint(), tokensPerProperty: M.bigint() }),
 };
 
 const PROPERTY_BRAND_NAME_PREFIX = 'PlayProperty_';
@@ -22,12 +23,12 @@ const PROPERTY_BRAND_NAME_PREFIX = 'PlayProperty_';
  * @param {ZCF<OfferUpTerms>} zcf
  */
 export const start = async zcf => {
-  const { propertiesToCreate } = zcf.getTerms();
+  const { propertiesCount, tokensPerProperty } = zcf.getTerms();
 
   /**
    * Create mints according to the number of needed properties
    */
-  const issuerKits = [...Array(Number(propertiesToCreate))].map((_, index) =>
+  const issuerKits = [...Array(Number(propertiesCount))].map((_, index) =>
     makeIssuerKit(`${PROPERTY_BRAND_NAME_PREFIX}${index}`),
   );
 
@@ -40,7 +41,7 @@ export const start = async zcf => {
     (acc, issuerKit) => ({
       ...acc,
       [issuerKit.brand.getAllegedName()]: issuerKit.mint.mintPayment(
-        AmountMath.make(issuerKit.brand, 100n),
+        AmountMath.make(issuerKit.brand, tokensPerProperty),
       ),
     }),
     {},
