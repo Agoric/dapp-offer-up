@@ -45,9 +45,12 @@ import '@agoric/zoe/exported.js';
  *
  * @param {ZCF<SubscriptionServiceTerms>} zcf
  */
-export const start = async zcf => {
+export const start = async (zcf, privateArgs) => {
+
+  await console.log("privateArgs in contract: ", privateArgs)
+  const { timerService } = privateArgs; 
   const {
-    timerService,
+    // timerService,
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
     servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
@@ -97,30 +100,35 @@ export const start = async zcf => {
     const userAddress = offerArgs.userAddress;
     // @ts-ignore
     const serviceType = offerArgs.serviceType;
-    const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+    await console.log("timerService::", timerService);
 
-    const amountObject = AmountMath.make(
-      brand,
-      makeCopyBag([[{ serviceStarted: currentTimeRecord, serviceType }, 1n]]),
-    );
-    const want = { Items: amountObject };
+    debugger;
 
-    const newSubscription = itemMint.mintGains(want);
+    // const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+    // console.log("currentTimeRecord::", currentTimeRecord);
 
-    atomicRearrange(
-      zcf,
-      harden([
-        // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: subscriptionPrice }],
-        // new items to buyer
-        [newSubscription, buyerSeat, want],
-      ]),
-    );
+    // const amountObject = AmountMath.make(
+    //   brand,
+    //   makeCopyBag([[{ serviceStarted: currentTimeRecord, serviceType }, 1n]]),
+    // );
+    // const want = { Items: amountObject };
 
-    subscriptions.set(userAddress, want.Items);
+    // const newSubscription = itemMint.mintGains(want);
+
+    // atomicRearrange(
+    //   zcf,
+    //   harden([
+    //     // price from buyer to proceeds
+    //     [buyerSeat, proceeds, { Price: subscriptionPrice }],
+    //     // new items to buyer
+    //     [newSubscription, buyerSeat, want],
+    //   ]),
+    // );
+
+    // subscriptions.set(userAddress, want.Items);
 
     buyerSeat.exit(true);
-    newSubscription.exit();
+    // newSubscription.exit();
     return 'Subscription Granted';
   };
 
