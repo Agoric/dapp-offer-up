@@ -2,7 +2,7 @@
 
 import { Far } from '@endo/far';
 import { M } from '@endo/patterns';
-import { AmountMath, makeIssuerKit } from '@agoric/ertp';
+import { AmountMath } from '@agoric/ertp';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
@@ -31,25 +31,24 @@ export const start = async zcf => {
   /**
    * Create mints according to the number of needed properties
    */
-  const issuerKits = [...Array(Number(propertiesCount))].map((_, index) =>
-    makeIssuerKit(`${PROPERTY_BRAND_NAME_PREFIX}${index}`),
-  );
-
-  // eslint-disable-next-line github/array-foreach
-  await Promise.all(
-    issuerKits.map(issuerKit =>
-      zcf.saveIssuer(issuerKit.issuer, issuerKit.brand.getAllegedName()),
+  const zcfMints = await Promise.all(
+    [...Array(Number(propertiesCount))].map((_, index) =>
+      zcf.makeZCFMint(`${PROPERTY_BRAND_NAME_PREFIX}${index}`),
     ),
   );
 
-  const initialPayments = issuerKits.reduce(
-    (acc, issuerKit) => ({
-      ...acc,
-      [issuerKit.brand.getAllegedName()]: issuerKit.mint.mintPayment(
-        AmountMath.make(issuerKit.brand, tokensPerProperty),
+  const zcfSeat = zcfMints.reduce(
+    (seat, zcfMint) =>
+      zcfMint.mintGains(
+        {
+          WantAsset: {
+            brand: zcfMint.getIssuerRecord().brand,
+            value: tokensPerProperty,
+          },
+        },
+        seat,
       ),
-    }),
-    {},
+    undefined,
   );
 
   const proposalShape = harden({
@@ -65,10 +64,20 @@ export const start = async zcf => {
    */
   const availableProperties = {};
 
-  /** @type {OfferHandler} */
-  const tradeHandler = buyerSeat => {
+  /**
+   * @param { ZCFSeat } buyerSeat
+   * @param {{ userAddress: string }} offerArgs
+   */
+  const tradeHandler = (buyerSeat, offerArgs) => {
+    const userAddress = offerArgs?.userAddress || 'None';
+
     const { give: buyerGiveProposal, want: buyerWantProposal } =
       buyerSeat.getProposal();
+
+    if (userAddress === 'Creator_Address') {
+      atomicRearrange(zcf, harden([[zcfSeat, buyerSeat, buyerWantProposal]]));
+      return buyerSeat.exit();
+    }
 
     if (
       buyerGiveProposal.GiveAsset.brand
@@ -151,9 +160,6 @@ export const start = async zcf => {
     );
 
   return harden({
-    creatorFacet: Far('Asset Creator Facet', {
-      getInitialPayments: () => initialPayments,
-    }),
     publicFacet: Far('Asset Public Facet', {
       makeTradeInvitation,
     }),
