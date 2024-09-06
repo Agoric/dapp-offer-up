@@ -558,16 +558,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/rpc@npm:0.9.1-dev-f471a83.0":
-  version: 0.9.1-dev-f471a83.0
-  resolution: "@agoric/rpc@npm:0.9.1-dev-f471a83.0"
+"@agoric/rpc@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@agoric/rpc@npm:0.10.0"
   dependencies:
     "@endo/marshal": "npm:^0.8.9"
     axios: "npm:^1.6.2"
     axios-retry: "npm:^4.0.0"
     vite: "npm:^4.3.2"
     vite-tsconfig-paths: "npm:^4.2.0"
-  checksum: 10c0/78de4e6fd81b69b26804496eba162fc550c4c39f338fda898225fb7db86e8a27c7f89cc21487ad23e43c54992375973f2fc6b3cb8f713551b1d0bb3582d8ce77
+  checksum: 10c0/35a9691e0586b0d2d59df33b94842222725429da202b6e7188db40dbc616a5499a9ce660403d7eb9ff9ecc22c60a58f7ee92ccca4f3474556800b1b42cc88820
   languageName: node
   linkType: hard
 
@@ -13876,7 +13876,7 @@ __metadata:
   resolution: "offer-up-ui@workspace:ui"
   dependencies:
     "@agoric/notifier": "npm:^0.7.0-u16.1"
-    "@agoric/rpc": "npm:0.9.1-dev-f471a83.0"
+    "@agoric/rpc": "npm:0.10.0"
     "@agoric/store": "npm:^0.9.3-u16.0"
     "@agoric/ui-components": "npm:^0.9.0"
     "@agoric/web-components": "npm:^0.16.0"
