@@ -69,21 +69,36 @@ export const startOfferUpContract = async permittedPowers => {
 
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
-  const timerService = await await chainTimerServiceP;
+  const timerService = await chainTimerServiceP;
 
   const terms = {
     subscriptionPrice: AmountMath.make(istBrand, 10000000n),
     timerService,
   };
 
+  await console.log("permittedPowers: ", permittedPowers)
+  await console.log("chainTimerServiceP, ", chainTimerServiceP)
+  await console.log("timerService proposal: ", timerService)
+
+  debugger;
   // agoricNames gets updated each time; the promise space only once XXXXXXX
   const installation = await offerUpInstallationP;
 
   const { instance } = await E(startUpgradable)({
     installation,
-    issuerKeywordRecord: { Price: istIssuer },
+    issuerKeywordRecord: { 
+      Price: istIssuer, 
+      // timerService: timerService 
+    },
     label: 'offerUp',
     terms,
+    startArgs: {
+      terms
+    },
+    privateArgs: {
+      timerService,
+      terms
+    }
   });
   console.log('CoreEval script: started contract', instance);
   const {
