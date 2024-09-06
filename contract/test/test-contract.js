@@ -123,7 +123,7 @@ const alice = async (t, zoe, instance, purse) => {
 
   const actualMovies = [`${serviceType}_Movie_1`, `${serviceType}_Movie_2`];
   const subscriptionMovies =
-    await E(publicFacet).getSubscriptionResources(userAddress);
+    await E(publicFacet).getSubscriptionResources(userAddress, serviceType);
 
   t.deepEqual(actualMovies, subscriptionMovies);
 };
