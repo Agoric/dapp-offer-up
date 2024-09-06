@@ -95,7 +95,7 @@ const alice = async (t, zoe, instance, purse) => {
   const currentTimeRecord = await E(timerService).getCurrentTimestamp();
   const serviceType = 'Netflix';
   const choiceBag = makeCopyBag([
-    [{ serviceStarted: currentTimeRecord.absValue, serviceType }, 1n],
+    [{ serviceType }, 1n],
   ]);
 
   const proposal = {
@@ -130,7 +130,7 @@ const alice = async (t, zoe, instance, purse) => {
     serviceType,
   );
 
-  t.deepEqual(actualMovies, subscriptionMovies);
+  t.deepEqual(actualMovies, JSON.parse(subscriptionMovies));
 };
 
 test('Alice trades: give some play money, want subscription', async t => {
