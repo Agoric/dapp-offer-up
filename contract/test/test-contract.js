@@ -90,6 +90,7 @@ const alice = async (t, zoe, instance, purse) => {
   // @ts-expect-error Promise<Instance> seems to work
   const terms = await E(zoe).getTerms(instance);
   const { issuers, brands, subscriptionPrice, timerService } = terms;
+  assert(timerService, `timerService missing from ${Object.keys(terms)}`);
 
   const currentTimeRecord = await E(timerService).getCurrentTimestamp();
   const serviceType = 'Netflix';
@@ -122,8 +123,10 @@ const alice = async (t, zoe, instance, purse) => {
   t.deepEqual(actual, proposal.want.Items);
 
   const actualMovies = [`${serviceType}_Movie_1`, `${serviceType}_Movie_2`];
-  const subscriptionMovies =
-    await E(publicFacet).getSubscriptionResources(userAddress, serviceType);
+  const subscriptionMovies = await E(publicFacet).getSubscriptionResources(
+    userAddress,
+    serviceType,
+  );
 
   t.deepEqual(actualMovies, subscriptionMovies);
 };
@@ -216,9 +219,11 @@ test('use the code that will go on chain to start the contract', async t => {
     const feeIssuer = await E(zoe).getFeeIssuer();
     const feeBrand = await E(feeIssuer).getBrand();
 
+    const chainTimerService = buildZoeManualTimer();
+
     const pFor = x => Promise.resolve(x);
     const powers = {
-      consume: { zoe, chainStorage, startUpgradable, board },
+      consume: { zoe, chainStorage, startUpgradable, board, chainTimerService },
       brand: {
         consume: { IST: pFor(feeBrand) },
         produce: { Item: sync.brand },
