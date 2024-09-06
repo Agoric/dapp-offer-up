@@ -14,7 +14,10 @@ import '@agoric/zoe/exported.js';
  */
 
 export const meta = {
-  customTermsShape: M.splitRecord({ propertiesCount: M.bigint(), tokensPerProperty: M.bigint() }),
+  customTermsShape: M.splitRecord({
+    propertiesCount: M.bigint(),
+    tokensPerProperty: M.bigint(),
+  }),
 };
 
 const PROPERTY_BRAND_NAME_PREFIX = 'PlayProperty_';
@@ -33,8 +36,10 @@ export const start = async zcf => {
   );
 
   // eslint-disable-next-line github/array-foreach
-  issuerKits.forEach(issuerKit =>
-    zcf.saveIssuer(issuerKit.issuer, issuerKit.brand.getAllegedName()),
+  await Promise.all(
+    issuerKits.map(async issuerKit => {
+      await zcf.saveIssuer(issuerKit.issuer, issuerKit.brand.getAllegedName());
+    }),
   );
 
   const initialPayments = issuerKits.reduce(
@@ -90,7 +95,7 @@ export const start = async zcf => {
           sellerGiveProposal.GiveAsset.value >=
             buyerWantProposal.WantAsset.value &&
           buyerGiveProposal.GiveAsset.value /
-          buyerWantProposal.WantAsset.value >=
+            buyerWantProposal.WantAsset.value >=
             sellerWantProposal.WantAsset.value
         )
       )

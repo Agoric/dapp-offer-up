@@ -42,7 +42,8 @@ test('Test real estate sell and buy', async t => {
   );
 
   const terms = {
-    propertiesToCreate: BigInt(PROPERTIES_TO_CREATE),
+    propertiesCount: BigInt(PROPERTIES_TO_CREATE),
+    tokensPerProperty: BigInt(10),
   };
 
   const installation = await E(zoe).install(bundle);
@@ -125,6 +126,9 @@ test('Test real estate sell and buy', async t => {
   const moneyReceived = await E(sellerSeat).getPayout('WantAsset');
   t.deepEqual(
     await E(moneyIssuerKit.issuer).getAmountOf(moneyReceived),
-    AmountMath.make(moneyIssuerKit.brand, sellerPerUnitPrice * propertyUnitsToBuy),
+    AmountMath.make(
+      moneyIssuerKit.brand,
+      sellerPerUnitPrice * propertyUnitsToBuy,
+    ),
   );
 });

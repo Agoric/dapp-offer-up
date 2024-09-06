@@ -14,6 +14,11 @@ const marshalData = makeMarshal(_val => Fail`data only`);
 
 const IST_UNIT = 1_000_000n;
 const CENT = IST_UNIT / 100n;
+const propertiesCount = 4n;
+
+const tokenNames = [...Array(Number(propertiesCount))].map(
+  (_, index) => `PlayProperty_${index}`,
+);
 
 /**
  * Make a storage node for auxilliary data for a value on the board.
@@ -48,12 +53,12 @@ export const startrealEstateContract = async permittedPowers => {
     brand: {
       consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
-      produce: {  },
+      produce: brandProducers,
     },
     issuer: {
       consume: { IST: istIssuerP },
       // @ts-expect-error dynamic extension to promise space
-      produce: {  },
+      produce: issueProducers,
     },
     installation: {
       consume: { realEstate: realEstateInstallationP },
@@ -65,35 +70,46 @@ export const startrealEstateContract = async permittedPowers => {
   } = permittedPowers;
 
   // print all the powers
-    console.log('**************************************************', permittedPowers);
-
+  console.log(
+    '**************************************************',
+    permittedPowers,
+  );
 
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
 
-  const terms = { propertiesCount: 4n, tokensPerProperty: 100n };
+  const terms = { propertiesCount, tokensPerProperty: 100n };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
   const installation = await realEstateInstallationP;
 
   const { instance } = await E(startUpgradable)({
     installation,
-    issuerKeywordRecord: { Price: istIssuer},
+    issuerKeywordRecord: { Price: istIssuer },
     label: 'realEstate',
     terms,
   });
   console.log('CoreEval script: started contract', instance);
-  const {
-    brands: { },
-    issuers: { },
-  } = await E(zoe).getTerms(instance);
+  const { brands, issuers } = await E(zoe).getTerms(instance);
 
-  console.log('CoreEval script: share via agoricNames:', (await E(zoe).getTerms(instance)) );
+  console.log(
+    'CoreEval script: share via agoricNames:',
+    await E(zoe).getTerms(instance),
+  );
 
   produceInstance.reset();
   produceInstance.resolve(instance);
 
-//   await publishBrandInfo(chainStorage, board, brand);
+  for (const token of tokenNames) {
+    const brand = brands[token];
+    const issuer = issuers[token];
+    brandProducers[token].reset();
+    brandProducers[token].resolve(brand);
+    issueProducers[token].reset();
+    issueProducers[token].resolve(issuer);
+  }
+
+  //   await publishBrandInfo(chainStorage, board, brand);
   console.log('realEstate (re)started');
 };
 
@@ -108,8 +124,14 @@ const realEstateManifest = {
       zoe: true, // to get contract terms, including issuer/brand
     },
     installation: { consume: { realEstate: true } },
-    issuer: { consume: { IST: true }, produce: {  } },
-    brand: { consume: { IST: true }, produce: {  } },
+    issuer: {
+      consume: { IST: true },
+      produce: tokenNames.reduce((acc, name) => ({ ...acc, [name]: true }), {}),
+    },
+    brand: {
+      consume: { IST: true },
+      produce: tokenNames.reduce((acc, name) => ({ ...acc, [name]: true }), {}),
+    },
     instance: { produce: { realEstate: true } },
   },
 };
