@@ -31,7 +31,6 @@ import '@agoric/zoe/exported.js';
  * optionally, a maximum number of items sold for that price (default: 3).
  *
  * @typedef {{
- *   timerService: any;
  *   subscriptionPrice: Amount;
  *   subscriptionPeriod?: string;
  *   servicesToAvail?: Array<string>;
@@ -47,7 +46,7 @@ import '@agoric/zoe/exported.js';
  */
 export const start = async zcf => {
   const {
-    timerService,
+    // timerService,
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
     servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
@@ -92,36 +91,45 @@ export const start = async zcf => {
   const subscriptions = new Map();
 
   /** @type {OfferHandler} */
-  const tradeHandler = async (buyerSeat, offerArgs) => {
+  const tradeHandler = (buyerSeat, offerArgs) => {
     // @ts-ignore
-    const userAddress = offerArgs.userAddress;
-    // @ts-ignore
-    const serviceType = offerArgs.serviceType;
-    const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+    const { userAddress, serviceType, offerType }  = offerArgs;
+    // const currentTimeRecord = await E(timerService).getCurrentTimestamp();
 
-    const amountObject = AmountMath.make(
-      brand,
-      makeCopyBag([[{ serviceStarted: currentTimeRecord, serviceType }, 1n]]),
-    );
-    const want = { Items: amountObject };
+    if (offerType === 'BUY_SUBSCRIPTION') {
+      const amountObject = AmountMath.make(
+        brand,
+        makeCopyBag([[{ serviceStarted: '123', serviceType }, 1n]]),
+      );
+      const want = { Items: amountObject };
+  
+      const newSubscription = itemMint.mintGains(want);
+  
+      atomicRearrange(
+        zcf,
+        harden([
+          // price from buyer to proceeds
+          [buyerSeat, proceeds, { Price: subscriptionPrice }],
+          // new items to buyer
+          [newSubscription, buyerSeat, want],
+        ]),
+      );
+  
+      const subscriptionKey = `${userAddress}_${serviceType}`;
+      subscriptions.set(subscriptionKey, want.Items);
+  
+      
+      buyerSeat.exit(true);
+      newSubscription.exit();
+      return 'Subscription Granted';
+      
+    }
+    else if (offerType === 'VIEW_SUBSCRIPTION') {
+      buyerSeat.exit();
+      return getSubscriptionResources(userAddress, serviceType);
+    }
 
-    const newSubscription = itemMint.mintGains(want);
-
-    atomicRearrange(
-      zcf,
-      harden([
-        // price from buyer to proceeds
-        [buyerSeat, proceeds, { Price: subscriptionPrice }],
-        // new items to buyer
-        [newSubscription, buyerSeat, want],
-      ]),
-    );
-
-    subscriptions.set(userAddress, want.Items);
-
-    buyerSeat.exit(true);
-    newSubscription.exit();
-    return 'Subscription Granted';
+    
   };
 
   /**
@@ -150,14 +158,15 @@ export const start = async zcf => {
     //
   };
 
-  const getSubscriptionResources = userAddress => {
-    const userSubscription = subscriptions.get(userAddress);
+  const getSubscriptionResources = (userAddress, serviceType) => {
+    const subscriptionKey = `${userAddress}_${serviceType}`;
+    const userSubscription = subscriptions.get(subscriptionKey);
 
     const isValidSub = isSubscriptionValid(userSubscription);
     if (isValidSub) {
       // User has a valid subscription, return the resources
       const serviceType = userSubscription.value.payload[0][0].serviceType;
-      return subscriptionResources[serviceType];
+      return JSON.stringify(subscriptionResources[serviceType]);
     } else {
       // User doesn't have a valid subscription
       return 'Access denied: You do not have a valid subscription.';

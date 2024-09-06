@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { stringifyAmountValue } from '@agoric/ui-components';
 import scrollIcon from '../assets/scroll.png';
 import istIcon from '../assets/IST.svg';
@@ -8,6 +8,8 @@ import netflixLogo from '../assets/netflix.svg';
 import disneyLogo from '../assets/disney.svg';
 import hboLogo from '../assets/hbomax.svg';
 import primeLogo from '../assets/amazon.svg';
+import { Wallet } from '../App';
+import { subscribeLatest } from '@agoric/notifier';
 
 const { entries, values } = Object;
 const sum = (xs: bigint[]) => xs.reduce((acc, next) => acc + next, 0n);
@@ -80,9 +82,20 @@ const Item = ({
 );
 
 type SubscriptionProps = {
-  makeOffer: (giveValue: bigint, wantChoice: string) => void;
+  makeOffer: (giveValue: bigint, wantChoice: string, offerType: string, watchUpdates: Function) => void;
   istPurse: Purse;
   walletConnected: boolean;
+};
+
+const watchUpdates = async (wallet: Wallet, offerType: string, serviceType: string) => {
+  const iterator = subscribeLatest(wallet?.walletUpdatesNotifier);
+  let flag = false;
+  for await (const update of iterator) {
+    if (offerType === "VIEW_SUBSCRIPTION" && !flag && update.status.offerArgs.serviceType === serviceType && update.status.offerArgs.offerType === 'VIEW_SUBSCRIPTION') {
+      flag = true;
+      alert(update.status.result);
+  }
+  }
 };
 
 // TODO: IST displayInfo is available in vbankAsset or boardAux
@@ -98,7 +111,8 @@ const Subscribe = ({
     [SERVICES.DISNEY]: '',
     [SERVICES.HBO]: '',
   });
-  console.log('subscribe');
+
+  
   return (
     <>
       <div className="trade">
@@ -149,8 +163,17 @@ const Subscribe = ({
 
       <div>
         {walletConnected && (
-          <button onClick={() => makeOffer(terms.price, choice)}>
+          <button onClick={() => {
+            makeOffer(terms.price, choice, "BUY_SUBSCRIPTION", () => {})
+            }}>
             Subscribe
+          </button>
+        )}
+        {walletConnected && (
+          <button onClick={() => {
+            makeOffer(terms.price, choice, "VIEW_SUBSCRIPTION", watchUpdates)
+            }}>
+            View Subscription
           </button>
         )}
       </div>

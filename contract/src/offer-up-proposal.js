@@ -46,7 +46,7 @@ export const startOfferUpContract = async permittedPowers => {
       chainStorage,
       startUpgradable,
       zoe,
-      chainTimerService: chainTimerServiceP,
+      // chainTimerService: chainTimerServiceP,
     },
     brand: {
       consume: { IST: istBrandP },
@@ -69,11 +69,11 @@ export const startOfferUpContract = async permittedPowers => {
 
   const istIssuer = await istIssuerP;
   const istBrand = await istBrandP;
-  const timerService = await await chainTimerServiceP;
+  // const timerService = await await chainTimerServiceP;
 
   const terms = {
     subscriptionPrice: AmountMath.make(istBrand, 10000000n),
-    timerService,
+    // timerService,
   };
 
   // agoricNames gets updated each time; the promise space only once XXXXXXX
@@ -114,7 +114,7 @@ const offerUpManifest = {
       chainStorage: true, // to publish boardAux info for NFT brand
       startUpgradable: true, // to start contract and save adminFacet
       zoe: true, // to get contract terms, including issuer/brand
-      chainTimerService: true,
+      // chainTimerService: true,
     },
     installation: { consume: { offerUp: true } },
     issuer: { consume: { IST: true }, produce: { Item: true } },
