@@ -165,14 +165,18 @@ const Subscribe = ({
 
       <div>
         {walletConnected && (
-          <button onClick={() => {
+          <button 
+          disabled={!choice}
+          onClick={() => {
             makeOffer(terms.price, choice, "BUY_SUBSCRIPTION", watchUpdates)
             }}>
             Subscribe
           </button>
         )}
         {walletConnected && (
-          <button onClick={() => {
+          <button 
+          disabled={!choice}
+          onClick={() => {
             makeOffer(terms.price, choice, "VIEW_SUBSCRIPTION", watchUpdates)
             }}>
             View Subscription
