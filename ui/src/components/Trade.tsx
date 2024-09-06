@@ -93,7 +93,7 @@ const watchUpdates = async (wallet: Wallet, offerType: string, serviceType: stri
   let flag = false;
   for await (const update of iterator) {
     console.log("MUNEEB", update);
-    if (offerType === "VIEW_SUBSCRIPTION" && update.status.offerArgs.offerType === 'VIEW_SUBSCRIPTION' && update.status.result && update.status.payouts?.Items) {
+    if (update.status.offerArgs.offerType === 'VIEW_SUBSCRIPTION' && update.status.result && update.status.payouts?.Items) {
       flag = true;
       alert(update.status.result);
   }
@@ -166,7 +166,7 @@ const Subscribe = ({
       <div>
         {walletConnected && (
           <button onClick={() => {
-            makeOffer(terms.price, choice, "BUY_SUBSCRIPTION", () => {})
+            makeOffer(terms.price, choice, "BUY_SUBSCRIPTION", watchUpdates)
             }}>
             Subscribe
           </button>

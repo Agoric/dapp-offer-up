@@ -196,7 +196,6 @@ function App() {
           makeOffer={makeOffer}
           istPurse={istPurse as Purse}
           walletConnected={!!wallet}
-          subscribeWallet={subscribeWallet}
         />
         <hr />
         {wallet && istPurse ? (
