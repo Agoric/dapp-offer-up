@@ -95,7 +95,7 @@ const alice = async (t, zoe, instance, purse) => {
   const currentTimeRecord = await E(timerService).getCurrentTimestamp();
   const serviceType = 'Netflix';
   const choiceBag = makeCopyBag([
-    [{ serviceStarted: currentTimeRecord, serviceType }, 1n],
+    [{ serviceStarted: currentTimeRecord.absValue, serviceType }, 1n],
   ]);
 
   const proposal = {
@@ -113,7 +113,7 @@ const alice = async (t, zoe, instance, purse) => {
     toTrade,
     proposal,
     { Price: pmt },
-    { userAddress, serviceType },
+    { userAddress, serviceType, offerType: 'BUY_SUBSCRIPTION' },
   );
   t.log('Before PAYOUT');
   const items = await E(seat).getPayout('Items');

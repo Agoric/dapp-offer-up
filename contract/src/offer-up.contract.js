@@ -96,6 +96,7 @@ export const start = async zcf => {
     // @ts-ignore
     const { userAddress, serviceType, offerType } = offerArgs;
     const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+    // console.log("DATEEEEEEEEEEEEEEEEEEEEEEEE", new Date())
     console.log('CURRENT TIME RECORTD:', currentTimeRecord.absValue);
     if (offerType === 'BUY_SUBSCRIPTION') {
       const amountObject = AmountMath.make(
@@ -150,15 +151,16 @@ export const start = async zcf => {
 
     const serviceStarted = userSubscription.value.payload[0][0].serviceStarted;
 
-    const currentTime = await E(timerService).getCurrentTimestamp();
+    const currentTime = await E(timerService).getCurrentTimestamp().absValue;
 
     // Convert serviceStarted to a number if it's not already
-    const serviceStartedInSeconds = Number(serviceStarted);
+    const serviceStartedInSeconds = serviceStarted;
 
     // Calculate the expiration time
-    const expirationTime = serviceStartedInSeconds + 10;
+    const expirationTime = serviceStarted + 10n;
 
     // Check if the current time is greater than the expiration time
+    debugger;
     if (!serviceStarted || currentTime > expirationTime) return false;
   };
 
