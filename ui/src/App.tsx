@@ -111,7 +111,7 @@ const makeOffer = async (giveValue: bigint, wantChoice: string, offerType: strin
     throw Error('brands not available');
 
   const choiceBag = makeCopyBag([
-    [{ serviceStarted: '123', serviceType: wantChoice }, 1n],
+    [{ serviceType: wantChoice }, 1n],
   ]);
 
   // want: { Items: AmountMath.make(brands.Item, choiceBag) }

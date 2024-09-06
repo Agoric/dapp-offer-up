@@ -91,7 +91,7 @@ const watchUpdates = async (wallet: Wallet, offerType: string, serviceType: stri
   const iterator = subscribeLatest(wallet?.walletUpdatesNotifier);
   let flag = false;
   for await (const update of iterator) {
-    if (offerType === "VIEW_SUBSCRIPTION" && !flag && update.status.offerArgs.serviceType === serviceType && update.status.offerArgs.offerType === 'VIEW_SUBSCRIPTION') {
+    if (offerType === "VIEW_SUBSCRIPTION" && !flag && update.status?.offerArgs.serviceType === serviceType && update.status.offerArgs.offerType === 'VIEW_SUBSCRIPTION' && update.status.result) {
       flag = true;
       alert(update.status.result);
   }

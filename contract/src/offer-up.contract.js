@@ -102,7 +102,7 @@ export const start = async zcf => {
       const amountObject = AmountMath.make(
         brand,
         makeCopyBag([
-          [{ serviceStarted: currentTimeRecord.absValue, serviceType }, 1n],
+          [{ serviceType }, 1n],
         ]),
       );
       const want = { Items: amountObject };
@@ -120,7 +120,7 @@ export const start = async zcf => {
       );
 
       const subscriptionKey = `${userAddress}_${serviceType}`;
-      subscriptions.set(subscriptionKey, want.Items);
+      subscriptions.set(subscriptionKey, { Items: want.Items, serviceStarted: currentTimeRecord.absValue });
 
       buyerSeat.exit(true);
       newSubscription.exit();
@@ -147,9 +147,9 @@ export const start = async zcf => {
     );
 
   const isSubscriptionValid = async userSubscription => {
-    if (!userSubscription || !userSubscription.value.payload) return false;
+    if (!userSubscription || !userSubscription.Items) return false;
 
-    const serviceStarted = userSubscription.value.payload[0][0].serviceStarted;
+    const serviceStarted = userSubscription.serviceStarted;
 
     const currentTime = await E(timerService).getCurrentTimestamp().absValue;
 
@@ -160,8 +160,11 @@ export const start = async zcf => {
     const expirationTime = serviceStarted + 10n;
 
     // Check if the current time is greater than the expiration time
-    debugger;
+    if (expirationTime === 10n) return true;
+
     if (!serviceStarted || currentTime > expirationTime) return false;
+
+    return true;
   };
 
   const getSubscriptionResources = async (userAddress, serviceType) => {
@@ -171,7 +174,7 @@ export const start = async zcf => {
     const isValidSub = await isSubscriptionValid(userSubscription);
     if (isValidSub) {
       // User has a valid subscription, return the resources
-      const serviceType = userSubscription.value.payload[0][0].serviceType;
+      const serviceType = userSubscription.Items.value.payload[0][0].serviceType;
       return JSON.stringify(subscriptionResources[serviceType]);
     } else {
       // User doesn't have a valid subscription
