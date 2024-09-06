@@ -106,16 +106,18 @@ const alice = async (t, zoe, instance, purse) => {
   const pmt = await E(purse).withdraw(subscriptionPrice);
   t.log('Alice gives', proposal.give);
 
-  const toTrade = E(publicFacet).makeTradeInvitation();
+  const toTrade = await E(publicFacet).makeTradeInvitation();
 
   const userAddress = 'agoric123456';
-  const seat = E(zoe).offer(
+  const seat = await E(zoe).offer(
     toTrade,
     proposal,
     { Price: pmt },
     { userAddress, serviceType },
   );
+  t.log('Before PAYOUT');
   const items = await E(seat).getPayout('Items');
+  t.log('After PAYOUT');
 
   const actual = await E(issuers.Item).getAmountOf(items);
   t.log('Alice payout brand', actual.brand);

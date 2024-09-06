@@ -6,8 +6,7 @@
   "packageManager": "yarn@4.4.1",
   "useWorkspaces": true,
   "workspaces": [
-    "contract",
-    "ui"
+    "contract"
   ],
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {

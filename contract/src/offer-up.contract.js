@@ -31,6 +31,7 @@ import '@agoric/zoe/exported.js';
  * optionally, a maximum number of items sold for that price (default: 3).
  *
  * @typedef {{
+ *   timerService: any;
  *   subscriptionPrice: Amount;
  *   subscriptionPeriod?: string;
  *   servicesToAvail?: Array<string>;
@@ -46,7 +47,7 @@ import '@agoric/zoe/exported.js';
  */
 export const start = async zcf => {
   const {
-    // timerService,
+    timerService,
     subscriptionPrice,
     subscriptionPeriod = 'MONTHLY',
     servicesToAvail = ['Netflix', 'Amazon', 'HboMax', 'Disney'],
@@ -91,20 +92,22 @@ export const start = async zcf => {
   const subscriptions = new Map();
 
   /** @type {OfferHandler} */
-  const tradeHandler = (buyerSeat, offerArgs) => {
+  const tradeHandler = async (buyerSeat, offerArgs) => {
     // @ts-ignore
-    const { userAddress, serviceType, offerType }  = offerArgs;
-    // const currentTimeRecord = await E(timerService).getCurrentTimestamp();
-
+    const { userAddress, serviceType, offerType } = offerArgs;
+    const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+    console.log('CURRENT TIME RECORTD:', currentTimeRecord.absValue);
     if (offerType === 'BUY_SUBSCRIPTION') {
       const amountObject = AmountMath.make(
         brand,
-        makeCopyBag([[{ serviceStarted: '123', serviceType }, 1n]]),
+        makeCopyBag([
+          [{ serviceStarted: currentTimeRecord.absValue, serviceType }, 1n],
+        ]),
       );
       const want = { Items: amountObject };
-  
+
       const newSubscription = itemMint.mintGains(want);
-  
+
       atomicRearrange(
         zcf,
         harden([
@@ -114,22 +117,17 @@ export const start = async zcf => {
           [newSubscription, buyerSeat, want],
         ]),
       );
-  
+
       const subscriptionKey = `${userAddress}_${serviceType}`;
       subscriptions.set(subscriptionKey, want.Items);
-  
-      
+
       buyerSeat.exit(true);
       newSubscription.exit();
       return 'Subscription Granted';
-      
-    }
-    else if (offerType === 'VIEW_SUBSCRIPTION') {
+    } else if (offerType === 'VIEW_SUBSCRIPTION') {
       buyerSeat.exit();
-      return getSubscriptionResources(userAddress, serviceType);
+      return await getSubscriptionResources(userAddress, serviceType);
     }
-
-    
   };
 
   /**
@@ -147,22 +145,28 @@ export const start = async zcf => {
       proposalShape,
     );
 
-  const isSubscriptionValid = userSubscription => {
+  const isSubscriptionValid = async userSubscription => {
     if (!userSubscription || !userSubscription.value.payload) return false;
 
     const serviceStarted = userSubscription.value.payload[0][0].serviceStarted;
 
-    // Here we'll check with current time from time service.
-    if (!serviceStarted || serviceStarted !== '123') return false;
-    return true;
-    //
+    const currentTime = await E(timerService).getCurrentTimestamp();
+
+    // Convert serviceStarted to a number if it's not already
+    const serviceStartedInSeconds = Number(serviceStarted);
+
+    // Calculate the expiration time
+    const expirationTime = serviceStartedInSeconds + 10;
+
+    // Check if the current time is greater than the expiration time
+    if (!serviceStarted || currentTime > expirationTime) return false;
   };
 
-  const getSubscriptionResources = (userAddress, serviceType) => {
+  const getSubscriptionResources = async (userAddress, serviceType) => {
     const subscriptionKey = `${userAddress}_${serviceType}`;
     const userSubscription = subscriptions.get(subscriptionKey);
 
-    const isValidSub = isSubscriptionValid(userSubscription);
+    const isValidSub = await isSubscriptionValid(userSubscription);
     if (isValidSub) {
       // User has a valid subscription, return the resources
       const serviceType = userSubscription.value.payload[0][0].serviceType;
