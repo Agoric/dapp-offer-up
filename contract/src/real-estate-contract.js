@@ -42,7 +42,7 @@ export const start = async zcf => {
       zcfMint.mintGains(
         {
           WantAsset: {
-            brand: zcfMints[1].getIssuerRecord().brand,
+            brand: zcfMint.getIssuerRecord().brand,
             value: tokensPerProperty,
           },
         },
