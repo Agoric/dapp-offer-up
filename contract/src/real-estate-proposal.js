@@ -48,12 +48,12 @@ export const startrealEstateContract = async permittedPowers => {
     brand: {
       consume: { IST: istBrandP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { Item: produceItemBrand },
+      produce: { PlayProperty_0: producePlayPropertyBrand },
     },
     issuer: {
       consume: { IST: istIssuerP },
       // @ts-expect-error dynamic extension to promise space
-      produce: { Item: produceItemIssuer },
+      produce: { PlayProperty_0: producePlayPropertyIssuer },
     },
     installation: {
       consume: { realEstate: realEstateInstallationP },
@@ -64,7 +64,12 @@ export const startrealEstateContract = async permittedPowers => {
     },
   } = permittedPowers;
 
+  // print all the powers
+    console.log('**************************************************', permittedPowers);
+
+
   const istIssuer = await istIssuerP;
+  const PlayProperty_0Issuer = await producePlayPropertyIssuer;
   const istBrand = await istBrandP;
 
   const terms = { propertiesCount: 4n, tokensPerProperty: 100n };
@@ -74,25 +79,25 @@ export const startrealEstateContract = async permittedPowers => {
 
   const { instance } = await E(startUpgradable)({
     installation,
-    issuerKeywordRecord: { Price: istIssuer },
+    issuerKeywordRecord: { Price: istIssuer, PlayProperty_0: PlayProperty_0Issuer },
     label: 'realEstate',
     terms,
   });
   console.log('CoreEval script: started contract', instance);
   const {
-    brands: { Item: brand },
-    issuers: { Item: issuer },
+    brands: { PlayProperty_0: brand },
+    issuers: { PlayProperty_0: issuer },
   } = await E(zoe).getTerms(instance);
 
-  console.log('CoreEval script: share via agoricNames:', brand);
+  console.log('CoreEval script: share via agoricNames:', (await E(zoe).getTerms(instance)) );
 
   produceInstance.reset();
   produceInstance.resolve(instance);
 
-  produceItemBrand.reset();
-  produceItemIssuer.reset();
-  produceItemBrand.resolve(brand);
-  produceItemIssuer.resolve(issuer);
+  producePlayPropertyBrand.reset();
+  producePlayPropertyIssuer.reset();
+  producePlayPropertyBrand.resolve(brand);
+  producePlayPropertyIssuer.resolve(issuer);
 
   await publishBrandInfo(chainStorage, board, brand);
   console.log('realEstate (re)started');
@@ -109,8 +114,8 @@ const realEstateManifest = {
       zoe: true, // to get contract terms, including issuer/brand
     },
     installation: { consume: { realEstate: true } },
-    issuer: { consume: { IST: true }, produce: { Item: true } },
-    brand: { consume: { IST: true }, produce: { Item: true } },
+    issuer: { consume: { IST: true }, produce: { PlayProperty_0: true } },
+    brand: { consume: { IST: true }, produce: { PlayProperty_0: true } },
     instance: { produce: { realEstate: true } },
   },
 };
