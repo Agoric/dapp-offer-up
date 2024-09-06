@@ -131,7 +131,7 @@ export const start = async zcf => {
       const subscriptionKey = `${userAddress}_${serviceType}`;
       subscriptions.set(subscriptionKey, { Items: want.Items, serviceStarted: currentTimeRecord.absValue });
 
-      E(timerService).delay(15n).then(() => {
+      E(timerService).delay(25n).then(() => {
         const subscriptionKey = `${userAddress}_${serviceType}`;
         console.log("SUBSCRIPTIONS", subscriptions, subscriptionKey);
         subscriptions.set(subscriptionKey, null);

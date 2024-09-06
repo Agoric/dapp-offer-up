@@ -141,7 +141,7 @@ const makeOffer = async (giveValue: bigint, wantChoice: string, offerType: strin
         alert(`Offer error: ${update.data}`);
       }
       if (update.status === 'accepted') {
-        alert('Offer accepted');
+        alert('Subscription Granted');
       }
       if (update.status === 'refunded') {
         alert('Offer rejected');
