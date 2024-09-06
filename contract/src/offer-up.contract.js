@@ -54,6 +54,9 @@ export const start = async zcf => {
   } = zcf.getTerms();
 
   const subscriptionResources = {};
+  const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+
+  console.log("currentTimeRecord", currentTimeRecord);
 
   servicesToAvail.forEach(element => {
     subscriptionResources[element] = [
@@ -95,7 +98,13 @@ export const start = async zcf => {
   const tradeHandler = async (buyerSeat, offerArgs) => {
     // @ts-ignore
     const { userAddress, serviceType, offerType } = offerArgs;
-    const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+
+    // const currentTimeRecord = await E(timerService).getCurrentTimestamp();
+
+
+    
+
+
     // console.log("DATEEEEEEEEEEEEEEEEEEEEEEEE", new Date())
     console.log('CURRENT TIME RECORTD:', currentTimeRecord.absValue);
     if (offerType === 'BUY_SUBSCRIPTION') {
@@ -121,6 +130,12 @@ export const start = async zcf => {
 
       const subscriptionKey = `${userAddress}_${serviceType}`;
       subscriptions.set(subscriptionKey, { Items: want.Items, serviceStarted: currentTimeRecord.absValue });
+
+      E(timerService).delay(15n).then(() => {
+        const subscriptionKey = `${userAddress}_${serviceType}`;
+        console.log("SUBSCRIPTIONS", subscriptions, subscriptionKey);
+        subscriptions.set(subscriptionKey, null);
+      })
 
       buyerSeat.exit(true);
       newSubscription.exit();
@@ -149,20 +164,21 @@ export const start = async zcf => {
   const isSubscriptionValid = async userSubscription => {
     if (!userSubscription || !userSubscription.Items) return false;
 
-    const serviceStarted = userSubscription.serviceStarted;
+    // const serviceStarted = userSubscription.serviceStarted;
 
-    const currentTime = await E(timerService).getCurrentTimestamp().absValue;
+    // const currentTime = await E(timerService).getCurrentTimestamp().absValue;
 
-    // Convert serviceStarted to a number if it's not already
-    const serviceStartedInSeconds = serviceStarted;
+    // // Convert serviceStarted to a number if it's not already
+    // const serviceStartedInSeconds = serviceStarted;
 
-    // Calculate the expiration time
-    const expirationTime = serviceStarted + 10n;
+    // // Calculate the expiration time
+    // const expirationTime = serviceStarted + 10n;
 
-    // Check if the current time is greater than the expiration time
-    if (expirationTime === 10n) return true;
+    // // Check if the current time is greater than the expiration time
 
-    if (!serviceStarted || currentTime > expirationTime) return false;
+    // if (expirationTime === 10n) return true;
+
+    // if (!serviceStarted || currentTime > expirationTime) return false;
 
     return true;
   };

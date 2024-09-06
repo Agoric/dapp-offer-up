@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import './App.css';
 import {
@@ -51,6 +51,7 @@ interface AppState {
   offerUpInstance?: unknown;
   brands?: Record<string, unknown>;
   purses?: Array<Purse>;
+  subscribeToWallet?: boolean;
 }
 
 const useAppStore = create<AppState>(() => ({}));
@@ -148,13 +149,23 @@ const makeOffer = async (giveValue: bigint, wantChoice: string, offerType: strin
     }
   }
   );
-  watchUpdates(wallet, offerType, wantChoice);
+
+  const { subscribeToWallet } = useAppStore.getState();
+  if (!subscribeToWallet){
+    watchUpdates(wallet, offerType, wantChoice);
+    useAppStore.setState({
+      subscribeToWallet: true,
+    });
+  }
+  
 };
 
 function App() {
   useEffect(() => {
     setup();
   }, []);
+
+  const [subscribeWallet, setSubscribeWallet] = useState<boolean>(true)
 
   const { wallet, purses } = useAppStore(({ wallet, purses }) => ({
     wallet,
@@ -185,6 +196,7 @@ function App() {
           makeOffer={makeOffer}
           istPurse={istPurse as Purse}
           walletConnected={!!wallet}
+          subscribeWallet={subscribeWallet}
         />
         <hr />
         {wallet && istPurse ? (
