@@ -80,7 +80,7 @@ const connectWallet = async () => {
   const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
   useAppStore.setState({ wallet });
   const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest(pursesNotifier)) {
+  for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
     console.log('got purses', purses);
     useAppStore.setState({ purses });
   }
