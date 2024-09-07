@@ -1,4 +1,14 @@
 #!/usr/bin/env node
+/** @file Utility to update dependencies through the repo to a specified tag
+ *
+ * Agoric and Endo repos each release in one go, but with their packages all at different versions.
+ * To find what packages all work together (that were in CI together at the same time) you
+ * can set all your deps to a particular NPM dist tag.
+ *
+ * e.g. `scripts/update-dependencies.js agoric agoric-upgrade-16`
+ *
+ * Endo doesn't have any dist tags other than the default, `latest`, which should should suffice.
+ */
 const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
