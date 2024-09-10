@@ -161,7 +161,7 @@ export const start = async zcf => {
       proposalShape,
     );
 
-  const isSubscriptionValid = async userSubscription => {
+  const isSubscriptionValid = userSubscription => {
     if (!userSubscription || !userSubscription.Items) return false;
 
     // const serviceStarted = userSubscription.serviceStarted;
@@ -187,7 +187,7 @@ export const start = async zcf => {
     const subscriptionKey = `${userAddress}_${serviceType}`;
     const userSubscription = subscriptions.get(subscriptionKey);
 
-    const isValidSub = await isSubscriptionValid(userSubscription);
+    const isValidSub = isSubscriptionValid(userSubscription);
     if (isValidSub) {
       // User has a valid subscription, return the resources
       const serviceType = userSubscription.Items.value.payload[0][0].serviceType;

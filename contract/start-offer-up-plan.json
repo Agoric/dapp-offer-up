@@ -5,13 +5,13 @@
   "bundles": [
     {
       "entrypoint": "../src/offer-up.contract.js",
-      "bundleID": "b1-c6194d26e2d650ed898d598b3f2a1b13d740275e957f4caa698b1d4e35cbd25541d2b7956512530230667295dfe6025663160b93a67593e55c005a9b8203569e",
-      "fileName": "/home/rabi/.agoric/cache/b1-c6194d26e2d650ed898d598b3f2a1b13d740275e957f4caa698b1d4e35cbd25541d2b7956512530230667295dfe6025663160b93a67593e55c005a9b8203569e.json"
+      "bundleID": "b1-fc2859a60093c40a0f1f4aa660366022a72edf96a010d946065947cdc6ea1a4ccea511b65828aad1933e66c2392dcb022172379fc190b5aa4e5ddcfd5d689a96",
+      "fileName": "/root/.agoric/cache/b1-fc2859a60093c40a0f1f4aa660366022a72edf96a010d946065947cdc6ea1a4ccea511b65828aad1933e66c2392dcb022172379fc190b5aa4e5ddcfd5d689a96.json"
     },
     {
       "entrypoint": "../src/offer-up-proposal.js",
-      "bundleID": "b1-6e2646c23f5499f9472f5b1c08e69d7509c917c672041fac98a80003027fda4acb7da47b14c32119b391e08949ca9fcb207ec943ce70b859fda475bb68b3a7c9",
-      "fileName": "/home/rabi/.agoric/cache/b1-6e2646c23f5499f9472f5b1c08e69d7509c917c672041fac98a80003027fda4acb7da47b14c32119b391e08949ca9fcb207ec943ce70b859fda475bb68b3a7c9.json"
+      "bundleID": "b1-f25751f892b22d0c15983dcee35b6311c1c3daf7bef5ca5f713f639c0f3d4bc8d4347b7413eb8f3cf2d0b0801e1803cc5dc25f90fd41e00cbcb9e004558ee174",
+      "fileName": "/root/.agoric/cache/b1-f25751f892b22d0c15983dcee35b6311c1c3daf7bef5ca5f713f639c0f3d4bc8d4347b7413eb8f3cf2d0b0801e1803cc5dc25f90fd41e00cbcb9e004558ee174.json"
     }
   ]
 }
