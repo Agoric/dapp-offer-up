@@ -1,13 +1,27 @@
 /* eslint-disable import/order -- https://github.com/endojs/endo/issues/1235 */
-import { test } from './prepare-test-env-ava.js';
+import { test as anyTest } from './prepare-test-env-ava.js';
 import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import { makeCompressFile } from './utils.js';
 
-test.before(t => (t.context.compressFile = makeCompressFile(fs.readFile)));
+/**
+ * @typedef {{
+ *   compressFile: (path: string) => Promise<Buffer>,
+ * }} TestContext
+ */
 
-test.only('proposal builder generates compressed bundles less than 1MB', async t => {
-  const stdout = execSync('agoric run scripts/build-contract-deployer.js', { encoding: 'utf8' }); 
+const test = /** @type {import('ava').TestFn<TestContext>}} */ (anyTest);
+
+test.before(t => {
+  t.context = {
+    compressFile: makeCompressFile(fs.readFile),
+  };
+});
+
+test('proposal builder generates compressed bundles less than 1MB', async t => {
+  const stdout = execSync('agoric run scripts/build-contract-deployer.js', {
+    encoding: 'utf8',
+  });
   t.log('agoric run stdout:', stdout);
   t.truthy(stdout, 'Proposal successfully bundled.');
 

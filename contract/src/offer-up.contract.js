@@ -26,6 +26,11 @@ import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
 import '@agoric/zoe/exported.js';
 
+/**
+ * @import {Amount} from '@agoric/ertp/src/types.js';
+ * @import {CopyBag} from '@endo/patterns';
+ *
+ */
 const { Fail, quote: q } = assert;
 
 // #region bag utilities
@@ -33,7 +38,7 @@ const { Fail, quote: q } = assert;
 const sum = xs => xs.reduce((acc, x) => acc + x, 0n);
 
 /**
- * @param {import('@endo/patterns').CopyBag} bag
+ * @param {CopyBag} bag
  * @returns {bigint[]}
  */
 const bagCounts = bag => {
