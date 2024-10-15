@@ -36,8 +36,7 @@
     "@endo/netstring": "^1.0.10",
     "@endo/stream-node": "^1.1.5",
     "@babel/code-frame": "7.18.6",
-    "@babel/highlight": "7.22.5",
-    "type-coverage-core": "2.26.3"
+    "@babel/highlight": "7.22.5"
   },
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
