@@ -8792,7 +8792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:3, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -12105,7 +12105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:6 || 7 || 8 || 9, minimatch@npm:^9.0.4":
+"minimatch@npm:^9.0.4":
   version: 9.0.5
   resolution: "minimatch@npm:9.0.5"
   dependencies:
@@ -12114,7 +12114,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1, minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
@@ -12445,7 +12445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-path@npm:3, normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
+"normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
   version: 3.0.0
   resolution: "normalize-path@npm:3.0.0"
   checksum: 10c0/e008c8142bcc335b5e38cf0d63cfd39d6cf2d97480af9abdbe9a439221fd4d749763bab492a8ee708ce7a194bb00c9da6d0a115018672310850489137b3da046
@@ -12712,7 +12712,6 @@ __metadata:
     import-meta-resolve: "npm:^2.2.1"
     prettier: "npm:^3.0.3"
     prettier-plugin-jsdoc: "npm:^1.0.0"
-    type-coverage: "npm:^2.26.3"
     typescript: "npm:^5.5.3"
     typescript-eslint: "npm:^7.2.0"
   languageName: unknown
@@ -15721,13 +15720,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:1 || 2, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.6.2":
-  version: 2.6.2
-  resolution: "tslib@npm:2.6.2"
-  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
-  languageName: node
-  linkType: hard
-
 "tslib@npm:2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
@@ -15742,7 +15734,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsutils@npm:3, tsutils@npm:^3.21.0, tsutils@npm:~3.21.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
+  languageName: node
+  linkType: hard
+
+"tsutils@npm:^3.21.0, tsutils@npm:~3.21.0":
   version: 3.21.0
   resolution: "tsutils@npm:3.21.0"
   dependencies:
@@ -15775,33 +15774,6 @@ __metadata:
   dependencies:
     prelude-ls: "npm:^1.2.1"
   checksum: 10c0/7b3fd0ed43891e2080bf0c5c504b418fbb3e5c7b9708d3d015037ba2e6323a28152ec163bcb65212741fa5d2022e3075ac3c76440dbd344c9035f818e8ecee58
-  languageName: node
-  linkType: hard
-
-"type-coverage-core@npm:^2.26.3":
-  version: 2.26.3
-  resolution: "type-coverage-core@npm:2.26.3"
-  dependencies:
-    fast-glob: "npm:3"
-    minimatch: "npm:6 || 7 || 8 || 9"
-    normalize-path: "npm:3"
-    tslib: "npm:1 || 2"
-    tsutils: "npm:3"
-  peerDependencies:
-    typescript: 2 || 3 || 4 || 5
-  checksum: 10c0/1b567438333cd79378bc37e842d1a8cdaa3c255e36385704e61bcc69eb4ce4a3edf161ed6ace3d7a7a536db1aa347a20bd20eefe48f5c0650fbfb827ac063003
-  languageName: node
-  linkType: hard
-
-"type-coverage@npm:^2.26.3":
-  version: 2.27.0
-  resolution: "type-coverage@npm:2.27.0"
-  dependencies:
-    minimist: "npm:1"
-    type-coverage-core: "npm:^2.26.3"
-  bin:
-    type-coverage: bin/type-coverage
-  checksum: 10c0/de59e613a0c9629f5ecff75d789bd51f1278c0436bf348451201a62fa1a97a91b8b1c4345a0338743a209c0a83e843433bd12635b00cf60e97a16cc20c651c85
   languageName: node
   linkType: hard
 

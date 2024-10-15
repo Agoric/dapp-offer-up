@@ -40,7 +40,6 @@
     "import-meta-resolve": "^2.2.1",
     "prettier": "^3.0.3",
     "prettier-plugin-jsdoc": "^1.0.0",
-    "type-coverage": "^2.26.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.2.0"
   },
