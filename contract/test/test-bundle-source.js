@@ -12,7 +12,7 @@ import { E, passStyleOf } from '@endo/far';
 import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
 
 const myRequire = createRequire(import.meta.url);
-const contractPath = myRequire.resolve(`../src/offer-up.contract.js`);
+const contractPath = myRequire.resolve(`../src/med-rec-contract.js`);
 
 test('bundleSource() bundles the contract for use with zoe', async t => {
   const bundle = await bundleSource(contractPath);

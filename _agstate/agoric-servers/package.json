@@ -1,7 +1,7 @@
 {
-  "name": "offer-up-agservers",
+  "name": "med-rec-agservers",
   "version": "0.0.1",
-  "description": "Agoric server instances for dapp-offer-up",
+  "description": "Agoric server instances for dapp-med-rec",
   "private": true,
   "type": "module",
   "scripts": {

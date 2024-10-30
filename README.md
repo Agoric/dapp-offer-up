@@ -1,9 +1,9 @@
-# Agoric Dapp Starter: Offer Up
+# Agoric Dapp Starter: Med Rec
 
-Offer Up is a simple Dapp for the [Agoric smart contract platform](https://docs.agoric.com/) that permits users to explore items for sale in a marketplace, displaying default options of maps, potions, and scrolls. Users can select up to three items in any combination, create an offer starting from 0.25 [IST](https://agoric.com/blog/getting-started/ist), and upon transaction confirmation, receive the chosen items in their wallet while the offered amount is deducted from their balance.
+Med Rec is a simple Dapp for the [Agoric smart contract platform](https://docs.agoric.com/) that permits users to explore items for sale in a marketplace, displaying default options of maps, potions, and scrolls. Users can select up to three items in any combination, create an offer starting from 0.25 [IST](https://agoric.com/blog/getting-started/ist), and upon transaction confirmation, receive the chosen items in their wallet while the offered amount is deducted from their balance.
 
 <div style="display: flex; align-items: center; justify-content: center; height: 300;">
-    <img src="https://docs.agoric.com/assets/new_002_small2.DgAL2zV8.png" alt="Offer Up Dapp" style="display: block; margin: auto;">
+    <img src="https://docs.agoric.com/assets/new_002_small2.DgAL2zV8.png" alt="Med Rec Dapp" style="display: block; margin: auto;">
 </div>
 
 ## Getting started

@@ -11,12 +11,12 @@ yarn run v1.22.21
 $ ava --verbose
 
 start proposal module evaluating
-bundles/ add: assetContract from /home/connolly/projects/dapp-offer-up/contract/src/offer-up.contract.js
+bundles/ add: assetContract from /home/connolly/projects/dapp-med-rec/contract/src/med-rec.contract.js
   ✔ bundle-source › bundleSource() bundles the contract for use with zoe (1s)
     ℹ 7fffb45de65f0c887401d4a5c5185ad87d41e3842d6eb2e10559a06c747358fe0dc5ef41fd4c04457c5e9bb27ed85e48ea1ff8bdeac524063b7743205f4817e6
     ℹ Object @Alleged: BundleInstallation {}
 bundles/ bundled 85 files in bundle-assetContract.js at 2024-01-23T02:30:57.437Z
-startOfferUpContract()...
+startMedRecContract()...
   ✔ contract › Install the contract
     ℹ Object @Alleged: BundleInstallation {}
   ✔ contract › Start the contract (901ms)
@@ -50,11 +50,11 @@ CoreEval script: started contract Object [Alleged: InstanceHandle] {}
         ],
       }
 CoreEval script: share via agoricNames: Object [Alleged: Item brand] {}
-offerUp (re)started
------ OfferUp.2  2 trade give { Price: { brand: Object [Alleged: PlayMoney brand] {}, value: 5n } } want Object [copyBag] { payload: [ [ 'scroll', 1n ], [ 'map', 1n ] ] }
-bundles/ add: centralSupply from /home/connolly/projects/dapp-offer-up/node_modules/@agoric/vats/src/centralSupply.js
+MedRec (re)started
+----- MedRec.2  2 trade give { Price: { brand: Object [Alleged: PlayMoney brand] {}, value: 5n } } want Object [copyBag] { payload: [ [ 'scroll', 1n ], [ 'map', 1n ] ] }
+bundles/ add: centralSupply from /home/connolly/projects/dapp-med-rec/node_modules/@agoric/vats/src/centralSupply.js
 bundles/ bundled 132 files in bundle-centralSupply.js at 2024-01-23T02:30:59.505Z
------ OfferUp.2  2 trade give {
+----- MedRec.2  2 trade give {
   Price: { brand: Object [Alleged: ZDEFAULT brand] {}, value: 250000n }
 } want Object [copyBag] { payload: [ [ 'scroll', 1n ], [ 'map', 1n ] ] }
   ✔ contract › Trade in IST rather than play money (2.5s)
@@ -97,7 +97,7 @@ bundles/ bundled 132 files in bundle-centralSupply.js at 2024-01-23T02:30:59.505
           ],
         ],
       }
------ OfferUp.2  2 trade give {
+----- MedRec.2  2 trade give {
   Price: { brand: Object [Alleged: ZDEFAULT brand] {}, value: 250000n }
 } want Object [copyBag] { payload: [ [ 'scroll', 1n ], [ 'map', 1n ] ] }
   ─

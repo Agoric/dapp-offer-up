@@ -4,7 +4,7 @@
  * Creates files for starting an instance of the contract:
  * * contract source and instantiation proposal bundles to be published via
  *   `agd tx swingset install-bundle`
- * * start-real-estate-permit.json and start-real-estate.js to submit the
+ * * start-med-rec-permit.json and start-med-rec.js to submit the
  *   instantiation proposal via `agd tx gov submit-proposal swingset-core-eval`
  *
  * Usage:
@@ -12,19 +12,19 @@
  */
 
 import { makeHelpers } from '@agoric/deploy-script-support';
-import { getManifestForRealEstate } from '../src/real-estate-proposal.js';
+import { getManifestForpatientData } from '../src/med-rec-proposal.js';
 
 /** @type {import('@agoric/deploy-script-support/src/externalTypes.js').ProposalBuilder} */
-export const realEstateProposalBuilder = async ({ publishRef, install }) => {
+export const patientDataProposalBuilder = async ({ publishRef, install }) => {
   return harden({
-    sourceSpec: '../src/real-estate-proposal.js',
+    sourceSpec: '../src/med-rec-proposal.js',
     getManifestCall: [
-      getManifestForRealEstate.name,
+      getManifestForpatientData.name,
       {
-        realEstateRef: publishRef(
+        patientDataRef: publishRef(
           install(
-            '../src/real-estate-contract.js',
-            '../bundles/bundle-real-estate.js',
+            '../src/med-rec-contract.js',
+            '../bundles/bundle-med-rec.js',
             {
               persist: true,
             },
@@ -38,5 +38,5 @@ export const realEstateProposalBuilder = async ({ publishRef, install }) => {
 /** @type {DeployScriptFunction} */
 export default async (homeP, endowments) => {
   const { writeCoreProposal } = await makeHelpers(homeP, endowments);
-  await writeCoreProposal('start-real-estate', realEstateProposalBuilder);
+  await writeCoreProposal('start-med-rec', patientDataProposalBuilder);
 };

@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-
-import './App.css';
 import {
   makeAgoricChainStorageWatcher,
   AgoricChainStoragePathKind as Kind,
@@ -10,16 +8,7 @@ import {
   makeAgoricWalletConnection,
   suggestChain,
 } from '@agoric/web-components';
-import { subscribeLatest } from '@agoric/notifier';
-import { makeCopyBag } from '@agoric/store';
-import { Logos } from './components/Logos';
-import { Inventory } from './components/Inventory';
-import { Trade } from './components/Trade';
-import OfferTile from './components/OfferTile';
-
-const { entries, fromEntries } = Object;
-
-type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
+import { UserCircle, Wallet, Activity, Heart } from 'lucide-react';
 
 const ENDPOINTS = {
   RPC: 'http://localhost:26657',
@@ -29,11 +18,9 @@ const ENDPOINTS = {
 const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
 
 interface AppState {
-  wallet?: Wallet;
-  realEstateInstance?: unknown;
+  wallet?: any;
+  patientContractInstance?: unknown;
   brands?: Record<string, unknown>;
-  purses?: Array<Purse>;
-  offers?: { [key: string]: object };
 }
 
 const useAppStore = create<AppState>(() => ({}));
@@ -42,10 +29,9 @@ const setup = async () => {
   watcher.watchLatest<Array<[string, unknown]>>(
     [Kind.Data, 'published.agoricNames.instance'],
     instances => {
-      console.log('got instances', instances);
       useAppStore.setState({
-        realEstateInstance: instances
-          .find(([name]) => name === 'realEstate')!
+        patientContractInstance: instances
+          .find(([name]) => name === 'patientData')!
           .at(1),
       });
     },
@@ -54,18 +40,8 @@ const setup = async () => {
   watcher.watchLatest<Array<[string, unknown]>>(
     [Kind.Data, 'published.agoricNames.brand'],
     brands => {
-      console.log('Got brands', brands);
       useAppStore.setState({
-        brands: fromEntries(brands),
-      });
-    },
-  );
-  watcher.watchLatest<{ [key: string]: object }>(
-    [Kind.Data, 'published.realEstate.offers'],
-    offers => {
-      console.log('Got offers', offers);
-      useAppStore.setState({
-        offers: offers,
+        brands: Object.fromEntries(brands),
       });
     },
   );
@@ -75,92 +51,76 @@ const connectWallet = async () => {
   await suggestChain('https://local.agoric.net/network-config');
   const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
   useAppStore.setState({ wallet });
-  const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest(pursesNotifier)) {
-    console.log('got purses', purses);
-    useAppStore.setState({ purses });
-  }
 };
-const BUY = 1;
-const SELL = 0;
-const makeOffer = (
-  offerType: number,
-  selectedBrand: string,
-  giveValue: bigint,
-  wantValue: bigint,
-  offerArgs: { userAddress?: string; propertyName: string; sell?: boolean },
-) => {
-  const { wallet, realEstateInstance, brands } = useAppStore.getState();
-  if (!realEstateInstance) throw Error('no contract instance');
-  if (!(brands && brands.IST && brands[selectedBrand]))
-    throw Error('brands not available');
 
-  const wantBrand = offerType === SELL ? brands.IST : brands[selectedBrand];
-  const giveBrand = offerType === SELL ? brands[selectedBrand] : brands.IST;
-  const want = {
-    WantAsset: { brand: wantBrand, value: wantValue },
-  };
-  const give = {
-    GiveAsset: { brand: giveBrand, value: giveValue },
-  };
+const publishPatientData = (patientData: any) => {
+  const { wallet, patientContractInstance } = useAppStore.getState();
+  if (!patientContractInstance) throw Error('no contract instance');
 
   wallet?.makeOffer(
     {
       source: 'contract',
-      instance: realEstateInstance,
-      publicInvitationMaker: 'makeTradeInvitation',
+      instance: patientContractInstance,
+      publicInvitationMaker: 'makePublishInvitation',
     },
-    { give, want },
-    offerArgs,
+    {}, // No assets being exchanged
+    {
+      patientData,
+    },
     (update: { status: string; data?: unknown }) => {
-      console.log('update', update);
       if (update.status === 'error') {
-        alert(`Offer error: ${update.data}`);
+        alert(`Publication error: ${update.data}`);
       }
       if (update.status === 'accepted') {
-        alert('Offer accepted');
+        alert('Data published successfully');
       }
       if (update.status === 'refunded') {
-        alert('Offer rejected');
+        alert('Publication rejected');
       }
     },
   );
 };
 
-function App() {
-  const brands = {
-    PlayProperty_0: 'Condos',
-    PlayProperty_1: 'Villas',
-    PlayProperty_2: 'Apartments',
-    PlayProperty_3: 'House',
-  };
-
-  const [selectedBrand, setSelectedBrand] = useState<string>(
-    Object.keys(brands)[0],
-  );
-  const [istToDemand, setIstToDemand] = useState<number>();
-  const [propertyToSell, setPropertyToSell] = useState<number>();
-
-  const [istToSell, setIstToSell] = useState<number>();
-  const [propertyToDemand, setPropertyToDemand] = useState<number>();
+const PatientDataForm = () => {
+  const [formData, setFormData] = useState({
+    patientId: 'PAT-2024-001',
+    name: 'John Doe',
+    age: '30',
+    gender: 'male',
+    bloodType: 'O+',
+    allergies: 'None reported',
+    medications: 'No current medications',
+    lastVisit: '2024-03-15',
+    primaryDoctor: 'Dr. Sarah Smith',
+    emergencyContact: '+1 (555) 123-4567',
+  });
 
   useEffect(() => {
     setup();
   }, []);
 
-  const { wallet, purses } = useAppStore(({ wallet, purses }) => ({
+  const { wallet } = useAppStore(({ wallet }) => ({
     wallet,
-    purses,
   }));
-  const istPurse = purses?.find(p => p.brandPetname === 'IST');
-  const playPropertyPurses = purses
-    ?.filter(p => p.brandPetname.startsWith('PlayProperty_'))
-    .reduce((acc, next) => ({ ...acc, [next.brandPetname]: next }), {});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    publishPatientData(formData);
+  };
+
   const tryConnectWallet = () => {
     connectWallet().catch(err => {
       switch (err.message) {
         case 'KEPLR_CONNECTION_ERROR_NO_SMART_WALLET':
-          alert('no smart wallet at that address');
+          alert('No smart wallet at that address');
           break;
         default:
           alert(err.message);
@@ -169,163 +129,186 @@ function App() {
   };
 
   return (
-    <>
-      <button onClick={tryConnectWallet}>
-        {wallet?.address ?? 'Connect Wallet'}
-      </button>
-      <button
-        onClick={() =>
-          makeOffer(BUY, selectedBrand, 0n, 100n, {
-            userAddress: 'Creator_Address',
-            propertyName: selectedBrand,
-          })
-        }
-      >
-        Extract
-      </button>
-      <div
-        style={{
-          display: 'flex',
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            margin: `10px`,
-          }}
-        >
-          <h2>Select Property</h2>
-          {Object.entries(brands).map(([brand, petName]) => {
-            return (
-              <div
-                style={{
-                  backgroundColor:
-                    selectedBrand === brand ? 'gray' : 'transparent',
-                }}
-                onClick={() => setSelectedBrand(brand)}
-              >
-                {petName}
+    <div className="app-container">
+      <div className="form-container">
+        {/* Header */}
+        <div className="header">
+          <div className="header-content">
+            <div className="title-section">
+              <Activity className="icon" />
+              <h1 className="title">Patient Data Management</h1>
+            </div>
+            <button
+              onClick={tryConnectWallet}
+              className="wallet-button"
+            >
+              <Wallet className="icon" />
+              <span>{wallet?.address ? 'Connected' : 'Connect Wallet'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="form">
+          {/* Personal Information */}
+          <div className="section">
+            <div className="section-header">
+              
+              <h2 className="section-title">Personal Information <UserCircle className="icon" /> </h2>
+            </div>
+            <div className="field-grid">
+              {/* Patient ID */}
+              <div className="field">
+                <label className="label">Patient ID </label>
+                <input
+                  type="text"
+                  name="patientId"
+                  value={formData.patientId}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
               </div>
-            );
-          })}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flex: 1,
-            margin: `10px`,
-          }}
-        >
-          <h2>Sell Property</h2>
-          <span style={{ display: 'flex' }}>
-            <input
-              style={{ width: '-webkit-fill-available' }}
-              type="number"
-              placeholder="property to sell"
-              value={propertyToSell}
-              onChange={e => setPropertyToSell(Number(e.target.value))}
-            />
-            <span
-              style={{ marginLeft: '10px', textWrap: 'nowrap', fontSize: 12 }}
-            >
-              Property available:
-              {playPropertyPurses?.[
-                selectedBrand
-              ]?.currentAmount.value.toString() || 0}
-            </span>
-          </span>
-          <span style={{ display: 'flex' }}>
-            <input
-              style={{ width: '-webkit-fill-available' }}
-              type="number"
-              placeholder="ist to demand"
-              value={istToDemand}
-              onChange={e => setIstToDemand(Number(e.target.value))}
-            />
+              {/* Full Name */}
+              <div className="field">
+                <label className="label">Full Name </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
+              </div>
+              {/* Primary Doctor */}
+              <div className="field">
+                <label className="label">Primary Doctor </label>
+                <input
+                  type="text"
+                  name="primaryDoctor"
+                  value={formData.primaryDoctor}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
-            <span
-              style={{ marginLeft: '10px', textWrap: 'nowrap', fontSize: 12 }}
-            >
-              IST available: {istPurse?.currentAmount.value.toString() || 0}
-            </span>
-          </span>
-          <button
-            onClick={() =>
-              makeOffer(
-                SELL,
-                selectedBrand,
-                BigInt(propertyToSell || 0),
-                BigInt(istToDemand || 0),
-                {
-                  propertyName: selectedBrand,
-                  sell: true,
-                },
-              )
-            }
-          >
-            Submit offer
-          </button>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            margin: `10px`,
-          }}
-        >
-          <h2>Offers</h2>
-          {/* <OfferTile /> */}
-          <span style={{ display: 'flex' }}>
-            <input
-              style={{ width: '-webkit-fill-available' }}
-              type="number"
-              placeholder="property to demand"
-              value={propertyToDemand}
-              onChange={e => setPropertyToDemand(Number(e.target.value))}
-            />
-            <span
-              style={{ marginLeft: '10px', textWrap: 'nowrap', fontSize: 12 }}
-            >
-              Property available:
-              {playPropertyPurses?.[
-                selectedBrand
-              ]?.currentAmount.value.toString() || 0}
-            </span>
-          </span>
-          <span style={{ display: 'flex' }}>
-            <input
-              style={{ width: '-webkit-fill-available' }}
-              type="number"
-              placeholder="ist to give"
-              value={istToSell}
-              onChange={e => setIstToSell(Number(e.target.value))}
-            />
+          {/* Medical Information */}
+          <div className="section">
+            <div className="section-header">
+              
+              <h2 className="section-title"> Medical Information <Heart className="icon" /> </h2>
+            </div>
+            <div className="field-grid">
+              {/* Age */}
+              <div className="field">
+                <label className="label">Age </label>
+                <input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
+              </div>
+              {/* Blood Type */}
+              <div className="field">
+                <label className="label">Blood Type </label>
+                <input
+                  type="text"
+                  name="bloodType"
+                  value={formData.bloodType}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
+              </div>
+              {/* Gender */}
+              <div className="field">
+                <label className="label">Gender </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              {/* Last Visit Date */}
+              <div className="field">
+                <label className="label">Last Visit Date </label>
+                <input
+                  type="date"
+                  name="lastVisit"
+                  value={formData.lastVisit}
+                  onChange={handleInputChange}
+                  className="input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
-            <span
-              style={{ marginLeft: '10px', textWrap: 'nowrap', fontSize: 12 }}
-            >
-              IST available: {istPurse?.currentAmount.value.toString() || 0}
-            </span>
-          </span>
+          {/* Additional Information */}
+          <div className="field-grid">
+            {/* Allergies */}
+            <div className="field">
+              <label className="label">Allergies </label>
+              <textarea
+                name="allergies"
+                value={formData.allergies}
+                onChange={handleInputChange}
+                className="textarea"
+                rows={4}
+              />
+            </div>
+            {/* Current Medications */}
+            <div className="field">
+              <label className="label">Current Medications </label>
+              <textarea
+                name="medications"
+                value={formData.medications}
+                onChange={handleInputChange}
+                className="textarea"
+                rows={4}
+              />
+            </div>
+          </div>
+
+          {/* Emergency Contact */}
+          <div className="field">
+            <label className="label">Emergency Contact </label>
+            <input
+              type="text"
+              name="emergencyContact"
+              value={formData.emergencyContact}
+              onChange={handleInputChange}
+              className="input"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
           <button
-            onClick={() =>
-              makeOffer(
-                BUY,
-                selectedBrand,
-                BigInt(istToSell || 0),
-                BigInt(propertyToDemand || 0),
-                {
-                  propertyName: selectedBrand,
-                },
-              )
-            }
+            type="submit"
+            className={`submit-button ${!wallet ? 'disabled' : ''}`}
+            disabled={!wallet}
           >
-            Submit offer
+            <Activity className="icon" />
+            <span>Publish Patient Data</span>
           </button>
-        </div>
+        </form>
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default App;
+export default PatientDataForm;

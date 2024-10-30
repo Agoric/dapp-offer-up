@@ -6,7 +6,7 @@ describe('App.tsx', () => {
   it('renders app title', async () => {
     render(<App />);
 
-    const titleElement = await screen.findByText('Items Listed on Offer Up', {
+    const titleElement = await screen.findByText('Items Listed on Med Rec', {
       selector: 'h1',
     });
     expect(titleElement).toBeTruthy();

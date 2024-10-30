@@ -1,5 +1,5 @@
 /**
- * @file Test basic trading using the offer up contract.
+ * @file Test basic trading using the Med Rec contract.
  */
 // @ts-check
 
@@ -15,12 +15,12 @@ import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
 import { AmountMath, makeIssuerKit } from '@agoric/ertp';
 
 import { makeStableFaucet } from './mintStable.js';
-import { startRealEstateContract } from '../src/real-estate-proposal.js';
+import { startpatientDataContract } from '../src/med-rec-proposal.js';
 
-/** @typedef {typeof import('../src/real-estate-contract.js').start} AssetContractFn */
+/** @typedef {typeof import('../src/med-rec-contract.js').start} AssetContractFn */
 
 const myRequire = createRequire(import.meta.url);
-const contractPath = myRequire.resolve(`../src/real-estate-contract.js`);
+const contractPath = myRequire.resolve(`../src/med-rec-contract.js`);
 
 /** @type {import('ava').TestFn<Awaited<ReturnType<makeTestContext>>>} */
 const test = anyTest;
@@ -203,8 +203,8 @@ test('use the code that will go on chain to start the contract', async t => {
         consume: { IST: pFor(feeIssuer) },
         produce: { Item: sync.issuer },
       },
-      installation: { consume: { realEstate: sync.installation.promise } },
-      instance: { produce: { realEstate: sync.instance } },
+      installation: { consume: { patientData: sync.installation.promise } },
+      instance: { produce: { patientData: sync.instance } },
     };
     return powers;
   };
@@ -219,7 +219,7 @@ test('use the code that will go on chain to start the contract', async t => {
 
   // When the BLD staker governance proposal passes,
   // the startup function gets called.
-  await startRealEstateContract(powers);
+  await startpatientDataContract(powers);
   const instance = await sync.instance.promise;
 
   // Now that we have the instance, resume testing as above.

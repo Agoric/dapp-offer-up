@@ -1,8 +1,8 @@
 {
-  "name": "offer-up-contract",
+  "name": "med-rec-contract",
   "version": "0.1.0",
   "private": true,
-  "description": "Offer Up Contract",
+  "description": "Med Rec Contract",
   "type": "module",
   "scripts": {
     "start:docker": "docker compose up -d",
@@ -61,14 +61,14 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Agoric/dapp-offer-up"
+    "url": "git+https://github.com/Agoric/dapp-med-rec"
   },
   "author": "Agoric",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Agoric/dapp-offer-up/issues"
+    "url": "https://github.com/Agoric/dapp-med-rec/issues"
   },
-  "homepage": "https://github.com/Agoric/dapp-offer-up#readme",
+  "homepage": "https://github.com/Agoric/dapp-med-rec#readme",
   "eslintConfig": {
     "parserOptions": {
       "sourceType": "module",
