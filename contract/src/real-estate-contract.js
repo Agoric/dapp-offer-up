@@ -62,11 +62,17 @@ export const start = async (zcf, privateArgs) => {
    *
    * @type {{[key: string]: ZCFSeat}}
    */
+  const patientDataNode = await E(privateArgs.storageNode).makeChildNode(
+    'Patient_1234',
+  );
+  await E(patientDataNode).setValue( 'LABS_record_2456' );
+
   const availableProperties = {};
 
   const myContractDataNode = await E(privateArgs.storageNode).makeChildNode(
     'offers',
   );
+
   const marshaller = await E(privateArgs.board).getPublishingMarshaller();
 
   const updateVStorage = async () => {
