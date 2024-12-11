@@ -5,6 +5,7 @@ import {
 import {
   multiplyBy,
   parseRatio,
+  ceilDivideBy,
 } from "@agoric/zoe/src/contractSupport/ratio.js";
 import { AmountMath } from "@agoric/ertp";
 import { create } from "zustand";
@@ -20,7 +21,7 @@ import "./index.css";
 import "@agoric/react-components/dist/style.css";
 import { Navbar } from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
@@ -35,6 +36,7 @@ interface AppState {
   fusdcInstance?: unknown;
   brands?: Record<string, unknown>;
   purses?: Array<Purse>;
+  metrics?: Record<string, unknown>;
 }
 const useAppStore = create<AppState>(() => ({}));
 
@@ -58,6 +60,17 @@ const setup = async () => {
       });
     }
   );
+
+  watcher.watchLatest<Array<[string, unknown]>>(
+    [Kind.Data, "published.fastUsdc.poolMetrics"],
+    (metrics) => {
+      console.log("Got metrics", metrics);
+      useAppStore.setState({
+        metrics: {...metrics},
+      });
+    }
+  );
+
 };
 const parseUSDCAmount = (amountString, usdc) => {
   const USDC_DECIMALS = 6;
@@ -77,16 +90,16 @@ const connectWallet = async () => {
   }
 };
 
-const makeOffer = () => {
+const makeDepositOffer = () => {
   const { wallet, fusdcInstance, brands } = useAppStore.getState();
   if (!fusdcInstance) throw Error("no contract instance");
   if (!(brands && brands.USDC)) throw Error("brands not available");
   const proposal = {
     give: {
-      USDC: parseUSDCAmount(10, brands.USDC),
+      USDC: parseUSDCAmount('10', brands.USDC),
     },
   };
-  console.log("about to make offer");
+  console.log("about to make offer", wallet);
   wallet?.makeOffer(
     {
       source: "agoricContract",
@@ -109,7 +122,48 @@ const makeOffer = () => {
   );
 };
 
+const makeWithdrawOffer = () => {
+  const { wallet, fusdcInstance, brands, metrics } = useAppStore.getState();
+  if (!fusdcInstance) throw Error("no contract instance");
+  if (!(brands && brands.USDC && brands.FastLP)) throw Error("brands not available");
+  if (!(metrics && metrics.shareWorth)) throw Error("metrics not available");
+
+  const usdcAmount = parseUSDCAmount('10', brands.USDC)
+  const fastLPAmount = ceilDivideBy(usdcAmount, metrics.shareWorth);
+  const proposal = {
+    give: {
+      PoolShare: fastLPAmount,
+    },
+    want: {
+      USDC: usdcAmount,
+    },
+  };
+  console.log('fastLPAmount', fastLPAmount);
+  console.log("about to make withdraw offer");
+  wallet?.makeOffer(
+    {
+      source: "agoricContract",
+      instance: fusdcInstance,
+      callPipe: [["makeWithdrawInvitation", []]],
+    },
+    proposal,
+    undefined,
+    (update: { status: string; data?: unknown }) => {
+      if (update.status === "error") {
+        alert(`Offer error: ${update.data}`);
+      }
+      if (update.status === "accepted") {
+        alert("Offer accepted");
+      }
+      if (update.status === "refunded") {
+        alert("Offer rejected");
+      }
+    }
+  );
+};
+
 function App() {
+  const [metrics, setMetrics] = useState<Record<string, unknown>>({});
   useEffect(() => {
     setup();
   }, []);
@@ -145,7 +199,7 @@ function App() {
           defaultChainName="agoric-local"
         >
           <Navbar onConnectClick={tryConnectWallet} />
-          <Dashboard makeOffer={makeOffer} />
+          <Dashboard makeDepositOffer={makeDepositOffer} makeWithdrawOffer={makeWithdrawOffer} />
         </AgoricProvider>
       </div>
     </ThemeProvider>

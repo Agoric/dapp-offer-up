@@ -9,10 +9,10 @@ const headerData = [
   { title: "Fees Earned (24h)", value: "$890", description: "USDC" },
 ];
 
-const Dashboard = ({ makeOffer }) => (
+const Dashboard = ({ makeDepositOffer, makeWithdrawOffer }) => (
   <div className="p-6 bg-gray-100 min-h-screen">
     <Cards data={headerData} />
-    <Form makeOffer={makeOffer} />
+    <Form makeDepositOffer={makeDepositOffer} makeWithdrawOffer={makeWithdrawOffer} />
     <Transactions />
   </div>
 );
