@@ -7,7 +7,8 @@
   "useWorkspaces": true,
   "workspaces": [
     "contract",
-    "ui"
+    "ui",
+    "ui-fusdc-lp"
   ],
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
