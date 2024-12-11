@@ -1,7 +1,6 @@
-import { ConnectWalletButton } from '@agoric/react-components';
-import { NetworkDropdown } from '@agoric/react-components';
+import { ConnectWalletButton } from "@agoric/react-components";
 
-const Navbar = () => {
+const Navbar = ({ onConnectClick }) => {
   return (
     <div className="daisyui-navbar bg-neutral text-neutral-content">
       {/* Agoric logo */}
@@ -21,7 +20,7 @@ const Navbar = () => {
         <NetworkDropdown />
       </div> */}
       {/* connect wallet button */}
-      <div className="flex-none">
+      <div className="flex-none" onClick={onConnectClick}>
         <ConnectWalletButton className="daisyui-btn daisyui-btn-outline daisyui-btn-secondary" />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import Form from './Form'
+import Form from "./Form";
 import Cards from "./Cards";
 import Transactions from "./Transactions";
 
@@ -9,10 +9,10 @@ const headerData = [
   { title: "Fees Earned (24h)", value: "$890", description: "USDC" },
 ];
 
-const Dashboard = () => (
+const Dashboard = ({ makeOffer }) => (
   <div className="p-6 bg-gray-100 min-h-screen">
     <Cards data={headerData} />
-    <Form />
+    <Form makeOffer={makeOffer} />
     <Transactions />
   </div>
 );

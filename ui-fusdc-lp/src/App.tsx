@@ -1,12 +1,129 @@
-import { AgoricProvider } from '@agoric/react-components';
-import { wallets } from 'cosmos-kit';
-import { ThemeProvider, useTheme } from '@interchain-ui/react';
-import './index.css';
-import '@agoric/react-components/dist/style.css';
-import { Navbar } from './components/Navbar';
-import Dashboard from './components/Dashboard';
+import {
+  makeAgoricChainStorageWatcher,
+  AgoricChainStoragePathKind as Kind,
+} from "@agoric/rpc";
+import {
+  multiplyBy,
+  parseRatio,
+} from "@agoric/zoe/src/contractSupport/ratio.js";
+import { AmountMath } from "@agoric/ertp";
+import { create } from "zustand";
+import {
+  makeAgoricWalletConnection,
+  suggestChain,
+} from "@agoric/web-components";
+import { subscribeLatest } from "@agoric/notifier";
+import { AgoricProvider } from "@agoric/react-components";
+import { wallets } from "cosmos-kit";
+import { ThemeProvider, useTheme } from "@interchain-ui/react";
+import "./index.css";
+import "@agoric/react-components/dist/style.css";
+import { Navbar } from "./components/Navbar";
+import Dashboard from "./components/Dashboard";
+import { useEffect } from "react";
+
+type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
+
+const ENDPOINTS = {
+  RPC: "http://localhost:26657",
+  API: "http://localhost:1317",
+};
+
+const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, "agoriclocal");
+interface AppState {
+  wallet?: Wallet;
+  fusdcInstance?: unknown;
+  brands?: Record<string, unknown>;
+  purses?: Array<Purse>;
+}
+const useAppStore = create<AppState>(() => ({}));
+
+const setup = async () => {
+  watcher.watchLatest<Array<[string, unknown]>>(
+    [Kind.Data, "published.agoricNames.instance"],
+    (instances) => {
+      console.log("got instances", instances);
+      useAppStore.setState({
+        fusdcInstance: instances.find(([name]) => name === "fastUsdc")!.at(1),
+      });
+    }
+  );
+
+  watcher.watchLatest<Array<[string, unknown]>>(
+    [Kind.Data, "published.agoricNames.brand"],
+    (brands) => {
+      console.log("Got brands", brands);
+      useAppStore.setState({
+        brands: Object.fromEntries(brands),
+      });
+    }
+  );
+};
+const parseUSDCAmount = (amountString, usdc) => {
+  const USDC_DECIMALS = 6;
+  const unit = AmountMath.make(usdc, 10n ** BigInt(USDC_DECIMALS));
+  return multiplyBy(unit, parseRatio(amountString, usdc));
+};
+
+const connectWallet = async () => {
+  await suggestChain("https://local.agoric.net/network-config");
+  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
+  useAppStore.setState({ wallet });
+  console.log("wallet", wallet);
+  const { pursesNotifier } = wallet;
+  for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
+    console.log("got purses", purses);
+    useAppStore.setState({ purses });
+  }
+};
+
+const makeOffer = () => {
+  const { wallet, fusdcInstance, brands } = useAppStore.getState();
+  if (!fusdcInstance) throw Error("no contract instance");
+  if (!(brands && brands.USDC)) throw Error("brands not available");
+  const proposal = {
+    give: {
+      USDC: parseUSDCAmount(10, brands.USDC),
+    },
+  };
+  console.log("about to make offer");
+  wallet?.makeOffer(
+    {
+      source: "agoricContract",
+      instance: fusdcInstance,
+      callPipe: [["makeDepositInvitation", []]],
+    },
+    proposal,
+    undefined,
+    (update: { status: string; data?: unknown }) => {
+      if (update.status === "error") {
+        alert(`Offer error: ${update.data}`);
+      }
+      if (update.status === "accepted") {
+        alert("Offer accepted");
+      }
+      if (update.status === "refunded") {
+        alert("Offer rejected");
+      }
+    }
+  );
+};
 
 function App() {
+  useEffect(() => {
+    setup();
+  }, []);
+  const tryConnectWallet = () => {
+    connectWallet().catch((err) => {
+      switch (err.message) {
+        case "KEPLR_CONNECTION_ERROR_NO_SMART_WALLET":
+          alert("no smart wallet at that address");
+          break;
+        default:
+          alert(err.message);
+      }
+    });
+  };
   const { themeClass } = useTheme();
   return (
     <ThemeProvider>
@@ -16,19 +133,19 @@ function App() {
           agoricNetworkConfigs={[
             {
               testChain: {
-                chainId: 'agoriclocal',
-                chainName: 'agoric-local'
+                chainId: "agoriclocal",
+                chainName: "agoric-local",
               },
               apis: {
-                rest: ['http://localhost:1317'],
-                rpc: ['http://localhost:26657']
-              }
-            }
+                rest: ["http://localhost:1317"],
+                rpc: ["http://localhost:26657"],
+              },
+            },
           ]}
           defaultChainName="agoric-local"
         >
-          <Navbar/>
-          <Dashboard/>
+          <Navbar onConnectClick={tryConnectWallet} />
+          <Dashboard makeOffer={makeOffer} />
         </AgoricProvider>
       </div>
     </ThemeProvider>
