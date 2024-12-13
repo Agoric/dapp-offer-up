@@ -1,27 +1,27 @@
-import {
-  makeAgoricChainStorageWatcher,
-  AgoricChainStoragePathKind as Kind,
-} from '@agoric/rpc';
-import {
-  multiplyBy,
-  parseRatio,
-  ceilDivideBy,
-} from '@agoric/zoe/src/contractSupport/ratio.js';
 import { AmountMath } from '@agoric/ertp';
-import { create } from 'zustand';
+import { subscribeLatest } from '@agoric/notifier';
+import { AgoricProvider } from '@agoric/react-components';
+import '@agoric/react-components/dist/style.css';
+import {
+  AgoricChainStoragePathKind as Kind,
+  makeAgoricChainStorageWatcher,
+} from '@agoric/rpc';
 import {
   makeAgoricWalletConnection,
   suggestChain,
 } from '@agoric/web-components';
-import { subscribeLatest } from '@agoric/notifier';
-import { AgoricProvider } from '@agoric/react-components';
-import { wallets } from 'cosmos-kit';
+import {
+  ceilDivideBy,
+  multiplyBy,
+  parseRatio,
+} from '@agoric/zoe/src/contractSupport/ratio.js';
 import { ThemeProvider, useTheme } from '@interchain-ui/react';
-import './index.css';
-import '@agoric/react-components/dist/style.css';
-import { Navbar } from './components/Navbar';
-import Dashboard from './components/Dashboard';
+import { wallets } from 'cosmos-kit';
 import { useEffect, useState } from 'react';
+import { create } from 'zustand';
+import Dashboard from './components/Dashboard';
+import { Navbar } from './components/Navbar';
+import './index.css';
 
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
 
