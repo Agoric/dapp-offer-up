@@ -19,7 +19,9 @@
     "@cosmos-kit/core": "2.8.9"
   },
   "devDependencies": {
+    "@agoric/fast-usdc": "0.1.1-dev-ddff762.0",
     "@agoric/react-components": "^0.1.1-dev-ca0ddde.0",
+    "@agoric/smart-wallet": "0.5.4-dev-ddff762.0",
     "@agoric/ui-components": "^0.3.9-u13.0",
     "@agoric/web-components": "0.15.1-dev-8fc28e8.0",
     "@endo/eventual-send": "^1.2.8",
