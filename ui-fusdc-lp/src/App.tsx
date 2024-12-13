@@ -1,4 +1,5 @@
 import { AmountMath } from '@agoric/ertp';
+import type { PoolMetrics } from '@agoric/fast-usdc/src/types.ts';
 import { subscribeLatest } from '@agoric/notifier';
 import { AgoricProvider } from '@agoric/react-components';
 import '@agoric/react-components/dist/style.css';
@@ -6,6 +7,8 @@ import {
   AgoricChainStoragePathKind as Kind,
   makeAgoricChainStorageWatcher,
 } from '@agoric/rpc';
+import type { OfferSpec } from '@agoric/smart-wallet/src/offers';
+import type { CurrentWalletRecord } from '@agoric/smart-wallet/src/smartWallet.d.ts';
 import {
   makeAgoricWalletConnection,
   suggestChain,
@@ -23,7 +26,22 @@ import Dashboard from './components/Dashboard';
 import { Navbar } from './components/Navbar';
 import './index.css';
 
+// XXX import type { USDCProposalShapes } from '@agoric/fast-usdc/src/types.ts';
+type USDCProposalShapes = {
+  deposit: {
+    give: { USDC: Amount<'nat'> };
+    want?: { PoolShare: Amount<'nat'> };
+  };
+  withdraw: {
+    give: { PoolShare: Amount<'nat'> };
+    want: { USDC: Amount<'nat'> };
+  };
+};
+type PurseRecord = CurrentWalletRecord['purses'];
+
 type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
+
+const { fromEntries } = Object;
 
 const ENDPOINTS = {
   RPC: 'http://localhost:26657',
@@ -34,8 +52,8 @@ const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
 interface AppState {
   wallet?: Wallet;
   fusdcInstance?: unknown;
-  brands?: Record<string, unknown>;
-  purses?: Array<Purse>;
+  brands?: Record<string, Brand>;
+  purses?: Array<PurseRecord>;
   metrics?: Record<string, unknown>;
 }
 const useAppStore = create<AppState>(() => ({}));
@@ -43,25 +61,25 @@ const useAppStore = create<AppState>(() => ({}));
 const setup = async () => {
   watcher.watchLatest<Array<[string, unknown]>>(
     [Kind.Data, 'published.agoricNames.instance'],
-    instances => {
+    pairs => {
+      const instances = fromEntries(pairs);
       console.log('got instances', instances);
       useAppStore.setState({
-        fusdcInstance: instances.find(([name]) => name === 'fastUsdc')!.at(1),
+        fusdcInstance: instances.fastUsdc,
       });
     }
   );
 
-  watcher.watchLatest<Array<[string, unknown]>>(
+  watcher.watchLatest<Array<[string, Brand]>>(
     [Kind.Data, 'published.agoricNames.brand'],
-    brands => {
+    pairs => {
+      const brands = fromEntries(pairs);
       console.log('Got brands', brands);
-      useAppStore.setState({
-        brands: Object.fromEntries(brands),
-      });
+      useAppStore.setState({ brands });
     }
   );
 
-  watcher.watchLatest<Array<[string, unknown]>>(
+  watcher.watchLatest<Array<[string, PoolMetrics]>>(
     [Kind.Data, 'published.fastUsdc.poolMetrics'],
     metrics => {
       console.log('Got metrics', metrics);
@@ -71,19 +89,21 @@ const setup = async () => {
     }
   );
 };
-const parseUSDCAmount = (amountString, usdc) => {
+
+const parseUSDCAmount = (numeral: string, usdc: Brand): Amount<'nat'> => {
   const USDC_DECIMALS = 6;
   const unit = AmountMath.make(usdc, 10n ** BigInt(USDC_DECIMALS));
-  return multiplyBy(unit, parseRatio(amountString, usdc));
+  return multiplyBy(unit, parseRatio(numeral, usdc));
 };
 
 const connectWallet = async () => {
-  await suggestChain('https://local.agoric.net/network-config');
-  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
+  const info = await suggestChain('https://local.agoric.net/network-config');
+  console.log('connectWallet: chain info', info);
+  const wallet = await makeAgoricWalletConnection(watcher, info.rpc);
   useAppStore.setState({ wallet });
   console.log('wallet', wallet);
   const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
+  for await (const purses of subscribeLatest<PurseRecord[]>(pursesNotifier)) {
     console.log('got purses', purses);
     useAppStore.setState({ purses });
   }
@@ -93,21 +113,25 @@ const makeDepositOffer = () => {
   const { wallet, fusdcInstance, brands } = useAppStore.getState();
   if (!fusdcInstance) throw Error('no contract instance');
   if (!(brands && brands.USDC)) throw Error('brands not available');
-  const proposal = {
-    give: {
-      USDC: parseUSDCAmount('10', brands.USDC),
-    },
+  const proposal: USDCProposalShapes['deposit'] = {
+    give: { USDC: parseUSDCAmount('10', brands.USDC) },
   };
-  console.log('about to make offer', wallet);
-  wallet?.makeOffer(
-    {
-      source: 'agoricContract',
+  const depositSpec: OfferSpec = {
+    id: 'unused',
+    invitationSpec: {
+      source: 'contract',
       instance: fusdcInstance,
-      callPipe: [['makeDepositInvitation', []]],
+      publicInvitationMaker: 'makeDepositInvitation',
     },
     proposal,
+  };
+  console.log('about to make offer', wallet, depositSpec);
+  wallet?.makeOffer(
+    depositSpec.invitationSpec,
+    depositSpec.proposal,
     undefined,
     (update: { status: string; data?: unknown }) => {
+      console.log('@@@@offer update', update);
       if (update.status === 'error') {
         alert(`Offer error: ${update.data}`);
       }
