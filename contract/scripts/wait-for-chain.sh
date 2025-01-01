@@ -19,13 +19,13 @@ check_block_pattern() {
     return 1  # Pattern not found
 }
 
-echo "Waiting for blockchain to start..."
+echo -e "\033[34mWaiting for blockchain to start...\033[0m"
 yarn docker:logs | check_block_pattern
 
 if [ $? -eq 0 ]; then
-    echo "Blockchain is running and producing blocks..."
+    echo -e "\033[34mBlockchain is running and producing blocks...\033[0m"
     exit 0
 else
-    echo "Failed to detect blockchain activity\n Run yarn start:docker to start the blockchain first!"
+    echo -e "\033[34mFailed to detect blockchain activity\n Run yarn start:docker to start the blockchain first!\033[0m"
     exit 1
 fi
