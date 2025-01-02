@@ -76,25 +76,42 @@ const setup = async () => {
 };
 
 const connectWallet = async () => {
-  await suggestChain('https://local.agoric.net/network-config');
-  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
-  useAppStore.setState({ wallet });
-  const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
-    console.log('got purses', purses);
-    useAppStore.setState({ purses });
+  try {
+    const response = await fetch(ENDPOINTS.RPC);
+    if (!response.ok) {
+      throw new Error('Chain is not running. Please start the chain first.');
+    }
+    await suggestChain('https://local.agoric.net/network-config');
+    const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
+    useAppStore.setState({ wallet });
+    const { pursesNotifier } = wallet;
+    for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
+      console.log('got purses', purses);
+      useAppStore.setState({ purses });
+    }
+  } catch (error) {
+    throw new Error(`Chain is not running. Please start the chain first.: ${error}`);
   }
 };
 
 const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
   const { wallet, offerUpInstance, brands } = useAppStore.getState();
-  if (!offerUpInstance) throw Error('no contract instance');
-  if (!(brands && brands.IST && brands.Item))
+  if (!offerUpInstance) {
+
+    alert('No contract instance found on the chain RPC: ' + ENDPOINTS.RPC);
+    throw Error('no contract instance');
+  }
+  if (!(brands && brands.IST && brands.Item)) {
+    
+    alert('Brands not available');
     throw Error('brands not available');
+  }
+    
 
   const value = makeCopyBag(entries(wantChoices));
   const want = { Items: { brand: brands.Item, value } };
   const give = { Price: { brand: brands.IST, value: giveValue } };
+
 
   wallet?.makeOffer(
     {
