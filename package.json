@@ -56,7 +56,7 @@
     "eslint": "^8.57.0"
   },
   "devDependencies": {
-    "@agoric/synpress": "^3.8.1",
+    "@agoric/synpress": "^3.8.4-beta.0",
     "eslint-config-turbo": "^1.13.0",
     "eslint-plugin-chai-friendly": "^0.7.4",
     "eslint-plugin-cypress": "^2.15.1",
