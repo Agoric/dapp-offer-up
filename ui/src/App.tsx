@@ -18,7 +18,7 @@ import { Trade } from './components/Trade';
 
 const { entries, fromEntries } = Object;
 
-type Wallet = Awaited<ReturnType<typeof makeAgoricWalletConnection>>;
+type Wallet = Awaited;
 
 const ENDPOINTS = {
   RPC: 'http://localhost:26657',
@@ -47,14 +47,14 @@ const watcher = makeAgoricChainStorageWatcher(ENDPOINTS.API, 'agoriclocal');
 interface AppState {
   wallet?: Wallet;
   offerUpInstance?: unknown;
-  brands?: Record<string, unknown>;
-  purses?: Array<Purse>;
+  brands?: Record;
+  purses?: Array;
 }
 
 const useAppStore = create<AppState>(() => ({}));
 
 const setup = async () => {
-  watcher.watchLatest<Array<[string, unknown]>>(
+  watcher.watchLatest<Array>(
     [Kind.Data, 'published.agoricNames.instance'],
     instances => {
       console.log('got instances', instances);
@@ -64,7 +64,7 @@ const setup = async () => {
     },
   );
 
-  watcher.watchLatest<Array<[string, unknown]>>(
+  watcher.watchLatest<Array>(
     [Kind.Data, 'published.agoricNames.brand'],
     brands => {
       console.log('Got brands', brands);
@@ -76,21 +76,36 @@ const setup = async () => {
 };
 
 const connectWallet = async () => {
-  await suggestChain('https://local.agoric.net/network-config');
-  const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
-  useAppStore.setState({ wallet });
-  const { pursesNotifier } = wallet;
-  for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
-    console.log('got purses', purses);
-    useAppStore.setState({ purses });
+  try {
+    const response = await fetch(ENDPOINTS.RPC);
+    if (!response.ok) {
+      throw new Error('Chain is not running. Please start the chain first.');
+    }
+    await suggestChain('https://local.agoric.net/network-config');
+    const wallet = await makeAgoricWalletConnection(watcher, ENDPOINTS.RPC);
+    useAppStore.setState({ wallet });
+    const { pursesNotifier } = wallet;
+    for await (const purses of subscribeLatest<Purse[]>(pursesNotifier)) {
+      console.log('got purses', purses);
+      useAppStore.setState({ purses });
+    }
+  } catch (error) {
+    throw new Error(
+      `Chain is not running. Please start the chain first.: ${error}`,
+    );
   }
 };
 
-const makeOffer = (giveValue: bigint, wantChoices: Record<string, bigint>) => {
+const makeOffer = (giveValue: bigint, wantChoices: Record) => {
   const { wallet, offerUpInstance, brands } = useAppStore.getState();
-  if (!offerUpInstance) throw Error('no contract instance');
-  if (!(brands && brands.IST && brands.Item))
+  if (!offerUpInstance) {
+    alert('No contract instance found on the chain RPC: ' + ENDPOINTS.RPC);
+    throw Error('no contract instance');
+  }
+  if (!(brands && brands.IST && brands.Item)) {
+    alert('Brands not available');
     throw Error('brands not available');
+  }
 
   const value = makeCopyBag(entries(wantChoices));
   const want = { Items: { brand: brands.Item, value } };
