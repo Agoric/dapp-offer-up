@@ -32,10 +32,6 @@ import { makeDurableZone } from '@agoric/zone/durable.js';
  * @import {CopyBag} from '@endo/patterns';
  *
  */
-const { Fail, quote: q } = assert;
-import { makeScalarBigMapStore } from '@agoric/vat-data';
-import { makeDurableZone } from '@agoric/zone/durable.js';
-import '@agoric/zoe/exported.js';
 
 const { Fail, quote: q } = assert;
 
