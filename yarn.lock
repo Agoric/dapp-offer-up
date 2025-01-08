@@ -63,7 +63,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/base-zone@npm:0.1.1-upgrade-18-dev-ef001c0.0+ef001c0":
+"@agoric/base-zone@npm:0.1.1-upgrade-18-dev-ef001c0.0+ef001c0, @agoric/base-zone@npm:^0.1.1-u18.1":
   version: 0.1.1-upgrade-18-dev-ef001c0.0
   resolution: "@agoric/base-zone@npm:0.1.1-upgrade-18-dev-ef001c0.0"
   dependencies:
@@ -621,7 +621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/store@npm:0.9.3-upgrade-18-dev-ef001c0.0+ef001c0, @agoric/store@npm:^0.9.3-u16.0":
+"@agoric/store@npm:0.9.3-upgrade-18-dev-ef001c0.0+ef001c0, @agoric/store@npm:^0.9.3-u16.0, @agoric/store@npm:^0.9.3-u18.1":
   version: 0.9.3-upgrade-18-dev-ef001c0.0
   resolution: "@agoric/store@npm:0.9.3-upgrade-18-dev-ef001c0.0"
   dependencies:
@@ -718,7 +718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/swingset-liveslots@npm:0.10.3-upgrade-18-dev-ef001c0.0+ef001c0":
+"@agoric/swingset-liveslots@npm:0.10.3-upgrade-18-dev-ef001c0.0+ef001c0, @agoric/swingset-liveslots@npm:^0.10.3-u18.1":
   version: 0.10.3-upgrade-18-dev-ef001c0.0
   resolution: "@agoric/swingset-liveslots@npm:0.10.3-upgrade-18-dev-ef001c0.0"
   dependencies:
@@ -1011,6 +1011,20 @@ __metadata:
     "@endo/nat": "npm:^4.1.27"
     clsx: "npm:^1.1.1"
   checksum: 10c0/42d18ff557f8c6822ca9c56733701b127c317c205d49d2ed60df62e891f8efff4aea1f965a10d9e9c3c24ba06903f8bb28cf165658938adee78c27ba13ac54e5
+  languageName: node
+  linkType: hard
+
+"@agoric/vat-data@npm:0.5.3-u18.1":
+  version: 0.5.3-u18.1
+  resolution: "@agoric/vat-data@npm:0.5.3-u18.1"
+  dependencies:
+    "@agoric/base-zone": "npm:^0.1.1-u18.1"
+    "@agoric/store": "npm:^0.9.3-u18.1"
+    "@agoric/swingset-liveslots": "npm:^0.10.3-u18.1"
+    "@endo/errors": "npm:^1.2.8"
+    "@endo/exo": "npm:^1.5.7"
+    "@endo/patterns": "npm:^1.4.7"
+  checksum: 10c0/8c3b428ec517683f4efc9b51374fb7f68de02b0b5533591cbd2f7b13c056e824f75085e5cfe438a11442c1880055b07ebbd6a7adf2057372bc2c98e4cfa4ca0c
   languageName: node
   linkType: hard
 
@@ -12555,6 +12569,7 @@ __metadata:
     "@agoric/ertp": "npm:^0.16.3-u18.0"
     "@agoric/eslint-config": "npm:^0.4.1-u16.0"
     "@agoric/internal": "npm:^0.4.0-u18.0"
+    "@agoric/vat-data": "npm:0.5.3-u18.1"
     "@agoric/vats": "npm:^0.16.0-u18.0"
     "@agoric/zoe": "npm:^0.26.3-u18.0"
     "@agoric/zone": "npm:^0.3.0-u18.1"

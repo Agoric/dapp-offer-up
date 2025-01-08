@@ -46,6 +46,7 @@
   "dependencies": {
     "@agoric/ertp": "^0.16.3-u18.0",
     "@agoric/internal": "^0.4.0-u18.0",
+    "@agoric/vat-data": "0.5.3-u18.1",
     "@agoric/vats": "^0.16.0-u18.0",
     "@agoric/zoe": "^0.26.3-u18.0",
     "@agoric/zone": "^0.3.0-u18.1",

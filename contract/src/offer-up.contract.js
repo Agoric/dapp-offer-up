@@ -79,7 +79,7 @@ harden(customTermsShape);
  *
  * @param {ZCF<OfferUpTerms>} zcf
  * @param {*} _privateArgs
- * @param {import('@agoric/ertp').Baggage} baggage
+ * @param {import('@agoric/vat-data').Baggage} baggage
  */
 export const start = async (zcf, _privateArgs, baggage) => {
   const { tradePrice, maxItems = 3n } = zcf.getTerms();
