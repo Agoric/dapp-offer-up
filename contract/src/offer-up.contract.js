@@ -35,7 +35,6 @@ import { makeDurableZone } from '@agoric/zone/durable.js';
 
 const { Fail, quote: q } = assert;
 
-
 // #region bag utilities
 /** @type { (xs: bigint[]) => bigint } */
 const sum = xs => xs.reduce((acc, x) => acc + x, 0n);
@@ -135,19 +134,10 @@ export const start = async (zcf, _privateArgs, baggage) => {
     return 'trade complete';
   };
 
-  /**
-   * Make an invitation to trade for items.
-   *
-   * Proposal Keywords used in offers using these invitations:
-   *   - give: `Price`
-   *   - want: `Items`
-   */
-  const makeTradeInvitation = () =>
-    zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
-
   // Use zone.exo to make a publicFacet suitable for use by remote callers.
   const publicFacet = zone.exo('Items Public Facet', undefined, {
-    makeTradeInvitation,
+    makeTradeInvitation: () =>
+      zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape),
   });
   return harden({ publicFacet });
 };
