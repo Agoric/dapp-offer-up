@@ -136,9 +136,21 @@ export const start = async (zcf, _privateArgs, baggage) => {
 
   // Use zone.exo to make a publicFacet suitable for use by remote callers.
   const publicFacet = zone.exo('Items Public Facet', undefined, {
+    /**
+     * Make an invitation to trade for items.
+     *
+     * Proposal Keywords used in offers using these invitations:
+     *   - give: `Price`
+     *   - want: `Items`
+     */
     makeTradeInvitation() {
-      return zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape),
-    }
+      return zcf.makeInvitation(
+        tradeHandler,
+        'buy items',
+        undefined,
+        proposalShape,
+      );
+    },
   });
   return harden({ publicFacet });
 };
