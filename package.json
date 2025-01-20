@@ -43,7 +43,7 @@
     "stop:docker": "cd contract && docker stop agdc && docker rm agdc",
     "docker:logs": "cd contract && docker logs -f --tail 200 agdc",
     "docker:bash": "cd contract && docker exec -it agdc bash",
-    "docker:make": "cd contract && docker exec agdc make ",
+    "docker:make": "cd contract && docker exec agdc make -C /ws-offerup/contract",
     "make:help": "make -C contract list",
     "start:contract": "cd contract && yarn start",
     "start:ui": "cd ui && yarn dev",
