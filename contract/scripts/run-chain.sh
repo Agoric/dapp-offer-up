@@ -1,5 +1,18 @@
 #!/bin/bash
 set -e  # Exit on error
+# Function to handle errors
+error_handler() {
+    local exit_code=$?
+    echo "Error occurred in script at line $1, exit code: $exit_code"
+    exit $exit_code
+}
+
+# Set up error handling
+trap 'error_handler ${LINENO}' ERR
+
+# Enable debug output
+set -x
+
 
 # Set default container name if not provided
 : ${AGDC_NAME:="agdc"}
