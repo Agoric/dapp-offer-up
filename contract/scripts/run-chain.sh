@@ -1,21 +1,24 @@
 #!/bin/bash
 set -e  # Exit on error
 
+# Set default container name if not provided
+: ${AGDC_NAME:="agdc"}
+
 # Check if container already exists and is running
-if [ "$(docker ps -q -f name=agdc)" ]; then
-    echo "Container 'agdc' is already running. Please stop it first using 'docker stop agdc' if you want to start a new instance."
+if [ "$(docker ps -q -f name=$AGDC_NAME)" ]; then
+    echo "Container '$AGDC_NAME' is already running. Please stop it first using 'docker stop $AGDC_NAME' if you want to start a new instance."
     exit 1
 fi
 
 # Check if container exists but is stopped
-if [ "$(docker ps -aq -f status=exited -f name=agdc)" ]; then
-    echo "Found stopped container 'agdc'. Do you want to remove it before starting a new one? (y/N)"
+if [ "$(docker ps -aq -f status=exited -f name=$AGDC_NAME)" ]; then
+    echo "Found stopped container '$AGDC_NAME'. Do you want to remove it before starting a new one? (y/N)"
     read -r response
     if [[ "$response" =~ ^[Yy]$ ]]; then
-        echo "Removing stopped container 'agdc'..."
-        docker rm agdc
+        echo "Removing stopped container '$AGDC_NAME'..."
+        docker rm $AGDC_NAME
     else
-        echo "Aborting to preserve existing container."
+        echo "Aborting to preserve existing container. You can set/update AGDC_NAME environment variable to avoid any potential conflicts."
         exit 1
     fi
 fi
@@ -50,9 +53,9 @@ start_agd="bash -c '. /usr/src/upgrade-test-scripts/env_setup.sh && \
            waitForBlock 1 && \
            wait'"
 
-docker run -d --name agdc $linux_only $ports $env $volumes $agd_image $start_agd || {
+docker run -d --name $AGDC_NAME $linux_only $ports $env $volumes $agd_image $start_agd || {
     echo "Failed to start docker container. Please check if Docker is running and you have necessary permissions."
     exit 1
 }
 
-echo "Container 'agdc' started successfully."
+echo "Container '$AGDC_NAME' started successfully."
