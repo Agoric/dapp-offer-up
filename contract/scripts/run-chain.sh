@@ -1,18 +1,5 @@
 #!/bin/bash
 set -e  # Exit on error
-# Function to handle errors
-error_handler() {
-    local exit_code=$?
-    echo "Error occurred in script at line $1, exit code: $exit_code"
-    exit $exit_code
-}
-
-# Set up error handling
-trap 'error_handler ${LINENO}' ERR
-
-# Enable debug output
-set -x
-
 
 # Set default container name if not provided
 : ${AGDC_NAME:="agdc"}
@@ -56,11 +43,12 @@ agd_image="ghcr.io/agoric/agoric-3-proposals:latest"
 linux_only="--platform linux/amd64"
 ports="-p 26656:26656 -p 26657:26657 -p 1317:1317"
 env="-e DEST=1 -e DEBUG=\"SwingSet:ls,SwingSet:vat\""
-volumes="$([ -d "$DAPP_ED_CERT_PATH" ] && echo "-v $DAPP_ED_CERT_PATH:$WS_EDCERT") \
-        $([ -d "$DAPP_CHAIN_TIMER_PATH" ] && echo "-v $DAPP_CHAIN_TIMER_PATH:$WS_CHAIN_TIMER") \
-        $([ -d "$SECOND_INVITE_PATH" ] && echo "-v $SECOND_INVITE_PATH:$WS_SECOND_INVITE") \
-        $([ -d "$DAPP_OFFER_UP_PATH" ] && echo "-v $DAPP_OFFER_UP_PATH:$WS_OFFER_UP") \
-        $([ -d "$DAPP_AGORIC_BASICS_PATH" ] && echo "-v $DAPP_AGORIC_BASICS_PATH:$WS_AGORIC_BASICS")"
+volumes=""
+[ -d "$DAPP_ED_CERT_PATH" ] && volumes+=" -v $DAPP_ED_CERT_PATH:$WS_EDCERT"
+[ -d "$DAPP_CHAIN_TIMER_PATH" ] && volumes+=" -v $DAPP_CHAIN_TIMER_PATH:$WS_CHAIN_TIMER"
+[ -d "$SECOND_INVITE_PATH" ] && volumes+=" -v $SECOND_INVITE_PATH:$WS_SECOND_INVITE"
+[ -d "$DAPP_OFFER_UP_PATH" ] && volumes+=" -v $DAPP_OFFER_UP_PATH:$WS_OFFER_UP"
+[ -d "$DAPP_AGORIC_BASICS_PATH" ] && volumes+=" -v $DAPP_AGORIC_BASICS_PATH:$WS_AGORIC_BASICS"
 start_agd="bash -c '. /usr/src/upgrade-test-scripts/env_setup.sh && \
            /usr/src/upgrade-test-scripts/start_agd.sh & \
            waitForBlock 1 && \
