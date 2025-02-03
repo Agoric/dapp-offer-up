@@ -9,8 +9,15 @@ fi
 
 # Check if container exists but is stopped
 if [ "$(docker ps -aq -f status=exited -f name=agdc)" ]; then
-    echo "Found stopped container 'agdc'. Removing it before starting a new one..."
-    docker rm agdc
+    echo "Found stopped container 'agdc'. Do you want to remove it before starting a new one? (y/N)"
+    read -r response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo "Removing stopped container 'agdc'..."
+        docker rm agdc
+    else
+        echo "Aborting to preserve existing container."
+        exit 1
+    fi
 fi
 
 # Set paths only if environment variables are not already set
@@ -28,24 +35,22 @@ fi
 : ${WS_AGORIC_BASICS:="/ws-agoricBasics"}
 
 # Start new container with the chain startup commands
-docker run -d \
-  --name agdc \
-  --platform linux/amd64 \
-  -p 26656:26656 \
-  -p 26657:26657 \
-  -p 1317:1317 \
-  -e DEST=1 \
-  -e DEBUG="SwingSet:ls,SwingSet:vat" \
-  $([ -d "$DAPP_ED_CERT_PATH" ] && echo "-v $DAPP_ED_CERT_PATH:$WS_EDCERT") \
-  $([ -d "$DAPP_CHAIN_TIMER_PATH" ] && echo "-v $DAPP_CHAIN_TIMER_PATH:$WS_CHAIN_TIMER") \
-  $([ -d "$SECOND_INVITE_PATH" ] && echo "-v $SECOND_INVITE_PATH:$WS_SECOND_INVITE") \
-  $([ -d "$DAPP_OFFER_UP_PATH" ] && echo "-v $DAPP_OFFER_UP_PATH:$WS_OFFER_UP") \
-  $([ -d "$DAPP_AGORIC_BASICS_PATH" ] && echo "-v $DAPP_AGORIC_BASICS_PATH:$WS_AGORIC_BASICS") \
-  ghcr.io/agoric/agoric-3-proposals:latest \
-  bash -c '. /usr/src/upgrade-test-scripts/env_setup.sh && \
+# Define docker parameters
+agd_image="ghcr.io/agoric/agoric-3-proposals:latest"
+linux_only="--platform linux/amd64"
+ports="-p 26656:26656 -p 26657:26657 -p 1317:1317"
+env="-e DEST=1 -e DEBUG=\"SwingSet:ls,SwingSet:vat\""
+volumes="$([ -d "$DAPP_ED_CERT_PATH" ] && echo "-v $DAPP_ED_CERT_PATH:$WS_EDCERT") \
+        $([ -d "$DAPP_CHAIN_TIMER_PATH" ] && echo "-v $DAPP_CHAIN_TIMER_PATH:$WS_CHAIN_TIMER") \
+        $([ -d "$SECOND_INVITE_PATH" ] && echo "-v $SECOND_INVITE_PATH:$WS_SECOND_INVITE") \
+        $([ -d "$DAPP_OFFER_UP_PATH" ] && echo "-v $DAPP_OFFER_UP_PATH:$WS_OFFER_UP") \
+        $([ -d "$DAPP_AGORIC_BASICS_PATH" ] && echo "-v $DAPP_AGORIC_BASICS_PATH:$WS_AGORIC_BASICS")"
+start_agd="bash -c '. /usr/src/upgrade-test-scripts/env_setup.sh && \
            /usr/src/upgrade-test-scripts/start_agd.sh & \
            waitForBlock 1 && \
-           wait' || {
+           wait'"
+
+docker run -d --name agdc $linux_only $ports $env $volumes $agd_image $start_agd || {
     echo "Failed to start docker container. Please check if Docker is running and you have necessary permissions."
     exit 1
 }
