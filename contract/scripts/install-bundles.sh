@@ -5,7 +5,7 @@ set -ueo pipefail
 
 . /usr/src/upgrade-test-scripts/env_setup.sh
 
-cd /workspace/contract
+cd ${WS_OFFER_UP:-/ws-offerup}/contract
 
 # wait for blocks to start being produced
 # avoid collision with run-chain.sh who is also migrating keys
