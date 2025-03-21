@@ -20,11 +20,11 @@
   "devDependencies": {
     "@agoric/deploy-script-support": "^0.10.4-u16.2",
     "@agoric/eslint-config": "^0.4.1-u16.0",
-    "@endo/bundle-source": "^3.4.0",
-    "@endo/eslint-plugin": "^2.2.1",
-    "@endo/init": "^1.1.4",
-    "@endo/promise-kit": "^1.1.5",
-    "@endo/ses-ava": "^1.2.5",
+    "@endo/bundle-source": "^3.5.1",
+    "@endo/eslint-plugin": "^2.3.0",
+    "@endo/init": "^1.1.8",
+    "@endo/promise-kit": "^1.1.9",
+    "@endo/ses-ava": "^1.2.9",
     "@jessie.js/eslint-plugin": "^0.4.1",
     "agoric": "^0.22.0-u16.2",
     "ava": "^5.3.0",
@@ -47,9 +47,9 @@
     "@agoric/ertp": "^0.16.3-u16.1",
     "@agoric/vats": "dev",
     "@agoric/zoe": "^0.26.3-u16.1",
-    "@endo/far": "^1.1.5",
-    "@endo/marshal": "^1.5.3",
-    "@endo/patterns": "^1.4.3"
+    "@endo/far": "^1.1.10",
+    "@endo/marshal": "^1.6.3",
+    "@endo/patterns": "^1.4.8"
   },
   "ava": {
     "files": [
