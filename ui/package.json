@@ -9,7 +9,6 @@
     "test": "vitest spec",
     "test:e2e": "SKIP_EXTENSION_SETUP=true EXTENSION=keplr synpress run --configFile=test/e2e/synpress.config.cjs",
     "lint": "tsc && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "yarn lint --fix",
     "preview": "vite preview"
   },
   "dependencies": {
