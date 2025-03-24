@@ -2284,16 +2284,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/eslint-plugin@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "@endo/eslint-plugin@npm:2.2.1"
+"@endo/eslint-plugin@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@endo/eslint-plugin@npm:2.3.0"
   dependencies:
     requireindex: "npm:~1.1.0"
-    ts-api-utils: "npm:~1.0.1"
     tsutils: "npm:~3.21.0"
-    typescript: "npm:~5.6.1-rc"
+    typescript: "npm:~5.6.3"
     typescript-eslint: "npm:^7.3.1"
-  checksum: 10c0/87876a7ae461e5a358f085af51c8d1f7b52d685a0a3b3a700961449a8375905c65ad2bb63fac188cf1d5f5e482175c7e7f39de1d6629966de8db62c8dac7a206
+  checksum: 10c0/3a0930d26eba38c5f8d8911c1c6c456abcac428009f246ccea5b64c17948671acc7448ea8da60cbdaaaa9f11e842b4f24b25728f33f315f4d805748731775a27
   languageName: node
   linkType: hard
 
@@ -3870,6 +3869,15 @@ __metadata:
   version: 16.18.93
   resolution: "@types/node@npm:16.18.93"
   checksum: 10c0/527cc21da000980aca23717d9e495ccec00feaf61e464c9e536bb07f1f5244b33928a9d4f0a2c36f92b7a10b3992e202ba900361cee1c8ebfdf0cd6415e42b31
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.0.0":
+  version: 20.17.25
+  resolution: "@types/node@npm:20.17.25"
+  dependencies:
+    undici-types: "npm:~6.19.2"
+  checksum: 10c0/9c9267ab1c4c4964a6d59076fa495321bbe69f36c4f4e95664c08f2712f401aa082fd41abfdd20d81df62377ce22f71f6de430af3f475f8a4de807b716480e08
   languageName: node
   linkType: hard
 
@@ -12689,14 +12697,14 @@ __metadata:
     "@agoric/eslint-config": "npm:^0.4.1-u16.0"
     "@agoric/vats": "npm:dev"
     "@agoric/zoe": "npm:^0.26.3-u16.1"
-    "@endo/bundle-source": "npm:^3.4.0"
-    "@endo/eslint-plugin": "npm:^2.2.1"
-    "@endo/far": "npm:^1.1.5"
-    "@endo/init": "npm:^1.1.4"
-    "@endo/marshal": "npm:^1.5.3"
-    "@endo/patterns": "npm:^1.4.3"
-    "@endo/promise-kit": "npm:^1.1.5"
-    "@endo/ses-ava": "npm:^1.2.5"
+    "@endo/bundle-source": "npm:^3.5.1"
+    "@endo/eslint-plugin": "npm:^2.3.0"
+    "@endo/far": "npm:^1.1.10"
+    "@endo/init": "npm:^1.1.8"
+    "@endo/marshal": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.4.8"
+    "@endo/promise-kit": "npm:^1.1.9"
+    "@endo/ses-ava": "npm:^1.2.9"
     "@jessie.js/eslint-plugin": "npm:^0.4.1"
     agoric: "npm:^0.22.0-u16.2"
     ava: "npm:^5.3.0"
@@ -12754,6 +12762,7 @@ __metadata:
   resolution: "offer-up@workspace:."
   dependencies:
     "@agoric/synpress": "npm:^3.8.4-beta.1"
+    "@types/node": "npm:^20.0.0"
     eslint: "npm:^8.57.0"
     eslint-config-turbo: "npm:^1.13.0"
     eslint-plugin-chai-friendly: "npm:^0.7.4"
@@ -15666,15 +15675,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-api-utils@npm:~1.0.1":
-  version: 1.0.3
-  resolution: "ts-api-utils@npm:1.0.3"
-  peerDependencies:
-    typescript: ">=4.2.0"
-  checksum: 10c0/9408338819c3aca2a709f0bc54e3f874227901506cacb1163612a6c8a43df224174feb965a5eafdae16f66fc68fd7bfee8d3275d0fa73fbb8699e03ed26520c9
-  languageName: node
-  linkType: hard
-
 "ts-interface-checker@npm:^0.1.9":
   version: 0.1.13
   resolution: "ts-interface-checker@npm:0.1.13"
@@ -15926,13 +15926,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.6.1-rc":
-  version: 5.6.1-rc
-  resolution: "typescript@npm:5.6.1-rc"
+"typescript@npm:~5.6.3":
+  version: 5.6.3
+  resolution: "typescript@npm:5.6.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/9d6e99b7ddbc797ebc8d09e5d7f2f81ce5f288a4e607bcded3c545ced8582796c937fba31bede5660a56f978b2f68e7c4ee85614b307425a2b4617535721509f
+  checksum: 10c0/44f61d3fb15c35359bc60399cb8127c30bae554cd555b8e2b46d68fa79d680354b83320ad419ff1b81a0bdf324197b29affe6cc28988cd6a74d4ac60c94f9799
   languageName: node
   linkType: hard
 
@@ -15956,13 +15956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A~5.6.1-rc#optional!builtin<compat/typescript>":
-  version: 5.6.1-rc
-  resolution: "typescript@patch:typescript@npm%3A5.6.1-rc#optional!builtin<compat/typescript>::version=5.6.1-rc&hash=8c6c40"
+"typescript@patch:typescript@npm%3A~5.6.3#optional!builtin<compat/typescript>":
+  version: 5.6.3
+  resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/9c6f8d864bc2efc964d1bfc94bf2e14f35cd2ad3df5e92d5304c8759674ba77ae927078a5fc06a527c087953615465dd5decc2d4d28ca8e13c11f9b29e068d93
+  checksum: 10c0/7c9d2e07c81226d60435939618c91ec2ff0b75fbfa106eec3430f0fcf93a584bc6c73176676f532d78c3594fe28a54b36eb40b3d75593071a7ec91301533ace7
   languageName: node
   linkType: hard
 
@@ -16006,6 +16006,13 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.19.2":
+  version: 6.19.8
+  resolution: "undici-types@npm:6.19.8"
+  checksum: 10c0/078afa5990fba110f6824823ace86073b4638f1d5112ee26e790155f481f2a868cc3e0615505b6f4282bdf74a3d8caad715fd809e870c2bb0704e3ea6082f344
   languageName: node
   linkType: hard
 

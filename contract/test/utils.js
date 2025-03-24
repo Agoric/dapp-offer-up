@@ -1,6 +1,6 @@
-import { gzip } from 'zlib';
-import { promisify } from 'util';
-import { Buffer } from 'buffer';
+import { gzip } from 'node:zlib';
+import { promisify } from 'node:util';
+import { Buffer } from 'node:buffer';
 
 /**
  * @typedef {import('fs').promises['readFile']} PromisifiedFSReadFile
