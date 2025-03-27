@@ -2202,15 +2202,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/eslint-plugin@npm:^2.2.1":
-  version: 2.2.3
-  resolution: "@endo/eslint-plugin@npm:2.2.3"
+"@endo/eslint-plugin@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@endo/eslint-plugin@npm:2.3.0"
   dependencies:
     requireindex: "npm:~1.1.0"
     tsutils: "npm:~3.21.0"
     typescript: "npm:~5.6.3"
     typescript-eslint: "npm:^7.3.1"
-  checksum: 10c0/7c0283b9969ec252b6166313ffb0036728ff18218f6d2f576fb6f6a1c7287f8bf9fa072b5f8c3d195db23aefa8d6dc1f2afca75e055fc84ebe9bcd383599a1c1
+  checksum: 10c0/3a0930d26eba38c5f8d8911c1c6c456abcac428009f246ccea5b64c17948671acc7448ea8da60cbdaaaa9f11e842b4f24b25728f33f315f4d805748731775a27
   languageName: node
   linkType: hard
 
@@ -12573,14 +12573,14 @@ __metadata:
     "@agoric/vats": "npm:^0.16.0-u18.0"
     "@agoric/zoe": "npm:^0.26.3-u18.0"
     "@agoric/zone": "npm:^0.3.0-u18.1"
-    "@endo/bundle-source": "npm:^3.4.0"
-    "@endo/eslint-plugin": "npm:^2.2.1"
+    "@endo/bundle-source": "npm:^3.5.1"
+    "@endo/eslint-plugin": "npm:^2.3.0"
     "@endo/far": "npm:^1.1.8"
-    "@endo/init": "npm:^1.1.4"
+    "@endo/init": "npm:^1.1.8"
     "@endo/marshal": "npm:^1.6.1"
     "@endo/patterns": "npm:^1.4.6"
-    "@endo/promise-kit": "npm:^1.1.5"
-    "@endo/ses-ava": "npm:^1.2.5"
+    "@endo/promise-kit": "npm:^1.1.9"
+    "@endo/ses-ava": "npm:^1.2.9"
     "@jessie.js/eslint-plugin": "npm:^0.4.1"
     agoric: "npm:^0.22.0-u16.2"
     ava: "npm:^5.3.0"
@@ -15980,11 +15980,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A5.1.6 - 5.7.x#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=8c6c40"
+  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/c891ccf04008bc1305ba34053db951f8a4584b4a1bf2f68fd972c4a354df3dc5e62c8bfed4f6ac2d12e5b3b1c49af312c83a651048f818cd5b4949d17baacd79
+  checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
   languageName: node
   linkType: hard
 
