@@ -18,6 +18,7 @@
  * for background on `harden` and `assert`.
  */
 // @ts-check
+// @jessie-check
 
 import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
