@@ -11,7 +11,7 @@
   ],
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
-    "agoric": "^0.22.0-u16.2",
+    "agoric": "dev",
     "ses": "1.8.0",
     "@agoric/notifier": "^0.7.0-u16.1",
     "@endo/bundle-source": "^3.4.0",
