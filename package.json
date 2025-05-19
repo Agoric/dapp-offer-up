@@ -36,7 +36,8 @@
     "@endo/netstring": "^1.0.10",
     "@endo/stream-node": "^1.1.5",
     "@babel/code-frame": "7.18.6",
-    "@babel/highlight": "7.22.5"
+    "@babel/highlight": "7.22.5",
+    "better-sqlite3": "^10.1.0"
   },
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
