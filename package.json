@@ -36,7 +36,10 @@
     "@endo/netstring": "^1.0.10",
     "@endo/stream-node": "^1.1.5",
     "@babel/code-frame": "7.18.6",
-    "@babel/highlight": "7.22.5"
+    "@babel/highlight": "7.22.5",
+    "**/@agoric/zone": "0.3.0-u20.0",
+    "**/@agoric/ertp": "0.16.3-u20.0",
+    "**/@agoric/zoe": "0.27.0-u20.0"
   },
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
