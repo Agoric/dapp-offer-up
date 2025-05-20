@@ -44,9 +44,9 @@
     "typescript-eslint": "^7.2.0"
   },
   "dependencies": {
-    "@agoric/ertp": "^0.16.2",
+    "@agoric/ertp": "dev",
     "@agoric/vats": "dev",
-    "@agoric/zoe": "^0.26.3-u16.1",
+    "@agoric/zoe": "^0.26.2",
     "@endo/far": "^1.1.10",
     "@endo/marshal": "^1.6.3",
     "@endo/patterns": "^1.4.8"
