@@ -16,9 +16,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@agoric/notifier": "^0.7.0-u16.1",
+    "@agoric/notifier": "dev",
     "@agoric/rpc": "0.10.0",
-    "@agoric/store": "^0.9.3-u16.0",
+    "@agoric/store": "dev",
     "@agoric/ui-components": "^0.9.0",
     "@agoric/web-components": "^0.16.0",
     "@testing-library/react": "^14.1.2",

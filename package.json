@@ -11,9 +11,8 @@
   ],
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
-    "agoric": "^0.22.0-u16.2",
+    "agoric": "dev",
     "ses": "1.8.0",
-    "@agoric/notifier": "^0.7.0-u16.1",
     "@endo/bundle-source": "^3.4.0",
     "@endo/captp": "^4.3.0",
     "@endo/compartment-mapper": "^1.2.2",
@@ -36,7 +35,11 @@
     "@endo/netstring": "^1.0.10",
     "@endo/stream-node": "^1.1.5",
     "@babel/code-frame": "7.18.6",
-    "@babel/highlight": "7.22.5"
+    "@babel/highlight": "7.22.5",
+    "better-sqlite3": "^10.1.0",
+    "@agoric/ertp": "dev",
+    "@agoric/vats": "dev",
+    "@agoric/zoe": "dev"
   },
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
