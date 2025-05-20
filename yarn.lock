@@ -328,7 +328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/ertp@npm:^0.16.3-dev-e2e36cc.0, @agoric/ertp@npm:^0.16.3-u16.1":
+"@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/ertp@npm:^0.16.3-dev-e2e36cc.0":
   version: 0.16.3-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0"
   dependencies:
@@ -13095,7 +13095,7 @@ __metadata:
   resolution: "offer-up-contract@workspace:contract"
   dependencies:
     "@agoric/deploy-script-support": "npm:^0.10.3"
-    "@agoric/ertp": "npm:^0.16.3-u16.1"
+    "@agoric/ertp": "npm:^0.16.2"
     "@agoric/eslint-config": "npm:^0.4.1-u16.0"
     "@agoric/vats": "npm:dev"
     "@agoric/zoe": "npm:^0.26.3-u16.1"
