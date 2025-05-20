@@ -18,7 +18,7 @@
     "make:waitForBlocks": "make wait-for-blocks"
   },
   "devDependencies": {
-    "@agoric/deploy-script-support": "^0.10.4-u16.2",
+    "@agoric/deploy-script-support": "^0.10.3",
     "@agoric/eslint-config": "^0.4.1-u16.0",
     "@endo/bundle-source": "^3.5.1",
     "@endo/eslint-plugin": "^2.3.0",
