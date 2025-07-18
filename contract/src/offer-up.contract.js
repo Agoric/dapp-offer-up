@@ -77,7 +77,7 @@ harden(customTermsShape);
  *
  * @param {ZCF<OfferUpTerms>} zcf
  * @param {unknown} _privateArgs
- * @param {MapStore} baggage
+ * @param {object} baggage
  */
 export const start = async (zcf, _privateArgs, baggage) => {
   const zone = makeDurableZone(baggage);
