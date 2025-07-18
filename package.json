@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": true,
-  "packageManager": "yarn@4.7.0",
+  "packageManager": "yarn@4.7.0+sha512.5a0afa1d4c1d844b3447ee3319633797bcd6385d9a44be07993ae52ff4facabccafb4af5dcd1c2f9a94ac113e5e9ff56f6130431905884414229e284e37bb7c9",
   "useWorkspaces": true,
   "workspaces": [
     "contract",
@@ -12,6 +12,7 @@
   "resolutions-note": "work-around for https://github.com/Agoric/agoric-sdk/issues/8621",
   "resolutions": {
     "agoric": "^0.22.0-u16.2",
+    "better-sqlite3": "^10.0.0",
     "ses": "1.8.0",
     "@agoric/notifier": "^0.7.0-u16.1",
     "@endo/bundle-source": "^3.4.0",
