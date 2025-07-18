@@ -20,11 +20,11 @@
 // @ts-check
 // @jessie-check
 
+import { Far } from '@endo/far';
 import { M, getCopyBagEntries } from '@endo/patterns';
 import { AssetKind } from '@agoric/ertp/src/amountMath.js';
 import { AmountShape } from '@agoric/ertp/src/typeGuards.js';
 import { atomicRearrange } from '@agoric/zoe/src/contractSupport/atomicTransfer.js';
-import { makeDurableZone } from '@agoric/zone/durable.js';
 import '@agoric/zoe/exported.js';
 
 /**
@@ -76,11 +76,8 @@ harden(customTermsShape);
  *   - handles offers to buy up to `maxItems` items at a time.
  *
  * @param {ZCF<OfferUpTerms>} zcf
- * @param {unknown} _privateArgs
- * @param {object} baggage
  */
-export const start = async (zcf, _privateArgs, baggage) => {
-  const zone = makeDurableZone(baggage);
+export const start = async zcf => {
   const { tradePrice, maxItems = 3n } = zcf.getTerms();
 
   /**
@@ -140,17 +137,12 @@ export const start = async (zcf, _privateArgs, baggage) => {
    *   - give: `Price`
    *   - want: `Items`
    */
+  const makeTradeInvitation = () =>
+    zcf.makeInvitation(tradeHandler, 'buy items', undefined, proposalShape);
 
-  // Use zone.exo to make a publicFacet suitable for use by remote callers.
-  const publicFacet = zone.exo('Items Public Facet', undefined, {
-    makeTradeInvitation() {
-      return zcf.makeInvitation(
-        tradeHandler,
-        'buy items',
-        undefined,
-        proposalShape,
-      );
-    },
+  // Mark the publicFacet Far, i.e. reachable from outside the contract
+  const publicFacet = Far('Items Public Facet', {
+    makeTradeInvitation,
   });
   return harden({ publicFacet });
 };
