@@ -14,6 +14,7 @@
     "agoric": "^0.22.0-u16.2",
     "ses": "1.8.0",
     "@agoric/notifier": "^0.7.0-u16.1",
+    "@agoric/xsnap": "^0.14.3-u16.1",
     "@endo/bundle-source": "^3.4.0",
     "@endo/captp": "^4.3.0",
     "@endo/compartment-mapper": "^1.2.2",
