@@ -47,7 +47,7 @@ gov-q:
 		jq -c '.proposals[] | [.proposal_id,.voting_end_time,.status]'
 
 gov-voting-q:
-	agd query gov proposals --status=voting_period --output json | \
+	agd query gov proposals --proposal-status=voting-period --output json | \
 		jq -c '.proposals[].proposal_id'
 
 PROPOSAL=1
