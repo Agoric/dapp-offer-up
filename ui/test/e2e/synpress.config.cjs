@@ -22,6 +22,7 @@ module.exports = defineConfig({
         webpackOptions: {
           resolve: {
             extensions: ['.ts', '.js'],
+            fullySpecified: false,
           },
           module: {
             rules: [
@@ -31,7 +32,11 @@ module.exports = defineConfig({
                 use: {
                   loader: 'babel-loader',
                   options: {
-                    presets: ['@babel/preset-env'],
+                    presets: [
+                      ['@babel/preset-env', {
+                        modules: 'commonjs',
+                      }]
+                    ],
                   },
                 },
               },

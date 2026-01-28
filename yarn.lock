@@ -343,23 +343,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/eslint-config@npm:^0.4.1-u16.0":
-  version: 0.4.1-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/eslint-config@npm:0.4.1-upgrade-16a-dev-fb592e4.0"
+"@agoric/eslint-config@npm:^0.5.0-u22.1":
+  version: 0.5.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/eslint-config@npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
   peerDependencies:
-    "@endo/eslint-plugin": ^2.1.3
-    "@jessie.js/eslint-plugin": ^0.4.1
-    eslint: ^8.57.0
+    "@endo/eslint-plugin": ^2.4.0
+    "@jessie.js/eslint-plugin": ^0.4.2
+    eslint: ^9.0.0
     eslint-config-airbnb-base: ^15.0.0
     eslint-config-jessie: ^0.0.6
     eslint-config-prettier: ^9.0.0
-    eslint-plugin-github: ^4.10.0
+    eslint-plugin-github: ^5.1.4
     eslint-plugin-import: ^2.25.3
     eslint-plugin-jsdoc: ^46.4.3
-    eslint-plugin-prettier: ^5.0.0
-    prettier: ^3.0.3
-    typescript-eslint: ^7.2.0
-  checksum: 10c0/55d2f308b0164a54bf17e1df5ed9ea74d317ae3a768e3f13293536d8a734201fa277a1f1f16db742cbe56f0aa2b9e885897961df5800f0c02081662a3c9f3219
+    prettier: ^3.4.2
+    typescript-eslint: ^8.17.0
+  checksum: 10c0/b1260d144c44d62cf9411e28e06e01d39df97a0a3bf4e1f00d3886a09441d12b8b8a6238b258f41c4581fdd1b0435929e881636b2720501cb8b3960a01aee15b
   languageName: node
   linkType: hard
 
@@ -735,7 +734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595":
+"@agoric/store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595, @agoric/store@npm:^0.10.0-u22.1":
   version: 0.10.0-upgrade-22-dev-e2e9595.0.e2e9595
   resolution: "@agoric/store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
@@ -761,7 +760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/store@npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/store@npm:^0.9.3-u16.0":
+"@agoric/store@npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4":
   version: 0.9.3-upgrade-16a-dev-fb592e4.0
   resolution: "@agoric/store@npm:0.9.3-upgrade-16a-dev-fb592e4.0"
   dependencies:
@@ -3481,6 +3480,23 @@ __metadata:
     babel-loader: ^8.3 || ^9
     webpack: ^4 || ^5
   checksum: 10c0/cf041209507e3770fcc02fe580dd31b94994b7e9c3819ee39cd19975898b6fa2398b94361e126f7706f1ba8366260b51ba7a9cdde7ec3e70ea85af864b3bb302
+  languageName: node
+  linkType: hard
+
+"@cypress/webpack-preprocessor@npm:^6.0.1":
+  version: 6.0.4
+  resolution: "@cypress/webpack-preprocessor@npm:6.0.4"
+  dependencies:
+    bluebird: "npm:3.7.1"
+    debug: "npm:^4.3.4"
+    lodash: "npm:^4.17.20"
+    semver: "npm:^7.3.2"
+  peerDependencies:
+    "@babel/core": ^7.25.2
+    "@babel/preset-env": ^7.25.3
+    babel-loader: ^8.3 || ^9 || ^10
+    webpack: ^4 || ^5
+  checksum: 10c0/634b5a4093887c7f50a8bc04e46171e1469774005b99a579d2efb67337d28bb6dd9f8d70a19676aabe2e030538275586caab202ebee4fb5125b6ad0a7df36b6a
   languageName: node
   linkType: hard
 
@@ -8287,7 +8303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^13.7.1":
+"cypress@npm:^13.17.0":
   version: 13.17.0
   resolution: "cypress@npm:13.17.0"
   dependencies:
@@ -14362,7 +14378,7 @@ __metadata:
   dependencies:
     "@agoric/deploy-script-support": "npm:^0.11.0-u22.2"
     "@agoric/ertp": "npm:^0.17.0-u22.2"
-    "@agoric/eslint-config": "npm:^0.4.1-u16.0"
+    "@agoric/eslint-config": "npm:^0.5.0-u22.1"
     "@agoric/vats": "npm:dev"
     "@agoric/zoe": "npm:^0.27.0-u22.2"
     "@endo/bundle-source": "npm:^4.1.2"
@@ -14399,7 +14415,7 @@ __metadata:
   dependencies:
     "@agoric/notifier": "npm:^0.7.0-u22.2"
     "@agoric/rpc": "npm:0.10.0"
-    "@agoric/store": "npm:^0.9.3-u16.0"
+    "@agoric/store": "npm:^0.10.0-u22.1"
     "@agoric/ui-components": "npm:^0.9.0"
     "@agoric/web-components": "npm:^0.16.0"
     "@testing-library/react": "npm:^14.1.2"
@@ -14432,6 +14448,7 @@ __metadata:
     "@agoric/synpress": "npm:^3.8.5-beta.0"
     "@babel/core": "npm:^7.24.0"
     "@babel/preset-env": "npm:^7.24.0"
+    "@cypress/webpack-preprocessor": "npm:^6.0.1"
     "@types/node": "npm:^20.0.0"
     babel-loader: "npm:^9.1.3"
     eslint: "npm:^8.57.0"
