@@ -26,14 +26,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/access-token@npm:0.4.22-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.4.22-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/access-token@npm:0.4.22-upgrade-16a-dev-fb592e4.0"
+"@agoric/access-token@npm:0.4.22-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.4.22-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/access-token@npm:0.4.22-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
     n-readlines: "npm:^1.0.0"
     proper-lockfile: "npm:^4.1.2"
     tmp: "npm:^0.2.1"
-  checksum: 10c0/933f4b534fc86dc98b284a5a2b430794d3f09e3415aadd4474a7bf631d2d8d4e781ea2d46506ed24b9679a228d20c9fa3d97b3a10ccfe32b631486d750cea31b
+  checksum: 10c0/606024061dc9a0631f92e24d5884ec2ab58cf9a3041b684b5c8ee27a53e138ecadcd2c16828fabb6aaf416a6d1abf2564eda24f9982ba4ac6e6b5786b66f522a
   languageName: node
   linkType: hard
 
@@ -91,17 +92,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/cache@npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.3.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/cache@npm:0.3.3-upgrade-16a-dev-fb592e4.0"
+"@agoric/base-zone@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/base-zone@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-  checksum: 10c0/657b93d7cda66b32abd6f7eebf9489692b118b9f2698b3547ecc5bbaf52cdf69c53e65b706a0a816f38e96c5eb30212be4481f4e08bb3ad8c5042aa3f99bf8a7
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/common": "npm:^1.2.13"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/exo": "npm:^1.5.12"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+  checksum: 10c0/76f06ac117ec58a6dacb8f4f22afd9e77fb6ea8ba8ca4f98e3b9a80a0773e9a0e04c1b1842f712fb03715469da58539eadc5a48739578d22fa2c072262f796f5
+  languageName: node
+  linkType: hard
+
+"@agoric/cache@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.4.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/cache@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+  checksum: 10c0/7c37a14d81a99af770591973164232a2637689cfb2087f47ddc4ae44ab9a4e5d879a0f0ad32898ebf0c8f778712feba72776fe553fa98de5901bec02dae4ac05
   languageName: node
   linkType: hard
 
@@ -119,24 +135,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/casting@npm:0.4.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/casting@npm:^0.4.3-u13.0":
-  version: 0.4.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/casting@npm:0.4.3-upgrade-16a-dev-fb592e4.0"
+"@agoric/casting@npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.5.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/casting@npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@cosmjs/encoding": "npm:^0.32.3"
-    "@cosmjs/proto-signing": "npm:^0.32.3"
-    "@cosmjs/stargate": "npm:^0.32.3"
-    "@cosmjs/tendermint-rpc": "npm:^0.32.3"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/init": "npm:^1.1.2"
-    "@endo/lockdown": "npm:^1.0.7"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-    node-fetch: "npm:^2.6.0"
-  checksum: 10c0/a2426708800e97eb764d6cb4f09400af53ae93e20c62f257608450fca56670a0d14620f6f8db7c3ff6ec6435f42a8c27fa142dbd37bbf5d0800616ca76706023
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@cosmjs/encoding": "npm:^0.36.0"
+    "@cosmjs/proto-signing": "npm:^0.36.0"
+    "@cosmjs/stargate": "npm:^0.36.0"
+    "@cosmjs/tendermint-rpc": "npm:^0.36.0"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/lockdown": "npm:^1.0.18"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/2d47af0f9ba7e4176afaca4fd5b9c50d0919dfa7eed31af0bc93ab16bf4b8a3584a01085466dbfc2d117157598bbe665e67350b50cefc4eba5416078b537134b
   languageName: node
   linkType: hard
 
@@ -162,6 +178,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/casting@npm:^0.4.3-u13.0":
+  version: 0.4.3-upgrade-16a-dev-fb592e4.0
+  resolution: "@agoric/casting@npm:0.4.3-upgrade-16a-dev-fb592e4.0"
+  dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@cosmjs/encoding": "npm:^0.32.3"
+    "@cosmjs/proto-signing": "npm:^0.32.3"
+    "@cosmjs/stargate": "npm:^0.32.3"
+    "@cosmjs/tendermint-rpc": "npm:^0.32.3"
+    "@endo/far": "npm:^1.1.2"
+    "@endo/init": "npm:^1.1.2"
+    "@endo/lockdown": "npm:^1.0.7"
+    "@endo/marshal": "npm:^1.5.0"
+    "@endo/promise-kit": "npm:^1.1.2"
+    node-fetch: "npm:^2.6.0"
+  checksum: 10c0/a2426708800e97eb764d6cb4f09400af53ae93e20c62f257608450fca56670a0d14620f6f8db7c3ff6ec6435f42a8c27fa142dbd37bbf5d0800616ca76706023
+  languageName: node
+  linkType: hard
+
+"@agoric/client-utils@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/client-utils@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/casting": "npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/cosmic-proto": "npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/smart-wallet": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vats": "npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@cosmjs/crypto": "npm:^0.36.0"
+    "@cosmjs/proto-signing": "npm:^0.36.0"
+    "@cosmjs/stargate": "npm:^0.36.0"
+    "@cosmjs/tendermint-rpc": "npm:^0.36.0"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/common": "npm:^1.2.13"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/e4afae518683626c3e971c16dad852788957e5ed6a91b478350bea18e9ca9ef623e4db792c296ba2a465e34332bb2e6726cbfeb1025577f9022efca7e803ad41
+  languageName: node
+  linkType: hard
+
 "@agoric/cosmic-proto@npm:0.3.0":
   version: 0.3.0
   resolution: "@agoric/cosmic-proto@npm:0.3.0"
@@ -181,41 +243,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/cosmic-proto@npm:0.4.1-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.4.1-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/cosmic-proto@npm:0.4.1-upgrade-16a-dev-fb592e4.0"
+"@agoric/cosmic-proto@npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.5.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/cosmic-proto@npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@cosmjs/amino": "npm:^0.32.3"
-    "@cosmjs/math": "npm:^0.32.3"
-    "@cosmjs/proto-signing": "npm:^0.32.3"
-    "@cosmjs/stargate": "npm:^0.32.3"
-    "@cosmjs/tendermint-rpc": "npm:^0.32.3"
-    "@endo/base64": "npm:^1.0.5"
-    "@endo/init": "npm:^1.1.2"
-  checksum: 10c0/57b3e43df25ca00de4f6d1bbcf04c3456c81ebf1f4b6cb012569a5320940ba30e6501b3472a694a7a449bef9736e42366c641864bbd63ae736497c686488da6c
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/init": "npm:^1.1.12"
+    bech32: "npm:^2.0.0"
+    query-string: "npm:^9.1.1"
+  checksum: 10c0/67fb30074ba4472b9e5c43fc5ff20ee901d0b1914479bf11a2b1fb1c06789458d88ac15562b30c8ff28e99242c11c20e6143438956fe2b4303d651feb1e0dcad
   languageName: node
   linkType: hard
 
-"@agoric/deploy-script-support@npm:^0.10.4-u16.2":
-  version: 0.10.4-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/deploy-script-support@npm:0.10.4-upgrade-16a-dev-fb592e4.0"
+"@agoric/deploy-script-support@npm:^0.11.0-u22.2":
+  version: 0.11.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/deploy-script-support@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/import-manager": "npm:0.3.12-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/base64": "npm:^1.0.5"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/promise-kit": "npm:^1.1.2"
-    "@endo/zip": "npm:^1.0.5"
-  checksum: 10c0/2a5a1596b54fb4325d1c19631d0cfab4469d0b78eb6b42cfc2dcc20cea0736ec404d18e9832d0b63a776162ace0bdb29e8c11999b275e333ed239269eba83cbc
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/import-manager": "npm:0.3.12-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/pola-io": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/promise-kit": "npm:^1.1.13"
+    "@endo/zip": "npm:^1.0.11"
+  checksum: 10c0/9e49f9ff4f88c24348cee6e532d0a7eba724302b64e826afa63e6ed2c1ba33e888ee52af07ace71290516b934e228480ad98920ff008291e8cc18b4cbdb2449d
   languageName: node
   linkType: hard
 
@@ -238,22 +298,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/ertp@npm:^0.16.3-dev-e2e36cc.0, @agoric/ertp@npm:^0.16.3-u16.1":
-  version: 0.16.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0"
+"@agoric/ertp@npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595, @agoric/ertp@npm:^0.17.0-u22.2":
+  version: 0.17.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/ertp@npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zone": "npm:0.3.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-  checksum: 10c0/956843ef89a4c95f04d4ad33881a30f173f2eea70b8eb03ee81030e4a1b3d1ca98cc6027f218ce2107941e593450aa299f1264d4882545a44152a2d8d6d50505
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/d595d25dbb55c2947ca284703e613e856e086e938808ce7cf0184b2a61bc5e1f9bb3149a1bc38a20e5cbb74e29be1a2f5caab35fcc909ae1a88aea9b05cbe1b8
   languageName: node
   linkType: hard
 
@@ -272,6 +332,25 @@ __metadata:
     "@endo/nat": "npm:^4.1.27"
     "@endo/promise-kit": "npm:^0.2.56"
   checksum: 10c0/c0813e3b1dd8c787b51d3a2111f862b26f84b4053e11676e9cdaa726e3094c8ae68944a5482bf44c1e0e93baedda1cd6fafd2c6e73a01eb55cb4f46caa812fe6
+  languageName: node
+  linkType: hard
+
+"@agoric/ertp@npm:^0.16.3-dev-e2e36cc.0":
+  version: 0.16.3-upgrade-16a-dev-fb592e4.0
+  resolution: "@agoric/ertp@npm:0.16.3-upgrade-16a-dev-fb592e4.0"
+  dependencies:
+    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@agoric/zone": "npm:0.3.0-upgrade-16a-dev-fb592e4.0+fb592e4"
+    "@endo/eventual-send": "npm:^1.2.2"
+    "@endo/far": "npm:^1.1.2"
+    "@endo/marshal": "npm:^1.5.0"
+    "@endo/nat": "npm:^5.0.7"
+    "@endo/patterns": "npm:^1.4.0"
+    "@endo/promise-kit": "npm:^1.1.2"
+  checksum: 10c0/956843ef89a4c95f04d4ad33881a30f173f2eea70b8eb03ee81030e4a1b3d1ca98cc6027f218ce2107941e593450aa299f1264d4882545a44152a2d8d6d50505
   languageName: node
   linkType: hard
 
@@ -319,27 +398,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/governance@npm:0.10.4-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.10.4-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/governance@npm:0.10.4-upgrade-16a-dev-fb592e4.0"
+"@agoric/governance@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.11.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/governance@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/captp": "npm:^4.2.0"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/promise-kit": "npm:^1.1.2"
-    import-meta-resolve: "npm:^2.2.1"
-  checksum: 10c0/a71cd04905d73d14bd086cceb46d2dbcc3a383af83e043c743edebb46e859d127973124376aabeb822e0f56a5c6e9eb1d452ade3eac4769f827828762d22e5af
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/captp": "npm:^4.4.8"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/promise-kit": "npm:^1.1.13"
+    import-meta-resolve: "npm:^4.1.0"
+  checksum: 10c0/3a1a689e60a24db5904594a2bad9b76fc4f641bd11e41c3d063fa02cad8ea7dfef461af717623ad8ce8dd45077451c0bc12eb0f1fc100eb6ef361292944f5c24
   languageName: node
   linkType: hard
 
@@ -367,35 +446,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/import-manager@npm:0.3.12-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.3.12-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/import-manager@npm:0.3.12-upgrade-16a-dev-fb592e4.0"
-  checksum: 10c0/0c6eaa794b19410678728e4cac7e814a2ab894edb53ef6a5a2827e83e363053f7be5cc35a23964d4a36aec2db0e4becbb5f538122cf1382eed644f608f5746a8
+"@agoric/import-manager@npm:0.3.12-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.3.12-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/import-manager@npm:0.3.12-upgrade-22-dev-e2e9595.0.e2e9595"
+  checksum: 10c0/6121a08b24051bd4a8b9331e035cd2556e990820dba1f3ffdbd580bb13f4222a8c60e40ccee520aedd0becc5e5eef547dc644391104e01e1dd2b89cced32d39c
   languageName: node
   linkType: hard
 
-"@agoric/inter-protocol@npm:0.17.0-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.17.0-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/inter-protocol@npm:0.17.0-upgrade-16a-dev-fb592e4.0"
+"@agoric/inter-protocol@npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.17.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/inter-protocol@npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/governance": "npm:0.10.4-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vats": "npm:0.16.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/captp": "npm:^4.2.0"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/promise-kit": "npm:^1.1.2"
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/governance": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vats": "npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/captp": "npm:^4.4.8"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/promise-kit": "npm:^1.1.13"
     jessie.js: "npm:^0.3.4"
-  checksum: 10c0/4ab15623d9c7da81bd92478b46bf5fa3c95469bb19a176e7040d3b686c225f41139944a92c79b0c71cb7d464035f13f9d56687af2706e103af20ff8ed6160c9b
+  checksum: 10c0/7f9ec180f1615043dce62d2af5e633178ce7a7a45f0c629d919ff89a916d1faff84230e1b82c6091c261b4422cb3ae8f3bce3e5a01431f449a18d82f2354f917
   languageName: node
   linkType: hard
 
@@ -464,6 +545,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/internal@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.4.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/internal@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/common": "npm:^1.2.13"
+    "@endo/compartment-mapper": "npm:^1.6.3"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+    "@endo/stream": "npm:^1.2.13"
+    anylogger: "npm:^0.21.0"
+    jessie.js: "npm:^0.3.4"
+  checksum: 10c0/6d2597c3c876d64a4a5349cdebf30fd0462218949b1de4bdfd45e9a06d47beeb25162e036eda1ba91bdb05f463e4628512633fecaa7630bad618309957a95e74
+  languageName: node
+  linkType: hard
+
 "@agoric/internal@npm:^0.3.2":
   version: 0.3.2
   resolution: "@agoric/internal@npm:0.3.2"
@@ -491,14 +595,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/kmarshal@npm:0.1.1-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.1.1-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/kmarshal@npm:0.1.1-upgrade-16a-dev-fb592e4.0"
+"@agoric/kmarshal@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/kmarshal@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-  checksum: 10c0/964ed0f6dc7a17f54eecc05375e6202ebe953578929e135de5d4270fc3e0be1f26cc8652d4c216e343ba92d48af698600a07729857284d7fd2e773d7ab9ec2d4
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+  checksum: 10c0/0237b4bebd5bcdde9a8509a2db77a562c0aa4ac0710d9a0337e24707beac90c15c018ff2792e62ba4e93400697f1fa9db2b44c6cc1c21ca702de8c02dd50c98e
   languageName: node
   linkType: hard
 
@@ -519,35 +623,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/network@npm:0.2.0-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.2.0-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/network@npm:0.2.0-upgrade-16a-dev-fb592e4.0"
+"@agoric/network@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/network@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/base64": "npm:^1.0.5"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/pass-style": "npm:^1.4.0"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-  checksum: 10c0/eebe362e41fe43806cf9668c8d9689d883e7c8a244883e0ceca8a99d7fc80d5526c4e8c3cb625cc758127d1d5ad288901fd9e5e04d70f7914c372180435257eb
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/aca676adc2f9dc7371136e251aa1a146e1a9885b28cc52b7231fa56696fb20bc7abbce7b6cf86dfae6c15cb470e42effecece395976c65f4b11d79657bbe7878
   languageName: node
   linkType: hard
 
-"@agoric/notifier@npm:^0.7.0-u16.1":
-  version: 0.7.0-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/notifier@npm:0.7.0-upgrade-16a-dev-fb592e4.0"
+"@agoric/notifier@npm:^0.7.0-u22.2":
+  version: 0.7.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/notifier@npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-  checksum: 10c0/b6ce0e69bffb54691c244a039e0e938e2191fa3c1c61dbaf96d862a43cf441826c3c1bbe5e1f8a4e9351e154c4381a6e58769ec65427e50cbe6aa8f57c5b76df
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/c5ff3c3b5875476161e384dd6fd4a295b2de973b52046ea32d98d953a4bdf1ef926b17dc1f6855856289ce2912d67002cbd8e5443d9726879f2ad6b568382476
+  languageName: node
+  linkType: hard
+
+"@agoric/pola-io@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/pola-io@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  checksum: 10c0/9f1445d240db8d48e95ca5361cb574f468e7f8385c013dce8cf818e66b78dc5aba81e2e7a69d16c9fc4b15e9f20a0947133143f2a08cc98006fd17d2287c8bfb
   languageName: node
   linkType: hard
 
@@ -574,25 +687,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/smart-wallet@npm:0.5.4-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.5.4-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/smart-wallet@npm:0.5.4-upgrade-16a-dev-fb592e4.0"
+"@agoric/smart-wallet@npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.6.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/smart-wallet@npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/casting": "npm:0.4.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vats": "npm:0.16.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/promise-kit": "npm:^1.1.2"
-  checksum: 10c0/d416dda6f4d523cd8afbb661738e614f7a2b2ca1254d0545425b8eda03e13e48edfe3d5be92291e1ef0a199ff52a3375eb659844923a0393528c35f8318ddf3a
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vats": "npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vow": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/cf8f132c2d5c068101c6cff9e2e69528ee6413fbb5e88a7030ea26cecc7c87a39b389880a42436cd8adc4a3a1f3a97f5a684280659546340698219fe96de0a42
   languageName: node
   linkType: hard
 
@@ -628,6 +743,19 @@ __metadata:
     "@endo/import-bundle": "npm:^0.3.4"
     "@endo/marshal": "npm:^0.8.5"
   checksum: 10c0/b3f9b7c215e4696d44499d823055990efad9b87df4a173425e8252d51a6391db9efed66e125c08981e4922218443d1fc6b217efebc83120cba1a12dc66047f9a
+  languageName: node
+  linkType: hard
+
+"@agoric/store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.10.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/exo": "npm:^1.5.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+  checksum: 10c0/f3658f5c0889c449b3ebd978abbef0b4b95dc570ba0811c883e58f4128034eefbd98644282b28d61a11915cd58a36f1feb869bf6f66cd80f52c2b1b31cae2005
   languageName: node
   linkType: hard
 
@@ -674,6 +802,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/swing-store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.10.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/swing-store@npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/check-bundle": "npm:^1.0.17"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/nat": "npm:^5.1.3"
+    better-sqlite3: "npm:^10.1.0"
+  checksum: 10c0/45fd3b2b13acf1d5b0ffa4280ccdbdbc920621252388c6750b06ae3b1e8250bdc52066ea209030a8ceb38e77375f5d81de0190ea07c1e0f5425a6c26a384c314
+  languageName: node
+  linkType: hard
+
 "@agoric/swing-store@npm:0.9.2-dev-3656582.0+3656582":
   version: 0.9.2-dev-3656582.0
   resolution: "@agoric/swing-store@npm:0.9.2-dev-3656582.0"
@@ -686,21 +829,6 @@ __metadata:
     "@endo/nat": "npm:^5.0.10"
     better-sqlite3: "npm:^9.1.1"
   checksum: 10c0/7ba82904b74e43165f21c75e147f975ec3c1c930dcc3cd127a040d00c888c97face732609efc1e97dbcdc5c55409fd8295bcb95f40ff99214e0faf90e17c24fc
-  languageName: node
-  linkType: hard
-
-"@agoric/swing-store@npm:0.9.2-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.9.2-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/swing-store@npm:0.9.2-upgrade-16a-dev-fb592e4.0"
-  dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/base64": "npm:^1.0.5"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/check-bundle": "npm:^1.0.7"
-    "@endo/nat": "npm:^5.0.7"
-    better-sqlite3: "npm:^9.1.1"
-  checksum: 10c0/56ab1f174ff7780caa934da08610c442d0a231396818b5492b87a1140df37592ff3387b1c448ca272f6d8a76ef50b12f34bbb63ec3895bc148556b795377efbb
   languageName: node
   linkType: hard
 
@@ -759,6 +887,27 @@ __metadata:
     "@endo/patterns": "npm:^1.4.0"
     "@endo/promise-kit": "npm:^1.1.2"
   checksum: 10c0/3d2b8ad7ade38ba3c04e9a5211029b3697a0ed81c63a6d5560638dbc22b8027d2a31264b7e26ad464c574d62382a5a24b418b46d8166e4e0988ab5a711a139f6
+  languageName: node
+  linkType: hard
+
+"@agoric/swingset-liveslots@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.11.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/swingset-liveslots@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/exo": "npm:^1.5.12"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/7383d5aec0097cdf3a51a09aced036d0e542b095e67042efd52f4ff55e2fd81767aed9611205c2e3b66923ea5fab3644c5b8465dca9bc36e053879c168c92ad9
   languageName: node
   linkType: hard
 
@@ -834,50 +983,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/swingset-vat@npm:0.33.0-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.33.0-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/swingset-vat@npm:0.33.0-upgrade-16a-dev-fb592e4.0"
+"@agoric/swingset-vat@npm:0.33.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.33.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/swingset-vat@npm:0.33.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/kmarshal": "npm:0.1.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swing-store": "npm:0.9.2-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-liveslots": "npm:0.10.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-xsnap-supervisor": "npm:0.10.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/xsnap": "npm:0.14.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/xsnap-lockdown": "npm:0.14.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/base64": "npm:^1.0.5"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/captp": "npm:^4.2.0"
-    "@endo/check-bundle": "npm:^1.0.7"
-    "@endo/compartment-mapper": "npm:^1.1.5"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/import-bundle": "npm:^1.1.2"
-    "@endo/init": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-    "@endo/ses-ava": "npm:^1.2.2"
-    "@endo/stream": "npm:^1.2.2"
-    "@endo/zip": "npm:^1.0.5"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/kmarshal": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swing-store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-liveslots": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-xsnap-supervisor": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/xsnap-lockdown": "npm:0.14.1-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/captp": "npm:^4.4.8"
+    "@endo/check-bundle": "npm:^1.0.17"
+    "@endo/compartment-mapper": "npm:^1.6.3"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/import-bundle": "npm:^1.5.2"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+    "@endo/ses-ava": "npm:^1.3.2"
+    "@endo/stream": "npm:^1.2.13"
+    "@endo/zip": "npm:^1.0.11"
     ansi-styles: "npm:^6.2.1"
     anylogger: "npm:^0.21.0"
-    better-sqlite3: "npm:^9.1.1"
-    import-meta-resolve: "npm:^2.2.1"
+    better-sqlite3: "npm:^10.1.0"
+    import-meta-resolve: "npm:^4.1.0"
     microtime: "npm:^3.1.0"
     semver: "npm:^6.3.0"
     tmp: "npm:^0.2.1"
     yargs-parser: "npm:^21.1.1"
   peerDependencies:
+    "@agoric/xsnap": "*"
     ava: ^5.3.0
   bin:
     vat: bin/vat
-  checksum: 10c0/301aac06e28de46f05ef1ce421dfbb08ef65ea54d87fc5d798addec317b3bc746f8f0e06163b60906f000fd523f2d6a2fa3e4ca145e651ddaab56d67ab4ed576
+  checksum: 10c0/4501661e7f03c337f52119ec41657f25bb7ee6fde0658ccdd43467de36f0677fbe1a503a8b35541b980fec79a56641ff36784c7a659550e6cf8d17c506228e7d
   languageName: node
   linkType: hard
 
@@ -930,10 +1080,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/swingset-xsnap-supervisor@npm:0.10.3-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.10.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/swingset-xsnap-supervisor@npm:0.10.3-upgrade-16a-dev-fb592e4.0"
-  checksum: 10c0/e800fb0f174f35cb5b79578678320bc751d401c0d18aa37b21fe2c2593f52720bf8132b118e360345803c9e57db101680d0f8b77fa66303033a9ab43f27f587a
+"@agoric/swingset-xsnap-supervisor@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.11.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/swingset-xsnap-supervisor@npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  peerDependencies:
+    "@agoric/swingset-liveslots": "*"
+    "@endo/errors": ^1.2.13
+    "@endo/import-bundle": ^1.5.2
+    "@endo/promise-kit": ^1.1.13
+  checksum: 10c0/3f63d4036b193d00dd0ef8cea89e46bd72b44bd86c04d8bd6363587d8b0140a63e131ec821c03af78b1e24366b1e47a1cedea681ff7dec68ee924e9145076c0f
   languageName: node
   linkType: hard
 
@@ -999,14 +1154,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/time@npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.3.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/time@npm:0.3.3-upgrade-16a-dev-fb592e4.0"
+"@agoric/time@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.4.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/time@npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-  checksum: 10c0/f79d31a0c9735af9aee4a1865c4585a4bd9bb660174af4b2390d4b3ded80ea5bc075a4cf07a9d0817ad817ecc436658edf365ccc584171ac3bf474613cbee7e2
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/patterns": "npm:^1.7.0"
+  checksum: 10c0/edc779eab709ffb00422833a66bb31d77c736a814c6817a75cbc675d6b01712953199c03c996272077068bd98ca2cf412d41e09b5a536793d994744eca9d7eb6
   languageName: node
   linkType: hard
 
@@ -1064,6 +1220,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/vat-data@npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.6.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/vat-data@npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-liveslots": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/exo": "npm:^1.5.12"
+    "@endo/patterns": "npm:^1.7.0"
+  checksum: 10c0/4dc1c8e41d27eaf7e0ae01085716bcc25d9f6ad85c8a108236d2faf96607eb5e3894bbf214297f130a415f79a6aff58a25761ca265217447000ad8619af395d7
+  languageName: node
+  linkType: hard
+
 "@agoric/vat-data@npm:^0.5.2":
   version: 0.5.2
   resolution: "@agoric/vat-data@npm:0.5.2"
@@ -1075,33 +1245,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/vats@npm:0.16.0-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.16.0-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/vats@npm:0.16.0-upgrade-16a-dev-fb592e4.0"
+"@agoric/vats@npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.16.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/vats@npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/cosmic-proto": "npm:0.4.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/governance": "npm:0.10.4-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/network": "npm:0.2.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-vat": "npm:0.33.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vow": "npm:0.2.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zone": "npm:0.3.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/import-bundle": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-    import-meta-resolve: "npm:^2.2.1"
+    "@agoric/cosmic-proto": "npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/governance": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/network": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-vat": "npm:0.33.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vow": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/import-bundle": "npm:^1.5.2"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+    import-meta-resolve: "npm:^4.1.0"
     jessie.js: "npm:^0.3.4"
-  checksum: 10c0/c70eb99894f161fa0f128287f0a1e16f5f65dbb569bd25ef37e59b14963b322e0b30f02c3b2f82928291b0ee7dd745232c956289fe907d888e77380dc4bfa2bf
+  checksum: 10c0/1c231ff5e0051727b688f2d58ecead95a35f4b20a91bed93bab456b97e83471cc7685758d198cbb6c36097595140f284d2e324dfecccd6b1710c5ceeeeb1f518
   languageName: node
   linkType: hard
 
@@ -1195,6 +1366,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@agoric/vow@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.2.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/vow@npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/e52a397e72c9edbaca11cc7e23e4a82c3f5b7a722a5980fe95ac1b0b377d5e86fb85a27becfc329456c4d352ad6562d41502d0ac7796a1359997707fe2f59339
+  languageName: node
+  linkType: hard
+
 "@agoric/web-components@npm:^0.16.0":
   version: 0.16.0
   resolution: "@agoric/web-components@npm:0.16.0"
@@ -1220,10 +1407,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/xsnap-lockdown@npm:0.14.1-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.14.1-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/xsnap-lockdown@npm:0.14.1-upgrade-16a-dev-fb592e4.0"
-  checksum: 10c0/edcf2902787538afd87ccd80afa29e0adfb875933cbf88858c897058628b8c880b4ca145f2291f8821a8b505b227eb697895a85ec56b83e6e6ff5d21f4ed6b4f
+"@agoric/xsnap-lockdown@npm:0.14.1-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.14.1-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/xsnap-lockdown@npm:0.14.1-upgrade-22-dev-e2e9595.0.e2e9595"
+  checksum: 10c0/4358c64abf860300334f87353c5e4d1ab5ae9e06ba6a77776d1c774163e3d8da9b4c0dee7d5a5528b9d3f9080e681704b912d5742eb975fee820dca574fe2b0b
   languageName: node
   linkType: hard
 
@@ -1254,29 +1441,6 @@ __metadata:
     ava-xs: src/ava-xs.js
     xsrepl: src/xsrepl
   checksum: 10c0/b904940a69a5176746241dae1ef123042056c13a55d34fae1acacfb3f5d3499a12b9c9a20cc04e611a85087bce31bd9451c2f38b46acc2f9011bf1323dea6ebb
-  languageName: node
-  linkType: hard
-
-"@agoric/xsnap@npm:0.14.3-upgrade-16a-dev-fb592e4.0+fb592e4":
-  version: 0.14.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/xsnap@npm:0.14.3-upgrade-16a-dev-fb592e4.0"
-  dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/xsnap-lockdown": "npm:0.14.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/init": "npm:^1.1.2"
-    "@endo/netstring": "npm:^1.0.7"
-    "@endo/promise-kit": "npm:^1.1.2"
-    "@endo/stream": "npm:^1.2.2"
-    "@endo/stream-node": "npm:^1.1.2"
-    glob: "npm:^7.1.6"
-    tmp: "npm:^0.2.1"
-  bin:
-    ava-xs: src/ava-xs.js
-    xsrepl: src/xsrepl
-  checksum: 10c0/ea4b7a30657d0e0fbb1cdd594c41ba372ff72c1be72d20dc42a597c2bad7a794dabb997c5e1ad8267cb17cf335e724b46aa3db4b33b1ba821fd67587325ee078
   languageName: node
   linkType: hard
 
@@ -1336,34 +1500,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agoric/zoe@npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4, @agoric/zoe@npm:^0.26.3-u16.1":
-  version: 0.26.3-upgrade-16a-dev-fb592e4.0
-  resolution: "@agoric/zoe@npm:0.26.3-upgrade-16a-dev-fb592e4.0"
+"@agoric/zoe@npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595, @agoric/zoe@npm:^0.27.0-u22.2":
+  version: 0.27.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/zoe@npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/base-zone": "npm:0.1.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/notifier": "npm:0.7.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-liveslots": "npm:0.10.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-vat": "npm:0.33.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/time": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vat-data": "npm:0.5.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zone": "npm:0.3.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/captp": "npm:^4.2.0"
-    "@endo/common": "npm:^1.2.2"
-    "@endo/eventual-send": "npm:^1.2.2"
-    "@endo/exo": "npm:^1.5.0"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/import-bundle": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/notifier": "npm:0.7.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-liveslots": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-vat": "npm:0.33.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/time": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vow": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/captp": "npm:^4.4.8"
+    "@endo/common": "npm:^1.2.13"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/exo": "npm:^1.5.12"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/import-bundle": "npm:^1.5.2"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
     yargs-parser: "npm:^21.1.1"
-  checksum: 10c0/df7fe74365a05b87e071ad05bca0e9c6abd7d7c9f2ec25674f0f257661da5684b49d282968e0c28f9d479ca03b5772db8c2e5ea720a8f0ff254236cc38b4e270
+  checksum: 10c0/9aae282908bef3a84ab5b17b7ad51fac6f2febeae33dceb55a13202d2404c5ea1db19187defa9d295821064ec7fa9121c7e2c422a1d0dfcf48b8efcb0b4a05d2
   languageName: node
   linkType: hard
 
@@ -1414,6 +1580,19 @@ __metadata:
     "@endo/far": "npm:^1.1.2"
     "@endo/pass-style": "npm:^1.4.0"
   checksum: 10c0/4f7bb4d8b2e17fd3dfe516bae334d65008ee40db148ca9dd8ec2329a0391d6559c1f48976c24c7b46689af51882e088c3c2c45487e3e918466c957504e37f63d
+  languageName: node
+  linkType: hard
+
+"@agoric/zone@npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595":
+  version: 0.3.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "@agoric/zone@npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+  dependencies:
+    "@agoric/base-zone": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vat-data": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/pass-style": "npm:^1.6.3"
+  checksum: 10c0/5d0d4bac78b939864f326d0a50c04411070f0884a8eecabd883d6b00539d05d6ed0221fcb15a19a6b18806166fc7c3df404e09e8750521af05e3556d012d1797
   languageName: node
   linkType: hard
 
@@ -1486,6 +1665,19 @@ __metadata:
     "@jridgewell/trace-mapping": "npm:^0.3.25"
     jsesc: "npm:^2.5.1"
   checksum: 10c0/f89282cce4ddc63654470b98086994d219407d025497f483eb03ba102086e11e2b685b27122f6ff2e1d93b5b5fa0c3a6b7e974fbf2e4a75b685041a746a4291e
+  languageName: node
+  linkType: hard
+
+"@babel/generator@npm:^7.25.9, @babel/generator@npm:^7.26.3":
+  version: 7.28.6
+  resolution: "@babel/generator@npm:7.28.6"
+  dependencies:
+    "@babel/parser": "npm:^7.28.6"
+    "@babel/types": "npm:^7.28.6"
+    "@jridgewell/gen-mapping": "npm:^0.3.12"
+    "@jridgewell/trace-mapping": "npm:^0.3.28"
+    jsesc: "npm:^3.0.2"
+  checksum: 10c0/162fa358484a9a18e8da1235d998f10ea77c63bab408c8d3e327d5833f120631a77ff022c5ed1d838ee00523f8bb75df1f08196d3657d0bca9f2cfeb8503cc12
   languageName: node
   linkType: hard
 
@@ -1565,10 +1757,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-string-parser@npm:^7.27.1":
+  version: 7.27.1
+  resolution: "@babel/helper-string-parser@npm:7.27.1"
+  checksum: 10c0/8bda3448e07b5583727c103560bcf9c4c24b3c1051a4c516d4050ef69df37bb9a4734a585fe12725b8c2763de0a265aa1e909b485a4e3270b7cfd3e4dbe4b602
+  languageName: node
+  linkType: hard
+
 "@babel/helper-validator-identifier@npm:^7.22.20, @babel/helper-validator-identifier@npm:^7.22.5, @babel/helper-validator-identifier@npm:^7.24.7":
   version: 7.24.7
   resolution: "@babel/helper-validator-identifier@npm:7.24.7"
   checksum: 10c0/87ad608694c9477814093ed5b5c080c2e06d44cb1924ae8320474a74415241223cc2a725eea2640dd783ff1e3390e5f95eede978bc540e870053152e58f1d651
+  languageName: node
+  linkType: hard
+
+"@babel/helper-validator-identifier@npm:^7.28.5":
+  version: 7.28.5
+  resolution: "@babel/helper-validator-identifier@npm:7.28.5"
+  checksum: 10c0/42aaebed91f739a41f3d80b72752d1f95fd7c72394e8e4bd7cdd88817e0774d80a432451bcba17c2c642c257c483bf1d409dd4548883429ea9493a3bc4ab0847
   languageName: node
   linkType: hard
 
@@ -1609,6 +1815,28 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10c0/f88a0e895dbb096fd37c4527ea97d12b5fc013720602580a941ac3a339698872f0c911e318c292b184c36b5fbe23b612f05aff9d24071bc847c7b1c21552c41d
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.25.9, @babel/parser@npm:^7.28.6":
+  version: 7.28.6
+  resolution: "@babel/parser@npm:7.28.6"
+  dependencies:
+    "@babel/types": "npm:^7.28.6"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 10c0/d6bfe8aa8e067ef58909e9905496157312372ca65d8d2a4f2b40afbea48d59250163755bba8ae626a615da53d192b084bcfc8c9dad8b01e315b96967600de581
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:~7.26.2":
+  version: 7.26.10
+  resolution: "@babel/parser@npm:7.26.10"
+  dependencies:
+    "@babel/types": "npm:^7.26.10"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 10c0/c47f5c0f63cd12a663e9dc94a635f9efbb5059d98086a92286d7764357c66bceba18ccbe79333e01e9be3bfb8caba34b3aaebfd8e62c3d5921c8cf907267be75
   languageName: node
   linkType: hard
 
@@ -1664,6 +1892,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/template@npm:^7.25.9":
+  version: 7.28.6
+  resolution: "@babel/template@npm:7.28.6"
+  dependencies:
+    "@babel/code-frame": "npm:^7.28.6"
+    "@babel/parser": "npm:^7.28.6"
+    "@babel/types": "npm:^7.28.6"
+  checksum: 10c0/66d87225ed0bc77f888181ae2d97845021838c619944877f7c4398c6748bcf611f216dfd6be74d39016af502bca876e6ce6873db3c49e4ac354c56d34d57e9f5
+  languageName: node
+  linkType: hard
+
 "@babel/traverse@npm:^7.23.6, @babel/traverse@npm:^7.24.1":
   version: 7.25.6
   resolution: "@babel/traverse@npm:7.25.6"
@@ -1679,6 +1918,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/traverse@npm:~7.25.9":
+  version: 7.25.9
+  resolution: "@babel/traverse@npm:7.25.9"
+  dependencies:
+    "@babel/code-frame": "npm:^7.25.9"
+    "@babel/generator": "npm:^7.25.9"
+    "@babel/parser": "npm:^7.25.9"
+    "@babel/template": "npm:^7.25.9"
+    "@babel/types": "npm:^7.25.9"
+    debug: "npm:^4.3.1"
+    globals: "npm:^11.1.0"
+  checksum: 10c0/e90be586a714da4adb80e6cb6a3c5cfcaa9b28148abdafb065e34cc109676fc3db22cf98cd2b2fff66ffb9b50c0ef882cab0f466b6844be0f6c637b82719bba1
+  languageName: node
+  linkType: hard
+
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.17.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.24.0, @babel/types@npm:^7.25.0, @babel/types@npm:^7.25.6":
   version: 7.25.6
   resolution: "@babel/types@npm:7.25.6"
@@ -1690,17 +1944,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/types@npm:^7.25.9, @babel/types@npm:^7.26.10, @babel/types@npm:^7.28.6":
+  version: 7.28.6
+  resolution: "@babel/types@npm:7.28.6"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.27.1"
+    "@babel/helper-validator-identifier": "npm:^7.28.5"
+  checksum: 10c0/54a6a9813e48ef6f35aa73c03b3c1572cad7fa32b61b35dd07e4230bc77b559194519c8a4d8106a041a27cc7a94052579e238a30a32d5509aa4da4d6fd83d990
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
   checksum: 10c0/eb42729851adca56d19a08e48d5a1e95efd2a32c55ae0323de8119052be0510d4b7a1611f2abcbf28c044a6c11e6b7d38f99fccdad7429300c37a8ea5fb95b44
-  languageName: node
-  linkType: hard
-
-"@colors/colors@npm:1.6.0":
-  version: 1.6.0
-  resolution: "@colors/colors@npm:1.6.0"
-  checksum: 10c0/9328a0778a5b0db243af54455b79a69e3fb21122d6c15ef9e9fcc94881d8d17352d8b2b2590f9bdd46fac5c2d6c1636dcfc14358a20c70e22daf89e1a759b629
   languageName: node
   linkType: hard
 
@@ -1711,38 +1968,6 @@ __metadata:
     "@noble/hashes": "npm:^1.0.0"
     protobufjs: "npm:^6.8.8"
   checksum: 10c0/2f3f5032cd6a34c9b2fbd64bbf7e1cdec75ca71f348a770f7b5474b5027b12202bfbcd404eca931efddb5901f769af035a87cb8bddbf3f23d7e5d93c9d3d7f6f
-  languageName: node
-  linkType: hard
-
-"@confio/relayer@npm:^0.11.3":
-  version: 0.11.3
-  resolution: "@confio/relayer@npm:0.11.3"
-  dependencies:
-    "@cosmjs/cosmwasm-stargate": "npm:^0.32.1"
-    "@cosmjs/crypto": "npm:^0.32.1"
-    "@cosmjs/encoding": "npm:^0.32.1"
-    "@cosmjs/faucet-client": "npm:^0.32.1"
-    "@cosmjs/math": "npm:^0.32.1"
-    "@cosmjs/proto-signing": "npm:^0.32.1"
-    "@cosmjs/stargate": "npm:^0.32.1"
-    "@cosmjs/stream": "npm:^0.32.1"
-    "@cosmjs/tendermint-rpc": "npm:^0.32.1"
-    "@cosmjs/utils": "npm:^0.32.1"
-    ajv: "npm:7.1.1"
-    axios: "npm:^1.6.7"
-    commander: "npm:7.1.0"
-    cosmjs-types: "npm:^0.9.0"
-    fast-safe-stringify: "npm:2.0.4"
-    js-yaml: "npm:4.0.0"
-    lodash: "npm:4.17.21"
-    prom-client: "npm:13.1.0"
-    table: "npm:^6.7.1"
-    triple-beam: "npm:1.3.0"
-    winston: "npm:3.3.3"
-  bin:
-    ibc-relayer: build/binary/ibc-relayer/index.js
-    ibc-setup: build/binary/ibc-setup/index.js
-  checksum: 10c0/f6519a21a7e2b7d79835558305bbac6f6712b90f0e10f2c156ae74583ca170da0b97ec456272c25a2ffdcbe0343ad425e67886b792f2aed1f5303e34b93edf40
   languageName: node
   linkType: hard
 
@@ -1758,7 +1983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/amino@npm:^0.32.3, @cosmjs/amino@npm:^0.32.4":
+"@cosmjs/amino@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/amino@npm:0.32.4"
   dependencies:
@@ -1770,21 +1995,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/cosmwasm-stargate@npm:^0.32.1":
-  version: 0.32.4
-  resolution: "@cosmjs/cosmwasm-stargate@npm:0.32.4"
+"@cosmjs/amino@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/amino@npm:0.36.2"
   dependencies:
-    "@cosmjs/amino": "npm:^0.32.4"
-    "@cosmjs/crypto": "npm:^0.32.4"
-    "@cosmjs/encoding": "npm:^0.32.4"
-    "@cosmjs/math": "npm:^0.32.4"
-    "@cosmjs/proto-signing": "npm:^0.32.4"
-    "@cosmjs/stargate": "npm:^0.32.4"
-    "@cosmjs/tendermint-rpc": "npm:^0.32.4"
-    "@cosmjs/utils": "npm:^0.32.4"
-    cosmjs-types: "npm:^0.9.0"
-    pako: "npm:^2.0.2"
-  checksum: 10c0/f7e285c51ef8b1098a9ea5ca2546a1e226b4fa0a990d95faa6f3b752f3638b6c55f36a56b6f4b11f0a66fd61e3ae8772921d8e99418218df0b2205efe1c82f37
+    "@cosmjs/crypto": "npm:^0.36.2"
+    "@cosmjs/encoding": "npm:^0.36.2"
+    "@cosmjs/math": "npm:^0.36.2"
+    "@cosmjs/utils": "npm:^0.36.2"
+  checksum: 10c0/3c8dfcc49098ab6e86f9adc5d001b6635e67872144c11ac6200aad9babb84152e868a2d311cfb6f15ec7bb4c224e625acb536e145c9666caec361fd863f5cbf6
   languageName: node
   linkType: hard
 
@@ -1803,7 +2022,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/crypto@npm:^0.32.1, @cosmjs/crypto@npm:^0.32.3, @cosmjs/crypto@npm:^0.32.4":
+"@cosmjs/crypto@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/crypto@npm:0.32.4"
   dependencies:
@@ -1818,6 +2037,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmjs/crypto@npm:^0.36.0, @cosmjs/crypto@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/crypto@npm:0.36.2"
+  dependencies:
+    "@cosmjs/encoding": "npm:^0.36.2"
+    "@cosmjs/math": "npm:^0.36.2"
+    "@cosmjs/utils": "npm:^0.36.2"
+    "@noble/ciphers": "npm:^1.3.0"
+    "@noble/curves": "npm:^1.9.2"
+    "@noble/hashes": "npm:^1.8.0"
+    hash-wasm: "npm:^4.12.0"
+  checksum: 10c0/524e2afb2a552197e3594a52c1a861812511b33240593d363d6a608c2877e404923ba6143f02a9ca573f7f0cccd345ad9840d7016bbb8a2df79898eb09e6a788
+  languageName: node
+  linkType: hard
+
 "@cosmjs/encoding@npm:^0.30.1":
   version: 0.30.1
   resolution: "@cosmjs/encoding@npm:0.30.1"
@@ -1829,7 +2063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/encoding@npm:^0.32.1, @cosmjs/encoding@npm:^0.32.3, @cosmjs/encoding@npm:^0.32.4":
+"@cosmjs/encoding@npm:^0.32.3, @cosmjs/encoding@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/encoding@npm:0.32.4"
   dependencies:
@@ -1840,12 +2074,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/faucet-client@npm:^0.32.1":
-  version: 0.32.4
-  resolution: "@cosmjs/faucet-client@npm:0.32.4"
+"@cosmjs/encoding@npm:^0.36.0, @cosmjs/encoding@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/encoding@npm:0.36.2"
   dependencies:
-    axios: "npm:^1.6.0"
-  checksum: 10c0/1651cb370eb5fa2b12b6f94e06d1dc9a6306e34cad3fc87d9263d8b8a225d500449e10a9f6e326534f65261778208dab7fada6a70efb63195589ad08f58e1008
+    base64-js: "npm:^1.3.0"
+    bech32: "npm:^1.1.4"
+    readonly-date: "npm:^1.0.0"
+  checksum: 10c0/b438535d0934456bce77028416c112d53ab7172ed9cf7030f38c8fecb7b34dfdf63caba5872fedf4bf58e40a70f99f6ad4d20f86630b736e05add6401bbc9f1c
   languageName: node
   linkType: hard
 
@@ -1869,6 +2105,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmjs/json-rpc@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/json-rpc@npm:0.36.2"
+  dependencies:
+    "@cosmjs/stream": "npm:^0.36.2"
+    xstream: "npm:^11.14.0"
+  checksum: 10c0/2eca787b58110080c2537df7d2c866b8da31d07cd3f9c1bcde9e255758039a3a0388da2c2289a9036473fd4f7e1a9ee6c08a3030be062403ce382a9d9dce7447
+  languageName: node
+  linkType: hard
+
 "@cosmjs/math@npm:^0.30.1":
   version: 0.30.1
   resolution: "@cosmjs/math@npm:0.30.1"
@@ -1878,12 +2124,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/math@npm:^0.32.1, @cosmjs/math@npm:^0.32.3, @cosmjs/math@npm:^0.32.4":
+"@cosmjs/math@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/math@npm:0.32.4"
   dependencies:
     bn.js: "npm:^5.2.0"
   checksum: 10c0/91e47015be5634d27d71d14c5a05899fb4992b69db02cab1558376dedf8254f96d5e24f097c5601804ae18ed33c7c25d023653ac2bf9d20250fd3e5637f6b101
+  languageName: node
+  linkType: hard
+
+"@cosmjs/math@npm:^0.36.0, @cosmjs/math@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/math@npm:0.36.2"
+  checksum: 10c0/fa6d91a8f2eea356a02786987950249332879977742449554879478957196933895d5e9d6e1134cea5e492b64ea7d42fb3bf600d6d5d2e57f8b67e00598ec2b1
   languageName: node
   linkType: hard
 
@@ -1902,7 +2155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/proto-signing@npm:^0.32.1, @cosmjs/proto-signing@npm:^0.32.3, @cosmjs/proto-signing@npm:^0.32.4":
+"@cosmjs/proto-signing@npm:^0.32.3, @cosmjs/proto-signing@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/proto-signing@npm:0.32.4"
   dependencies:
@@ -1913,6 +2166,20 @@ __metadata:
     "@cosmjs/utils": "npm:^0.32.4"
     cosmjs-types: "npm:^0.9.0"
   checksum: 10c0/6915059d2e6dbe1abda4a747c3b1abd47a9eff4f8cb2cf9a5545f939b656b4a15bbde2bfc1364357f9b2a081a066280c3b469f6d13dd5fc51b429b0f90a54913
+  languageName: node
+  linkType: hard
+
+"@cosmjs/proto-signing@npm:^0.36.0, @cosmjs/proto-signing@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/proto-signing@npm:0.36.2"
+  dependencies:
+    "@cosmjs/amino": "npm:^0.36.2"
+    "@cosmjs/crypto": "npm:^0.36.2"
+    "@cosmjs/encoding": "npm:^0.36.2"
+    "@cosmjs/math": "npm:^0.36.2"
+    "@cosmjs/utils": "npm:^0.36.2"
+    cosmjs-types: "npm:^0.10.1"
+  checksum: 10c0/f3fe382f71526a9123f89724f2c6c6b88073c9c8a3b3bd20df12352a00ee034a191b56358334d65645a4d4d39bea16ca45421e419912f4cb10defcd0bb7c8b43
   languageName: node
   linkType: hard
 
@@ -1940,6 +2207,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmjs/socket@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/socket@npm:0.36.2"
+  dependencies:
+    "@cosmjs/stream": "npm:^0.36.2"
+    isomorphic-ws: "npm:^4.0.1"
+    ws: "npm:^7"
+    xstream: "npm:^11.14.0"
+  checksum: 10c0/85ebc786bbd6bd3b31cd4d22ccca420d1d3d19b50ad7fb88b246e989e273da713d0da816a9d640602620807937f923a291f8be44a92b6333964b651ee80eb99a
+  languageName: node
+  linkType: hard
+
 "@cosmjs/stargate@npm:^0.30.1":
   version: 0.30.1
   resolution: "@cosmjs/stargate@npm:0.30.1"
@@ -1960,7 +2239,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/stargate@npm:^0.32.1, @cosmjs/stargate@npm:^0.32.3, @cosmjs/stargate@npm:^0.32.4":
+"@cosmjs/stargate@npm:^0.32.3":
   version: 0.32.4
   resolution: "@cosmjs/stargate@npm:0.32.4"
   dependencies:
@@ -1978,6 +2257,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmjs/stargate@npm:^0.36.0":
+  version: 0.36.2
+  resolution: "@cosmjs/stargate@npm:0.36.2"
+  dependencies:
+    "@cosmjs/amino": "npm:^0.36.2"
+    "@cosmjs/encoding": "npm:^0.36.2"
+    "@cosmjs/math": "npm:^0.36.2"
+    "@cosmjs/proto-signing": "npm:^0.36.2"
+    "@cosmjs/stream": "npm:^0.36.2"
+    "@cosmjs/tendermint-rpc": "npm:^0.36.2"
+    "@cosmjs/utils": "npm:^0.36.2"
+    cosmjs-types: "npm:^0.10.1"
+  checksum: 10c0/640801bfd8b0e5db1beebe530bc4546d7247dc17c4f5fe3f8b0f110ae0f2b779fa2dcd1a07838d4601c920daac8c0357cc022ba82f4873fb9f58090134c73c73
+  languageName: node
+  linkType: hard
+
 "@cosmjs/stream@npm:^0.30.1":
   version: 0.30.1
   resolution: "@cosmjs/stream@npm:0.30.1"
@@ -1987,12 +2282,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/stream@npm:^0.32.1, @cosmjs/stream@npm:^0.32.4":
+"@cosmjs/stream@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/stream@npm:0.32.4"
   dependencies:
     xstream: "npm:^11.14.0"
   checksum: 10c0/c677c53f9101c2a36fa03a475d92dea2fa69c475f896751b5e18a5d07087eeecbf6bca2e62a8940003da53fa235a9b2dd78c8257bf19c3f96e3f69fa8d5f183d
+  languageName: node
+  linkType: hard
+
+"@cosmjs/stream@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/stream@npm:0.36.2"
+  dependencies:
+    xstream: "npm:^11.14.0"
+  checksum: 10c0/f6dc96b2f5c82f4b4c17cbda5914d57e0fbb7269b03dcdf9a850b2548327248048c356e8dde69acbf78aba708075d47777c3f3e64d547360599ac7b127683539
   languageName: node
   linkType: hard
 
@@ -2014,7 +2318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/tendermint-rpc@npm:^0.32.1, @cosmjs/tendermint-rpc@npm:^0.32.3, @cosmjs/tendermint-rpc@npm:^0.32.4":
+"@cosmjs/tendermint-rpc@npm:^0.32.3, @cosmjs/tendermint-rpc@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/tendermint-rpc@npm:0.32.4"
   dependencies:
@@ -2032,6 +2336,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cosmjs/tendermint-rpc@npm:^0.36.0, @cosmjs/tendermint-rpc@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/tendermint-rpc@npm:0.36.2"
+  dependencies:
+    "@cosmjs/crypto": "npm:^0.36.2"
+    "@cosmjs/encoding": "npm:^0.36.2"
+    "@cosmjs/json-rpc": "npm:^0.36.2"
+    "@cosmjs/math": "npm:^0.36.2"
+    "@cosmjs/socket": "npm:^0.36.2"
+    "@cosmjs/stream": "npm:^0.36.2"
+    "@cosmjs/utils": "npm:^0.36.2"
+    readonly-date: "npm:^1.0.0"
+    xstream: "npm:^11.14.0"
+  checksum: 10c0/4aa213e0caf4a7cbd11ac80a6181488322f04bdcfd86f32703d4ae0e74cb2798534de1750dd663ad01f9ec52d5491eef5bd1c42ba9df09cbc03ad034b6742fbb
+  languageName: node
+  linkType: hard
+
 "@cosmjs/utils@npm:^0.30.1":
   version: 0.30.1
   resolution: "@cosmjs/utils@npm:0.30.1"
@@ -2039,10 +2360,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmjs/utils@npm:^0.32.1, @cosmjs/utils@npm:^0.32.4":
+"@cosmjs/utils@npm:^0.32.4":
   version: 0.32.4
   resolution: "@cosmjs/utils@npm:0.32.4"
   checksum: 10c0/d5ff8b235094be1150853a715116049f73eb5cdfeea8ce8e22ecccc61ec99792db457404d4307782b1a2f935dcf438f5c485beabfcfbc1dc5df26eb6e6da9062
+  languageName: node
+  linkType: hard
+
+"@cosmjs/utils@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@cosmjs/utils@npm:0.36.2"
+  checksum: 10c0/c13f7b7001b72bbb1a3c74d69f02a3e00d0c4085cb569381cb774cdb581bb30c4ae01d96911d4bb9edf179c86471b3c394b96d7179ea864493e5950c665ea10d
   languageName: node
   linkType: hard
 
@@ -2165,17 +2493,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dabh/diagnostics@npm:^2.0.2":
-  version: 2.0.3
-  resolution: "@dabh/diagnostics@npm:2.0.3"
-  dependencies:
-    colorspace: "npm:1.1.x"
-    enabled: "npm:2.0.x"
-    kuler: "npm:^2.0.0"
-  checksum: 10c0/a5133df8492802465ed01f2f0a5784585241a1030c362d54a602ed1839816d6c93d71dde05cf2ddb4fd0796238c19774406bd62fa2564b637907b495f52425fe
-  languageName: node
-  linkType: hard
-
 "@drptbl/gremlins.js@npm:^2.2.1":
   version: 2.2.1
   resolution: "@drptbl/gremlins.js@npm:2.2.1"
@@ -2193,24 +2510,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/bundle-source@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "@endo/bundle-source@npm:3.4.0"
+"@endo/bundle-source@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@endo/bundle-source@npm:4.1.2"
   dependencies:
-    "@endo/base64": "npm:^1.0.7"
-    "@endo/compartment-mapper": "npm:^1.2.2"
-    "@endo/evasive-transform": "npm:^1.3.0"
-    "@endo/init": "npm:^1.1.4"
-    "@endo/promise-kit": "npm:^1.1.5"
-    "@endo/where": "npm:^1.0.7"
-    "@rollup/plugin-commonjs": "npm:^19.0.0"
-    "@rollup/plugin-json": "npm:^6.1.0"
-    "@rollup/plugin-node-resolve": "npm:^13.0.0"
-    acorn: "npm:^8.2.4"
-    rollup: "npm:^2.79.1"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/compartment-mapper": "npm:^1.6.3"
+    "@endo/evasive-transform": "npm:^2.0.2"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/promise-kit": "npm:^1.1.13"
+    "@endo/where": "npm:^1.0.11"
+    ts-blank-space: "npm:^0.4.1"
   bin:
     bundle-source: ./src/tool.js
-  checksum: 10c0/c21ee24b7beaf4e9b935c853f6917e42f2c22250697c02ceea97288cb142d8ba863491fd934c49c337a14cf94960d9edde84eb91355c679d27d303e89d429a46
+  checksum: 10c0/7bee180864e8340877c0979a2c773dba7e7346959a208efdc7bc6dac48964f6f4ff61f7542195d71c7bc847f81844bc81f0c302e8136aa5d730bdd0efcb113ca
   languageName: node
   linkType: hard
 
@@ -2245,6 +2558,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@endo/common@npm:^1.2.13":
+  version: 1.2.13
+  resolution: "@endo/common@npm:1.2.13"
+  dependencies:
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/dd5f1da0e4b773e17219bd342648c6214ae18fa8a0a3878a22679932f6027b86edc4b504c0b346d3d191113fbbcb84ec2e3050c731cc36954fab2b9c0c7eddb1
+  languageName: node
+  linkType: hard
+
 "@endo/common@npm:^1.2.2, @endo/common@npm:^1.2.5":
   version: 1.2.5
   resolution: "@endo/common@npm:1.2.5"
@@ -2268,10 +2592,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@endo/env-options@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "@endo/env-options@npm:1.1.11"
+  checksum: 10c0/207ca764c56aaf8350bb3e897913852fdf2a3e737dbf2777b1e9928430d4efdba11b75a91570d781d28bb28da77c24e4ac7795fcee6b0530944c804e448748c6
+  languageName: node
+  linkType: hard
+
 "@endo/env-options@npm:^1.1.4, @endo/env-options@npm:^1.1.6":
   version: 1.1.6
   resolution: "@endo/env-options@npm:1.1.6"
   checksum: 10c0/0001b1cba6954cccfa40104f819378f2f5c8babc89103213a8a5da4f8f94248c8389bfa06ec37cecae81edabe570428558399313d649c64ad7c90743f563dea2
+  languageName: node
+  linkType: hard
+
+"@endo/errors@npm:^1.2.13":
+  version: 1.2.13
+  resolution: "@endo/errors@npm:1.2.13"
+  dependencies:
+    ses: "npm:^1.14.0"
+  checksum: 10c0/eb1261978f3109682c00c93545cf3ab79daceeee6b76f02ea5408fa690cfa3d08740956c741bcfe018b7cda5a28e24bcd2a49350b7c747ded765c3e84b3a7bb4
   languageName: node
   linkType: hard
 
@@ -2296,15 +2636,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/evasive-transform@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@endo/evasive-transform@npm:1.3.0"
+"@endo/evasive-transform@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@endo/evasive-transform@npm:2.0.2"
   dependencies:
-    "@agoric/babel-generator": "npm:^7.17.6"
-    "@babel/parser": "npm:^7.23.6"
-    "@babel/traverse": "npm:^7.23.6"
-    source-map-js: "npm:^1.2.0"
-  checksum: 10c0/caca5f99423f4dcd57bce5fe8dc197019bfcaca657929016b1e91a6d4efe7a6d73e8b7c16cff83f56c03b035ca16e08565996a3459d30a65a83b632ef7d8d0a3
+    "@babel/generator": "npm:^7.26.3"
+    "@babel/parser": "npm:~7.26.2"
+    "@babel/traverse": "npm:~7.25.9"
+  checksum: 10c0/b5c85f62ffcf99f5a608fdaed4fff22a70672de65ecb4da2f53839ec35875ae5c3ca17b225837c220b8d6a65ea295bc6fbed8f06d333dcc5bfea9635ef88336b
   languageName: node
   linkType: hard
 
@@ -2317,29 +2656,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/exo@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "@endo/exo@npm:1.5.3"
+"@endo/exo@npm:^1.5.12":
+  version: 1.5.12
+  resolution: "@endo/exo@npm:1.5.12"
   dependencies:
-    "@endo/common": "npm:^1.2.5"
-    "@endo/env-options": "npm:^1.1.6"
-    "@endo/errors": "npm:^1.2.5"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/far": "npm:^1.1.5"
-    "@endo/pass-style": "npm:^1.4.3"
-    "@endo/patterns": "npm:^1.4.3"
-  checksum: 10c0/5510bc442730910ce2470c6ebdb6c04208c033e452cd60c8684e1769039453ad5f47de31b00629be3c6bf4183bee4a421bace142144e92740b606c591a839c72
+    "@endo/common": "npm:^1.2.13"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/patterns": "npm:^1.7.0"
+  checksum: 10c0/ac530fb9629697b20c876c3cd6a3f60ed4bde9c1d29425c44ec9e876e34e92b7411153202de71651629574f23a170770403e9edb407df8dea58608832161a659
   languageName: node
   linkType: hard
 
-"@endo/far@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "@endo/far@npm:1.1.5"
+"@endo/far@npm:^1.1.14":
+  version: 1.1.14
+  resolution: "@endo/far@npm:1.1.14"
   dependencies:
-    "@endo/errors": "npm:^1.2.5"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/pass-style": "npm:^1.4.3"
-  checksum: 10c0/8c50a28323ab1078d0cb6fce1d7fc6da4884247d76585f37f960a2a7134fc7f293075effaae34b41801b7508a1f75d32304c19db0597709727853c4a87eb4999
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/pass-style": "npm:^1.6.3"
+  checksum: 10c0/17e68cfaa765941dba7e7731c141c92452a1d1cfa523927714b9e27ddb576da0522380d066ce4746e4d920731962575ba0ddd7d681d22a220795d7596b4f993d
   languageName: node
   linkType: hard
 
@@ -2356,15 +2695,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/init@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "@endo/init@npm:1.1.4"
+"@endo/init@npm:^1.1.12":
+  version: 1.1.12
+  resolution: "@endo/init@npm:1.1.12"
   dependencies:
-    "@endo/base64": "npm:^1.0.7"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/lockdown": "npm:^1.0.10"
-    "@endo/promise-kit": "npm:^1.1.5"
-  checksum: 10c0/9e915b3b888b7a9f1d563d532ad180dea987253d71e79eda1fcda8d287391611bcca369f2d9b89c59b9f24b3adc548816954e8eaefa4f7402c68585245a686a5
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/lockdown": "npm:^1.0.18"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/a10854b39677197fa3d701eef89609ff4c2e250c8e82b0da9fe24aa0638a2a25cd4ce6b5ad2e3cb540b68994b59fa06a848a63fc37f3fbb170093135a971dd81
   languageName: node
   linkType: hard
 
@@ -2377,17 +2716,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/marshal@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "@endo/marshal@npm:1.5.3"
+"@endo/marshal@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@endo/marshal@npm:1.8.0"
   dependencies:
-    "@endo/common": "npm:^1.2.5"
-    "@endo/errors": "npm:^1.2.5"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/nat": "npm:^5.0.10"
-    "@endo/pass-style": "npm:^1.4.3"
-    "@endo/promise-kit": "npm:^1.1.5"
-  checksum: 10c0/05f4fceef7727971d3d2a1b8d87f4d9c6651772f9d231e2daa36c3ed0b0e13c3b8d26cb4828ecaadf4329bf77792a293507eadcff7a61df292d4e390936993d1
+    "@endo/common": "npm:^1.2.13"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/fd6d9b7bdc499fa21b4f739d141d2989914e868c1cef0937010c0f9c04d45ffac5cf1356a7fc45898ece7155c98e70d2bd2886c075cd6460c9fa6685672513ac
   languageName: node
   linkType: hard
 
@@ -2423,38 +2763,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@endo/pass-style@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@endo/pass-style@npm:1.4.3"
+"@endo/pass-style@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "@endo/pass-style@npm:1.6.3"
   dependencies:
-    "@endo/env-options": "npm:^1.1.6"
-    "@endo/errors": "npm:^1.2.5"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/promise-kit": "npm:^1.1.5"
-    "@fast-check/ava": "npm:^1.1.5"
-  checksum: 10c0/f24c528b1219f5aa122f9a04e80459dec3e9664e7849019b172ad8354870b849b643c8dfc79104857827457d66b2bb09bade9b2c6ea717a97e613ecf6d53c1f9
+    "@endo/common": "npm:^1.2.13"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/3d7b74128191e031275bdc46360ee1f93e0c869960b423ef4e9d7726d245f53c904eb06945e6fa56191ebf740e61ba770e68fce53c0491b57e8b6bcc1928964f
   languageName: node
   linkType: hard
 
-"@endo/patterns@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@endo/patterns@npm:1.4.3"
+"@endo/patterns@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@endo/patterns@npm:1.7.0"
   dependencies:
-    "@endo/common": "npm:^1.2.5"
-    "@endo/errors": "npm:^1.2.5"
-    "@endo/eventual-send": "npm:^1.2.5"
-    "@endo/marshal": "npm:^1.5.3"
-    "@endo/promise-kit": "npm:^1.1.5"
-  checksum: 10c0/10aabc6459d1b5d26e8946ab1b88db23eda80231aa6a0b6c9835568eee1daf745d23c29fa7f202bf11859a7ae77d5f51071c3d863d34e259a62c382ec797bb03
+    "@endo/common": "npm:^1.2.13"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/eventual-send": "npm:^1.3.4"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/pass-style": "npm:^1.6.3"
+    "@endo/promise-kit": "npm:^1.1.13"
+  checksum: 10c0/f054cf9c1201eaad084ce278603afc319a6dff69c1d51c9a3ff3288304a7c3d3097e0887ab83889c9fbb4f3bc9eeb22201484438b310ca2ed9bb56504adba1e4
   languageName: node
   linkType: hard
 
-"@endo/promise-kit@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "@endo/promise-kit@npm:1.1.5"
+"@endo/promise-kit@npm:^1.1.13":
+  version: 1.1.13
+  resolution: "@endo/promise-kit@npm:1.1.13"
   dependencies:
-    ses: "npm:^1.8.0"
-  checksum: 10c0/3a9fb59546507dbbb8c83ada4de664ca4f6085ffcb56c9e3e07789e002e717454b1ee5ae1273549935a7e77ac42be7ae8ddca94ff6d4f16914210d31159ce1a4
+    ses: "npm:^1.14.0"
+  checksum: 10c0/3f358b7a82d1ef856b1aef60c663dbc0bfa5f8f9ddb247e8973f7f4d88849b9fe669b4929b0bc8a452640bd7803ae8da27c4d8f3fc7850b1f82efdabe1cada5a
   languageName: node
   linkType: hard
 
@@ -2491,6 +2832,13 @@ __metadata:
     "@endo/promise-kit": "npm:^1.1.5"
     ses: "npm:^1.8.0"
   checksum: 10c0/625fd9b8b485149c269a01673b76b33fadd0702d76eb37f136c9f7558252e3d51cc9602b2880f1b43971a00f41e5d3e3d2b3a6ebef6f0253bb314d9a144a2cf5
+  languageName: node
+  linkType: hard
+
+"@endo/where@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "@endo/where@npm:1.0.11"
+  checksum: 10c0/352e3836aeba145ce7fdb34e28f79d6afb27e26ffd391ebbfe3c41b6830fb511edb0481079a8b3f8beffed6d03163637c861e206184d4a8aafa8b9089f9f0f3e
   languageName: node
   linkType: hard
 
@@ -2876,7 +3224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fast-check/ava@npm:^1.1.3, @fast-check/ava@npm:^1.1.5":
+"@fast-check/ava@npm:^1.1.3":
   version: 1.2.1
   resolution: "@fast-check/ava@npm:1.2.1"
   dependencies:
@@ -3030,6 +3378,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/gen-mapping@npm:^0.3.12":
+  version: 0.3.13
+  resolution: "@jridgewell/gen-mapping@npm:0.3.13"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.5.0"
+    "@jridgewell/trace-mapping": "npm:^0.3.24"
+  checksum: 10c0/9a7d65fb13bd9aec1fbab74cda08496839b7e2ceb31f5ab922b323e94d7c481ce0fc4fd7e12e2610915ed8af51178bdc61e168e92a8c8b8303b030b03489b13b
+  languageName: node
+  linkType: hard
+
 "@jridgewell/resolve-uri@npm:^3.1.0":
   version: 3.1.1
   resolution: "@jridgewell/resolve-uri@npm:3.1.1"
@@ -3061,6 +3419,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/sourcemap-codec@npm:^1.5.0":
+  version: 1.5.5
+  resolution: "@jridgewell/sourcemap-codec@npm:1.5.5"
+  checksum: 10c0/f9e538f302b63c0ebc06eecb1dd9918dd4289ed36147a0ddce35d6ea4d7ebbda243cda7b2213b6a5e1d8087a298d5cf630fb2bd39329cdecb82017023f6081a0
+  languageName: node
+  linkType: hard
+
 "@jridgewell/trace-mapping@npm:^0.3.24, @jridgewell/trace-mapping@npm:^0.3.25, @jridgewell/trace-mapping@npm:^0.3.9":
   version: 0.3.25
   resolution: "@jridgewell/trace-mapping@npm:0.3.25"
@@ -3071,10 +3436,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/trace-mapping@npm:^0.3.28":
+  version: 0.3.31
+  resolution: "@jridgewell/trace-mapping@npm:0.3.31"
+  dependencies:
+    "@jridgewell/resolve-uri": "npm:^3.1.0"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.14"
+  checksum: 10c0/4b30ec8cd56c5fd9a661f088230af01e0c1a3888d11ffb6b47639700f71225be21d1f7e168048d6d4f9449207b978a235c07c8f15c07705685d16dc06280e9d9
+  languageName: node
+  linkType: hard
+
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.5
   resolution: "@leichtgewicht/ip-codec@npm:2.0.5"
   checksum: 10c0/14a0112bd59615eef9e3446fea018045720cd3da85a98f801a685a818b0d96ef2a1f7227e8d271def546b2e2a0fe91ef915ba9dc912ab7967d2317b1a051d66b
+  languageName: node
+  linkType: hard
+
+"@noble/ciphers@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@noble/ciphers@npm:1.3.0"
+  checksum: 10c0/3ba6da645ce45e2f35e3b2e5c87ceba86b21dfa62b9466ede9edfb397f8116dae284f06652c0cd81d99445a2262b606632e868103d54ecc99fd946ae1af8cd37
   languageName: node
   linkType: hard
 
@@ -3087,10 +3469,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/curves@npm:^1.9.2":
+  version: 1.9.7
+  resolution: "@noble/curves@npm:1.9.7"
+  dependencies:
+    "@noble/hashes": "npm:1.8.0"
+  checksum: 10c0/150014751ebe8ca06a8654ca2525108452ea9ee0be23430332769f06808cddabfe84f248b6dbf836916bc869c27c2092957eec62c7506d68a1ed0a624017c2a3
+  languageName: node
+  linkType: hard
+
 "@noble/hashes@npm:1.3.2":
   version: 1.3.2
   resolution: "@noble/hashes@npm:1.3.2"
   checksum: 10c0/2482cce3bce6a596626f94ca296e21378e7a5d4c09597cbc46e65ffacc3d64c8df73111f2265444e36a3168208628258bbbaccba2ef24f65f58b2417638a20e7
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:1.8.0, @noble/hashes@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@noble/hashes@npm:1.8.0"
+  checksum: 10c0/06a0b52c81a6fa7f04d67762e08b2c476a00285858150caeaaff4037356dd5e119f45b2a530f638b77a5eeca013168ec1b655db41bae3236cb2e9d511484fc77
   languageName: node
   linkType: hard
 
@@ -3262,82 +3660,6 @@ __metadata:
   bin:
     browsers: lib/cjs/main-cli.js
   checksum: 10c0/8cbde5ec8060c2bdfdc0d7149711cf0cccc6648ed61d0b969cd305918108e7973ce8a7ff3f7533fcc3c49552afe1955755cd7a3924c1fdbea7330d48094b35ee
-  languageName: node
-  linkType: hard
-
-"@rollup/plugin-commonjs@npm:^19.0.0":
-  version: 19.0.2
-  resolution: "@rollup/plugin-commonjs@npm:19.0.2"
-  dependencies:
-    "@rollup/pluginutils": "npm:^3.1.0"
-    commondir: "npm:^1.0.1"
-    estree-walker: "npm:^2.0.1"
-    glob: "npm:^7.1.6"
-    is-reference: "npm:^1.2.1"
-    magic-string: "npm:^0.25.7"
-    resolve: "npm:^1.17.0"
-  peerDependencies:
-    rollup: ^2.38.3
-  checksum: 10c0/9adccf77ad835cbe565da4385212f1e54c3e0dca2be174b5c2cfe89cfaeb240f42c7673e97e49b21b7c66ed901cc1c711552b6727f60b43a953ce996eb2868a7
-  languageName: node
-  linkType: hard
-
-"@rollup/plugin-json@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@rollup/plugin-json@npm:6.1.0"
-  dependencies:
-    "@rollup/pluginutils": "npm:^5.1.0"
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-  peerDependenciesMeta:
-    rollup:
-      optional: true
-  checksum: 10c0/9400c431b5e0cf3088ba2eb2d038809a2b0fb2a84ed004997da85582f48cd64958ed3168893c4f2c8109e38652400ed68282d0c92bf8ec07a3b2ef2e1ceab0b7
-  languageName: node
-  linkType: hard
-
-"@rollup/plugin-node-resolve@npm:^13.0.0":
-  version: 13.3.0
-  resolution: "@rollup/plugin-node-resolve@npm:13.3.0"
-  dependencies:
-    "@rollup/pluginutils": "npm:^3.1.0"
-    "@types/resolve": "npm:1.17.1"
-    deepmerge: "npm:^4.2.2"
-    is-builtin-module: "npm:^3.1.0"
-    is-module: "npm:^1.0.0"
-    resolve: "npm:^1.19.0"
-  peerDependencies:
-    rollup: ^2.42.0
-  checksum: 10c0/6caa32a8304a20f1c9953111b25e9543f4de7d254958d81ce0158ad909e4493946bc2060c4ace23d9748b560ebc84c920ee7bc1b7d50dbf8ba852ef13c91af58
-  languageName: node
-  linkType: hard
-
-"@rollup/pluginutils@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@rollup/pluginutils@npm:3.1.0"
-  dependencies:
-    "@types/estree": "npm:0.0.39"
-    estree-walker: "npm:^1.0.1"
-    picomatch: "npm:^2.2.2"
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0
-  checksum: 10c0/7151753160d15ba2b259461a6c25b3932150994ea52dba8fd3144f634c7647c2e56733d986e2c15de67c4d96a9ee7d6278efa6d2e626a7169898fd64adc0f90c
-  languageName: node
-  linkType: hard
-
-"@rollup/pluginutils@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "@rollup/pluginutils@npm:5.1.0"
-  dependencies:
-    "@types/estree": "npm:^1.0.0"
-    estree-walker: "npm:^2.0.2"
-    picomatch: "npm:^2.3.1"
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-  peerDependenciesMeta:
-    rollup:
-      optional: true
-  checksum: 10c0/c7bed15711f942d6fdd3470fef4105b73991f99a478605e13d41888963330a6f9e32be37e6ddb13f012bc7673ff5e54f06f59fd47109436c1c513986a8a7612d
   languageName: node
   linkType: hard
 
@@ -3687,17 +4009,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:1.0.5, @types/estree@npm:^1.0.0":
+"@types/estree@npm:1.0.5, @types/estree@npm:^1.0.0":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
   checksum: 10c0/b3b0e334288ddb407c7b3357ca67dbee75ee22db242ca7c56fe27db4e1a31989cb8af48a84dd401deb787fe10cc6b2ab1ee82dc4783be87ededbe3d53c79c70d
-  languageName: node
-  linkType: hard
-
-"@types/estree@npm:0.0.39":
-  version: 0.0.39
-  resolution: "@types/estree@npm:0.0.39"
-  checksum: 10c0/f0af6c95ac1988c4827964bd9d3b51d24da442e2188943f6dfcb1e1559103d5d024d564b2e9d3f84c53714a02a0a7435c7441138eb63d9af5de4dfc66cdc0d92
   languageName: node
   linkType: hard
 
@@ -3922,15 +4237,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/resolve@npm:1.17.1":
-  version: 1.17.1
-  resolution: "@types/resolve@npm:1.17.1"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/6eeb9c27d99bf4b393bf168d43208f63e78cefca5644662a0bdb2bdbf8352386f4f3aca66add138fc41bce5f66fd48a0de430a1473f11b612fbed0375ae78031
-  languageName: node
-  linkType: hard
-
 "@types/responselike@npm:^1.0.0":
   version: 1.0.3
   resolution: "@types/responselike@npm:1.0.3"
@@ -4035,13 +4341,6 @@ __metadata:
     "@testing-library/dom": "npm:^7.11.0"
     cypress: "npm:*"
   checksum: 10c0/b088736340cb55f56a88c98397189d3857288ddf975f962a6ef8b5f47673e226eb62d11d34bafa0b049622ee15993fe1a1ffd16875c4ace36398f3680ceeb3a6
-  languageName: node
-  linkType: hard
-
-"@types/triple-beam@npm:^1.3.2":
-  version: 1.3.5
-  resolution: "@types/triple-beam@npm:1.3.5"
-  checksum: 10c0/d5d7f25da612f6d79266f4f1bb9c1ef8f1684e9f60abab251e1261170631062b656ba26ff22631f2760caeafd372abc41e64867cde27fba54fafb73a35b9056a
   languageName: node
   linkType: hard
 
@@ -4577,7 +4876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.10.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0, acorn@npm:^8.2.4, acorn@npm:^8.5.0, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
+"acorn@npm:^8.10.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0, acorn@npm:^8.5.0, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
   version: 8.12.1
   resolution: "acorn@npm:8.12.1"
   bin:
@@ -4622,49 +4921,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"agoric@npm:^0.22.0-u16.2":
-  version: 0.22.0-upgrade-16a-dev-fb592e4.0
-  resolution: "agoric@npm:0.22.0-upgrade-16a-dev-fb592e4.0"
+"agoric@npm:^0.22.0-u22.2":
+  version: 0.22.0-upgrade-22-dev-e2e9595.0.e2e9595
+  resolution: "agoric@npm:0.22.0-upgrade-22-dev-e2e9595.0.e2e9595"
   dependencies:
-    "@agoric/access-token": "npm:0.4.22-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/assert": "npm:0.6.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/cache": "npm:0.3.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/casting": "npm:0.4.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/cosmic-proto": "npm:0.4.1-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/ertp": "npm:0.16.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/governance": "npm:0.10.4-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/inter-protocol": "npm:0.17.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/internal": "npm:0.4.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/network": "npm:0.2.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/smart-wallet": "npm:0.5.4-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/store": "npm:0.9.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/swingset-vat": "npm:0.33.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/vats": "npm:0.16.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zoe": "npm:0.26.3-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@agoric/zone": "npm:0.3.0-upgrade-16a-dev-fb592e4.0+fb592e4"
-    "@confio/relayer": "npm:^0.11.3"
-    "@cosmjs/crypto": "npm:^0.32.3"
-    "@cosmjs/encoding": "npm:^0.32.3"
-    "@cosmjs/math": "npm:^0.32.3"
-    "@cosmjs/proto-signing": "npm:^0.32.3"
-    "@cosmjs/stargate": "npm:^0.32.3"
-    "@endo/bundle-source": "npm:^3.2.3"
-    "@endo/captp": "npm:^4.2.0"
-    "@endo/compartment-mapper": "npm:^1.1.5"
-    "@endo/env-options": "npm:^1.1.4"
-    "@endo/far": "npm:^1.1.2"
-    "@endo/init": "npm:^1.1.2"
-    "@endo/marshal": "npm:^1.5.0"
-    "@endo/nat": "npm:^5.0.7"
-    "@endo/patterns": "npm:^1.4.0"
-    "@endo/promise-kit": "npm:^1.1.2"
-    "@endo/zip": "npm:^1.0.5"
+    "@agoric/access-token": "npm:0.4.22-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/cache": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/casting": "npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/client-utils": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/cosmic-proto": "npm:0.5.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/ertp": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/governance": "npm:0.11.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/inter-protocol": "npm:0.17.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/internal": "npm:0.4.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/network": "npm:0.2.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/smart-wallet": "npm:0.6.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/store": "npm:0.10.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/swingset-vat": "npm:0.33.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/vats": "npm:0.16.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zoe": "npm:0.27.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@agoric/zone": "npm:0.3.0-upgrade-22-dev-e2e9595.0.e2e9595"
+    "@cosmjs/crypto": "npm:^0.36.0"
+    "@cosmjs/encoding": "npm:^0.36.0"
+    "@cosmjs/math": "npm:^0.36.0"
+    "@cosmjs/proto-signing": "npm:^0.36.0"
+    "@cosmjs/stargate": "npm:^0.36.0"
+    "@endo/base64": "npm:^1.0.12"
+    "@endo/bundle-source": "npm:^4.1.2"
+    "@endo/captp": "npm:^4.4.8"
+    "@endo/compartment-mapper": "npm:^1.6.3"
+    "@endo/env-options": "npm:^1.1.11"
+    "@endo/errors": "npm:^1.2.13"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/nat": "npm:^5.1.3"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
+    "@endo/zip": "npm:^1.0.11"
     "@iarna/toml": "npm:^2.2.3"
     anylogger: "npm:^0.21.0"
     chalk: "npm:^5.2.0"
-    commander: "npm:^11.1.0"
+    commander: "npm:^12.1.0"
     deterministic-json: "npm:^1.0.5"
-    esm: "github:agoric-labs/esm#Agoric-built"
     inquirer: "npm:^8.2.2"
     opener: "npm:^1.5.2"
     tmp: "npm:^0.2.1"
@@ -4672,7 +4971,7 @@ __metadata:
   bin:
     agops: src/bin-agops.js
     agoric: src/entrypoint.js
-  checksum: 10c0/46c4ac7e37fc4ffd7d97c06ce813723ee0a1004ea68c311e56474e6e49c27eac289eff6715fb92194fedc9f653d91e1227d92c9440e9c4f9859787288a0d7960
+  checksum: 10c0/ae60c848192aeee348be7603f42f5f840b7de7b386ac3a3478eacf7014df47f30bb29d81d00b5a2d14650eb33cd945384037fea44bdd20a1afb6ad0a0be73ddd
   languageName: node
   linkType: hard
 
@@ -4701,18 +5000,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:7.1.1":
-  version: 7.1.1
-  resolution: "ajv@npm:7.1.1"
-  dependencies:
-    fast-deep-equal: "npm:^3.1.1"
-    json-schema-traverse: "npm:^1.0.0"
-    require-from-string: "npm:^2.0.2"
-    uri-js: "npm:^4.2.2"
-  checksum: 10c0/328a86011a67dc10eff41e3e2ef412f88f5de546ad2288c8a3d2a563c203dd4dd479660c07f99fd9499e36c723afee212704b25f5599815991409528fd638329
-  languageName: node
-  linkType: hard
-
 "ajv@npm:8.11.0":
   version: 8.11.0
   resolution: "ajv@npm:8.11.0"
@@ -4737,7 +5024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.0.1, ajv@npm:^8.9.0":
+"ajv@npm:^8.0.0, ajv@npm:^8.9.0":
   version: 8.12.0
   resolution: "ajv@npm:8.12.0"
   dependencies:
@@ -5175,7 +5462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.1.0, async@npm:^3.2.0":
+"async@npm:^3.2.0":
   version: 3.2.5
   resolution: "async@npm:3.2.5"
   checksum: 10c0/1408287b26c6db67d45cb346e34892cee555b8b59e6c68e6f8c3e495cad5ca13b4f218180e871f3c2ca30df4ab52693b66f2f6ff43644760cab0b2198bda79c1
@@ -5324,7 +5611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.4.0, axios@npm:^1.6.0, axios@npm:^1.6.1, axios@npm:^1.6.2, axios@npm:^1.6.7":
+"axios@npm:^1.4.0, axios@npm:^1.6.0, axios@npm:^1.6.1, axios@npm:^1.6.2":
   version: 1.7.7
   resolution: "axios@npm:1.7.7"
   dependencies:
@@ -5471,6 +5758,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bech32@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "bech32@npm:2.0.0"
+  checksum: 10c0/45e7cc62758c9b26c05161b4483f40ea534437cf68ef785abadc5b62a2611319b878fef4f86ddc14854f183b645917a19addebc9573ab890e19194bc8f521942
+  languageName: node
+  linkType: hard
+
 "better-sqlite3@npm:^10.0.0":
   version: 10.1.0
   resolution: "better-sqlite3@npm:10.1.0"
@@ -5509,13 +5803,6 @@ __metadata:
   dependencies:
     file-uri-to-path: "npm:1.0.0"
   checksum: 10c0/3dab2491b4bb24124252a91e656803eac24292473e56554e35bbfe3cc1875332cfa77600c3bac7564049dc95075bf6fcc63a4609920ff2d64d0fe405fcf0d4ba
-  languageName: node
-  linkType: hard
-
-"bintrees@npm:1.0.2":
-  version: 1.0.2
-  resolution: "bintrees@npm:1.0.2"
-  checksum: 10c0/132944b20c93c1a8f97bf8aa25980a76c6eb4291b7f2df2dbcd01cb5b417c287d3ee0847c7260c9f05f3d5a4233aaa03dec95114e97f308abe9cc3f72bed4a44
   languageName: node
   linkType: hard
 
@@ -5729,13 +6016,6 @@ __metadata:
     base64-js: "npm:^1.3.1"
     ieee754: "npm:^1.1.13"
   checksum: 10c0/27cac81cff434ed2876058d72e7c4789d11ff1120ef32c9de48f59eab58179b66710c488987d295ae89a228f835fc66d088652dffeb8e3ba8659f80eb091d55e
-  languageName: node
-  linkType: hard
-
-"builtin-modules@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "builtin-modules@npm:3.3.0"
-  checksum: 10c0/2cb3448b4f7306dc853632a4fcddc95e8d4e4b9868c139400027b71938fc6806d4ff44007deffb362ac85724bd40c2c6452fb6a0aa4531650eeddb98d8e5ee8a
   languageName: node
   linkType: hard
 
@@ -6250,7 +6530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0, color-convert@npm:^1.9.3":
+"color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -6275,30 +6555,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:^1.0.0, color-name@npm:~1.1.4":
+"color-name@npm:~1.1.4":
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: 10c0/a1a3f914156960902f46f7f56bc62effc6c94e84b2cae157a526b1c1f74b677a47ec602bf68a61abfa2b42d15b7c5651c6dbe72a43af720bc588dff885b10f95
-  languageName: node
-  linkType: hard
-
-"color-string@npm:^1.6.0":
-  version: 1.9.1
-  resolution: "color-string@npm:1.9.1"
-  dependencies:
-    color-name: "npm:^1.0.0"
-    simple-swizzle: "npm:^0.2.2"
-  checksum: 10c0/b0bfd74c03b1f837f543898b512f5ea353f71630ccdd0d66f83028d1f0924a7d4272deb278b9aef376cacf1289b522ac3fb175e99895283645a2dc3a33af2404
-  languageName: node
-  linkType: hard
-
-"color@npm:^3.1.3":
-  version: 3.2.1
-  resolution: "color@npm:3.2.1"
-  dependencies:
-    color-convert: "npm:^1.9.3"
-    color-string: "npm:^1.6.0"
-  checksum: 10c0/39345d55825884c32a88b95127d417a2c24681d8b57069413596d9fcbb721459ef9d9ec24ce3e65527b5373ce171b73e38dbcd9c830a52a6487e7f37bf00e83c
   languageName: node
   linkType: hard
 
@@ -6306,16 +6566,6 @@ __metadata:
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 10c0/e94116ff33b0ff56f3b83b9ace895e5bf87c2a7a47b3401b8c3f3226e050d5ef76cf4072fb3325f9dc24d1698f9b730baf4e05eeaf861d74a1883073f4c98a40
-  languageName: node
-  linkType: hard
-
-"colorspace@npm:1.1.x":
-  version: 1.1.4
-  resolution: "colorspace@npm:1.1.4"
-  dependencies:
-    color: "npm:^3.1.3"
-    text-hex: "npm:1.0.x"
-  checksum: 10c0/af5f91ff7f8e146b96e439ac20ed79b197210193bde721b47380a75b21751d90fa56390c773bb67c0aedd34ff85091883a437ab56861c779bd507d639ba7e123
   languageName: node
   linkType: hard
 
@@ -6335,17 +6585,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:7.1.0":
-  version: 7.1.0
-  resolution: "commander@npm:7.1.0"
-  checksum: 10c0/1c114cc2e0c7c980068d7f2472f3fc9129ea5d6f2f0a8699671afe5a44a51d5707a6c73daff1aaa919424284dea9fca4017307d30647935a1116518699d54c9d
-  languageName: node
-  linkType: hard
-
-"commander@npm:^11.0.0, commander@npm:^11.1.0":
+"commander@npm:^11.0.0":
   version: 11.1.0
   resolution: "commander@npm:11.1.0"
   checksum: 10c0/13cc6ac875e48780250f723fb81c1c1178d35c5decb1abb1b628b3177af08a8554e76b2c0f29de72d69eef7c864d12613272a71fabef8047922bc622ab75a179
+  languageName: node
+  linkType: hard
+
+"commander@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "commander@npm:12.1.0"
+  checksum: 10c0/6e1996680c083b3b897bfc1cfe1c58dfbcd9842fd43e1aaf8a795fbc237f65efcc860a3ef457b318e73f29a4f4a28f6403c3d653d021d960e4632dd45bde54a9
   languageName: node
   linkType: hard
 
@@ -6573,6 +6823,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/1c1703be4f02a250b1d6ca3267e408ce16abfe8364193891afc94c2d5c060b69611fdc8d97af74b7e6d5d1aac0ab2fb94d6b079573146bc2d756c2484ce5f0ee
+  languageName: node
+  linkType: hard
+
+"cosmjs-types@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "cosmjs-types@npm:0.10.1"
+  checksum: 10c0/f114cd1a0636034d93b97f61b049c5dc4929c81ff63855c6e56b0335be2b2d35475eee862ea5bd504288b33d3a918952dab11d4b6bed6bc2829f401cb5e6c797
   languageName: node
   linkType: hard
 
@@ -6910,6 +7167,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"decode-uri-component@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "decode-uri-component@npm:0.4.1"
+  checksum: 10c0/a180bbdb5398ec8270d236a3ac07cb988bbf6097428481780b85840f088951dc0318a8d8f9d56796e1a322b55b29859cea29982f22f9b03af0bc60974c54e591
+  languageName: node
+  linkType: hard
+
 "decompress-response@npm:^3.3.0":
   version: 3.3.0
   resolution: "decompress-response@npm:3.3.0"
@@ -7037,13 +7301,6 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: 10c0/7f0ee496e0dff14a573dc6127f14c95061b448b87b995fc96c017ce0a1e66af1675e73f1d6064407975bc4ea6ab679497a29fff7b5b9c4e99cb10797c1ad0b4c
-  languageName: node
-  linkType: hard
-
-"deepmerge@npm:^4.2.2":
-  version: 4.3.1
-  resolution: "deepmerge@npm:4.3.1"
-  checksum: 10c0/e53481aaf1aa2c4082b5342be6b6d8ad9dfe387bc92ce197a66dea08bd4265904a087e75e464f14d1347cf2ac8afe1e4c16b266e0561cc5df29382d3c5f80044
   languageName: node
   linkType: hard
 
@@ -7423,13 +7680,6 @@ __metadata:
   version: 3.0.0
   resolution: "emojis-list@npm:3.0.0"
   checksum: 10c0/7dc4394b7b910444910ad64b812392159a21e1a7ecc637c775a440227dcb4f80eff7fe61f4453a7d7603fa23d23d30cc93fe9e4b5ed985b88d6441cd4a35117b
-  languageName: node
-  linkType: hard
-
-"enabled@npm:2.0.x":
-  version: 2.0.0
-  resolution: "enabled@npm:2.0.0"
-  checksum: 10c0/3b2c2af9bc7f8b9e291610f2dde4a75cf6ee52a68f4dd585482fbdf9a55d65388940e024e56d40bb03e05ef6671f5f53021fa8b72a20e954d7066ec28166713f
   languageName: node
   linkType: hard
 
@@ -8382,13 +8632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm@github:agoric-labs/esm#Agoric-built":
-  version: 3.2.25
-  resolution: "esm@https://github.com/agoric-labs/esm.git#commit=3603726ad4636b2f865f463188fcaade6375638e"
-  checksum: 10c0/fc1e112a3a681e7b4152d4f5c76dd5aa9e30496d2020490ffa0fb61aaf57d1e12dae0c1074fdd2e0f08949ab2df7e00e750262356781f072e4119955ee10b754
-  languageName: node
-  linkType: hard
-
 "espree@npm:^10.1.0":
   version: 10.1.0
   resolution: "espree@npm:10.1.0"
@@ -8466,20 +8709,6 @@ __metadata:
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 10c0/1ff9447b96263dec95d6d67431c5e0771eb9776427421260a3e2f0fdd5d6bd4f8e37a7338f5ad2880c9f143450c9b1e4fc2069060724570a49cf9cf0312bd107
-  languageName: node
-  linkType: hard
-
-"estree-walker@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "estree-walker@npm:1.0.1"
-  checksum: 10c0/fa9e5f8c1bbe8d01e314c0f03067b64a4f22d4c58410fc5237060d0c15b81e58c23921c41acc60abbdab490f1fdfcbd6408ede2d03ca704454272e0244d61a55
-  languageName: node
-  linkType: hard
-
-"estree-walker@npm:^2.0.1, estree-walker@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "estree-walker@npm:2.0.2"
-  checksum: 10c0/53a6c54e2019b8c914dc395890153ffdc2322781acf4bd7d1a32d7aedc1710807bdcd866ac133903d5629ec601fbb50abe8c2e5553c7f5a0afdd9b6af6c945af
   languageName: node
   linkType: hard
 
@@ -8816,13 +9045,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-safe-stringify@npm:2.0.4":
-  version: 2.0.4
-  resolution: "fast-safe-stringify@npm:2.0.4"
-  checksum: 10c0/5e4fbafe8b8c4a1681c2ab259ed8ce6672fc209683a141876f020c36a2cbec73bfe25c417c269f439797020996d04ed2d7c4c6b2c5cf393d6febbf7f4d8a5f53
-  languageName: node
-  linkType: hard
-
 "fast-url-parser@npm:1.1.3":
   version: 1.1.3
   resolution: "fast-url-parser@npm:1.1.3"
@@ -8856,13 +9078,6 @@ __metadata:
   dependencies:
     pend: "npm:~1.2.0"
   checksum: 10c0/304dd70270298e3ffe3bcc05e6f7ade2511acc278bc52d025f8918b48b6aa3b77f10361bddfadfe2a28163f7af7adbdce96f4d22c31b2f648ba2901f0c5fc20e
-  languageName: node
-  linkType: hard
-
-"fecha@npm:^4.2.0":
-  version: 4.2.3
-  resolution: "fecha@npm:4.2.3"
-  checksum: 10c0/0e895965959cf6a22bb7b00f0bf546f2783836310f510ddf63f463e1518d4c96dec61ab33fdfd8e79a71b4856a7c865478ce2ee8498d560fe125947703c9b1cf
   languageName: node
   linkType: hard
 
@@ -8974,6 +9189,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"filter-obj@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "filter-obj@npm:5.1.0"
+  checksum: 10c0/716e8ad2bc352e206556b3e5695b3cdff8aab80c53ea4b00c96315bbf467b987df3640575100aef8b84e812cf5ea4251db4cd672bbe33b1e78afea88400c67dd
+  languageName: node
+  linkType: hard
+
 "finalhandler@npm:1.2.0":
   version: 1.2.0
   resolution: "finalhandler@npm:1.2.0"
@@ -9063,13 +9285,6 @@ __metadata:
   version: 3.2.9
   resolution: "flatted@npm:3.2.9"
   checksum: 10c0/5c91c5a0a21bbc0b07b272231e5b4efe6b822bcb4ad317caf6bb06984be4042a9e9045026307da0fdb4583f1f545e317a67ef1231a59e71f7fced3cc429cfc53
-  languageName: node
-  linkType: hard
-
-"fn.name@npm:1.x.x":
-  version: 1.1.0
-  resolution: "fn.name@npm:1.1.0"
-  checksum: 10c0/8ad62aa2d4f0b2a76d09dba36cfec61c540c13a0fd72e5d94164e430f987a7ce6a743112bbeb14877c810ef500d1f73d7f56e76d029d2e3413f20d79e3460a9a
   languageName: node
   linkType: hard
 
@@ -9732,6 +9947,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hash-wasm@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "hash-wasm@npm:4.12.0"
+  checksum: 10c0/6cb95055319810b6f673de755289960683a9831807690795f0e8918b2fd7e6ae5b82a9dc47cbace171cf2814b412ef68c315a0ead0b4d96bd3e56a05e4bde136
+  languageName: node
+  linkType: hard
+
 "hash.js@npm:^1.0.0, hash.js@npm:^1.0.3":
   version: 1.1.7
   resolution: "hash.js@npm:1.1.7"
@@ -10090,6 +10312,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"import-meta-resolve@npm:^4.1.0":
+  version: 4.2.0
+  resolution: "import-meta-resolve@npm:4.2.0"
+  checksum: 10c0/3ee8aeecb61d19b49d2703987f977e9d1c7d4ba47db615a570eaa02fe414f40dfa63f7b953e842cbe8470d26df6371332bfcf21b2fd92b0112f9fea80dde2c4c
+  languageName: node
+  linkType: hard
+
 "import-modules@npm:^2.1.0":
   version: 2.1.0
   resolution: "import-modules@npm:2.1.0"
@@ -10265,13 +10494,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-arrayish@npm:^0.3.1":
-  version: 0.3.2
-  resolution: "is-arrayish@npm:0.3.2"
-  checksum: 10c0/f59b43dc1d129edb6f0e282595e56477f98c40278a2acdc8b0a5c57097c9eff8fe55470493df5775478cf32a4dc8eaf6d3a749f07ceee5bc263a78b2434f6a54
-  languageName: node
-  linkType: hard
-
 "is-async-function@npm:^2.0.0":
   version: 2.0.0
   resolution: "is-async-function@npm:2.0.0"
@@ -10306,15 +10528,6 @@ __metadata:
     call-bind: "npm:^1.0.2"
     has-tostringtag: "npm:^1.0.0"
   checksum: 10c0/6090587f8a8a8534c0f816da868bc94f32810f08807aa72fa7e79f7e11c466d281486ffe7a788178809c2aa71fe3e700b167fe80dd96dad68026bfff8ebf39f7
-  languageName: node
-  linkType: hard
-
-"is-builtin-module@npm:^3.1.0":
-  version: 3.2.1
-  resolution: "is-builtin-module@npm:3.2.1"
-  dependencies:
-    builtin-modules: "npm:^3.3.0"
-  checksum: 10c0/5a66937a03f3b18803381518f0ef679752ac18cdb7dd53b5e23ee8df8d440558737bd8dcc04d2aae555909d2ecb4a81b5c0d334d119402584b61e6a003e31af1
   languageName: node
   linkType: hard
 
@@ -10467,13 +10680,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-module@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "is-module@npm:1.0.0"
-  checksum: 10c0/795a3914bcae7c26a1c23a1e5574c42eac13429625045737bf3e324ce865c0601d61aee7a5afbca1bee8cb300c7d9647e7dc98860c9bdbc3b7fdc51d8ac0bffc
-  languageName: node
-  linkType: hard
-
 "is-natural-number@npm:^4.0.1":
   version: 4.0.1
   resolution: "is-natural-number@npm:4.0.1"
@@ -10559,15 +10765,6 @@ __metadata:
   version: 4.0.0
   resolution: "is-promise@npm:4.0.0"
   checksum: 10c0/ebd5c672d73db781ab33ccb155fb9969d6028e37414d609b115cc534654c91ccd061821d5b987eefaa97cf4c62f0b909bb2f04db88306de26e91bfe8ddc01503
-  languageName: node
-  linkType: hard
-
-"is-reference@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "is-reference@npm:1.2.1"
-  dependencies:
-    "@types/estree": "npm:*"
-  checksum: 10c0/7dc819fc8de7790264a0a5d531164f9f5b9ef5aa1cd05f35322d14db39c8a2ec78fd5d4bf57f9789f3ddd2b3abeea7728432b759636157a42db12a9e8c3b549b
   languageName: node
   linkType: hard
 
@@ -10957,17 +11154,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.0.0":
-  version: 4.0.0
-  resolution: "js-yaml@npm:4.0.0"
-  dependencies:
-    argparse: "npm:^2.0.1"
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 10c0/ef8489b87d9796b45df9f0bf3eefbb343b5063e39a9911d7b8ddbd4518cafaf73b49150d1f5865f54ee68719642ff0ab86110b9a332ff88bb05cd3bcf3039de1
-  languageName: node
-  linkType: hard
-
 "js-yaml@npm:4.1.0, js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
@@ -11018,6 +11204,15 @@ __metadata:
   bin:
     jsesc: bin/jsesc
   checksum: 10c0/dbf59312e0ebf2b4405ef413ec2b25abb5f8f4d9bc5fb8d9f90381622ebca5f2af6a6aa9a8578f65903f9e33990a6dc798edd0ce5586894bf0e9e31803a1de88
+  languageName: node
+  linkType: hard
+
+"jsesc@npm:^3.0.2":
+  version: 3.1.0
+  resolution: "jsesc@npm:3.1.0"
+  bin:
+    jsesc: bin/jsesc
+  checksum: 10c0/531779df5ec94f47e462da26b4cbf05eb88a83d9f08aac2ba04206508fc598527a153d08bd462bae82fc78b3eaa1a908e1a4a79f886e9238641c4cdefaf118b1
   languageName: node
   linkType: hard
 
@@ -11191,13 +11386,6 @@ __metadata:
   version: 6.0.3
   resolution: "kind-of@npm:6.0.3"
   checksum: 10c0/61cdff9623dabf3568b6445e93e31376bee1cdb93f8ba7033d86022c2a9b1791a1d9510e026e6465ebd701a6dd2f7b0808483ad8838341ac52f003f512e0b4c4
-  languageName: node
-  linkType: hard
-
-"kuler@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "kuler@npm:2.0.0"
-  checksum: 10c0/0a4e99d92ca373f8f74d1dc37931909c4d0d82aebc94cf2ba265771160fc12c8df34eaaac80805efbda367e2795cb1f1dd4c3d404b6b1cf38aec94035b503d2d
   languageName: node
   linkType: hard
 
@@ -11415,13 +11603,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.truncate@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "lodash.truncate@npm:4.4.2"
-  checksum: 10c0/4e870d54e8a6c86c8687e057cec4069d2e941446ccab7f40b4d9555fa5872d917d0b6aa73bece7765500a3123f1723bcdba9ae881b679ef120bba9e1a0b0ed70
-  languageName: node
-  linkType: hard
-
 "lodash.upperfirst@npm:4.3.1":
   version: 4.3.1
   resolution: "lodash.upperfirst@npm:4.3.1"
@@ -11429,7 +11610,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.13.1, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4":
+"lodash@npm:^4.13.1, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -11455,20 +11636,6 @@ __metadata:
     slice-ansi: "npm:^4.0.0"
     wrap-ansi: "npm:^6.2.0"
   checksum: 10c0/18b299e230432a156f2535660776406d15ba8bb7817dd3eaadd58004b363756d4ecaabcd658f9949f90b62ea7d3354423be3fdeb7a201ab951ec0e8d6139af86
-  languageName: node
-  linkType: hard
-
-"logform@npm:^2.2.0, logform@npm:^2.3.2":
-  version: 2.6.0
-  resolution: "logform@npm:2.6.0"
-  dependencies:
-    "@colors/colors": "npm:1.6.0"
-    "@types/triple-beam": "npm:^1.3.2"
-    fecha: "npm:^4.2.0"
-    ms: "npm:^2.1.1"
-    safe-stable-stringify: "npm:^2.3.1"
-    triple-beam: "npm:^1.3.0"
-  checksum: 10c0/6e02f8617a03155b2fce451bacf777a2c01da16d32c4c745b3ec85be6c3f2602f2a4953a8bd096441cb4c42c447b52318541d6b6bc335dce903cb9ad77a1749f
   languageName: node
   linkType: hard
 
@@ -11558,15 +11725,6 @@ __metadata:
   bin:
     lz-string: bin/bin.js
   checksum: 10c0/36128e4de34791838abe979b19927c26e67201ca5acf00880377af7d765b38d1c60847e01c5ec61b1a260c48029084ab3893a3925fd6e48a04011364b089991b
-  languageName: node
-  linkType: hard
-
-"magic-string@npm:^0.25.7":
-  version: 0.25.9
-  resolution: "magic-string@npm:0.25.9"
-  dependencies:
-    sourcemap-codec: "npm:^1.4.8"
-  checksum: 10c0/37f5e01a7e8b19a072091f0b45ff127cda676232d373ce2c551a162dd4053c575ec048b9cbb4587a1f03adb6c5d0fd0dd49e8ab070cd2c83a4992b2182d9cb56
   languageName: node
   linkType: hard
 
@@ -12681,21 +12839,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "offer-up-contract@workspace:contract"
   dependencies:
-    "@agoric/deploy-script-support": "npm:^0.10.4-u16.2"
-    "@agoric/ertp": "npm:^0.16.3-u16.1"
+    "@agoric/deploy-script-support": "npm:^0.11.0-u22.2"
+    "@agoric/ertp": "npm:^0.17.0-u22.2"
     "@agoric/eslint-config": "npm:^0.4.1-u16.0"
     "@agoric/vats": "npm:dev"
-    "@agoric/zoe": "npm:^0.26.3-u16.1"
-    "@endo/bundle-source": "npm:^3.5.1"
+    "@agoric/zoe": "npm:^0.27.0-u22.2"
+    "@endo/bundle-source": "npm:^4.1.2"
     "@endo/eslint-plugin": "npm:^2.3.0"
-    "@endo/far": "npm:^1.1.10"
-    "@endo/init": "npm:^1.1.8"
-    "@endo/marshal": "npm:^1.6.3"
-    "@endo/patterns": "npm:^1.4.8"
-    "@endo/promise-kit": "npm:^1.1.9"
+    "@endo/far": "npm:^1.1.14"
+    "@endo/init": "npm:^1.1.12"
+    "@endo/marshal": "npm:^1.8.0"
+    "@endo/patterns": "npm:^1.7.0"
+    "@endo/promise-kit": "npm:^1.1.13"
     "@endo/ses-ava": "npm:^1.2.9"
     "@jessie.js/eslint-plugin": "npm:^0.4.1"
-    agoric: "npm:^0.22.0-u16.2"
+    agoric: "npm:^0.22.0-u22.2"
     ava: "npm:^5.3.0"
     eslint: "npm:^8.57.0"
     eslint-config-airbnb-base: "npm:^15.0.0"
@@ -12718,7 +12876,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "offer-up-ui@workspace:ui"
   dependencies:
-    "@agoric/notifier": "npm:^0.7.0-u16.1"
+    "@agoric/notifier": "npm:^0.7.0-u22.2"
     "@agoric/rpc": "npm:0.10.0"
     "@agoric/store": "npm:^0.9.3-u16.0"
     "@agoric/ui-components": "npm:^0.9.0"
@@ -12784,15 +12942,6 @@ __metadata:
   dependencies:
     wrappy: "npm:1"
   checksum: 10c0/5d48aca287dfefabd756621c5dfce5c91a549a93e9fdb7b8246bc4c4790aa2ec17b34a260530474635147aeb631a2dcc8b32c613df0675f96041cbb8244517d0
-  languageName: node
-  linkType: hard
-
-"one-time@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "one-time@npm:1.0.0"
-  dependencies:
-    fn.name: "npm:1.x.x"
-  checksum: 10c0/6e4887b331edbb954f4e915831cbec0a7b9956c36f4feb5f6de98c448ac02ff881fd8d9b55a6b1b55030af184c6b648f340a76eb211812f4ad8c9b4b8692fdaa
   languageName: node
   linkType: hard
 
@@ -13101,13 +13250,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pako@npm:^2.0.2":
-  version: 2.1.0
-  resolution: "pako@npm:2.1.0"
-  checksum: 10c0/8e8646581410654b50eb22a5dfd71159cae98145bd5086c9a7a816ec0370b5f72b4648d08674624b3870a521e6a3daffd6c2f7bc00fdefc7063c9d8232ff5116
-  languageName: node
-  linkType: hard
-
 "param-case@npm:^3.0.3, param-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "param-case@npm:3.0.4"
@@ -13302,7 +13444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.3.1":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 10c0/26c02b8d06f03206fc2ab8d16f19960f2ff9e81a658f831ecb656d8f17d9edc799e8364b1f4a7873e89d9702dff96204be0fa26fe4181f6843f040f819dac4be
@@ -13610,15 +13752,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prom-client@npm:13.1.0":
-  version: 13.1.0
-  resolution: "prom-client@npm:13.1.0"
-  dependencies:
-    tdigest: "npm:^0.1.1"
-  checksum: 10c0/0f117e044bdbc7e8fb3a926e16e0e76ff3fb308dbc98fdb084dfa16ad52a0b68cf6a79a31e907b1c4ac9009b1d50848e3e72fb36ed43893291148e1505844fc2
-  languageName: node
-  linkType: hard
-
 "promise-retry@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-retry@npm:2.0.1"
@@ -13827,6 +13960,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"query-string@npm:^9.1.1":
+  version: 9.3.1
+  resolution: "query-string@npm:9.3.1"
+  dependencies:
+    decode-uri-component: "npm:^0.4.1"
+    filter-obj: "npm:^5.1.0"
+    split-on-first: "npm:^3.0.0"
+  checksum: 10c0/47f62350be7ace6d2e03d12becf5d1985731d97577963a4d8b684e166f6708cb42f63f09aa4c92931f2ee1ff57c0800a25807b95f28fd98f7064b1d06b02b07e
+  languageName: node
+  linkType: hard
+
 "querystring@npm:0.2.1":
   version: 0.2.1
   resolution: "querystring@npm:0.2.1"
@@ -13952,7 +14096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0":
   version: 3.6.2
   resolution: "readable-stream@npm:3.6.2"
   dependencies:
@@ -14147,7 +14291,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.22.4":
+"resolve@npm:^1.22.4":
   version: 1.22.8
   resolution: "resolve@npm:1.22.8"
   dependencies:
@@ -14160,7 +14304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.17.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
   version: 1.22.8
   resolution: "resolve@patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
   dependencies:
@@ -14228,20 +14372,6 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 10c0/9cb7757acb489bd83757ba1a274ab545eafd75598a9d817e0c3f8b164238dd90eba50d6b848bd4dcc5f3040912e882dc7ba71653e35af660d77b25c381d402e8
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^2.79.1":
-  version: 2.79.1
-  resolution: "rollup@npm:2.79.1"
-  dependencies:
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10c0/421418687f5dcd7324f4387f203c6bfc7118b7ace789e30f5da022471c43e037a76f5fd93837052754eeeae798a4fb266ac05ccee1e594406d912a59af98dde9
   languageName: node
   linkType: hard
 
@@ -14372,13 +14502,6 @@ __metadata:
     es-errors: "npm:^1.3.0"
     is-regex: "npm:^1.1.4"
   checksum: 10c0/900bf7c98dc58f08d8523b7012b468e4eb757afa624f198902c0643d7008ba777b0bdc35810ba0b758671ce887617295fb742b3f3968991b178ceca54cb07603
-  languageName: node
-  linkType: hard
-
-"safe-stable-stringify@npm:^2.3.1":
-  version: 2.4.3
-  resolution: "safe-stable-stringify@npm:2.4.3"
-  checksum: 10c0/81dede06b8f2ae794efd868b1e281e3c9000e57b39801c6c162267eb9efda17bd7a9eafa7379e1f1cacd528d4ced7c80d7460ad26f62ada7c9e01dec61b2e768
   languageName: node
   linkType: hard
 
@@ -14713,15 +14836,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-swizzle@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "simple-swizzle@npm:0.2.2"
-  dependencies:
-    is-arrayish: "npm:^0.3.1"
-  checksum: 10c0/df5e4662a8c750bdba69af4e8263c5d96fe4cd0f9fe4bdfa3cbdeb45d2e869dff640beaaeb1ef0e99db4d8d2ec92f85508c269f50c972174851bc1ae5bd64308
-  languageName: node
-  linkType: hard
-
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -14841,7 +14955,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.0":
+"source-map-js@npm:^1.0.2":
   version: 1.2.0
   resolution: "source-map-js@npm:1.2.0"
   checksum: 10c0/7e5f896ac10a3a50fe2898e5009c58ff0dc102dcb056ed27a354623a0ece8954d4b2649e1a1b2b52ef2e161d26f8859c7710350930751640e71e374fe2d321a4
@@ -14876,13 +14990,6 @@ __metadata:
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
-  languageName: node
-  linkType: hard
-
-"sourcemap-codec@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "sourcemap-codec@npm:1.4.8"
-  checksum: 10c0/f099279fdaae070ff156df7414bbe39aad69cdd615454947ed3e19136bfdfcb4544952685ee73f56e17038f4578091e12b17b283ed8ac013882916594d95b9e6
   languageName: node
   linkType: hard
 
@@ -14962,6 +15069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"split-on-first@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "split-on-first@npm:3.0.0"
+  checksum: 10c0/a1262eae12b68de235e1a08e011bf5b42c42621985ddf807e6221fb1e2b3304824913ae7019f18436b96b8fab8aef5f1ad80dedd2385317fdc51b521c3882cd0
+  languageName: node
+  linkType: hard
+
 "sprintf-js@npm:^1.1.3":
   version: 1.1.3
   resolution: "sprintf-js@npm:1.1.3"
@@ -15003,13 +15117,6 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.3"
   checksum: 10c0/e5a1e23a4057a86a97971465418f22ea89bd439ac36ade88812dd920e4e61873e8abd6a9b72a03a67ef50faa00a2daf1ab745c5a15b46d03e0544a0296354227
-  languageName: node
-  linkType: hard
-
-"stack-trace@npm:0.0.x":
-  version: 0.0.10
-  resolution: "stack-trace@npm:0.0.10"
-  checksum: 10c0/9ff3dabfad4049b635a85456f927a075c9d0c210e3ea336412d18220b2a86cbb9b13ec46d6c37b70a302a4ea4d49e30e5d4944dd60ae784073f1cde778ac8f4b
   languageName: node
   linkType: hard
 
@@ -15333,19 +15440,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"table@npm:^6.7.1":
-  version: 6.8.1
-  resolution: "table@npm:6.8.1"
-  dependencies:
-    ajv: "npm:^8.0.1"
-    lodash.truncate: "npm:^4.4.2"
-    slice-ansi: "npm:^4.0.0"
-    string-width: "npm:^4.2.3"
-    strip-ansi: "npm:^6.0.1"
-  checksum: 10c0/591ed84b2438b01c9bc02248e2238e21e8bfb73654bc5acca0d469053eb39be3db2f57d600dcf08ac983b6f50f80842c44612c03877567c2afee3aec4a033e5f
-  languageName: node
-  linkType: hard
-
 "tapable@npm:^1.1.3":
   version: 1.1.3
   resolution: "tapable@npm:1.1.3"
@@ -15436,15 +15530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tdigest@npm:^0.1.1":
-  version: 0.1.2
-  resolution: "tdigest@npm:0.1.2"
-  dependencies:
-    bintrees: "npm:1.0.2"
-  checksum: 10c0/10187b8144b112fcdfd3a5e4e9068efa42c990b1e30cd0d4f35ee8f58f16d1b41bc587e668fa7a6f6ca31308961cbd06cd5d4a4ae1dc388335902ae04f7d57df
-  languageName: node
-  linkType: hard
-
 "temp-dir@npm:^3.0.0":
   version: 3.0.0
   resolution: "temp-dir@npm:3.0.0"
@@ -15487,13 +15572,6 @@ __metadata:
     glob: "npm:^7.1.4"
     minimatch: "npm:^3.0.4"
   checksum: 10c0/019d33d81adff3f9f1bfcff18125fb2d3c65564f437d9be539270ee74b994986abb8260c7c2ce90e8f30162178b09dbbce33c6389273afac4f36069c48521f57
-  languageName: node
-  linkType: hard
-
-"text-hex@npm:1.0.x":
-  version: 1.0.0
-  resolution: "text-hex@npm:1.0.0"
-  checksum: 10c0/57d8d320d92c79d7c03ffb8339b825bb9637c2cbccf14304309f51d8950015c44464b6fd1b6820a3d4821241c68825634f09f5a2d9d501e84f7c6fd14376860d
   languageName: node
   linkType: hard
 
@@ -15641,26 +15719,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"triple-beam@npm:1.3.0":
-  version: 1.3.0
-  resolution: "triple-beam@npm:1.3.0"
-  checksum: 10c0/a6da96495f25b6c04b3629df5161c7eb84760927943f16665fd8dcd3a643daadf73d69eee78306b4b68d606937f22f8703afe763bc8d3723632ffb1f3a798493
-  languageName: node
-  linkType: hard
-
-"triple-beam@npm:^1.3.0":
-  version: 1.4.1
-  resolution: "triple-beam@npm:1.4.1"
-  checksum: 10c0/4bf1db71e14fe3ff1c3adbe3c302f1fdb553b74d7591a37323a7badb32dc8e9c290738996cbb64f8b10dc5a3833645b5d8c26221aaaaa12e50d1251c9aba2fea
-  languageName: node
-  linkType: hard
-
 "ts-api-utils@npm:^1.0.1, ts-api-utils@npm:^1.3.0":
   version: 1.3.0
   resolution: "ts-api-utils@npm:1.3.0"
   peerDependencies:
     typescript: ">=4.2.0"
   checksum: 10c0/f54a0ba9ed56ce66baea90a3fa087a484002e807f28a8ccb2d070c75e76bde64bd0f6dce98b3802834156306050871b67eec325cb4e918015a360a3f0868c77c
+  languageName: node
+  linkType: hard
+
+"ts-blank-space@npm:^0.4.1":
+  version: 0.4.4
+  resolution: "ts-blank-space@npm:0.4.4"
+  dependencies:
+    typescript: "npm:5.1.6 - 5.7.x"
+  checksum: 10c0/31b8d9b7c814dfccd41f26871d93560fcb1396c290852064a5cb604c552840540cc1c9d18732c5d918d08209ccc945774de4bbeaf32b49bf6a3019bee2809a07
   languageName: node
   linkType: hard
 
@@ -15895,6 +15968,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:5.1.6 - 5.7.x":
+  version: 5.7.3
+  resolution: "typescript@npm:5.7.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/b7580d716cf1824736cc6e628ab4cd8b51877408ba2be0869d2866da35ef8366dd6ae9eb9d0851470a39be17cbd61df1126f9e211d8799d764ea7431d5435afa
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^5.0.2":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
@@ -15922,6 +16005,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/44f61d3fb15c35359bc60399cb8127c30bae554cd555b8e2b46d68fa79d680354b83320ad419ff1b81a0bdf324197b29affe6cc28988cd6a74d4ac60c94f9799
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A5.1.6 - 5.7.x#optional!builtin<compat/typescript>":
+  version: 5.7.3
+  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/6fd7e0ed3bf23a81246878c613423730c40e8bdbfec4c6e4d7bf1b847cbb39076e56ad5f50aa9d7ebd89877999abaee216002d3f2818885e41c907caaa192cc4
   languageName: node
   linkType: hard
 
@@ -16677,34 +16770,6 @@ __metadata:
   version: 2.0.1
   resolution: "wildcard@npm:2.0.1"
   checksum: 10c0/08f70cd97dd9a20aea280847a1fe8148e17cae7d231640e41eb26d2388697cbe65b67fd9e68715251c39b080c5ae4f76d71a9a69fa101d897273efdfb1b58bf7
-  languageName: node
-  linkType: hard
-
-"winston-transport@npm:^4.4.0":
-  version: 4.6.0
-  resolution: "winston-transport@npm:4.6.0"
-  dependencies:
-    logform: "npm:^2.3.2"
-    readable-stream: "npm:^3.6.0"
-    triple-beam: "npm:^1.3.0"
-  checksum: 10c0/43f7f03dfbaeb2a37ddcfadf5f03a6802c77fb8800a384e9aeecce8d233272ed8f18c50f377045a7e154fd6c951e31c9af1bbcd7a3db9246518af42b6f961cc1
-  languageName: node
-  linkType: hard
-
-"winston@npm:3.3.3":
-  version: 3.3.3
-  resolution: "winston@npm:3.3.3"
-  dependencies:
-    "@dabh/diagnostics": "npm:^2.0.2"
-    async: "npm:^3.1.0"
-    is-stream: "npm:^2.0.0"
-    logform: "npm:^2.2.0"
-    one-time: "npm:^1.0.0"
-    readable-stream: "npm:^3.4.0"
-    stack-trace: "npm:0.0.x"
-    triple-beam: "npm:^1.3.0"
-    winston-transport: "npm:^4.4.0"
-  checksum: 10c0/18205fa1e3ebb88dc910fbe5337e3c9d2dbd94310978adca5ab77444b854d5679dec0a70fed425e77cf93e237390c7670bb937f14c492b8415e594ab21540d3d
   languageName: node
   linkType: hard
 
