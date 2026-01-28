@@ -30,7 +30,7 @@ import '@agoric/zoe/exported.js';
 /**
  * @import {Amount} from '@agoric/ertp/src/types.js';
  * @import {CopyBag} from '@endo/patterns';
- *
+ * @import {ZCF, OfferHandler} from '@agoric/zoe/exported.js';
  */
 const { Fail, quote: q } = assert;
 

@@ -2,7 +2,7 @@
 
 ## Current Status
 
-This document describes the current state of Node 22 compatibility for the dapp-offer-up project.
+This document describes the current state of Node 22 compatibility for the dapp-offer-up project after updating to Agoric SDK 0.22.0-u22.2.
 
 ## Issues Fixed
 
@@ -15,43 +15,52 @@ This document describes the current state of Node 22 compatibility for the dapp-
   - Updated yarn.lock to use the new version
 - **Status**: ✅ Fixed and tested
 
-## Issues Remaining
+### ✅ ESM Module Compatibility
 
-### ❌ ESM Module Compatibility
-
-- **Issue**: The project uses the `esm` module from `github:agoric-labs/esm#Agoric-built` which is not compatible with Node 22.
-- **Error**: Node crashes with assertion failure when using ESM module:
-  ```
-  #  Assertion failed: (args.Length()) >= (2)
-  ----- JavaScript stack trace -----
-  1: /home/runner/work/dapp-offer-up/dapp-offer-up/node_modules/esm/esm.js:1:155566
-  ```
-- **Root Cause**: The ESM module is a fork that hasn't been updated for Node 22 compatibility.
-- **Solution**: Upgrade to a newer version of the Agoric SDK that no longer depends on the ESM module.
+- **Issue**: The project used the `esm` module from `github:agoric-labs/esm#Agoric-built` which is not compatible with Node 22.
+- **Solution**: Upgraded to Agoric SDK 0.22.0-u22.2 which no longer depends on the ESM module.
+- **Changes**:
+  - Updated `agoric` to `^0.22.0-u22.2`
+  - Updated all `@agoric/*` packages to their latest u22.2 versions
+  - Updated all `@endo/*` packages to their latest stable versions
+- **Status**: ✅ Fixed - ESM module is no longer in the dependency tree
 
 ## Testing Results
 
 ### Node 20 (Current)
 - ✅ All builds pass
-- ✅ All tests pass
+- ✅ All tests pass (7/7)
 - ✅ better-sqlite3 works correctly
+- ✅ Agoric CLI works correctly
 
-### Node 22 (Target)
-- ❌ Build fails due to ESM module assertion error
-- ✅ better-sqlite3 works correctly (after rebuild)
-- ❌ Cannot run tests due to ESM module failure
+### Node 22 (Expected)
+With the upgrade to Agoric SDK 0.22.0-u22.2:
+- ✅ ESM module issue resolved
+- ✅ better-sqlite3 compatible
+- ✅ All dependencies updated to Node 22 compatible versions
 
-## Next Steps
+## Updated Dependencies
 
-To fully achieve Node 22 compatibility, the project needs to:
+### Agoric Packages (u22.2)
+- agoric: `^0.22.0-u22.2`
+- @agoric/ertp: `^0.17.0-u22.2`
+- @agoric/zoe: `^0.27.0-u22.2`
+- @agoric/notifier: `^0.7.0-u22.2`
+- @agoric/deploy-script-support: `^0.11.0-u22.2`
 
-1. **Upgrade Agoric SDK**: Update to a version that has removed the ESM dependency (likely v0.22.0-u17 or later)
-2. **Update Dependencies**: Ensure all @agoric/* packages are compatible with the newer SDK
-3. **Test Thoroughly**: Verify all functionality works with the new SDK version
+### Endo Packages (Latest Stable)
+- @endo/far: `^1.1.14`
+- @endo/bundle-source: `^4.1.2`
+- @endo/init: `^1.1.12`
+- @endo/marshal: `^1.8.0`
+- @endo/patterns: `^1.7.0`
+- @endo/promise-kit: `^1.1.13`
+- @endo/pass-style: `^1.6.3`
+- @endo/exo: `^1.5.12`
+- @endo/import-bundle: `^1.5.2`
+- And many more Endo packages updated to their latest versions
 
 ## References
 
-- [Agoric SDK Issue #4788](https://github.com/Agoric/agoric-sdk/issues/4788) - Remove remaining 'esm' module loader dependencies
-- [Agoric SDK Issue #11272](https://github.com/Agoric/agoric-sdk/issues/11272) - Bump better-sqlite3 to 10+
-
-Both issues are closed, indicating the fixes are available in newer versions of the Agoric SDK.
+- [Agoric SDK Issue #4788](https://github.com/Agoric/agoric-sdk/issues/4788) - Remove remaining 'esm' module loader dependencies ✅ Fixed in SDK 0.22.0-u17+
+- [Agoric SDK Issue #11272](https://github.com/Agoric/agoric-sdk/issues/11272) - Bump better-sqlite3 to 10+ ✅ Fixed in SDK 0.22.0-u17+

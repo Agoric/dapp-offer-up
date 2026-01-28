@@ -17,6 +17,7 @@ const centralSupplyPath = myRequire.resolve(
  * @import {Payment} from '@agoric/ertp/src/types.js';
  * @import {start} from '@agoric/vats/src/centralSupply.js'
  * @import {makeNodeBundleCache} from '@endo/bundle-source/cache.js';
+ * @import {Installation, ZoeService, FeeMintAccess} from '@agoric/zoe/exported.js';
  */
 
 /** @typedef {Installation<typeof start>} CentralSupplyInstallation */

@@ -13,7 +13,10 @@ import { makeCopyBag } from '@endo/patterns';
 import { makeNodeBundleCache } from '@endo/bundle-source/cache.js';
 import { makeZoeKitForTest } from '@agoric/zoe/tools/setup-zoe.js';
 import { AmountMath, makeIssuerKit } from '@agoric/ertp';
-import '@agoric/zoe/src/zoeService/types-ambient.js';
+
+/**
+ * @import {Installation, ZoeService, FeeMintAccess} from '@agoric/zoe/exported.js';
+ */
 
 import { makeStableFaucet } from './mintStable.js';
 import { startOfferUpContract } from '../src/offer-up-proposal.js';
