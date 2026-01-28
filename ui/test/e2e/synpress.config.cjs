@@ -34,7 +34,7 @@ module.exports = defineConfig({
                   options: {
                     presets: [
                       ['@babel/preset-env', {
-                        modules: 'commonjs',
+                        modules: false,
                       }]
                     ],
                   },
