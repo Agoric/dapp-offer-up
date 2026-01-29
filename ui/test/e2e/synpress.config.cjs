@@ -10,5 +10,37 @@ module.exports = defineConfig({
     supportFile: 'test/support.js',
     screenshotsFolder: 'test/e2e/screenshots',
     videosFolder: 'test/e2e/videos',
+    setupNodeEvents(on, cypressConfig) {
+      // Call synpress setupNodeEvents first
+      if (config.e2e.setupNodeEvents) {
+        config.e2e.setupNodeEvents(on, cypressConfig);
+      }
+      
+      // Configure webpack to handle ES6 modules in synpress support files
+      const webpackPreprocessor = require('@cypress/webpack-preprocessor');
+      const webpackOptions = {
+        resolve: {
+          extensions: ['.ts', '.js'],
+        },
+        module: {
+          rules: [
+            {
+              test: /\.js$/,
+              exclude: [/node_modules\/(?!@agoric\/synpress)/],
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'],
+                },
+              },
+            },
+          ],
+        },
+      };
+      
+      on('file:preprocessor', webpackPreprocessor({ webpackOptions }));
+      
+      return cypressConfig;
+    },
   },
 });
