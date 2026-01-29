@@ -1,1 +1,1 @@
-import '@agoric/synpress/support/index.js';
+require('@agoric/synpress/support/index.js');
